@@ -1,0 +1,35 @@
+{
+  "summary": "Public Expo preview loaded at 390x844 without runtime crash or horizontal overflow. Backend regression passed 2/2; authenticated dashboard, seven-day plan, manual activity, weight logging, and coach response were exercised after completing onboarding. Fresh login incorrectly reopened onboarding instead of the completed account dashboard.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Root/AuthScreen session handoff", "issue": "After successful login, the returned completed profile is discarded and Root keeps profile=null, so every fresh login enters onboarding. Reproduced with preview.user.2026@example.com despite GET /api/me returning onboarding_complete=true and a profile.", "testID": "button-sign-in", "priority": "HIGH"},
+      {"component": "Settings header action", "issue": "Settings Pressable has accessibilityLabel but no accessibilityRole or testID, so it cannot be reliably located as a button in accessibility automation.", "testID": "", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_nutrimitra_regression.py", "/app/test_reports/pytest/pytest_results_iteration2.xml", "/app/test_reports/ui_iteration2/mobile_flow_failure.png", "/app/test_reports/ui_iteration2/authenticated_flow_failure.png"],
+  "action_items": [
+    "Set profile from the login response when it is present, or fetch /me after AuthScreen onAuth before deciding whether onboarding is needed.",
+    "Add accessibilityRole=\"button\" and stable testID to the settings header control, plus stable testIDs for coach send and remaining critical actions.",
+    "Retest fresh login, settings privacy toggles/language, and sign out after the session handoff fix."
+  ],
+  "critical_code_review_comments": [
+    "Root's onAuth callback sets token and user but never profile; this is the root cause of the completed-account onboarding regression.",
+    "The app is concentrated in index.tsx with a very large stylesheet; maintainability risk remains, but it did not block this iteration."
+  ],
+  "updated_files": ["/app/test_reports/iteration_2.json"],
+  "success_rate": {"backend": "100% (2/2 regression tests)", "frontend": "80%: preview load, dashboard after onboarding, plan, move, progress and coach passed; fresh-login session routing and settings automation failed"},
+  "seed_data_creation": "No new seed account. Existing preview account received one test activity and one test weight during UI validation.",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Use documented preview credentials. Fresh login currently enters onboarding because profile is not hydrated from login response. API GET /me confirms the account profile exists. Coach API returned HTTP 200 with source=groq in this run. Settings control lacks button role/testID.",
+  "rca_of_issue": "Reproduction: open a fresh browser session, sign in with preview.user.2026@example.com / StrongPass123, observe onboarding instead of dashboard. AuthScreen calls onAuth(token, user); Root's callback only calls setToken and setUser, while profile remains null. Root therefore renders OnboardingScreen even though the backend login user is onboarding_complete=true and /api/me contains profile data. Mitigation: hydrate profile from login result or call /me immediately after login before rendering.",
+  "test_credentials": "Read /app/memory/test_credentials.md; credentials were present and valid.",
+  "mocked_apis": "None."
+}

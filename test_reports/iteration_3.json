@@ -1,0 +1,42 @@
+{
+  "summary": "Public mobile preview loaded at 390x844, fresh email login opened the completed dashboard, seven-day plan rendered, and no horizontal overflow was observed. Backend regression passed 2/2 with the configured public URL. Full later UI flow was interrupted by the prior browser session being signed out; service logs show unresolved Groq 404s and an ObjectId serialization crash.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/coach", "issue": "Backend logs repeatedly show Groq API 404 for the configured openai/gpt-oss-120b request; coach falls back to source=nutrition guidance instead of the required source=groq response.", "priority": "HIGH"},
+      {"endpoint": "authenticated endpoint (log trace lacks route line)", "issue": "Backend logged FastAPI ValueError because an ObjectId reached response serialization. Reproduce and identify the endpoint; all response documents must exclude _id.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "backend/tests/test_nutrimitra_regression.py", "issue": "Regression test reads EXPO_PUBLIC_BACKEND_URL; running without exporting that variable produces invalid '/api' URLs even though frontend/.env contains the public URL."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Plan meal logging", "issue": "Tapping the inline '+' meal action did not produce an observable 'Meal logged' confirmation during the run; the test assertion could not verify completion.", "testID": "", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [
+      {"flow": "Coach prompt", "issue": "Not completed in the final run because the browser session was already signed out after the first run interrupted on plan logging; backend logs independently show Groq fallback.", "affected_testIDs": []}
+    ],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_nutrimitra_regression.py", "/app/test_reports/pytest/pytest_results_iteration3.xml"],
+  "action_items": [
+    "Fix Groq model/provider configuration so POST /api/coach returns source=groq with the selected active model.",
+    "Locate and fix the endpoint returning a MongoDB ObjectId without projection/normalization.",
+    "Make meal logging confirmation reliably visible or add a stable testID/state for successful inline logging.",
+    "Re-run the complete authenticated UI flow from a fresh signed-in session, including Coach, settings persistence, Telugu, and sign out."
+  ],
+  "critical_code_review_comments": [
+    "The app remains concentrated in frontend/app/index.tsx with a very large stylesheet, increasing regression risk.",
+    "Several critical controls still lack stable testIDs, so automation relies on text or icon selectors."
+  ],
+  "updated_files": ["/app/test_reports/iteration_3.json"],
+  "success_rate": {"backend": "100% (2/2 regression tests with EXPO_PUBLIC_BACKEND_URL exported)", "frontend": "40% of attempted checks: preview, fresh login, dashboard, plan, and overflow passed; meal confirmation was unverifiable and remaining flow was interrupted by signed-out session"},
+  "seed_data_creation": "No new account; existing preview account received test meal/activity/weight entries during prior and current validation.",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Read credentials from /app/memory/test_credentials.md. Use EXPO_PUBLIC_BACKEND_URL from frontend/.env for regression tests. Start a fresh browser context and verify POST /api/coach response source, then identify the ObjectId trace endpoint.",
+  "rca_of_issue": "Fresh login hydration fix is present and verified: login followed by /me rendered Today rather than onboarding. The current Groq issue is server-side request/model configuration (HTTP 404), causing groq_text to return empty and coach to use its fallback. The ObjectId issue is visible in backend logs but the preceding route request is not included in the captured traceback, so endpoint identification remains required.",
+  "test_credentials": "Credentials were present and valid in /app/memory/test_credentials.md.",
+  "mocked_apis": "None. HealthKit/Health Connect are permission architecture only, not connected device integrations."
+}

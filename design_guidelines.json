@@ -1,0 +1,210 @@
+{
+  "app_name": "NutriMitra",
+  "personality": "8 Hand-Drawn / Journal LIGHT with 3 Editorial structure",
+  "personality_one_liner": "A calm, grounded, premium AI-powered wellness companion for India that blends ancient wisdom with modern nutrition science in English and Telugu.",
+  "color": {
+    "surface": "#FDFBF7",
+    "onSurface": "#2C2A29",
+    "surfaceSecondary": "#F4EFE6",
+    "onSurfaceSecondary": "#4A4745",
+    "surfaceTertiary": "#EAE3D5",
+    "onSurfaceTertiary": "#635F5C",
+    "surfaceInverse": "#1F1E1D",
+    "onSurfaceInverse": "#FDFBF7",
+    "brand": "#4A6B5D",
+    "brandPrimary": "#4A6B5D",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#8B6F47",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#D6C7B2",
+    "onBrandTertiary": "#2C2A29",
+    "success": "#5C7654",
+    "onSuccess": "#FFFFFF",
+    "warning": "#A67C52",
+    "onWarning": "#FFFFFF",
+    "error": "#9E4742",
+    "onError": "#FFFFFF",
+    "info": "#4A6B5D",
+    "onInfo": "#FFFFFF",
+    "border": "#E5DED0",
+    "borderStrong": "#C8BCAB",
+    "divider": "#EFEAE0",
+    "muted": "#7A7572",
+    "onBrand": "#FFFFFF"
+  },
+  "typography": {
+    "displayFontFamily": "Fraunces",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous editorial rhythm, clean tactile padding, compact touch targets >= 44pt",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 8,
+    "md": 14,
+    "lg": 22,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use frosted glass header and tab bar over scrolling content",
+      "Apply translucent tinted base with >= 75% opacity for readability"
+    ],
+    "dont's": [
+      "Do not use glass on form inputs or dense data tables",
+      "Never stack more than 2 blur surfaces on one screen"
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Auth & Language",
+      "purpose": "Secure authentication with Google/Email and English/Telugu language toggle.",
+      "states": {
+        "loading": "Checking user session...",
+        "empty": "No previous login found.",
+        "error": "Authentication failed. Please check credentials."
+      },
+      "layout": "Editorial full-bleed welcome with bilingual language picker at top right, secure auth form with clean input cards, and sticky action buttons."
+    },
+    {
+      "name": "Onboarding Profile",
+      "purpose": "Multi-step profile setup capturing physical metrics, health conditions, dietary preferences, and cooking budget.",
+      "states": {
+        "loading": "Saving your profile...",
+        "empty": "Start entering your details to personalize NutriMitra.",
+        "error": "Failed to save profile. Tap retry."
+      },
+      "layout": "Step-by-step wizard with progress indicator, segmented selectors for diet and activity, and sticky bottom navigation."
+    },
+    {
+      "name": "Personalized 7-Day Plan",
+      "purpose": "AI-generated tailored nutrition and activity plan for the week.",
+      "states": {
+        "loading": "Generating your custom 7-day Indian nutrition plan...",
+        "empty": "Complete your onboarding to unlock your weekly plan.",
+        "error": "Could not generate plan. Check connection."
+      },
+      "layout": "Tabbed day selector (Day 1-7) with meal cards showing breakfast, lunch, dinner, snacks, and nutrition macro split."
+    },
+    {
+      "name": "Daily Dashboard",
+      "purpose": "Central command center for daily meals, activity tracking, energy score, and What Should I Eat Now.",
+      "states": {
+        "loading": "Loading today's wellness insights...",
+        "empty": "Log your first meal or activity to see your daily score.",
+        "error": "Failed to sync daily data."
+      },
+      "layout": "Sticky glass header, daily readiness meter hero card, What Should I Eat Now quick action banner, and checklist of daily tasks."
+    },
+    {
+      "name": "What Should I Eat Now",
+      "purpose": "Instant AI meal recommendation based on time of day, remaining macros, pantry ingredients, and mood.",
+      "states": {
+        "loading": "Analyzing your pantry & current nutrition balance...",
+        "empty": "Add ingredients or dietary goals to get instant meal suggestions.",
+        "error": "Could not fetch recommendation."
+      },
+      "layout": "Contextual recommendation card with preparation time, estimated calories, recipe ingredients, and one-tap log action."
+    },
+    {
+      "name": "Meal & Snack Tracking",
+      "purpose": "Log meals via manual search, barcode, or photo recognition with AI confirmation and substitutions.",
+      "states": {
+        "loading": "Identifying food from photo and database...",
+        "empty": "No meals logged for this mealtime yet. Tap + to add.",
+        "error": "Photo recognition failed. Try manual search."
+      },
+      "layout": "Split view with photo capture/upload zone, searchable Indian ingredient database, and confirmation modal with macro breakdown."
+    },
+    {
+      "name": "Conversational AI Coach",
+      "purpose": "Interactive wellness and nutrition coaching companion supporting English and Telugu.",
+      "states": {
+        "loading": "AI Coach is typing...",
+        "empty": "Ask NutriMitra anything about Indian superfoods, recipes, or workout tips.",
+        "error": "Message failed to send. Tap to retry."
+      },
+      "layout": "Chat interface with suggested quick prompts, voice input option, and structured recipe/tip cards inside chat."
+    },
+    {
+      "name": "Workouts & Activity",
+      "purpose": "Personalized home, gym, or outdoor workouts, walking/running guidance, and HealthKit/Health Connect sync.",
+      "states": {
+        "loading": "Syncing wearable metrics and workout plans...",
+        "empty": "No workouts scheduled for today. Start a walking session.",
+        "error": "Could not sync device sensors."
+      },
+      "layout": "Wearable sync status banner, step/distance tracker ring, daily workout routine card, and manual activity entry sheet."
+    },
+    {
+      "name": "Weight & Wellness Progress",
+      "purpose": "Weekly reviews, weight trend graphs, energy insights, and health safety guidance.",
+      "states": {
+        "loading": "Calculating your wellness trends...",
+        "empty": "Log your weight for a few days to see trend charts.",
+        "error": "Failed to load progress graphs."
+      },
+      "layout": "Interactive weight chart, weekly AI review summary card, energy readiness breakdown, and medical disclaimer footer."
+    },
+    {
+      "name": "Settings & Privacy",
+      "purpose": "Privacy controls, HealthKit/Health Connect permissions, language toggle (English/Telugu), and account security.",
+      "states": {
+        "loading": "Loading settings...",
+        "empty": "No settings found.",
+        "error": "Failed to update settings."
+      },
+      "layout": "Grouped list items with native toggles for Health Connect, language selector, privacy compliance notices, and sign out."
+    }
+  ],
+  "images": {
+    "hero_banner": {
+      "url": "https://images.unsplash.com/photo-1656690099972-6f9b2d8b9e4f?q=85&w=1200",
+      "dark": "https://images.unsplash.com/photo-1656690099972-6f9b2d8b9e4f?q=85&w=1200",
+      "alt": "Healthy Indian wholesome food bowl with nutritious millets and vegetables"
+    },
+    "onboarding_bg": {
+      "url": "https://images.unsplash.com/photo-1777994505580-33478f04fa4a?q=85&w=1200",
+      "dark": "https://images.unsplash.com/photo-1777994505580-33478f04fa4a?q=85&w=1200",
+      "alt": "Nutritious ingredients background"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build NutriMitra as a premium, calm, Indian-focused wellness companion using Hand-Drawn / Journal styling with Editorial structure.",
+    "Support full bilingual English and Telugu localization across all screens and prompts.",
+    "Implement the 10 core screens: Auth, Onboarding Profile, 7-Day Plan, Daily Dashboard, What Should I Eat Now, Meal/Photo Tracking, AI Coach, Workouts, Progress, and Settings/Privacy.",
+    "Include Apple Health / Health Connect permission architecture and manual activity entry with clear estimate labels.",
+    "Ensure sticky bottom CTAs with safe-area padding and frosted glass headers over scrolling content.",
+    "Enforce WCAG AA contrast, font weight <= 500, no banned purple/indigo/navy colors, and zero emoji in system UI."
+  ]
+}
