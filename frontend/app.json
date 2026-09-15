@@ -9,14 +9,28 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emergent.healthcoachindia.g49zwk"
+      "bundleIdentifier": "com.emergent.healthcoachindia.g49zwk",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "Read activity, workouts and sleep to personalise your wellness plan.",
+        "NSCameraUsageDescription": "Scan your meal to estimate its nutrition instantly.",
+        "NSPhotoLibraryUsageDescription": "Pick a meal photo to estimate its nutrition."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.emergent.healthcoachindia.g49zwk"
+      "package": "com.emergent.healthcoachindia.g49zwk",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_DISTANCE",
+        "android.permission.health.READ_ACTIVE_CALORIES_BURNED",
+        "android.permission.health.READ_EXERCISE",
+        "android.permission.health.READ_SLEEP"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +52,15 @@
       "expo-image",
       "expo-secure-store",
       "expo-web-browser",
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Pick a meal photo to estimate its nutrition.",
+          "cameraPermission": "Scan your meal to estimate its nutrition instantly."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

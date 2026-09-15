@@ -113,11 +113,16 @@ def issue_token(user_id: str) -> str:
 async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> Dict[str, Any]:
     if not credentials:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Sign in to continue")
+    user_id: Optional[str] = None
     try:
         payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("sub")
-    except jwt.PyJWTError as exc:
-        raise HTTPException(status_code=401, detail="Session expired") from exc
+    except jwt.PyJWTError:
+        session = await db.user_sessions.find_one({"session_token": credentials.credentials}, {"_id": 0})
+        if session and str(session.get("expires_at", "")) > now_iso():
+            user_id = session.get("user_id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Session expired")
     user = await db.users.find_one({"id": user_id}, {"_id": 0})
     if not user:
         raise HTTPException(status_code=401, detail="Account not found")
@@ -155,9 +160,47 @@ async def login(payload: AuthInput):
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
-@api_router.post("/auth/google", response_model=TokenResponse)
-async def google_auth():
-    raise HTTPException(status_code=501, detail="Google sign-in is ready for the managed OAuth handoff")
+class SessionInput(BaseModel):
+    session_id: str = Field(min_length=6, max_length=300)
+
+
+@api_router.post("/auth/session")
+async def auth_session(payload: SessionInput):
+    """Exchange a managed Google OAuth session_id for an app session token."""
+    handoff = os.getenv("GOOGLE_AUTH_HANDOFF_URL", "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data")
+    try:
+        async with httpx.AsyncClient(timeout=20) as http:
+            response = await http.get(handoff, headers={"X-Session-ID": payload.session_id})
+    except Exception as exc:
+        logger.warning("Google session exchange failed: %s", exc)
+        raise HTTPException(status_code=401, detail="Google sign-in could not be verified") from exc
+    if response.status_code != 200:
+        raise HTTPException(status_code=401, detail="Google sign-in could not be verified")
+    data = response.json()
+    email = str(data.get("email") or "").lower()
+    if not email:
+        raise HTTPException(status_code=401, detail="Google sign-in could not be verified")
+    user = await db.users.find_one({"email": email}, {"_id": 0})
+    if not user:
+        user = {
+            "id": str(uuid.uuid4()),
+            "email": email,
+            "name": str(data.get("name") or email.split("@")[0]).title(),
+            "picture": data.get("picture", ""),
+            "password_hash": "",
+            "language": "en",
+            "onboarding_complete": False,
+            "created_at": now_iso(),
+        }
+        await db.users.insert_one(user)
+    session_token = data.get("session_token") or str(uuid.uuid4())
+    await db.user_sessions.insert_one({
+        "session_token": session_token,
+        "user_id": user["id"],
+        "expires_at": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+        "created_at": now_iso(),
+    })
+    return {"session_token": session_token, "user": public_user(user)}
 
 
 @api_router.get("/me")
@@ -317,6 +360,191 @@ async def set_permissions(payload: Dict[str, bool], user: Dict[str, Any] = Depen
     clean.update({"user_id": user["id"], "updated_at": now_iso()})
     await db.permissions.update_one({"user_id": user["id"]}, {"$set": clean}, upsert=True)
     return clean
+
+
+EMERGENT_LLM_KEY = os.getenv("EMERGENT_LLM_KEY", "")
+
+VISION_PROMPT = (
+    "Identify the food in this photo for an Indian wellness app. Respond with ONLY compact JSON, no markdown: "
+    '{"name": str, "portion": str, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
+    '"confidence": "low|medium|high", "alternatives": [str, str]}. '
+    "Estimate for a typical home serving. Prefer Indian dish names when relevant."
+)
+
+
+class VisionInput(BaseModel):
+    image_base64: str = Field(min_length=200, max_length=9_000_000)
+    language: str = "en"
+    meal_type: str = "snack"
+
+
+class ReminderPrefs(BaseModel):
+    meals: bool = True
+    hydration: bool = False
+    movement: bool = False
+    weekly: bool = True
+
+
+class HealthRecordInput(BaseModel):
+    external_id: str = Field(min_length=1, max_length=200)
+    metric: str = Field(min_length=1, max_length=40)
+    start: str = Field(default="", max_length=40)
+    end: str = Field(default="", max_length=40)
+    value: Optional[float] = None
+    unit: Optional[str] = None
+    type: Optional[str] = None
+    source: Optional[str] = None
+
+
+async def pick_vision_model() -> str:
+    """Dynamically select an active Groq vision-capable model (never hardcoded). Empty string = none available."""
+    if not GROQ_API_KEY:
+        return ""
+    try:
+        async with httpx.AsyncClient(timeout=15) as http:
+            response = await http.get("https://api.groq.com/openai/v1/models", headers={"Authorization": f"Bearer {GROQ_API_KEY}"})
+            response.raise_for_status()
+            ids = [str(model.get("id", "")) for model in response.json().get("data", [])]
+    except Exception as exc:
+        logger.warning("Groq model listing failed: %s", exc)
+        return ""
+    named = sorted(model for model in ids if "vision" in model.lower())
+    if named:
+        return named[0]
+    llama4 = sorted(model for model in ids if "llama-4" in model.lower() and ("scout" in model.lower() or "maverick" in model.lower()))
+    return llama4[0] if llama4 else ""
+
+
+async def groq_vision(image_base64: str, user_id: str) -> tuple:
+    """Groq-first vision path. Empty text means no usable Groq vision model."""
+    model = await pick_vision_model()
+    if not model:
+        return "", ""
+    body = {
+        "model": model,
+        "temperature": 0.2,
+        "max_tokens": 500,
+        "messages": [{"role": "user", "content": [{"type": "text", "text": VISION_PROMPT}, {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}}]}],
+    }
+    try:
+        async with httpx.AsyncClient(timeout=45) as http:
+            response = await http.post("https://api.groq.com/openai/v1/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
+            response.raise_for_status()
+            return response.json()["choices"][0]["message"]["content"], model
+    except Exception as exc:
+        logger.warning("Groq vision failed for %s: %s", user_id, exc)
+        return "", ""
+
+
+async def emergent_vision(image_base64: str, user_id: str) -> str:
+    """Fallback vision path via the Emergent universal key (OpenAI vision model)."""
+    if not EMERGENT_LLM_KEY:
+        return ""
+    try:
+        from emergentintegrations.llm.chat import ImageContent, LlmChat, UserMessage
+
+        chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"vision-{user_id}-{uuid.uuid4().hex[:8]}", system_message="You are a precise nutrition vision analyst.").with_model("openai", "gpt-5.4-mini")
+        return str(await chat.send_message(UserMessage(text=VISION_PROMPT, file_contents=[ImageContent(image_base64=image_base64)])))
+    except Exception as exc:
+        logger.warning("Emergent vision fallback failed for %s: %s", user_id, exc)
+        return ""
+
+
+@api_router.post("/coach/vision")
+async def coach_vision(payload: VisionInput, user: Dict[str, Any] = Depends(current_user)):
+    """Identify food from a base64 photo and estimate nutrition (user confirms)."""
+    text, model = await groq_vision(payload.image_base64, user["id"])
+    if not text:
+        text = await emergent_vision(payload.image_base64, user["id"])
+        model = "openai/gpt-5.4-mini"
+    if not text:
+        raise HTTPException(status_code=502, detail="Photo recognition is unavailable right now — please log manually")
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    parsed: Dict[str, Any] = {}
+    if match:
+        try:
+            parsed = json.loads(match.group(0))
+        except json.JSONDecodeError:
+            parsed = {}
+    if not parsed:
+        raise HTTPException(status_code=502, detail="Could not read nutrition from this photo — try another or log manually")
+    return {
+        "name": str(parsed.get("name") or "Mixed home meal")[:80],
+        "portion": str(parsed.get("portion") or "1 serving")[:60],
+        "calories": max(0, min(3000, int(parsed.get("calories") or 350))),
+        "protein_g": max(0, min(300, float(parsed.get("protein_g") or 12))),
+        "carbs_g": max(0, min(400, float(parsed.get("carbs_g") or 40))),
+        "fat_g": max(0, min(250, float(parsed.get("fat_g") or 14))),
+        "confidence": parsed.get("confidence") if parsed.get("confidence") in {"low", "medium", "high"} else "medium",
+        "alternatives": [str(item)[:60] for item in (parsed.get("alternatives") or [])][:3],
+        "meal_type": payload.meal_type,
+        "model": model,
+    }
+
+
+@api_router.get("/eat-now")
+async def eat_now(user: Dict[str, Any] = Depends(current_user)):
+    """What Should I Eat Now — based on today's intake, goal and plan."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    today = datetime.now(timezone.utc).date().isoformat()
+    meals = await db.meals.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
+    plan = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
+    weight = float(profile.get("weight_kg") or 70)
+    height = float(profile.get("height_cm") or 165)
+    age = int(profile.get("age") or 30)
+    sex_adjust = 5 if profile.get("sex") == "Male" else -161 if profile.get("sex") == "Female" else -78
+    activity_factor = {"Lightly active": 1.4, "Moderately active": 1.55, "Very active": 1.7}.get(str(profile.get("activity_level", "")), 1.5)
+    goal_adjust = {"Weight loss": -400, "Weight gain": 300, "Muscle building": 250}.get(str(profile.get("wellness_goal", "")), 0)
+    target = max(1200, int(((10 * weight) + (6.25 * height) - (5 * age) + sex_adjust) * activity_factor + goal_adjust))
+    consumed = sum(int(item.get("calories", 0)) for item in meals)
+    remaining = max(0, target - consumed)
+    logged_types = {item.get("meal_type") for item in meals}
+    suggestion: Optional[Dict[str, Any]] = None
+    for day in (plan or {}).get("days", [])[:1]:
+        for meal in day.get("meals", []):
+            if meal.get("type") not in logged_types:
+                suggestion = meal
+                break
+    if not suggestion:
+        suggestion = {"type": "snack", "name": "Buttermilk with roasted chana & fruit", "portion": "1 glass + 1 small bowl", "calories": 220, "protein_g": 12, "carbs_g": 30, "fat_g": 6}
+    return {
+        "suggestion": suggestion,
+        "target_calories": target,
+        "consumed_calories": consumed,
+        "remaining_calories": remaining,
+        "reasoning": "Based on what you have logged today, this keeps protein and fibre steady without overshooting your energy needs.",
+        "disclaimer": "Estimates only — adjust portions to your hunger and your clinician's advice.",
+    }
+
+
+@api_router.get("/reminders")
+async def get_reminders(user: Dict[str, Any] = Depends(current_user)):
+    prefs = await db.reminders.find_one({"user_id": user["id"]}, {"_id": 0})
+    return prefs or {"user_id": user["id"], **ReminderPrefs().model_dump()}
+
+
+@api_router.put("/reminders")
+async def put_reminders(payload: ReminderPrefs, user: Dict[str, Any] = Depends(current_user)):
+    doc = {**payload.model_dump(), "user_id": user["id"], "updated_at": now_iso()}
+    await db.reminders.update_one({"user_id": user["id"]}, {"$set": doc}, upsert=True)
+    return {key: value for key, value in doc.items() if key != "_id"}
+
+
+@api_router.post("/health/sync")
+async def health_sync(payload: List[HealthRecordInput], user: Dict[str, Any] = Depends(current_user)):
+    """Idempotent ingestion of normalized HealthKit / Health Connect records."""
+    if len(payload) > 1000:
+        raise HTTPException(status_code=413, detail="Batch too large")
+    upserted = 0
+    for record in payload:
+        doc = {**record.model_dump(), "user_id": user["id"], "received_at": now_iso()}
+        result = await db.health_records.update_one(
+            {"user_id": user["id"], "external_id": record.external_id, "source": record.source},
+            {"$set": doc},
+            upsert=True,
+        )
+        upserted += int(result.upserted_id is not None)
+    return {"received": len(payload), "upserted": upserted}
 
 
 app.include_router(api_router)

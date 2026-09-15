@@ -1,0 +1,54 @@
+{
+  "summary": "Iteration 6 (expo-router refactor) fully verified. Backend 15/15 pytest passed: email login, wrong-password 401, invalid Google session_id 401, /api/eat-now shape+calorie math, /api/coach/vision structured nutrition with model field (Groq key has no vision models -> Emergent fallback openai/gpt-5.4-mini, by design), reminders GET/PUT persistence, health/sync idempotency (second identical record upserted=0), and plan/dashboard/progress/meals/coach regression. Frontend web 390x844: login lands on Today with 4 tabs; eat-now modal + Log this round-trip; Plan 7 day-chips + log buttons; Coach chat reply; camera button -> /log-food -> web gallery picker -> vision confirm -> logged + returned; Progress chart + weight log; Settings toggles + Telugu switch (no layout overflow) + sign out to welcome. Google button initiates handoff to auth.emergentagent.com -> accounts.google.com without crashing (real OAuth cannot complete in automation, expected). Zero duplicate-key console warnings.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "server.py config", "issue": "JWT_SECRET and GOOGLE_AUTH_HANDOFF_URL have hardcoded fallback defaults (env values are set, so no runtime impact; violates fail-fast config principle)"}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Today + Eat-Now", "issues": ["cardEyebrow uses brandSecondary #8B6F47 on readinessCard background brandPrimary #4A6B5D — 'YOUR READINESS TODAY' / 'ENERGY BALANCE' labels are barely readable (~1.5:1 contrast). Reference: src/styles.ts:65-66"]},
+      {"screen": "Coach", "issues": ["Coach reply bubble renders raw markdown (**, table pipes |) as plain text instead of formatted output — looks broken when Groq returns markdown tables"]},
+      {"screen": "Settings (Telugu)", "issues": ["Telugu conjunct clusters render with dotted-circle shaping artifacts on web preview (e.g. header 'గోప్యత & సెట్టింగ్స్', 'రిమైండర్లు') — likely missing Telugu-capable font (e.g. Noto Sans Telugu) in web bundle; no overflow/clipping otherwise"]}
+    ],
+    "react_native_issues": [
+      {"component": "package.json dependencies", "issue": "No deprecated packages found (no expo-av, expo-barcode-scanner, expo-background-fetch). expo-notifications web no-op is intentional by design. Reference: /app/frontend/package.json"}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration6_features.py",
+    "/app/backend/tests/make_test_image.py",
+    "/app/test_reports/pytest/pytest_results_iteration6.xml",
+    "/app/test_reports/ui_iteration6/today.jpeg",
+    "/app/test_reports/ui_iteration6/eat_now.jpeg",
+    "/app/test_reports/ui_iteration6/vision_confirm.jpeg",
+    "/app/test_reports/ui_iteration6/settings_te.jpeg"
+  ],
+  "action_items": [
+    "Fix low-contrast cardEyebrow text on dark readinessCard (use onBrandPrimary/brandTertiary tone) in src/styles.ts",
+    "Render or strip markdown in coach reply bubbles (src/screens (tabs)/coach.tsx) so tables/bold don't show as raw characters",
+    "Bundle a Telugu font (Noto Sans Telugu via expo-font) for correct cluster shaping on web",
+    "Optional: add testID to bottom tab anchors (currently only reachable via a[href][role=tab]); rename duplicate testID 'open-settings-button' used in both (tabs)/index.tsx and log-food.tsx"
+  ],
+  "critical_code_review_comments": [
+    "current_user correctly accepts both JWT and db.user_sessions tokens with expiry check; Mongo _id excluded everywhere",
+    "health/sync upsert keyed on (user_id, external_id, source) is genuinely idempotent — verified upserted 1 then 0",
+    "pick_vision_model dynamically lists Groq models and falls back to Emergent key; verified returned model=openai/gpt-5.4-mini",
+    "Auth gate in app/index.tsx (loading/anon/onboarding/ready) routes correctly; sign-out clears token and returns to welcome"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration6_features.py",
+    "/app/backend/tests/make_test_image.py",
+    "/app/test_reports/iteration_6.json"
+  ],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% of requested flows passed"},
+  "seed_data_creation": "Test run added to preview account: meal 'TEST iteration6 sprouts', photo-logged meal 'Masoor dal tadka with rice', day-3 plan breakfast log, weight 68.2, health record TEST-<uuid>, hydration reminder toggled on (left ON).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Expo web tab bar renders as a[href][role=tab] with no testID — select via a[href=\"/plan\"] etc. Field inputs use testID field-<label-slug> (field-email-address, field-password). Vision/web gallery flow works via page.expect_file_chooser after clicking choose-photo-button; test image regenerable via /app/backend/tests/make_test_image.py. Clicking google-signin-button navigates the whole page to accounts.google.com — go_back() does not reliably restore the SPA, so test it last or in a separate run.",
+  "test_credentials": "Present and valid in /app/memory/test_credentials.md",
+  "mocked_apis": "No mocked APIs. Groq vision intentionally falls back to Emergent universal key (no vision models on the configured Groq key). expo-notifications scheduling is a documented no-op on web."
+}

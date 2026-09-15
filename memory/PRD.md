@@ -31,18 +31,27 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 - Privacy/settings bottom sheet with health sync, wearable, analytics permission toggles, language selection and sign out.
 - Stable preview/test selectors, runtime linting, backend regression coverage and public mobile verification at 390x844.
 
+## Implemented (2026-09-15)
+- Enterprise architecture refactor: monolithic index.tsx split into expo-router routes — welcome (auth), onboarding wizard, (tabs) Today/Plan/Coach/Progress (4 tabs, iOS 26 NativeTabs gated), modal screens eat-now, log-food, settings; shared AuthContext gate, i18n module, design-token style sheet, UI component library.
+- Managed Google OAuth: `POST /api/auth/session` handoff exchange, `user_sessions` collection with 7-day tokens, dual JWT/session-token authentication, full native + web redirect handling.
+- Food-photo recognition: `POST /api/coach/vision` with dynamic Groq vision-model selection from `/openai/v1/models` and Emergent universal-key fallback (Groq key currently lists zero vision models); confirm/edit UI with alternatives and meal-type chips; permissioned camera/gallery flow with Open Settings recovery.
+- What Should I Eat Now: `GET /api/eat-now` computes Mifflin-based target, consumed and remaining calories and suggests the next unlogged plan meal; full-screen modal with one-tap logging.
+- On-device reminders: expo-notifications local scheduling (meals, hydration, movement, weekly review), bilingual copy, permission flow with blocked/denied handling, prefs persisted via `GET/PUT /api/reminders`.
+- Health adapter layer: normalized HealthRecord contract, idempotent `POST /api/health/sync`, app.json iOS/Android health permissions, native adapter templates for the installed build (`src/lib/health/native-adapters.md`).
+- Keyboard upgrade to react-native-keyboard-controller; coach markdown flattening; contrast fix on dark hero cards.
+- Tested: iteration 6 — 15/15 backend pytest, all web frontend flows passed.
+
 ## Prioritized backlog
 
 ### P0 — next product-critical tasks
-- Configure the managed Google OAuth handoff URL and complete the real Google sign-in callback.
-- Add real camera/photo upload with base64 food image recognition, confirmation and substitutions.
-- Persist coach conversation history and add meal/photo source metadata.
+- Complete a real Google OAuth sign-in on a device (handoff verified end-to-end in code; needs a human Google account).
+- Persist coach conversation history and add meal/photo source metadata views.
 
 ### P1 — high-value expansion
-- Add reminders/notifications for meals, hydration, movement and weekly reviews.
-- Add richer adaptive plan regeneration from logged meals, readiness and weekly review.
-- Add native HealthKit and Android Health Connect permission/read adapters; distinguish device-reported metrics from estimates in every card.
-- Add personalized home/gym/outdoor workout library, running guidance and sleep/readiness inputs.
+- Install native health adapters (`@kingstinct/react-native-healthkit`, `react-native-health-connect`) at native-build time using the templates in `src/lib/health/native-adapters.md`; distinguish device-reported metrics from estimates in every card.
+- Bundle Noto Sans Telugu via expo-font to remove web-preview Telugu shaping artifacts.
+- Richer adaptive plan regeneration from logged meals, readiness and weekly review.
+- Personalized home/gym/outdoor workout library, running guidance and sleep/readiness inputs.
 
 ### P2 — scale and differentiation
 - Wearable connectors, family profiles, regional Indian languages and expert consultations.
@@ -50,7 +59,7 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 - Accessibility audit with TalkBack/VoiceOver, offline queueing and deeper analytics controls.
 
 ## Next tasks list
-1. Configure Google managed OAuth handoff and test the full callback.
-2. Build photo recognition and confirmation as a permissioned base64 flow.
-3. Add native health adapters and notification permissions.
-4. Split the large mobile shell into maintainable route-level screens as feature depth grows.
+1. Human-test Google sign-in on Expo Go (scan QR) and confirm the session lands on onboarding/Today.
+2. Wire native health adapters into the dev build and surface steps/sleep on the Today screen.
+3. Add coach history persistence and photo-meal history.
+4. Bundle a Telugu font for the web preview.
