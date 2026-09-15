@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, post } from "@/src/api";
 import { AppIcon, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/health";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Dashboard, Meal, Plan } from "@/src/types";
@@ -18,17 +19,24 @@ export default function TodayScreen() {
   const { user, t } = useAuth();
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [plan, setPlan] = useState<Plan | null>(null);
+  const [health, setHealth] = useState<HealthSummary | null>(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
   const load = useCallback(async () => {
     try {
       setError("");
-      const [nextDashboard, nextPlan] = await Promise.all([api<Dashboard>("/dashboard"), api<Plan>("/plan")]);
+      const [nextDashboard, nextPlan, nextHealth] = await Promise.all([
+        api<Dashboard>("/dashboard"),
+        api<Plan>("/plan"),
+        api<HealthSummary>("/health/summary").catch(() => null),
+      ]);
       setDashboard(nextDashboard);
       setPlan(nextPlan);
+      setHealth(nextHealth);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not load your wellness data");
     }
@@ -69,8 +77,18 @@ export default function TodayScreen() {
     }
   };
 
+  const syncDevice = async () => {
+    setSyncing(true);
+    const result = await syncDeviceHealth();
+    setMessage(result ? t.syncDone : t.syncUnavailable);
+    await load();
+    setSyncing(false);
+  };
+
   const todayPlan = plan?.days?.[0];
   const meals = todayPlan?.meals || [];
+  const deviceReady = getHealthStatus() === "ready";
+  const sleepHours = health ? Math.round((health.sleep_minutes / 60) * 10) / 10 : 0;
 
   return (
     <View style={[styles.root, { paddingTop: insets.top }]} testID="today-screen">
@@ -172,6 +190,44 @@ export default function TodayScreen() {
               </Pressable>
             </View>
           </View>
+          <View style={styles.sectionHeader}>
+            <View style={styles.flex}>
+              <Text style={styles.sectionTitleSmall}>{t.deviceActivity}</Text>
+              <Text style={styles.mutedText}>Apple Health · Health Connect</Text>
+            </View>
+          </View>
+          <View style={[styles.syncCard, { marginBottom: 0 }]} testID="device-activity-card">
+            <View style={styles.syncIcon}>
+              <AppIcon name="figure.walk" color={styles.syncIconTint.color as string} size={22} />
+            </View>
+            <View style={styles.flex}>
+              {health?.connected ? (
+                <>
+                  <Text style={styles.mealName} testID="device-steps-value">
+                    {health.steps.toLocaleString()} {t.steps} · {sleepHours}h {t.sleep}
+                  </Text>
+                  <Text style={styles.mutedText}>
+                    {t.deviceMeasured} · {health.records} records today
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text style={styles.mealName}>{t.deviceActivity}</Text>
+                  <Text style={styles.mutedText}>{t.enableHealthFirst}</Text>
+                </>
+              )}
+            </View>
+            {health?.connected ? (
+              <Pressable testID="sync-device-button" accessibilityRole="button" accessibilityLabel={t.deviceSync} disabled={syncing} onPress={syncDevice} style={({ pressed }) => [styles.iconButton, pressed && styles.pressed, syncing && styles.disabled]}>
+                <AppIcon name="arrow.clockwise" color={colors.brandPrimary} size={20} />
+              </Pressable>
+            ) : (
+              <Pressable testID="open-health-settings" accessibilityRole="button" accessibilityLabel={t.settings} onPress={() => router.push("/settings")} style={styles.iconButton}>
+                <AppIcon name="gearshape" color={colors.brandPrimary} size={20} />
+              </Pressable>
+            )}
+          </View>
+          {!deviceReady && health?.connected ? <Text style={styles.mutedText}>{t.syncUnavailable}</Text> : null}
           <View style={styles.reasonCard}>
             <Text style={styles.cardEyebrow}>{t.nutrition.toUpperCase()}</Text>
             <Text style={styles.reasonText}>{plan?.reasoning || "Your plate is built around familiar flavours, satisfying protein and fibre-rich ingredients for steadier energy—without removing joy from food."}</Text>

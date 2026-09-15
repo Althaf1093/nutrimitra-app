@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
@@ -10,13 +10,18 @@ import { useStyles } from "@/src/styles";
 export default function WelcomeScreen() {
   const styles = useStyles();
   const router = useRouter();
-  const { lang, setLang, t, signInEmail, signInGoogle } = useAuth();
+  const { lang, setLang, t, signInEmail, signInGoogle, status } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  // Signed-in users (including returning Google OAuth sessions) never sit on
+  // the auth screen — send them straight into the app.
+  if (status === "ready") return <Redirect href="/(tabs)" />;
+  if (status === "onboarding") return <Redirect href="/onboarding" />;
 
   const submit = async () => {
     setBusy(true);

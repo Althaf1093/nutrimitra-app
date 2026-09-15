@@ -1,21 +1,37 @@
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post } from "@/src/api";
-import { Chip, MealCard } from "@/src/components/ui";
+import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
+import { useTheme } from "@/src/theme";
 import type { Meal, Plan } from "@/src/types";
 
 export default function PlanScreen() {
   const styles = useStyles();
+  const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const { t } = useAuth();
   const [plan, setPlan] = useState<Plan | null>(null);
   const [day, setDay] = useState(0);
   const [message, setMessage] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const refreshPlan = async () => {
+    setRefreshing(true);
+    try {
+      const next = await post<Plan>("/plan/regenerate", {});
+      setPlan(next);
+      setMessage(t.planRefreshed);
+    } catch {
+      setMessage("Could not refresh plan");
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -43,6 +59,9 @@ export default function PlanScreen() {
           <Text style={styles.eyebrow}>NUTRIMITRA · 7 DAYS</Text>
           <Text style={styles.headerTitle}>{t.plan}</Text>
         </View>
+        <Pressable testID="refresh-plan-button" accessibilityRole="button" accessibilityLabel={t.refreshPlan} disabled={refreshing} onPress={refreshPlan} style={[styles.iconButton, refreshing && styles.disabled]}>
+          <AppIcon name="arrow.clockwise" color={colors.brandPrimary} size={20} />
+        </Pressable>
       </View>
       <View style={{ height: 56, flexGrow: 0 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dayRow}>

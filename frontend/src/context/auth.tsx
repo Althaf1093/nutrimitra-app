@@ -5,6 +5,7 @@ import { Platform } from "react-native";
 
 import { api, clearToken, post, saveToken } from "@/src/api";
 import { copy, Lang } from "@/src/i18n";
+import { storage } from "@/src/utils/storage";
 import type { Profile, User } from "@/src/types";
 
 if (Platform.OS !== "web") {
@@ -46,7 +47,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const result = await api<{ user: User; profile: Profile | null }>("/me");
     setUser(result.user);
     setProfile(result.profile);
-    setLang(((result.profile?.language as Lang) || result.user.language || "en") as Lang);
+    const storedLang = await storage.getItem("nutrimitra.lang", "");
+    const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || "en") as Lang);
+    setLang(resolvedLang);
     setStatus(result.profile ? "ready" : "onboarding");
   }, []);
 
@@ -145,9 +148,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStatus("anon");
   }, []);
 
+  const changeLang = useCallback((next: Lang) => {
+    setLang(next);
+    storage.setItem("nutrimitra.lang", next);
+  }, []);
+
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, profile, lang, t: copy[lang], setLang, signInEmail, signInGoogle, completeOnboarding, signOut }),
-    [status, user, profile, lang, signInEmail, signInGoogle, completeOnboarding, signOut],
+    () => ({ status, user, profile, lang, t: copy[lang], setLang: changeLang, signInEmail, signInGoogle, completeOnboarding, signOut }),
+    [status, user, profile, lang, changeLang, signInEmail, signInGoogle, completeOnboarding, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

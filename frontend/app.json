@@ -48,7 +48,12 @@
           "backgroundColor": "#000000"
         }
       ],
-      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/NotoSansTelugu.ttf"]
+        }
+      ],
       "expo-image",
       "expo-secure-store",
       "expo-web-browser",
@@ -59,6 +64,20 @@
         {
           "photosPermission": "Pick a meal photo to estimate its nutrition.",
           "cameraPermission": "Scan your meal to estimate its nutrition instantly."
+        }
+      ],
+      [
+        "@kingstinct/react-native-healthkit",
+        {
+          "NSHealthShareUsageDescription": "Read activity, workouts and sleep to personalise your wellness plan.",
+          "background": false
+        }
+      ],
+      "react-native-health-connect",
+      [
+        "expo-build-properties",
+        {
+          "android": { "minSdkVersion": 26 }
         }
       ]
     ],

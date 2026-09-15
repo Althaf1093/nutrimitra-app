@@ -1,0 +1,61 @@
+{
+  "summary": "Iteration 8 fully verified. Backend 10/10 new tests passed (plan regenerate via Groq adaptive engine with 7 days x 4 vegetarian-respecting meals, fresh plan returned unchanged, stale plan (updated_at set 8 days back in MongoDB) auto-regenerates on GET /api/plan with new updated_at + generated_by, bogus /api/auth/session -> 401, health summary aggregation for steps/sleep/active_calories with connected flag, regression login/me/coach/coach-history/eat-now/vision). Iteration-6/7 regression suites pass serially (2 transient failures in the parallel run were xdist permission-toggle races on the shared preview account + a Groq 429 rate-limit causing the graceful coach fallback reply; both pass on serial rerun). Frontend: Plan refresh button (refresh-plan-button) regenerates and shows 'Plan refreshed' with updated meals; Today Device Activity card shows enable-hint + settings gear when health_sync off, and '8,642 Steps . 13h sleep / Device-measured . 6 records today' + sync button when on; web sync honestly reports 'Available in the installed app build' toast. Welcome redirect guard works (signed-in /welcome -> /(tabs)). Telugu: persisted across reload via nutrimitra.lang; audits at 390x844 and 320x568 on Today/Plan/Coach/Progress/Settings show zero dotted-circle shaping artifacts, zero document/element overflow, NotoSansTelugu in fontFamily for all patched styles. Regression sweep passed: UI login, walk quick-log toast, eat-now suggest+log, coach send+reply, weight log 68.2 reflected, sign out. Onboarding regression: fresh account -> 3 steps -> Today with Groq-generated plan (verified via API). Google button initiates handoff to auth.emergentagent.com -> accounts.google.com without crash. Permissions restored: health_sync=false, coach_memory=true.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/coach", "issue": "Under burst load Groq returns 429 and coach silently falls back to the hardcoded guidance reply (by design, source='nutrition guidance'); transient — passes on retry. Worth monitoring if user-facing traffic grows"},
+      {"endpoint": "pytest parallel execution", "issue": "test suites that toggle permissions on the shared preview account race under pytest-xdist (-n auto in pytest.ini); run permission-toggling suites with -n0"}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Today (Telugu)", "issues": ["linkText style (src/styles.ts:64) has no fontSize/lineHeight so withTeluguFallback skips it — the photo-log link ('ఫోటోతో లాగ్') renders in system sans (-apple-system...) instead of NotoSansTelugu on web; shaping still OK on this machine but could show dotted circles on systems without Telugu fallback fonts"]}
+    ],
+    "react_native_issues": [
+      {"component": "package.json dependencies", "issue": "No deprecated packages found (no expo-av, expo-barcode-scanner, expo-background-fetch). Health adapters @kingstinct/react-native-healthkit 15.1.0 and react-native-health-connect 4.1.3 correctly lazy-required in index.native.ts. Reference: /app/frontend/package.json, /app/frontend/src/lib/health/index.native.ts"}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration8_features.py",
+    "/app/test_reports/pytest/pytest_results_iteration8.xml",
+    "/app/test_reports/pytest/pytest_results_iteration8_regression.xml",
+    "/app/test_reports/ui_iteration8/plan_refreshed.png",
+    "/app/test_reports/ui_iteration8/settings_health_on.png",
+    "/app/test_reports/ui_iteration8/today_device_connected.png",
+    "/app/test_reports/ui_iteration8/te_today_390.png",
+    "/app/test_reports/ui_iteration8/te_today_320.png",
+    "/app/test_reports/ui_iteration8/te_plan_390.png",
+    "/app/test_reports/ui_iteration8/te_plan_320.png",
+    "/app/test_reports/ui_iteration8/te_settings_390.png",
+    "/app/test_reports/ui_iteration8/te_settings_320.png",
+    "/app/test_reports/ui_iteration8/coach_reply.png",
+    "/app/test_reports/ui_iteration8/onboarding_today.png"
+  ],
+  "action_items": [
+    "Minor: add fontSize (or extend the withTeluguFallback patch condition to include fontWeight-only text styles) so styles.linkText gets the NotoSansTelugu web fallback (src/styles.ts:64)",
+    "Optional: make permission-toggling backend test suites run serially (-n0 marker or separate ini) to avoid xdist races on the shared preview account",
+    "Optional: surface Groq 429 fallback more visibly (e.g. retry-with-backoff in groq_chat) since burst traffic silently degrades coach replies to the canned message"
+  ],
+  "critical_code_review_comments": [
+    "build_adaptive_plan is well defended: max_tokens 9000 avoids the earlier truncation, regex {.*} extraction + json.loads + coerce_plan structural validation (7 days x 4 meals, clamped macros) with deterministic local_plan fallback; generated_by honestly distinguishes 'groq adaptive engine' vs 'NutriMitra nutrition engine'",
+    "GET /api/plan staleness check parses updated_at defensively (ValueError/TypeError -> treated as fresh); auto-regeneration inserts a new plans doc (old plans accumulate — unbounded growth over time, low priority)",
+    "health/summary aggregation is date-safe (start >= today, sleep minutes from start/end diff with bad-date guard) and connected flag reads fresh permissions per request",
+    "welcome.tsx redirect guard (status==='ready' -> /(tabs), 'onboarding' -> /onboarding) closes the native OAuth return gap; verified on web",
+    "index.native.ts lazy try/catch require pattern keeps Expo Go/web alive; web fallback honestly reports web-unsupported and UI shows 'Available in the installed app build' — no fake success states",
+    "Web storage JSON-serializes values (storage-base.retrieve does JSON.parse) — tests must seed localStorage with JSON.stringify'd values or use UI login"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration8_features.py",
+    "/app/test_reports/iteration_8.json"
+  ],
+  "success_rate": {"backend": "100% (10/10 new; regression suites pass serially)", "frontend": "100% of requested flows passed (fresh-account meal-visibility check flagged once due to test timing while Groq plan generated; verified via API)"},
+  "seed_data_creation": "Preview account: plan regenerated twice (Groq), 3 TEST health records (steps 4321, sleep 390min, 155 kcal) dated today, 1 walk activity, 1 eat-now meal, weight 68.2, 2 coach messages. Throwaway account test.iter8.8fa1099b@example.com created for onboarding regression (plan generated by Groq). Permissions restored to documented originals: health_sync=false, coach_memory=true.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Web localStorage values are JSON-serialized (seed with JSON.stringify) or just use UI login (field testIDs: field-email-address, field-field-your-name on signup, field-password). Field testID is on the TextInput itself, not a wrapper. Plan regenerate takes ~10-20s — poll up to 60s for 'Plan refreshed'. Settings toggles race the initial /permissions fetch — wait ~4s after settings-screen before toggling. Fresh-account Today stays in 'Loading...' while the first Groq plan generates (~10-15s) — wait for meal-card-breakfast. Google sign-in navigates away from the SPA — always test last. Run permission-toggling pytest suites with -n0 (pytest.ini defaults to -n auto; parallel workers race shared-account toggles and Groq rate limits). Plan day chips extend past viewport inside their horizontal ScrollView by design — exclude from overflow checks.",
+  "test_credentials": "Present and valid in /app/memory/test_credentials.md",
+  "mocked_apis": "No mocked APIs. Groq (openai/gpt-oss-120b) live for plan generation and coach; vision falls back to Emergent universal key by design. Native health adapters untestable on web by design — honest unsupported state verified.",
+  "rca_of_issue": "Initial veg-check failure in test_regenerate_returns_groq_plan was a test bug: substring match flagged 'egg' inside 'Veggies' — fixed with word-boundary regex; the Groq plan itself was fully vegetarian. The two iteration-7 coach-memory regressions observed in the parallel run were (1) pytest-xdist workers concurrently toggling coach_memory on the shared preview account, and (2) a transient Groq 429 making /api/coach return the canned fallback reply so the context assertion could not match; both pass serially on rerun."
+}

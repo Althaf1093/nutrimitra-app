@@ -1,10 +1,7 @@
-import { Platform } from "react-native";
-
 import { post } from "@/src/api";
 
 // Normalized health record shared by the iOS HealthKit adapter and the
-// Android Health Connect adapter (see ./health/native-adapters.md for the
-// native implementations that plug into this contract in an installed build).
+// Android Health Connect adapter (see ./native-adapters.md for details).
 export type Metric = "steps" | "distance" | "activeCalories" | "workout" | "sleep";
 
 export type HealthRecord = {
@@ -26,14 +23,14 @@ export interface HealthAdapter {
 
 export type HealthStatus = "web-unsupported" | "native-build-required" | "ready";
 
-// The native modules (@kingstinct/react-native-healthkit on iOS,
-// react-native-health-connect on Android) contain custom native code and only
-// load in an installed development/production build — never in Expo Go or web.
-// They are resolved lazily at runtime so the preview keeps working.
-export function getHealthStatus(): HealthStatus {
-  if (Platform.OS === "web") return "web-unsupported";
-  return "native-build-required";
-}
+export type HealthSummary = {
+  connected: boolean;
+  steps: number;
+  sleep_minutes: number;
+  active_calories: number;
+  source: string;
+  records: number;
+};
 
 export async function syncHealthRecords(records: HealthRecord[]) {
   if (!records.length) return { received: 0, upserted: 0 };

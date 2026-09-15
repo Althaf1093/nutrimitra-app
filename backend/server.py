@@ -268,6 +268,74 @@ async def groq_text(system: str, prompt: str, user_id: str) -> str:
     return await groq_chat([{"role": "system", "content": system}, {"role": "user", "content": prompt}], user_id)
 
 
+PLAN_SYSTEM = (
+    "You are NutriMitra's Indian nutrition planning engine. Return ONLY valid JSON, no markdown: "
+    '{"days": [{"day": 1, "title": str, "focus": str, "meals": [{"type": "breakfast"|"lunch"|"snack"|"dinner", "name": str, "portion": str, '
+    '"calories": int, "protein_g": number, "carbs_g": number, "fat_g: number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
+    "(breakfast, lunch, snack, dinner) per day. Rules: Indian-first meals with global nutritious ingredients where helpful; strictly respect "
+    "dietary preferences, allergies and disliked foods; match cooking time and budget; balance protein, fibre and healthy fats; avoid repeating "
+    "meals the user logged recently."
+)
+
+
+def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str, Any]:
+    """Validate an AI-generated plan; any structural problem falls back to the deterministic engine."""
+    days = candidate.get("days")
+    if not isinstance(days, list) or len(days) < 7:
+        return fallback
+    cleaned = []
+    for index, day in enumerate(days[:7], 1):
+        meals = day.get("meals") if isinstance(day, dict) else None
+        if not isinstance(meals, list) or len(meals) < 4:
+            return fallback
+        safe_meals = []
+        for meal in meals[:4]:
+            try:
+                safe_meals.append({
+                    "type": str(meal.get("type") or "snack")[:20],
+                    "name": str(meal.get("name") or "Balanced meal")[:80],
+                    "portion": str(meal.get("portion") or "1 serving")[:60],
+                    "calories": max(0, min(1500, int(meal.get("calories") or 400))),
+                    "protein_g": max(0, min(150, float(meal.get("protein_g") or 20))),
+                    "carbs_g": max(0, min(200, float(meal.get("carbs_g") or 45))),
+                    "fat_g": max(0, min(120, float(meal.get("fat_g") or 15))),
+                    "logged": False,
+                })
+            except (TypeError, ValueError, AttributeError):
+                return fallback
+        cleaned.append({"day": index, "title": str(day.get("title") or f"Day {index}")[:40], "focus": str(day.get("focus") or "Balanced nutrition")[:80], "meals": safe_meals})
+    return {"goal": fallback["goal"], "days": cleaned, "reasoning": str(candidate.get("reasoning") or fallback.get("reasoning", ""))[:600], "generated_by": "groq adaptive engine", "updated_at": now_iso()}
+
+
+async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str, Any]:
+    """Regenerate the 7-day plan from the profile plus the last week of logged behaviour."""
+    week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).date().isoformat()
+    meals = await db.meals.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
+    activities = await db.activities.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
+    weights = await db.weights.find({"user_id": user_id}, {"_id": 0}).sort("created_at", -1).to_list(10)
+    fallback = local_plan(profile)
+    fallback["reasoning"] = "Each day pairs familiar Indian foods with fibre, protein, healthy fats and hydration for steady energy."
+    context = {
+        "profile": profile,
+        "recent_meals_logged": [str(item.get("name", ""))[:40] for item in meals[-14:]],
+        "activity_sessions_last_7_days": len(activities),
+        "recent_weights_kg": [item.get("weight_kg") for item in weights[:7]],
+    }
+    ai_text = await groq_chat(
+        [{"role": "system", "content": PLAN_SYSTEM}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
+        user_id,
+        max_tokens=9000,
+    )
+    if ai_text:
+        match = re.search(r"\{.*\}", ai_text, re.DOTALL)
+        if match:
+            try:
+                return coerce_plan(json.loads(match.group(0)), fallback)
+            except json.JSONDecodeError:
+                pass
+    return fallback
+
+
 @api_router.get("/plan")
 async def get_plan(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
@@ -275,10 +343,25 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
         raise HTTPException(status_code=409, detail="Complete your wellness profile first")
     existing = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
     if existing:
-        return existing
-    plan = local_plan(profile)
-    ai_text = await groq_text("You are NutriMitra, a careful Indian nutrition coach. Return concise, safe guidance without diagnoses.", f"Create one short reasoning note for this profile and goal: {json.dumps(profile)}", user["id"])
-    plan["reasoning"] = ai_text.strip() or "Each day pairs familiar Indian foods with fibre, protein, healthy fats and hydration for steady energy."
+        try:
+            age_days = (datetime.now(timezone.utc).date() - datetime.fromisoformat(str(existing.get("updated_at")).replace("Z", "+00:00")).date()).days
+        except (ValueError, TypeError):
+            age_days = 0
+        if age_days < 7:
+            return existing
+    # Missing or week-old plan → adaptive regeneration from recent logs
+    plan = await build_adaptive_plan(user["id"], profile)
+    plan["user_id"] = user["id"]
+    await db.plans.insert_one(plan)
+    return {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
+
+
+@api_router.post("/plan/regenerate")
+async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
     return {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
@@ -610,6 +693,31 @@ async def health_sync(payload: List[HealthRecordInput], user: Dict[str, Any] = D
         )
         upserted += int(result.upserted_id is not None)
     return {"received": len(payload), "upserted": upserted}
+
+
+@api_router.get("/health/summary")
+async def health_summary(user: Dict[str, Any] = Depends(current_user)):
+    """Today's device-measured activity (HealthKit / Health Connect), clearly sourced."""
+    prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    today = datetime.now(timezone.utc).date().isoformat()
+    records = await db.health_records.find({"user_id": user["id"], "start": {"$gte": today}}, {"_id": 0}).to_list(500)
+    steps = 0
+    active = 0.0
+    sleep_minutes = 0
+    for record in records:
+        metric = record.get("metric")
+        if metric == "steps":
+            steps += int(record.get("value") or 0)
+        elif metric == "activeCalories":
+            active += float(record.get("value") or 0)
+        elif metric == "sleep":
+            try:
+                start = datetime.fromisoformat(str(record.get("start")).replace("Z", "+00:00"))
+                end = datetime.fromisoformat(str(record.get("end")).replace("Z", "+00:00"))
+                sleep_minutes += max(0, int((end - start).total_seconds() // 60))
+            except (ValueError, TypeError):
+                continue
+    return {"connected": bool(prefs.get("health_sync")), "steps": steps, "sleep_minutes": sleep_minutes, "active_calories": int(active), "source": "device", "records": len(records)}
 
 
 app.include_router(api_router)

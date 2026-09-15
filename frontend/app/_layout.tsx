@@ -1,4 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { LogBox } from "react-native";
@@ -13,6 +14,9 @@ import { queryClient } from "@/src/query-client";
 LogBox.ignoreAllLogs(true);
 
 export default function RootLayout() {
+  // Bundled Telugu font for web previews (native devices render Telugu with
+  // system fonts). Non-blocking: the app renders while the font loads.
+  useFonts({ NotoSansTelugu: require("../assets/fonts/NotoSansTelugu.ttf") });
   // One app level ErrorBoundary; a render crash shows a reload screen
   // instead of a blank app.
   return (

@@ -10,8 +10,25 @@ const serif = Platform.select({ ios: "Georgia", default: "serif" });
 // - Every display/heading style declares an explicit lineHeight so tall
 //   scripts (Telugu) never clip on Android/iOS.
 // - Chips cap at maxWidth: "100%" so long translations never overflow.
+// Web previews shape Telugu conjuncts poorly with system fallbacks, so the
+// bundled Noto Sans Telugu (Latin + Telugu) leads the web font stack. Native
+// devices render Telugu natively — this is a no-op there.
+function withTeluguFallback<T>(sheet: T): T {
+  if (Platform.OS !== "web") return sheet;
+  const patched: Record<string, Record<string, unknown>> = {};
+  for (const [key, style] of Object.entries(sheet as Record<string, Record<string, unknown>>)) {
+    if (style && ("fontSize" in style || "lineHeight" in style || "fontWeight" in style)) {
+      patched[key] = { ...style, fontFamily: style.fontFamily ? `NotoSansTelugu, ${style.fontFamily}` : "NotoSansTelugu, System" };
+    } else {
+      patched[key] = style;
+    }
+  }
+  return patched as T;
+}
+
 export const useStyles = makeStyles((colors) =>
-  StyleSheet.create({
+  withTeluguFallback(
+    StyleSheet.create({
     root: { flex: 1, backgroundColor: colors.surface },
     flex: { flex: 1, minWidth: 0 },
     center: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12, backgroundColor: colors.surface },
@@ -149,5 +166,6 @@ export const useStyles = makeStyles((colors) =>
 
     photoPreview: { width: "100%", height: 230, borderRadius: 18, overflow: "hidden", backgroundColor: colors.surfaceTertiary, marginTop: 16 },
     stickyCta: { padding: 16, borderTopWidth: 1, borderTopColor: colors.divider, backgroundColor: colors.surface },
-  }),
+    })
+  )
 );

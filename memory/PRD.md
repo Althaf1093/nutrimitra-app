@@ -49,6 +49,13 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 - Privacy-first health sync: `POST /api/health/sync` returns 403 until the user enables Health sync in Settings.
 - Tested: iteration 7 — 23/23 backend pytest, all frontend flows + layout audit passed in both languages and both viewport sizes.
 
+## Implemented (2026-09-15, integration + intelligence pass)
+- Google Sign-In completion fix: welcome screen now redirects authenticated/onboarding sessions into the app (covers the native in-app OAuth return); handoff re-verified.
+- Real native health adapters: `src/lib/health/index.native.ts` lazily loads @kingstinct/react-native-healthkit (iOS) / react-native-health-connect (Android) via try/catch optional requires (Expo Go safe); web fallback in index.ts; app.json plugins + minSdk 26; `GET /api/health/summary` aggregates today's device steps/sleep/kcal; Today "Device activity" card shows device-measured values with a sync action, or an enable-hint when permission is off.
+- Adaptive plans: `POST /api/plan/regenerate` + automatic regeneration when the plan is ≥7 days old; Groq generates the full 7-day JSON (max_tokens 9000 after truncation fix), validated by `coerce_plan` with deterministic fallback; Plan tab refresh button.
+- Telugu web font: bundled Noto Sans Telugu (Latin+Telugu TTF) via expo-font; web-only font-stack override fixes conjunct shaping; language preference persists across sessions (nutrimitra.lang).
+- Tested: iteration 8 — 10/10 new backend tests, all frontend flows, Telugu shaping verified at 390px and 320px.
+
 ## Prioritized backlog
 
 ### P0 — next product-critical tasks
@@ -68,6 +75,6 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 
 ## Next tasks list
 1. Human-test Google sign-in on Expo Go (scan QR) and confirm the session lands on onboarding/Today.
-2. Wire native health adapters into the dev build and surface steps/sleep on the Today screen.
-3. Bundle a Telugu font (Noto Sans Telugu via expo-font) for the web preview to remove shaping artifacts.
-4. Adaptive plan regeneration driven by logged meals and weekly review.
+2. On a native build, tap Sync on Today's Device activity card and verify steps/sleep populate from Apple Health / Health Connect.
+3. Cap stored plan history (db.plans grows on each regeneration).
+4. Structured workout plans (home/gym/outdoor) with the same adaptive engine as meals.
