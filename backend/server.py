@@ -249,10 +249,11 @@ def local_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
     return {"goal": profile.get("wellness_goal", "Healthier living"), "days": days, "generated_by": "NutriMitra nutrition engine", "updated_at": now_iso()}
 
 
-async def groq_text(system: str, prompt: str, user_id: str) -> str:
+async def groq_chat(messages: List[Dict[str, str]], user_id: str, max_tokens: int = 1200) -> str:
+    """Single swappable Groq chat call used by every AI surface."""
     if not GROQ_API_KEY:
         return ""
-    body = {"model": GROQ_MODEL, "temperature": 0.4, "max_tokens": 1200, "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]}
+    body = {"model": GROQ_MODEL, "temperature": 0.4, "max_tokens": max_tokens, "messages": messages}
     try:
         async with httpx.AsyncClient(timeout=35) as http:
             response = await http.post("https://api.groq.com/openai/v1/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
@@ -261,6 +262,10 @@ async def groq_text(system: str, prompt: str, user_id: str) -> str:
     except Exception as exc:
         logger.warning("Groq request failed for %s: %s", user_id, exc)
         return ""
+
+
+async def groq_text(system: str, prompt: str, user_id: str) -> str:
+    return await groq_chat([{"role": "system", "content": system}, {"role": "user", "content": prompt}], user_id)
 
 
 @api_router.get("/plan")
@@ -321,13 +326,67 @@ async def progress(user: Dict[str, Any] = Depends(current_user)):
     return {"weights": entries, "activities": activities, "review": "Small consistent choices compound. Review your energy, movement and meals together—not just the scale."}
 
 
+COACH_SYSTEM = (
+    "You are NutriMitra, a warm bilingual Indian wellness coach. Give practical, non-diagnostic advice and keep answers under 140 words. "
+    "Mention a doctor or dietitian for medical concerns. Use the conversation history for continuity but never invent health data. "
+    "When the user asks for a recipe or a dish idea they could cook, end your reply with a fenced block exactly like "
+    '```recipe\n{"name": str, "time_min": int, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
+    '"ingredients": [str], "steps": [str]}\n``` '
+    "using realistic Indian home-cooking values. Include the block only for actual recipes."
+)
+
+RECIPE_BLOCK = re.compile(r"```recipe\s*(\{.*?\})\s*```", re.DOTALL)
+
+
+@api_router.get("/coach/history")
+async def coach_history(user: Dict[str, Any] = Depends(current_user)):
+    """Return stored conversation only when the user has coach memory enabled."""
+    prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    if prefs and prefs.get("coach_memory") is False:
+        return {"messages": [], "memory": False}
+    messages = await db.coach_messages.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", 1).to_list(60)
+    return {"messages": messages[-30:], "memory": True}
+
+
 @api_router.post("/coach")
 async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
-    system = "You are NutriMitra, a warm bilingual Indian wellness coach. Give practical, non-diagnostic advice. Mention a doctor or dietitian for medical concerns. Keep answers under 120 words."
-    prompt = f"User profile: {json.dumps(profile)}\nRespond in {'Telugu' if payload.language == 'te' else 'English'}. User asks: {payload.message}"
-    response = await groq_text(system, prompt, user["id"])
-    return {"reply": response or "I’m here with you. Try a balanced plate: half colourful vegetables, a quarter protein, and a quarter whole-grain carbohydrate. Tell me what ingredients you have and I’ll make it practical.", "source": "groq" if response else "nutrition guidance"}
+    prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    memory = prefs.get("coach_memory") is not False
+    history: List[Dict[str, Any]] = []
+    if memory:
+        history = await db.coach_messages.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", 1).to_list(24)
+    language_line = "Respond in Telugu." if payload.language == "te" else "Respond in English."
+    messages = [{"role": "system", "content": f"{COACH_SYSTEM} {language_line} User wellness profile (user-provided): {json.dumps(profile)}"}]
+    for item in history[-12:]:
+        messages.append({"role": "user" if item.get("role") == "user" else "assistant", "content": str(item.get("text", ""))[:600]})
+    messages.append({"role": "user", "content": payload.message})
+    response = await groq_chat(messages, user["id"])
+    reply = response or "I’m here with you. Try a balanced plate: half colourful vegetables, a quarter protein, and a quarter whole-grain carbohydrate. Tell me what ingredients you have and I’ll make it practical."
+    recipe: Optional[Dict[str, Any]] = None
+    match = RECIPE_BLOCK.search(reply)
+    if match:
+        try:
+            candidate = json.loads(match.group(1))
+            recipe = {
+                "name": str(candidate.get("name") or "NutriMitra recipe")[:80],
+                "time_min": max(1, min(180, int(candidate.get("time_min") or 20))),
+                "calories": max(0, min(2000, int(candidate.get("calories") or 350))),
+                "protein_g": max(0, min(200, float(candidate.get("protein_g") or 15))),
+                "carbs_g": max(0, min(400, float(candidate.get("carbs_g") or 40))),
+                "fat_g": max(0, min(250, float(candidate.get("fat_g") or 12))),
+                "ingredients": [str(item)[:80] for item in (candidate.get("ingredients") or [])][:12],
+                "steps": [str(step)[:200] for step in (candidate.get("steps") or [])][:10],
+            }
+        except (json.JSONDecodeError, TypeError, ValueError):
+            recipe = None
+        reply = RECIPE_BLOCK.sub("", reply).strip()
+    if memory:
+        await db.coach_messages.insert_many([
+            {"id": str(uuid.uuid4()), "user_id": user["id"], "role": "user", "text": payload.message, "created_at": now_iso()},
+            {"id": str(uuid.uuid4()), "user_id": user["id"], "role": "coach", "text": reply, "recipe": recipe, "created_at": now_iso()},
+        ])
+    return {"reply": reply, "recipe": recipe, "memory": memory, "source": "groq" if response else "nutrition guidance"}
 
 
 @api_router.get("/ingredients")
@@ -351,12 +410,12 @@ async def ingredients(q: str = ""):
 @api_router.get("/permissions")
 async def permissions(user: Dict[str, Any] = Depends(current_user)):
     prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0})
-    return prefs or {"user_id": user["id"], "health_sync": False, "wearables": False, "analytics": False}
+    return prefs or {"user_id": user["id"], "health_sync": False, "wearables": False, "analytics": False, "coach_memory": True}
 
 
 @api_router.post("/permissions")
 async def set_permissions(payload: Dict[str, bool], user: Dict[str, Any] = Depends(current_user)):
-    clean = {key: bool(value) for key, value in payload.items() if key in {"health_sync", "wearables", "analytics"}}
+    clean = {key: bool(value) for key, value in payload.items() if key in {"health_sync", "wearables", "analytics", "coach_memory"}}
     clean.update({"user_id": user["id"], "updated_at": now_iso()})
     await db.permissions.update_one({"user_id": user["id"]}, {"$set": clean}, upsert=True)
     return clean
@@ -532,7 +591,13 @@ async def put_reminders(payload: ReminderPrefs, user: Dict[str, Any] = Depends(c
 
 @api_router.post("/health/sync")
 async def health_sync(payload: List[HealthRecordInput], user: Dict[str, Any] = Depends(current_user)):
-    """Idempotent ingestion of normalized HealthKit / Health Connect records."""
+    """Idempotent ingestion of normalized HealthKit / Health Connect records.
+
+    Privacy-first: records are accepted only after the user explicitly enables
+    health sync in Settings."""
+    prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    if not prefs.get("health_sync"):
+        raise HTTPException(status_code=403, detail="Enable Health sync in privacy settings before syncing device data")
     if len(payload) > 1000:
         raise HTTPException(status_code=413, detail="Batch too large")
     upserted = 0

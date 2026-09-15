@@ -81,7 +81,7 @@ export default function TodayScreen() {
           </Text>
           <Text style={styles.headerTitle}>{t.today}</Text>
         </View>
-        <Pressable testID="open-settings-button" accessibilityLabel={t.settings} onPress={() => router.push("/settings")} style={styles.iconButton}>
+        <Pressable testID="open-settings-button" accessibilityRole="button" accessibilityLabel={t.settings} onPress={() => router.push("/settings")} style={styles.iconButton}>
           <AppIcon name="gearshape.fill" color={colors.onSurface} size={21} />
         </Pressable>
       </View>
@@ -99,7 +99,7 @@ export default function TodayScreen() {
             </View>
           ) : null}
           <View style={styles.readinessCard} testID="readiness-card">
-            <View>
+            <View style={styles.flex}>
               <Text style={styles.cardEyebrowOnDark}>{t.ready.toUpperCase()}</Text>
               <Text style={styles.readinessValue}>
                 {dashboard?.readiness || 64}

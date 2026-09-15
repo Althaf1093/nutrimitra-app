@@ -97,6 +97,11 @@ export const copy = {
     minutes: "min",
     close: "Close",
     mealType: "Meal",
+    ingredients: "Ingredients",
+    steps: "Steps",
+    logRecipe: "Log as meal",
+    coachMemory: "Coach memory",
+    coachMemorySub: "Remembers this conversation to personalise guidance",
   },
   te: {
     hello: "శుభోదయం",
@@ -194,6 +199,11 @@ export const copy = {
     minutes: "నిమి",
     close: "మూసివేయండి",
     mealType: "భోజనం",
+    ingredients: "పదార్థాలు",
+    steps: "దశలు",
+    logRecipe: "భోజనంగా లాగ్ చేయండి",
+    coachMemory: "కోచ్ మెమరీ",
+    coachMemorySub: "మార్గదర్శకత్వాన్ని వ్యక్తిగతీకరించడానికి ఈ సంభాషణను గుర్తుంచుకుంటుంది",
   },
 };
 

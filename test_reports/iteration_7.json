@@ -1,0 +1,57 @@
+{
+  "summary": "Iteration 7 fully verified. Backend 9/9 new tests + 14/14 iteration-6 regression tests passed (TestHealthSync from iter-6 intentionally excluded — endpoint now 403s by design until health_sync permission is enabled; new gate test covers both states). New features verified: coach memory (history persisted/reflected in replies when ON; GET /api/coach/history empty and nothing stored when OFF; UI hides history on fresh mount when OFF and restores when re-enabled), structured recipe cards (fenced JSON parsed, RecipeCard renders name/time/kcal/protein/ingredients/numbered steps, 'Log as meal' posts /api/meals and reflects in dashboard), health-sync 403 gate + idempotent upsert after enabling. CRITICAL LAYOUT BUG not reproducible on web: audits at 390x844 and 320x568 in English AND Telugu across Today, Plan, Coach, Progress, Settings, Eat-Now, Log-Food show zero document overflow, zero element overflow (Plan day chips extend past viewport inside their horizontal ScrollView by design), no one-char-per-line wrapping, no clipped headings, no collapsed containers. Auth guards pass: unauthenticated /settings, /eat-now, / all redirect to /welcome. Onboarding regression: fresh account signup -> 3 steps -> lands on Today. Google Sign-In initiates handoff to auth.emergentagent.com without crashing. No deprecated Expo packages found.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/coach/history", "issue": "Returns up to 30 messages but recipe payloads are not persisted in db.coach_messages (only text), so recipe cards do not survive a session restore — acceptable trade-off but worth noting"}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Coach tab history refresh", "issue": "Coach screen fetches /coach/history only on mount (useEffect []); if the user toggles Coach memory in Settings and returns via tab bar (screens stay mounted), stale messages remain visible until a full remount. Verified correct behavior on fresh mount — minor staleness only.", "affected_testIDs": ["coach-screen", "toggle-coach-memory"]}
+    ],
+    "design_issues": [
+      {"screen": "Settings + Onboarding + Today (Telugu)", "issues": ["Telugu conjunct clusters still render with dotted-circle shaping artifacts on web preview (e.g. 'తెలుగు' chip, Settings header) — Telugu-capable font (Noto Sans Telugu) still not bundled in web build; carried over from iteration 6, no overflow/clipping otherwise"]}
+    ],
+    "react_native_issues": [
+      {"component": "package.json dependencies", "issue": "No deprecated packages found (no expo-av, expo-barcode-scanner, expo-background-fetch). Reference: /app/frontend/package.json"}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration7_features.py",
+    "/app/test_reports/pytest/pytest_results_iteration7.xml",
+    "/app/test_reports/ui_iteration7/today_390.png",
+    "/app/test_reports/ui_iteration7/today_te_320.png",
+    "/app/test_reports/ui_iteration7/settings_te_390.png",
+    "/app/test_reports/ui_iteration7/coach_recipe_390.png",
+    "/app/test_reports/ui_iteration7/plan_320.png",
+    "/app/test_reports/ui_iteration7/coach_320.png",
+    "/app/test_reports/ui_iteration7/eatnow_320.png",
+    "/app/test_reports/ui_iteration7/logfood_320.png",
+    "/app/test_reports/ui_iteration7/onb_today.png"
+  ],
+  "action_items": [
+    "Bundle Noto Sans Telugu via expo-font so Telugu clusters shape correctly on web (fixes dotted-circle artifacts)",
+    "Optional: refetch /coach/history on coach tab focus (useFocusEffect) so memory-toggle changes take effect without remount",
+    "Optional: persist recipe JSON alongside coach messages so recipe cards survive history restore"
+  ],
+  "critical_code_review_comments": [
+    "Recipe parsing is well-defended: regex + json.loads with per-field clamping (time 1-180, calories 0-2000, lists capped), raw fence stripped from reply text, JSON failure -> recipe=null graceful fallback",
+    "Coach memory gate is consistent: history read, context injection, and persistence all keyed on prefs.coach_memory !== false (default-on); verified nothing stored while off",
+    "health/sync 403 gate reads fresh permissions per request; upsert idempotency (user_id, external_id, source) still intact",
+    "styles.ts responsive fixes are systematic (flex minWidth:0, explicit lineHeight on all headings, chip maxWidth 100%, flexShrink:0 on fixed-size row children) — no layout regressions detected at 320px",
+    "Auth guards in settings.tsx use Redirect with loading state; deep links correctly bounce to /welcome"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration7_features.py",
+    "/app/test_reports/iteration_7.json"
+  ],
+  "success_rate": {"backend": "100% (9/9 new + 14/14 regression)", "frontend": "100% of requested flows passed"},
+  "seed_data_creation": "Preview account: recipe-logged meal 'Paneer & Mixed-Veg Quinoa Stir-Fry', eat-now logged meal, walk+strength activities, weight 67.8, plan meal log, 16 coach messages retained (2 TEST-marker messages cleaned up). New throwaway account test.iter7.8cf29125@example.com created for onboarding regression. Permissions restored to original: coach_memory=true, health_sync=false.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Coach history only loads on mount — use page.goto(full URL) not tab taps to test history changes. Settings toggle clicks can race the initial /permissions fetch; wait ~4s after settings-screen before toggling and verify state afterwards (in-page fetch needs localStorage key 'nutrimitra.session.token'). Plan day chips legitimately extend past viewport (horizontal ScrollView) — exclude them from overflow checks. Coach recipe card testID pattern recipe-card-<index>, log button recipe-log-<index>. Google sign-in navigates away from SPA — always test last.",
+  "test_credentials": "Present and valid in /app/memory/test_credentials.md",
+  "mocked_apis": "No mocked APIs. Groq (openai/gpt-oss-120b) live for chat/recipe; vision falls back to Emergent universal key by design (no vision models on Groq key)."
+}

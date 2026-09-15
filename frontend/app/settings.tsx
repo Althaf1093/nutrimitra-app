@@ -1,6 +1,6 @@
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Linking, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post, put } from "@/src/api";
@@ -27,26 +27,41 @@ function ToggleRow({ title, subtitle, value, onToggle, testID }: { title: string
   );
 }
 
+type PermissionPrefs = { health_sync: boolean; wearables: boolean; analytics: boolean; coach_memory: boolean };
+
 export default function SettingsScreen() {
   const styles = useStyles();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { lang, setLang, t, signOut } = useAuth();
-  const [permission, setPermission] = useState({ health_sync: false, wearables: false, analytics: false });
+  const { lang, setLang, t, signOut, status } = useAuth();
+  const [permission, setPermission] = useState<PermissionPrefs>({ health_sync: false, wearables: false, analytics: false, coach_memory: true });
   const [reminders, setReminders] = useState<ReminderPrefs>({ meals: true, hydration: false, movement: false, weekly: true });
   const [note, setNote] = useState("");
 
   useEffect(() => {
-    api<{ health_sync?: boolean; wearables?: boolean; analytics?: boolean }>("/permissions")
-      .then((prefs) => setPermission({ health_sync: !!prefs.health_sync, wearables: !!prefs.wearables, analytics: !!prefs.analytics }))
+    if (status !== "ready") return;
+    api<{ health_sync?: boolean; wearables?: boolean; analytics?: boolean; coach_memory?: boolean }>("/permissions")
+      .then((prefs) => setPermission({ health_sync: !!prefs.health_sync, wearables: !!prefs.wearables, analytics: !!prefs.analytics, coach_memory: prefs.coach_memory !== false }))
       .catch(() => undefined);
     api<ReminderPrefs>("/reminders")
       .then((prefs) => setReminders({ meals: !!prefs.meals, hydration: !!prefs.hydration, movement: !!prefs.movement, weekly: !!prefs.weekly }))
       .catch(() => undefined);
-  }, []);
+  }, [status]);
 
-  const updatePermission = async (key: keyof typeof permission) => {
+  // Route guard: this modal requires an authenticated, onboarded session.
+  if (status === "loading") {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color={colors.brandPrimary} />
+      </View>
+    );
+  }
+  if (status !== "ready") {
+    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+  }
+
+  const updatePermission = async (key: keyof PermissionPrefs) => {
     const next = { ...permission, [key]: !permission[key] };
     setPermission(next);
     await post("/permissions", next).catch(() => undefined);
@@ -81,7 +96,7 @@ export default function SettingsScreen() {
           <Text style={styles.eyebrow}>NUTRIMITRA</Text>
           <Text style={styles.headerTitle}>{t.settings}</Text>
         </View>
-        <Pressable testID="settings-close" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
+        <Pressable testID="settings-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
           <AppIcon name="xmark" color={colors.onSurface} size={20} />
         </Pressable>
       </View>
@@ -101,6 +116,7 @@ export default function SettingsScreen() {
         <Text style={styles.modalSub}>{t.healthSub}</Text>
         <ToggleRow testID="toggle-health-sync" title="HealthKit / Health Connect" subtitle="Optional, permission-based" value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
         <ToggleRow testID="toggle-wearables" title="Supported wearables" subtitle="Optional, permission-based" value={permission.wearables} onToggle={() => updatePermission("wearables")} />
+        <ToggleRow testID="toggle-coach-memory" title={t.coachMemory} subtitle={t.coachMemorySub} value={permission.coach_memory} onToggle={() => updatePermission("coach_memory")} />
         <ToggleRow testID="toggle-analytics" title="Anonymous product analytics" subtitle="Help improve NutriMitra" value={permission.analytics} onToggle={() => updatePermission("analytics")} />
 
         <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.reminders.toUpperCase()}</Text>

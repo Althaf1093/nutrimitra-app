@@ -41,6 +41,14 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 - Keyboard upgrade to react-native-keyboard-controller; coach markdown flattening; contrast fix on dark hero cards.
 - Tested: iteration 6 — 15/15 backend pytest, all web frontend flows passed.
 
+## Implemented (2026-09-15, quality + coach pass)
+- UI/UX quality pass: design-token style sheet rewritten with responsive constraints — `minWidth: 0` on flex text containers, explicit `lineHeight` on every heading/label (Telugu glyph clipping fix), `maxWidth: 100%` chips, `flexShrink: 0` on fixed row children, flexed hero-card text columns; audited at 390x844 and 320x568 in English and Telugu (iteration 7: no overflow, clipping, collapse or one-char-per-line wrapping found).
+- Route guards: unauthenticated deep links to tabs/settings/eat-now/log-food redirect to welcome; loading states everywhere.
+- AI Coach conversation memory (opt-out "Coach memory" privacy toggle, default on): history persisted to `coach_messages`, last 12 messages used as context, `GET /api/coach/history`, frontend restores on focus.
+- Structured recipe cards in coach: fenced ```recipe JSON parsed/validated server-side, rendered as styled card with ingredients, steps and one-tap "Log as meal"; recipes persist through history restore.
+- Privacy-first health sync: `POST /api/health/sync` returns 403 until the user enables Health sync in Settings.
+- Tested: iteration 7 — 23/23 backend pytest, all frontend flows + layout audit passed in both languages and both viewport sizes.
+
 ## Prioritized backlog
 
 ### P0 — next product-critical tasks
@@ -61,5 +69,5 @@ NutriMitra is a premium, privacy-first AI wellness companion for India, initiall
 ## Next tasks list
 1. Human-test Google sign-in on Expo Go (scan QR) and confirm the session lands on onboarding/Today.
 2. Wire native health adapters into the dev build and surface steps/sleep on the Today screen.
-3. Add coach history persistence and photo-meal history.
-4. Bundle a Telugu font for the web preview.
+3. Bundle a Telugu font (Noto Sans Telugu via expo-font) for the web preview to remove shaping artifacts.
+4. Adaptive plan regeneration driven by logged meals and weekly review.

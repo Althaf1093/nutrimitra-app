@@ -1,6 +1,6 @@
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
-import { Platform } from "react-native";
+import { ActivityIndicator, Platform, View } from "react-native";
 
 import { AppIcon } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
@@ -11,8 +11,20 @@ import { useTheme } from "@/src/theme";
 const useNativeTabs = Platform.OS === "ios" && parseInt(String(Platform.Version), 10) >= 26;
 
 export default function TabsLayout() {
-  const { t } = useAuth();
+  const { t, status } = useAuth();
   const { colors } = useTheme();
+
+  // Route guard: deep links must never render authenticated content.
+  if (status === "loading") {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.surface }}>
+        <ActivityIndicator color={colors.brandPrimary} />
+      </View>
+    );
+  }
+  if (status !== "ready") {
+    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+  }
 
   if (useNativeTabs) {
     return (

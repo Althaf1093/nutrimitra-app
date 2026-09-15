@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, Linking, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,7 +19,7 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { lang, t } = useAuth();
+  const { lang, t, status } = useAuth();
   const [phase, setPhase] = useState<Phase>("pick");
   const [imageUri, setImageUri] = useState("");
   const [result, setResult] = useState<VisionResult | null>(null);
@@ -28,6 +28,18 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
   const [error, setError] = useState("");
   const [blocked, setBlocked] = useState(false);
   const [busy, setBusy] = useState(false);
+
+  // Route guard: this modal requires an authenticated, onboarded session.
+  if (status === "loading") {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color={colors.brandPrimary} />
+      </View>
+    );
+  }
+  if (status !== "ready") {
+    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+  }
 
   const analyze = async (base64: string) => {
     setPhase("analyzing");
@@ -115,7 +127,7 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
           <Text style={styles.eyebrow}>NUTRIMITRA VISION</Text>
           <Text style={styles.headerTitle}>{t.photo}</Text>
         </View>
-        <Pressable testID="log-food-close" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
+        <Pressable testID="log-food-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
           <AppIcon name="xmark" color={colors.onSurface} size={20} />
         </Pressable>
       </View>
