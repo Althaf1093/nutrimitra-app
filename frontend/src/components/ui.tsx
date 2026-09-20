@@ -1,11 +1,11 @@
 import { SymbolView } from "expo-symbols";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { ColorValue, Pressable, Text, TextInput, View } from "react-native";
 
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Meal } from "@/src/types";
 
-export function AppIcon({ name, color, size = 22 }: { name: string; color: string; size?: number }) {
+export function AppIcon({ name, color, size = 22 }: { name: string; color: ColorValue; size?: number }) {
   return (
     <View testID={`icon-${name}`} accessibilityRole="image" style={{ width: size, height: size }}>
       <SymbolView name={name as never} tintColor={color} size={size} />

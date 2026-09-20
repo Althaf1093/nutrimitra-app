@@ -25,4 +25,11 @@ numpy>=1.26.0
 python-multipart>=0.0.9
 jq>=1.6.0
 typer>=0.9.0
-emergentintegrations==0.2.0
+
+# Optional: Emergent-managed LLM fallback for food-photo recognition
+# (only used when EMERGENT_LLM_KEY is set; the primary Groq vision path
+# does not need it, and the code degrades gracefully if this import
+# fails). Not published on public PyPI — it's Emergent's own package;
+# check Emergent's docs for their package index if you need this
+# fallback locally.
+# emergentintegrations==0.2.0

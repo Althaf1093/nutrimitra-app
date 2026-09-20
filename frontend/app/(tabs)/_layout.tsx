@@ -1,5 +1,5 @@
 import { Redirect, Tabs } from "expo-router";
-import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { ActivityIndicator, Platform, View } from "react-native";
 
 import { AppIcon } from "@/src/components/ui";
@@ -30,20 +30,20 @@ export default function TabsLayout() {
     return (
       <NativeTabs>
         <NativeTabs.Trigger name="index">
-          <Label>{t.today}</Label>
-          <Icon sf="sun.max.fill" />
+          <NativeTabs.Trigger.Label>{t.today}</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf="sun.max.fill" />
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="plan">
-          <Label>{t.plan}</Label>
-          <Icon sf="list.bullet.clipboard" />
+          <NativeTabs.Trigger.Label>{t.plan}</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf="list.bullet.clipboard" />
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="coach">
-          <Label>{t.coach}</Label>
-          <Icon sf="bubble.left.and.bubble.right.fill" />
+          <NativeTabs.Trigger.Label>{t.coach}</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf="bubble.left.and.bubble.right.fill" />
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="progress">
-          <Label>{t.progress}</Label>
-          <Icon sf="chart.line.uptrend.xyaxis" />
+          <NativeTabs.Trigger.Label>{t.progress}</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon sf="chart.line.uptrend.xyaxis" />
         </NativeTabs.Trigger>
       </NativeTabs>
     );

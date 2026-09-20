@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const result = await api<{ user: User; profile: Profile | null }>("/me");
     setUser(result.user);
     setProfile(result.profile);
-    const storedLang = await storage.getItem("nutrimitra.lang", "");
+    const storedLang = await storage.getItem<Lang | "">("nutrimitra.lang", "");
     const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || "en") as Lang);
     setLang(resolvedLang);
     setStatus(result.profile ? "ready" : "onboarding");

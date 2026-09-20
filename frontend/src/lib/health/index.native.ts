@@ -17,11 +17,11 @@ function loadAdapter(): HealthAdapter | null {
   cachedAdapter = null;
   try {
     if (Platform.OS === "ios") {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+       
       const hk = require("@kingstinct/react-native-healthkit");
       cachedAdapter = createIosAdapter(hk);
     } else if (Platform.OS === "android") {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+       
       const hc = require("react-native-health-connect");
       cachedAdapter = createAndroidAdapter(hc);
     }
@@ -55,9 +55,9 @@ export async function syncDeviceHealth(): Promise<{ synced: number } | null> {
 function createIosAdapter(hk: {
   isHealthDataAvailable: () => Promise<boolean>;
   requestAuthorization: (args: { toRead: string[]; toShare: string[] }) => Promise<unknown>;
-  queryQuantitySamples: (type: string, options: unknown) => Promise<Array<Record<string, unknown>>>;
-  queryCategorySamples: (type: string, options: unknown) => Promise<Array<Record<string, unknown>>>;
-  queryWorkoutSamples: (options: unknown) => Promise<Array<Record<string, unknown>>>;
+  queryQuantitySamples: (type: string, options: unknown) => Promise<Record<string, unknown>[]>;
+  queryCategorySamples: (type: string, options: unknown) => Promise<Record<string, unknown>[]>;
+  queryWorkoutSamples: (options: unknown) => Promise<Record<string, unknown>[]>;
 }): HealthAdapter {
   const READ = [
     "HKQuantityTypeIdentifierStepCount",
@@ -99,8 +99,8 @@ function createIosAdapter(hk: {
 
 function createAndroidAdapter(hc: {
   initialize: () => Promise<boolean>;
-  requestPermission: (permissions: Array<{ accessType: string; recordType: string }>) => Promise<unknown>;
-  readRecords: (type: string, options: unknown) => Promise<{ records?: Array<Record<string, never>> }>;
+  requestPermission: (permissions: { accessType: string; recordType: string }[]) => Promise<unknown>;
+  readRecords: (type: string, options: unknown) => Promise<{ records?: Record<string, never>[] }>;
 }): HealthAdapter {
   const permissions = [
     { accessType: "read", recordType: "Steps" },
@@ -130,11 +130,11 @@ function createAndroidAdapter(hc: {
         hc.readRecords("SleepSession", filter(from, to)),
       ]);
       const records: HealthRecord[] = [];
-      for (const x of (steps as { records?: Array<Record<string, any>> })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "steps", start: x.startTime, end: x.endTime, value: Number(x.count), unit: "count", source: x.metadata.dataOrigin });
-      for (const x of (distance as { records?: Array<Record<string, any>> })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "distance", start: x.startTime, end: x.endTime, value: Number(x.distance.inMeters), unit: "m", source: x.metadata.dataOrigin });
-      for (const x of (calories as { records?: Array<Record<string, any>> })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "activeCalories", start: x.startTime, end: x.endTime, value: Number(x.energy.inKilocalories), unit: "kcal", source: x.metadata.dataOrigin });
-      for (const x of (workouts as { records?: Array<Record<string, any>> })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "workout", start: x.startTime, end: x.endTime, type: String(x.exerciseType), source: x.metadata.dataOrigin });
-      for (const x of (sleep as { records?: Array<Record<string, any>> })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "sleep", start: x.startTime, end: x.endTime, type: "sleep", source: x.metadata.dataOrigin });
+      for (const x of (steps as { records?: Record<string, any>[] })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "steps", start: x.startTime, end: x.endTime, value: Number(x.count), unit: "count", source: x.metadata.dataOrigin });
+      for (const x of (distance as { records?: Record<string, any>[] })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "distance", start: x.startTime, end: x.endTime, value: Number(x.distance.inMeters), unit: "m", source: x.metadata.dataOrigin });
+      for (const x of (calories as { records?: Record<string, any>[] })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "activeCalories", start: x.startTime, end: x.endTime, value: Number(x.energy.inKilocalories), unit: "kcal", source: x.metadata.dataOrigin });
+      for (const x of (workouts as { records?: Record<string, any>[] })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "workout", start: x.startTime, end: x.endTime, type: String(x.exerciseType), source: x.metadata.dataOrigin });
+      for (const x of (sleep as { records?: Record<string, any>[] })?.records ?? []) records.push({ externalId: x.metadata.id, metric: "sleep", start: x.startTime, end: x.endTime, type: "sleep", source: x.metadata.dataOrigin });
       return records;
     },
   };

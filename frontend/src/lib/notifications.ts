@@ -30,7 +30,7 @@ export async function ensureReminderPermissions(): Promise<PermissionResult> {
     });
   }
   const current = await Notifications.getPermissionsAsync();
-  const iosOk = (status: Notifications.PermissionResponse) =>
+  const iosOk = (status: Notifications.NotificationPermissionsStatus) =>
     Platform.OS !== "ios" ||
     status.ios?.status === Notifications.IosAuthorizationStatus.AUTHORIZED ||
     status.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL;

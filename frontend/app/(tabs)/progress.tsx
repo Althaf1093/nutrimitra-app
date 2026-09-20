@@ -9,8 +9,8 @@ import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
 
 type ProgressData = {
-  weights: Array<{ weight_kg: number; date: string }>;
-  activities: Array<Record<string, unknown>>;
+  weights: { weight_kg: number; date: string }[];
+  activities: Record<string, unknown>[];
   review: string;
 };
 

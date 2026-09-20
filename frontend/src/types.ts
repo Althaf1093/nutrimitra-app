@@ -37,8 +37,8 @@ export type Plan = { days: PlanDay[]; reasoning: string; goal: string };
 
 export type Dashboard = {
   date: string;
-  meals: Array<Record<string, unknown>>;
-  activities: Array<Record<string, unknown>>;
+  meals: Record<string, unknown>[];
+  activities: Record<string, unknown>[];
   calories: number;
   active_calories: number;
   readiness: number;

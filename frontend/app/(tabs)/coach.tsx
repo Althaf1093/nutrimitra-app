@@ -55,7 +55,7 @@ function RecipeCard({ recipe, index, t, onLog }: { recipe: Recipe; index: number
       ) : null}
       {recipe.steps.length ? (
         <>
-          <Text style={styles.recipeLabel}>{t.steps.toUpperCase()}</Text>
+          <Text style={styles.recipeLabel}>{t.recipeSteps.toUpperCase()}</Text>
           {recipe.steps.map((step, stepIndex) => (
             <Text key={`${stepIndex}`} style={styles.recipeItem}>
               {stepIndex + 1}. {step}
