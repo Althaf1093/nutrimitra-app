@@ -2,11 +2,12 @@ import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, Linking, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Linking, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { post } from "@/src/api";
-import { AppIcon, Button, Chip } from "@/src/components/ui";
+import { AppIcon, Button } from "@/src/components/ui";
+import { VisionConfirmForm, type VisionDraft } from "@/src/components/vision-confirm-form";
 import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
@@ -14,7 +15,7 @@ import type { VisionResult } from "@/src/types";
 
 type Phase = "pick" | "analyzing" | "confirm" | "error";
 
-const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default function LogFoodScreen() {
+export default function LogFoodScreen() {
   const styles = useStyles();
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -23,7 +24,7 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
   const [phase, setPhase] = useState<Phase>("pick");
   const [imageUri, setImageUri] = useState("");
   const [result, setResult] = useState<VisionResult | null>(null);
-  const [draft, setDraft] = useState({ name: "", calories: "", protein_g: "", carbs_g: "", fat_g: "", portion: "" });
+  const [draft, setDraft] = useState<VisionDraft>({ name: "", calories: "", protein_g: "", carbs_g: "", fat_g: "", portion: "" });
   const [mealType, setMealType] = useState("snack");
   const [error, setError] = useState("");
   const [blocked, setBlocked] = useState(false);
@@ -113,13 +114,6 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
     }
   };
 
-  const numericField = (key: keyof typeof draft, label: string) => (
-    <View style={styles.field}>
-      <Text style={styles.fieldLabel}>{label}</Text>
-      <TextInput testID={`vision-field-${key}`} value={draft[key]} onChangeText={(v) => setDraft((current) => ({ ...current, [key]: v }))} keyboardType={key === "name" || key === "portion" ? "default" : "numeric"} placeholderTextColor={colors.muted} style={styles.input} />
-    </View>
-  );
-
   return (
     <View style={[styles.root, { paddingTop: insets.top }]} testID="log-food-screen">
       <View style={styles.appHeader}>
@@ -161,42 +155,25 @@ const mealTypes = ["breakfast", "lunch", "snack", "dinner"];export default funct
           </View>
         ) : null}
         {phase === "confirm" && result ? (
-          <View testID="vision-confirm">
-            <Text style={styles.sectionTitleSmall}>{t.confirmMeal}</Text>
-            <Text style={styles.modalSub}>
-              {t.adjust} · {result.confidence} confidence
-            </Text>
-            {numericField("name", lang === "te" ? "వంటకం పేరు" : "Dish name")}
-            <View style={styles.row}>
-              <View style={styles.half}>{numericField("calories", "kcal")}</View>
-              <View style={styles.half}>{numericField("protein_g", "Protein (g)")}</View>
-            </View>
-            <View style={styles.row}>
-              <View style={styles.half}>{numericField("carbs_g", "Carbs (g)")}</View>
-              <View style={styles.half}>{numericField("fat_g", "Fat (g)")}</View>
-            </View>
-            {numericField("portion", lang === "te" ? "పరిమాణం" : "Portion")}
-            <Text style={styles.fieldLabel}>{t.mealType}</Text>
-            <View style={styles.chipWrap}>
-              {mealTypes.map((item) => (
-                <Chip key={item} label={item} selected={mealType === item} onPress={() => setMealType(item)} />
-              ))}
-            </View>
-            {result.alternatives.length ? (
-              <>
-                <Text style={styles.fieldLabel}>{t.instead}</Text>
-                <View style={styles.chipWrap}>
-                  {result.alternatives.map((item) => (
-                    <Chip key={item} label={item} selected={draft.name === item} onPress={() => setDraft((current) => ({ ...current, name: item }))} />
-                  ))}
-                </View>
-              </>
-            ) : null}
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
-            <Button testID="vision-confirm-button" label={busy ? "..." : t.confirmLog} onPress={confirm} disabled={busy} />
-            <Button testID="vision-retry-button" label={t.tryAgain} onPress={() => { setPhase("pick"); setImageUri(""); setResult(null); }} secondary />
-            <Text style={styles.disclaimer}>{lang === "te" ? "ఫోటో అంచనాలు సుమారుగా ఉంటాయి — మీ వివరాలు మీ యంత్రం నుండి సురక్షితంగా ప్రాసెస్ చేయబడతాయి." : "Photo estimates are approximate — your image is processed securely and never shown to anyone."}</Text>
-          </View>
+          <VisionConfirmForm
+            result={result}
+            draft={draft}
+            setDraft={setDraft}
+            mealType={mealType}
+            setMealType={setMealType}
+            error={error}
+            busy={busy}
+            lang={lang}
+            t={t}
+            styles={styles}
+            colors={colors}
+            onConfirm={confirm}
+            onRetry={() => {
+              setPhase("pick");
+              setImageUri("");
+              setResult(null);
+            }}
+          />
         ) : null}
       </ScrollView>
     </View>
