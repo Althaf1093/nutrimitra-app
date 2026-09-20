@@ -4,9 +4,13 @@ import base64
 import io
 import math
 import random
+import tempfile
+from pathlib import Path
+
+DEFAULT_PATH = str(Path(tempfile.gettempdir()) / "test_food.jpg")
 
 
-def make_food_image(path: str = "/tmp/test_food.jpg") -> str:
+def make_food_image(path: str = DEFAULT_PATH) -> str:
     from PIL import Image, ImageDraw, ImageFilter
 
     random.seed(42)
@@ -73,4 +77,4 @@ def make_food_image(path: str = "/tmp/test_food.jpg") -> str:
 
 if __name__ == "__main__":
     b64 = make_food_image()
-    print(f"Generated /tmp/test_food.jpg, base64 length={len(b64)}")
+    print(f"Generated {DEFAULT_PATH}, base64 length={len(b64)}")

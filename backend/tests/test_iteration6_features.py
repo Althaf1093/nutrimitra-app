@@ -139,6 +139,8 @@ class TestHealthSync:
     """Idempotent health record ingestion."""
 
     def test_upsert_idempotency(self, authed):
+        perm = authed.post(f"{BASE_URL}/api/permissions", json={"health_sync": True}, timeout=20)
+        assert perm.status_code == 200, perm.text
         record = {
             "external_id": f"TEST-{uuid.uuid4().hex[:12]}",
             "metric": "steps",
