@@ -278,6 +278,33 @@ PLAN_SYSTEM = (
 )
 
 
+NON_VEG_KEYWORDS = ("chicken", "mutton", "fish", "egg", "eggs", "prawn", "shrimp", "beef", "pork", "meat", "keema", "lamb", "crab", "tuna", "salmon", "bacon", "sausage", "anchovy", "anchovies")
+NON_VEGAN_EXTRA_KEYWORDS = ("paneer", "cheese", "curd", "yogurt", "yoghurt", "ghee", "butter", "milk", "cream", "honey")
+
+
+def plan_restriction_violations(days: List[Dict[str, Any]], profile: Dict[str, Any]) -> List[str]:
+    """Server-side safety net: an AI-generated plan can ignore the prompt's dietary
+    instructions, so re-check every meal name against the profile's stated
+    preferences, allergies and dislikes before trusting it."""
+    prefs = {str(p).lower() for p in profile.get("dietary_preferences", [])}
+    banned = set()
+    if "vegetarian" in prefs or "vegan" in prefs:
+        banned |= {w.lower() for w in NON_VEG_KEYWORDS}
+    if "vegan" in prefs:
+        banned |= {w.lower() for w in NON_VEGAN_EXTRA_KEYWORDS}
+    banned |= {str(a).lower().strip() for a in profile.get("allergies", []) if str(a).strip()}
+    banned |= {str(d).lower().strip() for d in profile.get("disliked_foods", []) if str(d).strip()}
+    if not banned:
+        return []
+    offenders = []
+    for day in days:
+        for meal in day.get("meals", []):
+            name = str(meal.get("name", "")).lower()
+            if any(re.search(rf"\b{re.escape(word)}s?\b", name) for word in banned):
+                offenders.append(meal.get("name", ""))
+    return offenders
+
+
 def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str, Any]:
     """Validate an AI-generated plan; any structural problem falls back to the deterministic engine."""
     days = candidate.get("days")
@@ -330,7 +357,13 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
         match = re.search(r"\{.*\}", ai_text, re.DOTALL)
         if match:
             try:
-                return coerce_plan(json.loads(match.group(0)), fallback)
+                candidate = coerce_plan(json.loads(match.group(0)), fallback)
+                if candidate.get("generated_by") == "groq adaptive engine":
+                    violations = plan_restriction_violations(candidate["days"], profile)
+                    if violations:
+                        logger.warning("Groq plan for %s violated dietary restrictions (%s); using fallback", user_id, violations)
+                        return fallback
+                return candidate
             except json.JSONDecodeError:
                 pass
     return fallback
