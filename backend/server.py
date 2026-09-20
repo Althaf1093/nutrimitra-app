@@ -22,7 +22,7 @@ load_dotenv(ROOT_DIR / ".env")
 
 MONGO_URL = os.environ["MONGO_URL"]
 DB_NAME = os.getenv("DB_NAME", "nutrimitra")
-JWT_SECRET = os.getenv("JWT_SECRET", "nutrimitra-local-secret-change-me")
+JWT_SECRET = os.environ["JWT_SECRET"]
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 72
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
