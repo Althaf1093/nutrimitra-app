@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post } from "@/src/api";
 import { AppIcon, MealCard } from "@/src/components/ui";
+import { DeviceActivityCard } from "@/src/components/device-activity-card";
+import { ReadinessCard } from "@/src/components/readiness-card";
 import { useAuth } from "@/src/context/auth";
 import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/health";
 import { useStyles } from "@/src/styles";
@@ -116,20 +118,7 @@ export default function TodayScreen() {
               <Text style={styles.reasonText}>{error}</Text>
             </View>
           ) : null}
-          <View style={styles.readinessCard} testID="readiness-card">
-            <View style={styles.flex}>
-              <Text style={styles.cardEyebrowOnDark}>{t.ready.toUpperCase()}</Text>
-              <Text style={styles.readinessValue}>
-                {dashboard?.readiness || 64}
-                <Text style={styles.readinessSlash}> / 100</Text>
-              </Text>
-              <Text style={styles.cardCaption}>A steady start is enough.</Text>
-            </View>
-            <View style={styles.readinessRing}>
-              <Text style={styles.ringText}>{dashboard?.active_calories || 0}</Text>
-              <Text style={styles.ringCaption}>active kcal</Text>
-            </View>
-          </View>
+          <ReadinessCard dashboard={dashboard} t={t} styles={styles} />
           <Pressable testID="eat-now-button" accessibilityRole="button" onPress={() => router.push("/eat-now")} style={({ pressed }) => [styles.eatBanner, pressed && styles.pressed]}>
             <View style={styles.bannerIcon}>
               <AppIcon name="sparkles" color={colors.onBrandPrimary} size={23} />
@@ -196,37 +185,16 @@ export default function TodayScreen() {
               <Text style={styles.mutedText}>Apple Health · Health Connect</Text>
             </View>
           </View>
-          <View style={[styles.syncCard, { marginBottom: 0 }]} testID="device-activity-card">
-            <View style={styles.syncIcon}>
-              <AppIcon name="figure.walk" color={styles.syncIconTint.color as string} size={22} />
-            </View>
-            <View style={styles.flex}>
-              {health?.connected ? (
-                <>
-                  <Text style={styles.mealName} testID="device-steps-value">
-                    {health.steps.toLocaleString()} {t.steps} · {sleepHours}h {t.sleep}
-                  </Text>
-                  <Text style={styles.mutedText}>
-                    {t.deviceMeasured} · {health.records} records today
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <Text style={styles.mealName}>{t.deviceActivity}</Text>
-                  <Text style={styles.mutedText}>{t.enableHealthFirst}</Text>
-                </>
-              )}
-            </View>
-            {health?.connected ? (
-              <Pressable testID="sync-device-button" accessibilityRole="button" accessibilityLabel={t.deviceSync} disabled={syncing} onPress={syncDevice} style={({ pressed }) => [styles.iconButton, pressed && styles.pressed, syncing && styles.disabled]}>
-                <AppIcon name="arrow.clockwise" color={colors.brandPrimary} size={20} />
-              </Pressable>
-            ) : (
-              <Pressable testID="open-health-settings" accessibilityRole="button" accessibilityLabel={t.settings} onPress={() => router.push("/settings")} style={styles.iconButton}>
-                <AppIcon name="gearshape" color={colors.brandPrimary} size={20} />
-              </Pressable>
-            )}
-          </View>
+          <DeviceActivityCard
+            health={health}
+            sleepHours={sleepHours}
+            t={t}
+            styles={styles}
+            colors={colors}
+            syncing={syncing}
+            onSync={syncDevice}
+            onOpenSettings={() => router.push("/settings")}
+          />
           {!deviceReady && health?.connected ? <Text style={styles.mutedText}>{t.syncUnavailable}</Text> : null}
           <View style={styles.reasonCard}>
             <Text style={styles.cardEyebrow}>{t.nutrition.toUpperCase()}</Text>
