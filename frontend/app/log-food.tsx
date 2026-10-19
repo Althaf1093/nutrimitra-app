@@ -100,7 +100,7 @@ export default function LogFoodScreen() {
     try {
       await post("/meals", {
         meal_type: mealType,
-        name: draft.name.trim() || "Photo meal",
+        name: draft.name.trim() || t.photoMealName,
         calories: Math.max(0, Math.round(Number(draft.calories) || 0)),
         protein_g: Math.max(0, Number(draft.protein_g) || 0),
         carbs_g: Math.max(0, Number(draft.carbs_g) || 0),
@@ -109,7 +109,7 @@ export default function LogFoodScreen() {
       });
       router.back();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not log meal");
+      setError(err instanceof Error ? err.message : t.couldNotLogMeal);
       setBusy(false);
     }
   };
@@ -118,7 +118,7 @@ export default function LogFoodScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="log-food-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>WELLSTRIDE VISION</Text>
+          <Text style={styles.eyebrow}>{t.photoEyebrow.toUpperCase()}</Text>
           <Text style={styles.headerTitle}>{t.photo}</Text>
         </View>
         <Pressable testID="log-food-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
@@ -138,7 +138,7 @@ export default function LogFoodScreen() {
           <View>
             {error ? (
               <View style={styles.reasonCard} testID="vision-error">
-                <Text style={styles.cardEyebrow}>PHOTO</Text>
+                <Text style={styles.cardEyebrow}>{t.photoCard.toUpperCase()}</Text>
                 <Text style={styles.reasonText}>{error}</Text>
                 {blocked ? (
                   <View style={{ marginTop: 12 }}>

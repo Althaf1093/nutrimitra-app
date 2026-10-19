@@ -30,7 +30,7 @@ export default function WelcomeScreen() {
       await signInEmail(mode, email, password, name);
       router.replace("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Please try again");
+      setError(err instanceof Error ? err.message : t.pleaseTryAgain);
     } finally {
       setBusy(false);
     }
@@ -82,7 +82,7 @@ export default function WelcomeScreen() {
             </Text>
           </Text>
         </View>
-        <Text style={styles.safeNote}>Private by design · Your wellness data stays yours.</Text>
+        <Text style={styles.safeNote}>{t.privacyLine}</Text>
       </KeyboardAwareScrollView>
     </View>
   );

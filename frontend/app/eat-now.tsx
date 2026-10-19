@@ -47,7 +47,7 @@ export default function EatNowScreen() {
       await post("/meals", { meal_type: meal.type, name: meal.name, calories: meal.calories, protein_g: meal.protein_g, carbs_g: meal.carbs_g, fat_g: meal.fat_g, source: "eat-now" });
       router.back();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not log meal");
+      setError(err instanceof Error ? err.message : t.couldNotLogMeal);
       setBusy(false);
     }
   };
@@ -56,7 +56,7 @@ export default function EatNowScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="eat-now-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>WELLSTRIDE PICK</Text>
+          <Text style={styles.eyebrow}>{t.eatNowEyebrow.toUpperCase()}</Text>
           <Text style={styles.headerTitle}>{t.eatNow}</Text>
         </View>
         <Pressable testID="eat-now-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
@@ -66,7 +66,7 @@ export default function EatNowScreen() {
       {!data && !error ? (
         <View style={styles.center}>
           <ActivityIndicator color={colors.brandPrimary} />
-          <Text style={styles.mutedText}>Analyzing your day so far…</Text>
+          <Text style={styles.mutedText}>{t.analyzingDay}</Text>
         </View>
       ) : error ? (
         <View style={[styles.center, { padding: 24 }]}>
@@ -80,13 +80,13 @@ export default function EatNowScreen() {
           <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
             <View style={styles.readinessCard} testID="eat-now-remaining">
               <View style={styles.flex}>
-                <Text style={styles.cardEyebrowOnDark}>ENERGY BALANCE</Text>
+                <Text style={styles.cardEyebrowOnDark}>{t.energyBalance.toUpperCase()}</Text>
                 <Text style={styles.readinessValue}>{data.remaining_calories}</Text>
                 <Text style={styles.cardCaption}>{t.remaining}</Text>
               </View>
               <View style={styles.readinessRing}>
                 <Text style={styles.ringText}>{data.consumed_calories}</Text>
-                <Text style={styles.ringCaption}>of {data.target_calories} kcal</Text>
+                <Text style={styles.ringCaption}>{t.ofTarget.replace("{n}", String(data.target_calories))}</Text>
               </View>
             </View>
             <Text style={styles.modalMeal} testID="eat-now-meal-name">
@@ -95,13 +95,13 @@ export default function EatNowScreen() {
             <Text style={styles.reasonText}>{data.reasoning}</Text>
             <View style={styles.macroRow}>
               <Text style={styles.macro}>{data.suggestion.calories} kcal</Text>
-              <Text style={styles.macro}>{data.suggestion.protein_g}g protein</Text>
-              <Text style={styles.macro}>{data.suggestion.carbs_g}g carbs</Text>
-              <Text style={styles.macro}>{data.suggestion.fat_g}g fat</Text>
+              <Text style={styles.macro}>{data.suggestion.protein_g}g {t.proteinWord}</Text>
+              <Text style={styles.macro}>{data.suggestion.carbs_g}g {t.carbsWord}</Text>
+              <Text style={styles.macro}>{data.suggestion.fat_g}g {t.fatWord}</Text>
               <Text style={styles.macro}>{data.suggestion.portion}</Text>
             </View>
             <View style={styles.reasonCard}>
-              <Text style={styles.cardEyebrow}>SAFETY</Text>
+              <Text style={styles.cardEyebrow}>{t.safety.toUpperCase()}</Text>
               <Text style={styles.reasonText}>{data.disclaimer}</Text>
             </View>
           </ScrollView>

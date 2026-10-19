@@ -70,7 +70,7 @@ export default function ProgressScreen() {
       <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionSub}>{t.progressSub}</Text>
         <View style={styles.chartCard} testID="weight-chart">
-          <Text style={styles.cardEyebrow}>WEIGHT TREND</Text>
+          <Text style={styles.cardEyebrow}>{t.weightTrend.toUpperCase()}</Text>
           <View style={styles.chart}>
             {(weights.length ? weights.slice(-7) : [{ weight_kg: 0, date: "empty" }]).map((item, index) => (
               <View key={`${item.date || index}`} style={styles.chartCol}>
@@ -79,10 +79,10 @@ export default function ProgressScreen() {
               </View>
             ))}
           </View>
-          <Text style={styles.mutedText}>Log a few days to see a personal trend emerge.</Text>
+          <Text style={styles.mutedText}>{t.trendHint}</Text>
         </View>
         <View style={styles.inlineForm}>
-          <TextInput testID="weight-input" value={weight} onChangeText={setWeight} placeholder="e.g. 68.5" placeholderTextColor={styles.placeholder.color as string} keyboardType="numeric" style={styles.inlineInput} />
+          <TextInput testID="weight-input" value={weight} onChangeText={setWeight} placeholder={t.weightPlaceholder} placeholderTextColor={styles.placeholder.color as string} keyboardType="numeric" style={styles.inlineInput} />
           <Button testID="log-weight-button" label={busy ? "..." : t.log} onPress={save} disabled={busy || !weight} />
         </View>
         {entries.length ? (
@@ -103,7 +103,7 @@ export default function ProgressScreen() {
         ) : null}
         <View style={styles.reasonCard}>
           <Text style={styles.cardEyebrow}>{t.review.toUpperCase()}</Text>
-          <Text style={styles.reasonText}>{progress?.review || "Your weekly review will appear after you log a few meals and movement sessions."}</Text>
+          <Text style={styles.reasonText}>{progress?.review || t.reviewEmpty}</Text>
         </View>
         <Text style={styles.disclaimer}>{t.disclaimer}</Text>
       </ScrollView>

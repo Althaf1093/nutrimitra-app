@@ -1,6 +1,8 @@
 import { SymbolView } from "expo-symbols";
 import { ColorValue, Pressable, Text, TextInput, View } from "react-native";
 
+import { useAuth } from "@/src/context/auth";
+import { mealTypeLabel } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Meal } from "@/src/types";
@@ -29,7 +31,8 @@ export function Button({ label, onPress, secondary = false, disabled = false, te
   );
 }
 
-export function Chip({ label, selected, onPress }: { label: string; selected: boolean; onPress: () => void }) {
+// `label` identifies the chip (and its testID); `text` is what is shown when it should differ, e.g. a translation.
+export function Chip({ label, text, selected, onPress }: { label: string; text?: string; selected: boolean; onPress: () => void }) {
   const styles = useStyles();
   return (
     <Pressable
@@ -39,7 +42,7 @@ export function Chip({ label, selected, onPress }: { label: string; selected: bo
       onPress={onPress}
       style={({ pressed }) => [styles.chip, selected && styles.chipSelected, pressed && styles.pressed]}
     >
-      <Text style={selected ? styles.chipSelectedText : styles.chipText}>{label}</Text>
+      <Text style={selected ? styles.chipSelectedText : styles.chipText}>{text ?? label}</Text>
     </Pressable>
   );
 }
@@ -67,6 +70,7 @@ export function Field({ label, value, onChangeText, placeholder, secureTextEntry
 
 export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
   const styles = useStyles();
+  const { t } = useAuth();
   const { colors } = useTheme();
   return (
     <View style={styles.mealCard} testID={`meal-card-${meal.type}`}>
@@ -74,18 +78,18 @@ export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
         <AppIcon name={meal.type === "breakfast" ? "sunrise.fill" : meal.type === "dinner" ? "moon.stars.fill" : "circle.grid.2x2.fill"} color={colors.brandPrimary} size={18} />
       </View>
       <View style={styles.flex}>
-        <Text style={styles.mealType}>{meal.type.toUpperCase()}</Text>
+        <Text style={styles.mealType}>{mealTypeLabel(t, meal.type).toUpperCase()}</Text>
         <Text style={styles.mealName}>{meal.name}</Text>
         <Text style={styles.mealMeta}>
-          {meal.portion} · {meal.calories} kcal · {meal.protein_g}g protein
+          {meal.portion} · {meal.calories} kcal · {meal.protein_g}g {t.proteinWord}
         </Text>
       </View>
       {meal.logged ? (
-        <View testID={`meal-logged-${meal.type}`} accessibilityLabel={`${meal.type} logged`} style={[styles.logButton, styles.logButtonDone]}>
+        <View testID={`meal-logged-${meal.type}`} accessibilityLabel={`${mealTypeLabel(t, meal.type)} ✓`} style={[styles.logButton, styles.logButtonDone]}>
           <AppIcon name="checkmark" color={colors.onBrandPrimary} size={18} />
         </View>
       ) : (
-        <Pressable testID={`log-meal-${meal.type}`} accessibilityRole="button" accessibilityLabel={`Log ${meal.type}`} onPress={onLog} style={styles.logButton}>
+        <Pressable testID={`log-meal-${meal.type}`} accessibilityRole="button" accessibilityLabel={`${t.log} ${mealTypeLabel(t, meal.type)}`} onPress={onLog} style={styles.logButton}>
           <Text style={styles.logButtonText}>+</Text>
         </Pressable>
       )}

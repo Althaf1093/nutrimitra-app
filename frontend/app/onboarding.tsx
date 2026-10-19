@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { put } from "@/src/api";
 import { Button, Chip, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { optionLabel } from "@/src/i18n";
 import { deviceTimezone } from "@/src/lib/timezone";
 import { useStyles } from "@/src/styles";
 import type { Profile } from "@/src/types";
@@ -76,7 +77,7 @@ export default function OnboardingScreen() {
       completeOnboarding(result.profile);
       router.replace("/(tabs)");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save profile");
+      setError(err instanceof Error ? err.message : t.couldNotSaveProfile);
     } finally {
       setBusy(false);
     }
@@ -104,7 +105,7 @@ export default function OnboardingScreen() {
               <Text style={styles.fieldLabel}>{t.sex}</Text>
               <View style={styles.chipWrap}>
                 {["Female", "Male", "Prefer not to say"].map((item) => (
-                  <Chip key={item} label={item} selected={draft.sex === item} onPress={() => set("sex", item)} />
+                  <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.sex === item} onPress={() => set("sex", item)} />
                 ))}
               </View>
             </View>
@@ -123,37 +124,37 @@ export default function OnboardingScreen() {
             <Text style={styles.fieldLabel}>{t.goal}</Text>
             <View style={styles.chipWrap}>
               {goals.map((item) => (
-                <Chip key={item} label={item} selected={draft.wellness_goal === item} onPress={() => set("wellness_goal", item)} />
+                <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.wellness_goal === item} onPress={() => set("wellness_goal", item)} />
               ))}
             </View>
             <Text style={styles.fieldLabel}>{t.diet}</Text>
             <View style={styles.chipWrap}>
               {diets.map((item) => (
-                <Chip key={item} label={item} selected={(draft.dietary_preferences as string[]).includes(item)} onPress={() => toggle("dietary_preferences", item)} />
+                <Chip key={item} label={item} text={optionLabel(t, item)} selected={(draft.dietary_preferences as string[]).includes(item)} onPress={() => toggle("dietary_preferences", item)} />
               ))}
             </View>
-            <Field label={t.conditions} value={(draft.conditions as string[]).join(", ")} onChangeText={(v) => set("conditions", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder="e.g. PCOS, diabetes" />
-            <Field label={t.allergies} value={(draft.allergies as string[]).join(", ")} onChangeText={(v) => set("allergies", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder="e.g. peanuts" />
-            <Field label={t.dislikes} value={(draft.disliked_foods as string[]).join(", ")} onChangeText={(v) => set("disliked_foods", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder="e.g. bitter gourd" />
+            <Field label={t.conditions} value={(draft.conditions as string[]).join(", ")} onChangeText={(v) => set("conditions", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder={t.placeholderConditions} />
+            <Field label={t.allergies} value={(draft.allergies as string[]).join(", ")} onChangeText={(v) => set("allergies", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder={t.placeholderAllergies} />
+            <Field label={t.dislikes} value={(draft.disliked_foods as string[]).join(", ")} onChangeText={(v) => set("disliked_foods", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder={t.placeholderDislikes} />
           </View>
         ) : (
           <View style={styles.formStack}>
             <Text style={styles.fieldLabel}>{t.activity}</Text>
             <View style={styles.chipWrap}>
               {activityLevels.map((item) => (
-                <Chip key={item} label={item} selected={draft.activity_level === item} onPress={() => set("activity_level", item)} />
+                <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.activity_level === item} onPress={() => set("activity_level", item)} />
               ))}
             </View>
             <Text style={styles.fieldLabel}>{t.cooking}</Text>
             <View style={styles.chipWrap}>
               {["Under 15 min", "20–30 min", "I enjoy cooking"].map((item) => (
-                <Chip key={item} label={item} selected={draft.cooking_time === item} onPress={() => set("cooking_time", item)} />
+                <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.cooking_time === item} onPress={() => set("cooking_time", item)} />
               ))}
             </View>
             <Text style={styles.fieldLabel}>{t.budget}</Text>
             <View style={styles.chipWrap}>
               {["Budget-friendly", "Balanced", "Flexible"].map((item) => (
-                <Chip key={item} label={item} selected={draft.food_budget === item} onPress={() => set("food_budget", item)} />
+                <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.food_budget === item} onPress={() => set("food_budget", item)} />
               ))}
             </View>
             <Text style={styles.fieldLabel}>{t.language}</Text>
@@ -165,8 +166,8 @@ export default function OnboardingScreen() {
         )}
         {error ? <Text style={styles.errorText} testID="onboarding-error">{error}</Text> : null}
         <View style={styles.stickyActions}>
-          {step > 0 ? <Button label="Back" onPress={() => setStep(step - 1)} secondary /> : null}
-          <Button testID="onboarding-next-button" label={busy ? "Saving..." : step === 2 ? t.finish : t.continueNext} onPress={step === 2 ? finish : next} disabled={busy} />
+          {step > 0 ? <Button label={t.back} onPress={() => setStep(step - 1)} secondary /> : null}
+          <Button testID="onboarding-next-button" label={busy ? t.saving : step === 2 ? t.finish : t.continueNext} onPress={step === 2 ? finish : next} disabled={busy} />
         </View>
       </KeyboardAwareScrollView>
     </View>

@@ -12,6 +12,7 @@ import { useAuth } from "@/src/context/auth";
 import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/health";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
+import { mealTypeLabel } from "@/src/i18n";
 import type { Dashboard, Meal, Plan } from "@/src/types";
 
 const DURATIONS = [10, 20, 30, 45];
@@ -33,6 +34,7 @@ export default function TodayScreen() {
   const [duration, setDuration] = useState(20);
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  const couldNotLoad = t.couldNotLoad;
   const load = useCallback(async () => {
     try {
       setError("");
@@ -45,9 +47,9 @@ export default function TodayScreen() {
       setPlan(nextPlan);
       setHealth(nextHealth);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not load your wellness data");
+      setError(err instanceof Error ? err.message : couldNotLoad);
     }
-  }, []);
+  }, [couldNotLoad]);
 
   useFocusEffect(
     useCallback(() => {
@@ -67,7 +69,7 @@ export default function TodayScreen() {
       setMessage(t.addMeal);
       load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Could not log meal");
+      setMessage(err instanceof Error ? err.message : t.couldNotLogMeal);
     }
   };
 
@@ -78,7 +80,7 @@ export default function TodayScreen() {
       setMessage(t.removed);
       await load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Could not remove entry");
+      setMessage(err instanceof Error ? err.message : t.couldNotRemove);
     } finally {
       setBusy(false);
     }
@@ -92,7 +94,7 @@ export default function TodayScreen() {
       setMessage(t.mealUpdated);
       await load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Could not update meal");
+      setMessage(err instanceof Error ? err.message : t.couldNotUpdateMeal);
     } finally {
       setBusy(false);
     }
@@ -106,7 +108,7 @@ export default function TodayScreen() {
       setMessage(t.addActivity);
       load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Could not log activity");
+      setMessage(err instanceof Error ? err.message : t.couldNotLogActivity);
     } finally {
       setBusy(false);
     }
@@ -130,7 +132,7 @@ export default function TodayScreen() {
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>
-            {t.hello.toUpperCase()}, {(user?.name || "Friend").split(" ")[0].toUpperCase()}
+            {t.hello.toUpperCase()}, {(user?.name || t.friend).split(" ")[0].toUpperCase()}
           </Text>
           <Text style={styles.headerTitle}>{t.today}</Text>
         </View>
@@ -141,13 +143,13 @@ export default function TodayScreen() {
       {!dashboard && !error ? (
         <View style={styles.center}>
           <ActivityIndicator color={colors.brandPrimary} />
-          <Text style={styles.mutedText}>Loading today’s wellness insights…</Text>
+          <Text style={styles.mutedText}>{t.loadingToday}</Text>
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={colors.brandPrimary} />}>
           {error ? (
             <View style={styles.reasonCard} testID="today-error">
-              <Text style={styles.cardEyebrow}>CONNECTION</Text>
+              <Text style={styles.cardEyebrow}>{t.connection.toUpperCase()}</Text>
               <Text style={styles.reasonText}>{error}</Text>
             </View>
           ) : null}
@@ -165,7 +167,7 @@ export default function TodayScreen() {
           <View style={styles.sectionHeader}>
             <View style={styles.flex}>
               <Text style={styles.sectionTitleSmall}>{t.meals}</Text>
-              <Text style={styles.mutedText}>{todayPlan?.focus || "Protein + fibre balance"}</Text>
+              <Text style={styles.mutedText}>{todayPlan?.focus || t.defaultFocus}</Text>
             </View>
             <Pressable testID="log-food-photo-button" accessibilityRole="button" onPress={() => router.push("/log-food")}>
               <Text style={styles.linkText}>{t.photo}</Text>
@@ -178,7 +180,7 @@ export default function TodayScreen() {
             <View style={styles.reasonCard} testID="logged-meals">
               <Text style={styles.cardEyebrow}>{t.loggedToday.toUpperCase()}</Text>
               <Text style={styles.reasonText}>
-                {dashboard?.meals?.length} meal(s) · {dashboard?.calories || 0} kcal so far
+                {dashboard?.meals?.length} {t.mealsWord} · {dashboard?.calories || 0} kcal {t.soFar}
               </Text>
               {dashboard?.meals?.map((item) =>
                 editingId === item.id ? (
@@ -188,7 +190,7 @@ export default function TodayScreen() {
                     <View style={styles.flex}>
                       <Text style={styles.mealName}>{item.name}</Text>
                       <Text style={styles.mealMeta}>
-                        {item.meal_type} · {item.calories} kcal · {item.protein_g}g protein
+                        {mealTypeLabel(t, item.meal_type)} · {item.calories} kcal · {item.protein_g}g {t.proteinWord}
                       </Text>
                     </View>
                     <View style={styles.rowActions}>
@@ -208,18 +210,18 @@ export default function TodayScreen() {
             <View style={styles.flex}>
               <Text style={styles.sectionTitleSmall}>{t.movement}</Text>
               <Text style={styles.mutedText}>
-                {dashboard?.active_calories || 0} active kcal · {t.estimate.toLowerCase()}s labelled
+                {dashboard?.active_calories || 0} {t.activeKcalNote}
               </Text>
             </View>
           </View>
           <View style={styles.activityHero}>
             <View style={styles.bigRing}>
               <Text style={styles.bigRingValue}>{dashboard?.activities?.length ? "On" : "0"}</Text>
-              <Text style={styles.bigRingCaption}>{dashboard?.activities?.length ? "moving" : "sessions"}</Text>
+              <Text style={styles.bigRingCaption}>{dashboard?.activities?.length ? t.ringMoving : t.ringSessions}</Text>
             </View>
             <View style={styles.flex}>
               <Text style={styles.mealName}>{t.startWalk}</Text>
-              <Text style={styles.reasonText}>Pick a duration, then log it. Calories are estimated from the time and your weight. Listen to your body.</Text>
+              <Text style={styles.reasonText}>{t.activityHint}</Text>
             </View>
           </View>
           <View style={styles.durationRow} testID="activity-duration">
@@ -231,14 +233,14 @@ export default function TodayScreen() {
             <View style={styles.half}>
               <Pressable testID="log-walk-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Walking", duration)} style={({ pressed }) => [styles.button, pressed && styles.pressed, busy && styles.disabled]}>
                 <Text style={styles.buttonText}>
-                  Walk · {duration} {t.minutes}
+                  {t.walkWord} · {duration} {t.minutes}
                 </Text>
               </Pressable>
             </View>
             <View style={styles.half}>
               <Pressable testID="log-strength-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Home strength", duration)} style={({ pressed }) => [styles.button, styles.buttonSecondary, pressed && styles.pressed, busy && styles.disabled]}>
                 <Text style={styles.buttonSecondaryText}>
-                  Strength · {duration} {t.minutes}
+                  {t.strengthWord} · {duration} {t.minutes}
                 </Text>
               </Pressable>
             </View>
@@ -280,7 +282,7 @@ export default function TodayScreen() {
           {!deviceReady && health?.connected ? <Text style={styles.mutedText}>{t.syncUnavailable}</Text> : null}
           <View style={styles.reasonCard}>
             <Text style={styles.cardEyebrow}>{t.nutrition.toUpperCase()}</Text>
-            <Text style={styles.reasonText}>{plan?.reasoning || "Your plate is built around familiar flavours, satisfying protein and fibre-rich ingredients for steadier energy—without removing joy from food."}</Text>
+            <Text style={styles.reasonText}>{plan?.reasoning || t.planReasoningFallback}</Text>
           </View>
           <Text style={styles.disclaimer}>{t.disclaimer}</Text>
         </ScrollView>
