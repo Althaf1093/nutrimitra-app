@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, post } from "@/src/api";
+import { api, isAiBusy, post } from "@/src/api";
 import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
@@ -27,8 +27,8 @@ export default function PlanScreen() {
       setPlan(next);
       setDay(next.today_index ?? 0);
       setMessage(t.planRefreshed);
-    } catch {
-      setMessage("Could not refresh plan");
+    } catch (err) {
+      setMessage(isAiBusy(err) ? t.aiBusy : err instanceof Error ? err.message : "Could not refresh plan");
     } finally {
       setRefreshing(false);
     }
@@ -78,6 +78,11 @@ export default function PlanScreen() {
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionSub}>{plan?.goal || "Your adaptable 7-day rhythm"}</Text>
+        {plan?.ai_status ? (
+          <View style={styles.reasonCard} testID="plan-ai-busy">
+            <Text style={styles.reasonText}>{plan.ai_status === "ai_busy" ? t.aiBusyPlan : t.aiUnavailable}</Text>
+          </View>
+        ) : null}
         {selected ? (
           <>
             <View style={styles.planIntro}>

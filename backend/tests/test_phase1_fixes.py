@@ -5,9 +5,17 @@ same MongoDB (test_database). Each module run creates a fresh, isolated user so
 results do not depend on what other suites logged for the shared preview user.
 Pure helpers are unit-tested by importing server directly.
 """
+import json
 import os
+import socket
+import subprocess
+import sys
+import threading
+import time
 import uuid
 from datetime import datetime, timedelta, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
 import pytest
 import requests
@@ -288,3 +296,116 @@ class TestFallbackCalories:
             energy = 4 * meal["protein_g"] + 4 * meal["carbs_g"] + 9 * meal["fat_g"]
             assert abs(energy - meal["calories"]) / meal["calories"] < 0.05, meal
             assert 0 < meal["calories"] <= 1500
+
+
+class FakeGroq(BaseHTTPRequestHandler):
+    """Stand-in for the Groq API. mode "busy": always 429; "flaky": one 429, then a normal answer."""
+
+    state = {"mode": "busy", "hits": 0}
+
+    def do_POST(self):
+        self.rfile.read(int(self.headers.get("Content-Length", 0)))
+        FakeGroq.state["hits"] += 1
+        if FakeGroq.state["mode"] == "busy" or FakeGroq.state["hits"] == 1:
+            body, code = b'{"error": {"message": "Rate limit reached"}}', 429
+        else:
+            body, code = json.dumps({"choices": [{"message": {"content": "Fake coach answer"}}]}).encode(), 200
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Retry-After", "0")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *args):
+        pass
+
+
+def free_port():
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        return sock.getsockname()[1]
+
+
+@pytest.fixture(scope="module")
+def busy_backend():
+    """A second backend on the same database whose AI provider is the fake above."""
+    fake = ThreadingHTTPServer(("127.0.0.1", 0), FakeGroq)
+    threading.Thread(target=fake.serve_forever, daemon=True).start()
+    port = free_port()
+    env = {**os.environ, "GROQ_API_KEY": "fake-key", "GROQ_BASE_URL": f"http://127.0.0.1:{fake.server_address[1]}"}
+    proc = subprocess.Popen([sys.executable, "-m", "uvicorn", "server:app", "--host", "127.0.0.1", "--port", str(port)], cwd=Path(server.__file__).parent, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    url = f"http://127.0.0.1:{port}"
+    try:
+        for _ in range(60):
+            try:
+                if requests.get(f"{url}/api/", timeout=1).status_code == 200:
+                    break
+            except requests.RequestException:
+                time.sleep(0.5)
+        else:
+            pytest.fail("busy backend did not start")
+        yield url
+    finally:
+        proc.terminate()
+        proc.wait(timeout=20)
+        fake.shutdown()
+
+
+class TestAIBusy:
+    """Fix 6: Groq 429s are retried with backoff (max 2 retries), then surface as a structured
+    "ai_busy" error instead of a silent canned reply or a silently swapped plan."""
+
+    def test_retry_delay_backs_off_and_caps(self):
+        response = server.httpx.Response(429)
+        assert server.retry_delay(response, 0) == 1.0
+        assert server.retry_delay(response, 1) == 2.0
+        assert server.retry_delay(server.httpx.Response(429, headers={"Retry-After": "5"}), 0) == 5.0
+        assert server.retry_delay(server.httpx.Response(429, headers={"Retry-After": "600"}), 0) == 10.0
+
+    def test_coach_returns_ai_busy_after_two_retries(self, busy_backend, fresh, mongo):
+        FakeGroq.state.update(mode="busy", hits=0)
+        resp = fresh.post(f"{busy_backend}/api/coach", json={"message": "Breakfast idea?", "language": "en"}, timeout=60)
+        assert resp.status_code == 503, resp.text
+        assert resp.json()["detail"]["code"] == "ai_busy"
+        assert "try again" in resp.json()["detail"]["message"].lower()
+        assert resp.headers.get("retry-after") == "60"
+        assert FakeGroq.state["hits"] == 3, "expected the first attempt plus exactly 2 retries"
+        assert mongo.coach_messages.count_documents({"user_id": fresh.user_id}) == 0, "a failed exchange must not be stored"
+
+    def test_coach_recovers_when_a_retry_succeeds(self, busy_backend, fresh, mongo):
+        FakeGroq.state.update(mode="flaky", hits=0)
+        resp = fresh.post(f"{busy_backend}/api/coach", json={"message": "Breakfast idea?", "language": "en"}, timeout=60)
+        assert resp.status_code == 200, resp.text
+        assert resp.json()["reply"] == "Fake coach answer"
+        assert FakeGroq.state["hits"] == 2
+        mongo.coach_messages.delete_many({"user_id": fresh.user_id})
+
+    def test_regenerate_returns_ai_busy_and_keeps_existing_plan(self, busy_backend, fresh, mongo):
+        mongo.plans.delete_many({"user_id": fresh.user_id})
+        mongo.plans.insert_one(marked_plan(fresh.user_id, started_days_ago=1))
+        FakeGroq.state.update(mode="busy", hits=0)
+        resp = fresh.post(f"{busy_backend}/api/plan/regenerate", json={}, timeout=60)
+        assert resp.status_code == 503, resp.text
+        assert resp.json()["detail"]["code"] == "ai_busy"
+        assert mongo.plans.count_documents({"user_id": fresh.user_id}) == 1
+        assert fresh.get(f"{busy_backend}/api/plan", timeout=30).json()["days"][0]["meals"][0]["name"] == "D1 breakfast"
+
+    def test_first_plan_while_busy_is_flagged_and_not_saved(self, busy_backend, fresh, mongo):
+        mongo.plans.delete_many({"user_id": fresh.user_id})
+        FakeGroq.state.update(mode="busy", hits=0)
+        resp = fresh.get(f"{busy_backend}/api/plan", timeout=60)
+        assert resp.status_code == 200, resp.text
+        body = resp.json()
+        assert body["ai_status"] == "ai_busy" and body["ai_message"]
+        assert len(body["days"]) == 7 and body["today_index"] == 0
+        assert mongo.plans.count_documents({"user_id": fresh.user_id}) == 0, "a busy fallback must not stick for a week"
+
+    def test_stale_plan_while_busy_is_kept(self, busy_backend, fresh, mongo):
+        mongo.plans.delete_many({"user_id": fresh.user_id})
+        mongo.plans.insert_one(marked_plan(fresh.user_id, started_days_ago=9))
+        FakeGroq.state.update(mode="busy", hits=0)
+        body = fresh.get(f"{busy_backend}/api/plan", timeout=60).json()
+        assert body["ai_status"] == "ai_busy"
+        assert body["today_index"] == 2 and body["days"][2]["meals"][0]["name"] == "D3 breakfast"
+        mongo.plans.delete_many({"user_id": fresh.user_id})

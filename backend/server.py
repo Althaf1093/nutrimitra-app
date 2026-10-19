@@ -1,3 +1,4 @@
+import asyncio
 from datetime import date, datetime, timedelta, timezone
 import json
 import logging
@@ -29,6 +30,7 @@ JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 72
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
 DEFAULT_TIMEZONE = "Asia/Kolkata"
 
 client = AsyncIOMotorClient(MONGO_URL)
@@ -327,19 +329,67 @@ def local_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
     return {"goal": profile.get("wellness_goal", "Healthier living"), "days": days, "generated_by": "NutriMitra nutrition engine", "updated_at": now_iso()}
 
 
+AI_BUSY_MESSAGE = "The AI is busy right now. Please try again in a minute."
+AI_UNAVAILABLE_MESSAGE = "The AI is unavailable right now. Please try again later."
+AI_RETRY_DELAYS = (1.0, 2.0)  # exponential backoff: at most 2 retries after the first attempt
+AI_RETRY_STATUSES = {429, 503}  # rate limited / over capacity
+
+
+class AIUnavailable(Exception):
+    """The AI provider could not answer. code is "ai_busy" (rate limited) or "ai_unavailable"."""
+
+    def __init__(self, code: str, message: str):
+        super().__init__(message)
+        self.code = code
+        self.message = message
+
+
+def ai_error(exc: AIUnavailable) -> HTTPException:
+    """Structured error the app turns into a friendly message instead of a canned reply."""
+    return HTTPException(status_code=503, detail={"code": exc.code, "message": exc.message}, headers={"Retry-After": "60"})
+
+
+def retry_delay(response: httpx.Response, attempt: int) -> float:
+    """Backoff for this attempt, honouring a short Retry-After from the provider."""
+    try:
+        suggested = float(response.headers.get("retry-after", ""))
+    except ValueError:
+        suggested = 0.0
+    return min(max(AI_RETRY_DELAYS[attempt], suggested), 10.0)
+
+
 async def groq_chat(messages: List[Dict[str, str]], user_id: str, max_tokens: int = 1200) -> str:
-    """Single swappable Groq chat call used by every AI surface."""
+    """Single swappable Groq chat call used by every AI surface.
+
+    Returns "" only when no API key is configured. Rate limits are retried with backoff;
+    if the provider still cannot answer, raises AIUnavailable."""
     if not GROQ_API_KEY:
         return ""
     body = {"model": GROQ_MODEL, "temperature": 0.4, "max_tokens": max_tokens, "messages": messages}
-    try:
-        async with httpx.AsyncClient(timeout=35) as http:
-            response = await http.post("https://api.groq.com/openai/v1/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"]
-    except Exception as exc:
-        logger.warning("Groq request failed for %s: %s", user_id, exc)
-        return ""
+    for attempt in range(len(AI_RETRY_DELAYS) + 1):
+        try:
+            async with httpx.AsyncClient(timeout=35) as http:
+                response = await http.post(f"{GROQ_BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
+        except httpx.HTTPError as exc:
+            logger.warning("Groq request failed for %s: %s", user_id, exc)
+            raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE) from exc
+        if response.status_code in AI_RETRY_STATUSES:
+            if attempt < len(AI_RETRY_DELAYS):
+                delay = retry_delay(response, attempt)
+                logger.info("Groq returned %s for %s; retrying in %.1fs", response.status_code, user_id, delay)
+                await asyncio.sleep(delay)
+                continue
+            logger.warning("Groq still returning %s for %s after %d retries", response.status_code, user_id, len(AI_RETRY_DELAYS))
+            raise AIUnavailable("ai_busy", AI_BUSY_MESSAGE)
+        if response.status_code >= 400:
+            logger.warning("Groq request failed for %s: HTTP %s", user_id, response.status_code)
+            raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE)
+        try:
+            return response.json()["choices"][0]["message"]["content"] or ""
+        except (ValueError, KeyError, IndexError, TypeError) as exc:
+            logger.warning("Groq returned an unreadable response for %s: %s", user_id, exc)
+            raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE) from exc
+    raise AIUnavailable("ai_busy", AI_BUSY_MESSAGE)
 
 
 async def groq_text(system: str, prompt: str, user_id: str) -> str:
@@ -426,11 +476,16 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
         "activity_sessions_last_7_days": len(activities),
         "recent_weights_kg": [item.get("weight_kg") for item in weights[:7]],
     }
-    ai_text = await groq_chat(
-        [{"role": "system", "content": PLAN_SYSTEM}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
-        user_id,
-        max_tokens=9000,
-    )
+    try:
+        ai_text = await groq_chat(
+            [{"role": "system", "content": PLAN_SYSTEM}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
+            user_id,
+            max_tokens=9000,
+        )
+    except AIUnavailable as exc:
+        if exc.code == "ai_busy":
+            raise
+        ai_text = ""
     if ai_text:
         match = re.search(r"\{.*\}", ai_text, re.DOTALL)
         if match:
@@ -504,7 +559,12 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
         if age_days < 7:
             return with_today_index(existing, zone, await todays_meals(user["id"], zone))
     # Missing or week-old plan → adaptive regeneration from recent logs
-    plan = await build_adaptive_plan(user["id"], profile)
+    try:
+        plan = await build_adaptive_plan(user["id"], profile)
+    except AIUnavailable as exc:
+        # Rate limited: keep showing the old plan (or an unsaved fallback) and say so; the next visit retries.
+        shown = existing or {**local_plan(profile), "reasoning": "A balanced starter plan while the AI is busy."}
+        return {**with_today_index(shown, zone, await todays_meals(user["id"], zone)), "ai_status": exc.code, "ai_message": exc.message}
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
     zone = user_zone(profile)
@@ -516,7 +576,10 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
     if not profile:
         raise HTTPException(status_code=409, detail="Complete your wellness profile first")
-    plan = await build_adaptive_plan(user["id"], profile)
+    try:
+        plan = await build_adaptive_plan(user["id"], profile)
+    except AIUnavailable as exc:
+        raise ai_error(exc) from exc
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
     zone = user_zone(profile)
@@ -643,8 +706,14 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
     for item in history[-12:]:
         messages.append({"role": "user" if item.get("role") == "user" else "assistant", "content": str(item.get("text", ""))[:600]})
     messages.append({"role": "user", "content": payload.message})
-    response = await groq_chat(messages, user["id"])
-    reply = response or "I’m here with you. Try a balanced plate: half colourful vegetables, a quarter protein, and a quarter whole-grain carbohydrate. Tell me what ingredients you have and I’ll make it practical."
+    try:
+        response = await groq_chat(messages, user["id"])
+    except AIUnavailable as exc:
+        raise ai_error(exc) from exc
+    if not response:
+        # No provider configured (or an empty answer): say so rather than inventing a canned reply.
+        raise ai_error(AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE))
+    reply = response
     recipe: Optional[Dict[str, Any]] = None
     match = RECIPE_BLOCK.search(reply)
     if match:
@@ -668,7 +737,7 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
             {"id": str(uuid.uuid4()), "user_id": user["id"], "role": "user", "text": payload.message, "created_at": now_iso()},
             {"id": str(uuid.uuid4()), "user_id": user["id"], "role": "coach", "text": reply, "recipe": recipe, "created_at": now_iso()},
         ])
-    return {"reply": reply, "recipe": recipe, "memory": memory, "source": "groq" if response else "nutrition guidance"}
+    return {"reply": reply, "recipe": recipe, "memory": memory, "source": "groq"}
 
 
 @api_router.get("/ingredients")
@@ -743,7 +812,7 @@ async def pick_vision_model() -> str:
         return ""
     try:
         async with httpx.AsyncClient(timeout=15) as http:
-            response = await http.get("https://api.groq.com/openai/v1/models", headers={"Authorization": f"Bearer {GROQ_API_KEY}"})
+            response = await http.get(f"{GROQ_BASE_URL}/models", headers={"Authorization": f"Bearer {GROQ_API_KEY}"})
             response.raise_for_status()
             ids = [str(model.get("id", "")) for model in response.json().get("data", [])]
     except Exception as exc:
@@ -769,7 +838,7 @@ async def groq_vision(image_base64: str, user_id: str) -> tuple:
     }
     try:
         async with httpx.AsyncClient(timeout=45) as http:
-            response = await http.post("https://api.groq.com/openai/v1/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
+            response = await http.post(f"{GROQ_BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
             response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"], model
     except Exception as exc:

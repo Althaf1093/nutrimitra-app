@@ -4,7 +4,7 @@ import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, post } from "@/src/api";
+import { api, isAiBusy, post } from "@/src/api";
 import { AppIcon, Button, Chip } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { Copy } from "@/src/i18n";
@@ -105,8 +105,9 @@ export default function CoachScreen() {
     try {
       const result = await post<{ reply: string; recipe?: Recipe | null }>("/coach", { message: text, language: lang });
       setMessages((items) => [...items, { role: "coach", text: result.reply, recipe: result.recipe }]);
-    } catch {
-      setMessages((items) => [...items, { role: "coach", text: "I’m having trouble connecting. You can still lean on the plate guide: vegetables, protein, whole grains and water." }]);
+    } catch (err) {
+      // Not a coach reply: shown as a notice so it is never mistaken for (or stored as) advice.
+      setNotice(isAiBusy(err) ? t.aiBusy : t.aiUnavailable);
     } finally {
       setBusy(false);
     }
@@ -150,7 +151,7 @@ export default function CoachScreen() {
           </View>
         </ScrollView>
         {notice ? (
-          <Text style={styles.successText} testID="coach-notice">
+          <Text style={notice === t.aiBusy || notice === t.aiUnavailable ? styles.errorText : styles.successText} testID="coach-notice">
             {notice}
           </Text>
         ) : null}
