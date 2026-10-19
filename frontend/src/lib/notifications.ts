@@ -1,8 +1,13 @@
 import { Platform } from "react-native";
-import * as Notifications from "expo-notifications";
+import type * as NotificationsModule from "expo-notifications";
 
 import type { Lang } from "@/src/i18n";
 import type { ReminderPrefs } from "@/src/types";
+
+// Reminders are native-only, and merely importing expo-notifications logs "Listening to push token changes is not yet
+// fully supported on web" in the browser, so the package is loaded on devices only.
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const Notifications: typeof NotificationsModule = Platform.OS === "web" ? (undefined as never) : require("expo-notifications");
 
 if (Platform.OS !== "web") {
   Notifications.setNotificationHandler({
@@ -30,7 +35,7 @@ export async function ensureReminderPermissions(): Promise<PermissionResult> {
     });
   }
   const current = await Notifications.getPermissionsAsync();
-  const iosOk = (status: Notifications.NotificationPermissionsStatus) =>
+  const iosOk = (status: NotificationsModule.NotificationPermissionsStatus) =>
     Platform.OS !== "ios" ||
     status.ios?.status === Notifications.IosAuthorizationStatus.AUTHORIZED ||
     status.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL;

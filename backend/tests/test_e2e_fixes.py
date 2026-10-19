@@ -20,3 +20,22 @@ class TestNoRequestWithoutAToken:
         assert boot.index("await getToken()") < boot.index("await applySession()")
         assert 'setStatus("anon")' in boot[: boot.index("await applySession()")]
         assert "getToken" in auth[: auth.index("export function AuthProvider")], "imported from the api module"
+
+
+class TestNoNotificationsWarningOnWeb:
+    """expo-notifications logs a warning in the browser just from being imported."""
+
+    def test_the_package_is_only_loaded_on_devices(self):
+        text = read("src", "lib", "notifications.ts")
+        assert 'import * as Notifications from "expo-notifications"' not in text
+        assert 'import type * as NotificationsModule from "expo-notifications"' in text
+        assert 'Platform.OS === "web" ? (undefined as never) : require("expo-notifications")' in text
+
+    def test_every_runtime_use_is_behind_a_native_check(self):
+        text = read("src", "lib", "notifications.ts")
+        for name in ("applyReminders", "clearReminders", "ensureReminderPermissions"):
+            body = text[text.index(f"export async function {name}"):]
+            assert 'Platform.OS === "web"' in body[:200], name
+        assert 'if (Platform.OS !== "web") {\n  Notifications.setNotificationHandler' in text.replace("\r\n", "\n")
+        # scheduleDaily / scheduleInterval are only called from applyReminders, which returns early on web
+        assert "scheduleDaily(" in text and text.index("export async function applyReminders") < text.rindex("scheduleDaily(")
