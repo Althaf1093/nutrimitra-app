@@ -58,3 +58,42 @@ class TestNoRequestsWithoutSignIn:
         guard = api[api.index("const token = await getToken();"):][:600]
         assert '!path.startsWith("/auth/")' in guard and "no_token" in guard
         assert guard.index("no_token") < api.index("await fetch(", api.index("const token = await getToken();"))
+
+
+class TestSettingsTogglesCannotOverwriteSavedValues:
+    """E2E flow 9: toggling analytics, then coach memory, left analytics off on the server. Settings starts with default
+    values and posted all four, so a tap before the saved values arrived (or from a stale copy) overwrote the others."""
+
+    def test_only_the_changed_key_is_sent_and_toggles_wait_for_the_saved_values(self):
+        settings = read("app", "settings.tsx")
+        update = settings[settings.index("const updatePermission"):][:420]
+        assert "if (!loaded.permissions) return;" in update
+        assert 'post("/permissions", { [key]: value })' in update
+        assert 'post("/permissions", next)' not in settings
+        assert settings.count("disabled={!loaded.permissions}") == 4 and settings.count("disabled={!loaded.reminders}") == 4
+        assert "if (!loaded.reminders) return;" in settings[settings.index("const updateReminder"):][:200]
+
+
+class TestPermissionsEndpointKeepsOtherKeys:
+    """The server side of the same bug: posting one key must leave the other saved keys alone."""
+
+    def test_posting_one_permission_does_not_change_the_others(self):
+        import os
+        import uuid
+
+        import requests
+
+        base = os.environ["EXPO_PUBLIC_BACKEND_URL"].rstrip("/")
+        user = requests.post(f"{base}/api/auth/signup", json={"email": f"perm.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20).json()
+        headers = {"Authorization": f"Bearer {user['token']}"}
+        try:
+            requests.post(f"{base}/api/permissions", json={"health_sync": True, "analytics": True}, headers=headers, timeout=20)
+            requests.post(f"{base}/api/permissions", json={"coach_memory": False}, headers=headers, timeout=20)
+            saved = requests.get(f"{base}/api/permissions", headers=headers, timeout=20).json()
+            assert saved["health_sync"] is True and saved["analytics"] is True and saved["coach_memory"] is False
+        finally:
+            from pymongo import MongoClient
+
+            db = MongoClient("mongodb://127.0.0.1:27017").test_database
+            db.permissions.delete_many({"user_id": user["user"]["id"]})
+            db.users.delete_many({"id": user["user"]["id"]})
