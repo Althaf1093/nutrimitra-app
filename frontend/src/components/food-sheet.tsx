@@ -15,9 +15,10 @@ const STEP = 0.5;
 // A compact bottom sheet to pick the serving, how many, and the meal slot, with the totals updating as you go.
 export function FoodSheet({ food, initialSlot, busy, onAdd, onClose }: { food: FoodItem | null; initialSlot: string; busy: boolean; onAdd: (food: FoodItem, choice: SheetChoice) => void; onClose: () => void }) {
   const styles = useStyles();
+  const { t } = useAuth();
   return (
     <Modal visible={food !== null} transparent animationType="slide" onRequestClose={onClose}>
-      <Pressable style={styles.sheetBackdrop} onPress={onClose} accessibilityLabel="close" testID="food-sheet-backdrop">
+      <Pressable style={styles.sheetBackdrop} onPress={onClose} accessibilityLabel={t.close} testID="food-sheet-backdrop">
         {/* A press on the sheet itself must not close it. */}
         <Pressable style={{ width: "100%", alignItems: "center" }} onPress={() => undefined} accessible={false}>
           {food ? <SheetBody key={food.id} food={food} initialSlot={initialSlot} busy={busy} onAdd={onAdd} onClose={onClose} /> : null}
