@@ -52,6 +52,7 @@ export type LoggedMeal = {
   fat_g: number;
   source: string;
   date: string;
+  portion?: string;
 };
 
 export type LoggedActivity = {
@@ -103,4 +104,23 @@ export type ReminderPrefs = {
   hydration: boolean;
   movement: boolean;
   weekly: boolean;
+};
+
+export type ServingOption = { label: string; factor: number };
+
+// A row from GET /foods/search, /foods/recent or /foods/frequent. Values are per default serving and are estimates.
+export type FoodItem = {
+  id: string;
+  name: string;
+  te: string;
+  category: string;
+  serving: string;
+  calories: number;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  servings: ServingOption[];
+  estimate: boolean;
+  recent: boolean;
+  times?: number;
 };

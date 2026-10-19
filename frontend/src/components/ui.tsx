@@ -7,10 +7,35 @@ import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Meal } from "@/src/types";
 
+// SF Symbols only draw on iOS; on the web and Android the same name falls back to a plain glyph so no icon is blank.
+const GLYPHS: Record<string, string> = {
+  xmark: "✕",
+  checkmark: "✓",
+  "chevron.right": "›",
+  "arrow.clockwise": "↻",
+  "arrow.up": "↑",
+  "camera.fill": "📷",
+  "sun.max.fill": "☀",
+  "list.bullet.clipboard": "☰",
+  "chart.line.uptrend.xyaxis": "↗",
+  "bubble.left.and.bubble.right.fill": "💬",
+  sparkles: "✦",
+  "leaf.fill": "🌿",
+  "heart.text.square.fill": "♥",
+  gearshape: "⚙",
+  "gearshape.fill": "⚙",
+  "figure.walk": "🚶",
+};
+
 export function AppIcon({ name, color, size = 22 }: { name: string; color: ColorValue; size?: number }) {
+  const glyph = (
+    <Text allowFontScaling={false} style={{ color, fontSize: Math.round(size * 0.85), lineHeight: size, width: size, textAlign: "center" }}>
+      {GLYPHS[name] ?? "•"}
+    </Text>
+  );
   return (
     <View testID={`icon-${name}`} accessibilityRole="image" style={{ width: size, height: size }}>
-      <SymbolView name={name as never} tintColor={color} size={size} />
+      <SymbolView name={name as never} tintColor={color} size={size} fallback={glyph} />
     </View>
   );
 }

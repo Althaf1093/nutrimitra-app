@@ -225,8 +225,8 @@ export default function TodayScreen() {
               <Text style={styles.sectionTitleSmall}>{t.meals}</Text>
               <Text style={styles.mutedText}>{todayPlan?.focus || t.defaultFocus}</Text>
             </View>
-            <Pressable testID="log-food-photo-button" accessibilityRole="button" onPress={() => router.push("/log-food")}>
-              <Text style={styles.linkText}>{t.photo}</Text>
+            <Pressable testID="log-food-button" accessibilityRole="button" onPress={() => router.push("/log-food")}>
+              <Text style={styles.linkText}>{t.logFood}</Text>
             </Pressable>
           </View>
           {meals.map((meal) => (

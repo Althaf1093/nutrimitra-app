@@ -225,8 +225,9 @@ test("7. coach: reply, recipe card, and the AI-busy message", async ({ app }) =>
 
 test("8. photo logging: upload, confirm form, save as a meal", async ({ app }) => {
   await app.newUserOnToday("flow8");
-  await app.id("log-food-photo-button").click();
+  await app.id("log-food-button").click();
   await expect(app.id("log-food-screen")).toBeVisible();
+  await app.id("photo-mode-button").click();
 
   const chooser = app.page.waitForEvent("filechooser");
   await app.id("choose-photo-button").click();
