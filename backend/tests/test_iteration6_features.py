@@ -172,7 +172,7 @@ class TestRegression:
         resp = authed.get(f"{BASE_URL}/api/dashboard", timeout=30)
         assert resp.status_code == 200
         data = resp.json()
-        assert "readiness" in data and "meals" in data and "activities" in data
+        assert "target_calories" in data and "activity_minutes" in data and "meals" in data and "activities" in data
 
     def test_progress(self, authed):
         resp = authed.get(f"{BASE_URL}/api/progress", timeout=30)

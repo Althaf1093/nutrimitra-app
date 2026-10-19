@@ -65,7 +65,8 @@ export type Dashboard = {
   activities: LoggedActivity[];
   calories: number;
   active_calories: number;
-  readiness: number;
+  target_calories: number;
+  activity_minutes: number;
   goal: string;
 };
 
