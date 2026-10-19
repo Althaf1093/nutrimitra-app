@@ -9,6 +9,8 @@ export type User = {
   // True until the person has agreed to the current Terms and Privacy Policy (asked once on next launch).
   needs_consent?: boolean;
   has_password?: boolean;
+  // False until the person has entered the code emailed at sign-up. They can use the app meanwhile.
+  email_verified?: boolean;
 };
 
 export type Profile = {

@@ -40,6 +40,7 @@ def fill_account(p4, p4db):
     p4db.plans.insert_one({"user_id": user_id, "days": [], "updated_at": "2026-10-19T00:00:00+00:00"})
     p4db.health_records.insert_one({"user_id": user_id, "source": "test", "external_id": "x", "start": "2026-10-19T00:00:00+00:00"})
     p4db.password_resets.insert_one({"user_id": user_id, "code_hash": "x" * 64, "attempts": 0, "expires_at": server.datetime.now(server.timezone.utc) + server.timedelta(minutes=30)})
+    p4db.email_verifications.insert_one({"user_id": user_id, "code_hash": "y" * 64, "attempts": 0, "expires_at": server.datetime.now(server.timezone.utc) + server.timedelta(minutes=60)})
     p4db.user_sessions.insert_one({"user_id": user_id, "session_token": uuid.uuid4().hex, "expires_at": server.datetime.now(server.timezone.utc) + server.timedelta(days=1)})
     return user_id, token, email
 

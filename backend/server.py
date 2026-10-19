@@ -88,6 +88,8 @@ INDEXES = [
     ("password_resets", [("user_id", ASCENDING)], {"name": "user_id"}),
     # TTL: an expired reset code disappears on its own (and is checked again when used).
     ("password_resets", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
+    ("email_verifications", [("user_id", ASCENDING)], {"name": "user_id"}),
+    ("email_verifications", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
     ("user_sessions", [("session_token", ASCENDING)], {"name": "session_token"}),
     # TTL: MongoDB removes a session once expires_at (a BSON date) has passed.
     ("user_sessions", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
@@ -96,7 +98,7 @@ INDEXES = [
 
 # Every collection that holds a person's data by user_id. Account deletion clears all of them (then the users row itself);
 # add new per-user collections here, and a test fails if one is missed.
-USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets"]
+USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets", "email_verifications"]
 
 
 async def ensure_email_index() -> bool:
@@ -337,6 +339,11 @@ def check_auth_rate_limit(request: Request, action: str, email: Optional[str]) -
         )
 
 
+def is_email_verified(doc: Dict[str, Any]) -> bool:
+    """Google vouches for its accounts' emails (they have no password); everyone else proves theirs with a code."""
+    return doc.get("email_verified") is True or not doc.get("password_hash")
+
+
 def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "id": doc.get("id", ""),
@@ -344,6 +351,7 @@ def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
         "name": doc.get("name", ""),
         "language": doc.get("language", "en"),
         "onboarding_complete": bool(doc.get("onboarding_complete", False)),
+        "email_verified": is_email_verified(doc),
         # Google-created accounts have no password; deleting one is confirmed with the word DELETE alone.
         "has_password": bool(doc.get("password_hash")),
         "consent_version": doc.get("consent_version"),
@@ -390,7 +398,7 @@ async def root():
 
 
 @api_router.post("/auth/signup", response_model=TokenResponse)
-async def signup(payload: SignupInput, request: Request):
+async def signup(payload: SignupInput, request: Request, background: BackgroundTasks):
     email = payload.email.lower()
     check_auth_rate_limit(request, "signup", email)
     require_consent(payload.accept_terms)
@@ -411,6 +419,7 @@ async def signup(payload: SignupInput, request: Request):
     except DuplicateKeyError as exc:
         # Two signups for the same email raced past the check above; the unique index caught it.
         raise HTTPException(status_code=409, detail="An account with this email already exists") from exc
+    await start_email_verification(user, background)
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
@@ -421,6 +430,66 @@ def require_consent(accepted: bool) -> None:
 
 def consent_fields() -> Dict[str, Any]:
     return {"consent_version": legal.CONSENT_VERSION, "consent_at": now_iso()}
+
+
+VERIFY_MINUTES = 60
+VERIFY_MAX_WRONG_CODES = 5
+VERIFY_INVALID = "That code is invalid or has expired. Please request a new one."
+
+
+class VerifyInput(BaseModel):
+    code: str = Field(min_length=4, max_length=20)
+
+
+async def start_email_verification(user: Dict[str, Any], background: BackgroundTasks) -> None:
+    """Replaces any earlier code with a new 6 digit one and emails it (after the response, so a slow mail server never delays it)."""
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    await db.email_verifications.delete_many({"user_id": user["id"]})
+    await db.email_verifications.insert_one({
+        "user_id": user["id"],
+        "code_hash": hash_code(code),
+        "attempts": 0,
+        "created_at": now_iso(),
+        "expires_at": datetime.now(timezone.utc) + timedelta(minutes=VERIFY_MINUTES),
+    })
+    text = "\n".join([
+        f"Your Wellstride verification code is: {code}",
+        "",
+        f"Enter it in the app to confirm your email. It expires in {VERIFY_MINUTES} minutes. If you did not create a Wellstride account, ignore this email.",
+        "",
+    ])
+    background.add_task(mailer.send_email, user["email"], "Your Wellstride verification code", text)
+
+
+@api_router.post("/auth/resend-verification")
+async def resend_verification(request: Request, background: BackgroundTasks, user: Dict[str, Any] = Depends(current_user)):
+    check_auth_rate_limit(request, "resend", user["email"])
+    if is_email_verified(user):
+        return {"ok": True, "already_verified": True}
+    await start_email_verification(user, background)
+    return {"ok": True, "already_verified": False}
+
+
+@api_router.post("/auth/verify-email")
+async def verify_email(payload: VerifyInput, request: Request, user: Dict[str, Any] = Depends(current_user)):
+    check_auth_rate_limit(request, "verify", user["email"])
+    if is_email_verified(user):
+        return {"ok": True, "user": public_user(user)}
+    record = await db.email_verifications.find_one({"user_id": user["id"]})
+    accepted = False
+    if record:
+        expiry = parse_expiry(record.get("expires_at"))
+        if expiry and expiry > datetime.now(timezone.utc):
+            if hmac.compare_digest(str(record.get("code_hash")), hash_code(payload.code)):
+                accepted = await db.email_verifications.find_one_and_delete({"_id": record["_id"]}) is not None
+            elif int(record.get("attempts", 0)) + 1 >= VERIFY_MAX_WRONG_CODES:
+                await db.email_verifications.delete_one({"_id": record["_id"]})
+            else:
+                await db.email_verifications.update_one({"_id": record["_id"]}, {"$inc": {"attempts": 1}})
+    if not accepted:
+        raise HTTPException(status_code=400, detail=VERIFY_INVALID)
+    await db.users.update_one({"id": user["id"]}, {"$set": {"email_verified": True}})
+    return {"ok": True, "user": public_user({**user, "email_verified": True})}
 
 
 def password_matches(password: str, stored_hash: Any) -> bool:
@@ -493,7 +562,8 @@ async def forgot_password(payload: ForgotInput, request: Request, background: Ba
     email = payload.email.lower()
     check_auth_rate_limit(request, "forgot", email)
     user = await db.users.find_one({"email": email}, {"_id": 0})
-    if user and user.get("password_hash"):
+    # Only verified emails get a code: an unverified address may belong to someone else. The answer is the same either way.
+    if user and user.get("password_hash") and is_email_verified(user):
         code = "".join(secrets.choice(RESET_CODE_ALPHABET) for _ in range(RESET_CODE_LENGTH))
         await db.password_resets.delete_many({"user_id": user["id"]})  # a new request replaces any earlier code
         await db.password_resets.insert_one({
@@ -601,6 +671,7 @@ async def auth_google(payload: GoogleInput, request: Request):
             "name": str(claims.get("name") or email.split("@")[0]).strip().title()[:80],
             "picture": str(claims.get("picture") or "")[:500],
             "password_hash": "",
+            "email_verified": True,
             "language": "en",
             "onboarding_complete": False,
             "created_at": now_iso(),
