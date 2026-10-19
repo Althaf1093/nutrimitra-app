@@ -16,3 +16,11 @@ def vision_backend():
     yield url
     stop_backend(proc)
     fake.close()
+
+
+@pytest.fixture(scope="session")
+def google_backend():
+    """A backend with Google sign-in switched on (one client ID), for tests that send it bad tokens."""
+    url, proc = spawn_backend({"GOOGLE_CLIENT_IDS": "test-client.apps.googleusercontent.com"})
+    yield url
+    stop_backend(proc)

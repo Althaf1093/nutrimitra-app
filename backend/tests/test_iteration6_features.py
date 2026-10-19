@@ -6,7 +6,7 @@ Covers the new features from the expo-router refactor iteration:
 - POST /api/coach/vision (food photo recognition, Groq-or-Emergent fallback)
 - GET/PUT /api/reminders persistence
 - POST /api/health/sync idempotent upsert
-- POST /api/auth/session invalid session_id -> 401
+- POST /api/auth/google with an invalid ID token -> 401
 - Regression: /api/plan, /api/dashboard, /api/coach, /api/progress, POST /api/meals
 """
 import os
@@ -61,8 +61,8 @@ class TestAuth:
         resp = session.post(f"{BASE_URL}/api/auth/login", json={"email": EMAIL, "password": "WrongPass999"}, timeout=20)
         assert resp.status_code == 401
 
-    def test_google_session_invalid_id_returns_401(self, session):
-        resp = session.post(f"{BASE_URL}/api/auth/session", json={"session_id": "invalid-test-session-000"}, timeout=30)
+    def test_google_invalid_id_token_returns_401(self, session, google_backend):
+        resp = session.post(f"{google_backend}/api/auth/google", json={"id_token": "invalid-test-token-0000000000"}, timeout=30)
         assert resp.status_code == 401, resp.text
 
     def test_me_unauthenticated_returns_401(self, session):

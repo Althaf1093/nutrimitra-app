@@ -7,7 +7,7 @@ A premium, privacy-first AI wellness companion for India, in English and Telugu.
 - **AI health coach** — conversational guidance with persisted history and safety framing
 - **Food-photo recognition** — snap a meal, get a suggested log entry with editable alternatives
 - **Adaptive 7-day plans** — regenerated from what you actually log (meals, activity, weight trend)
-- **Google Sign-In**
+- **Google Sign-In** (your own Google credentials; hidden until configured)
 - **Health device sync** — HealthKit (iOS) / Health Connect (Android), permission-gated
 - **Reminders** — meals, hydration, movement, weekly review (on-device notifications)
 - **Bilingual** — English and Telugu, including a bundled Telugu font for correct glyph shaping
@@ -39,6 +39,16 @@ yarn start
 ```
 
 Scan the QR code with Expo Go to run on a device, or press `w` for web.
+
+### Google sign-in (optional, needs your own credentials)
+
+Google sign-in is off until you add credentials; the Google button stays hidden and email sign-in works normally.
+
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), configure the OAuth consent screen and create an OAuth client ID of type **Web application**. Add the origins and redirect URIs you use (for example `http://localhost:8081` for the web build).
+2. In `backend/.env` set `GOOGLE_CLIENT_IDS=<that client id>` (comma separate more IDs, for example Android and iOS clients later).
+3. In `frontend/.env` set `EXPO_PUBLIC_GOOGLE_CLIENT_ID=<the same web client id>` and restart Expo with a cleared cache (`npx expo start --clear`), because Expo bakes `EXPO_PUBLIC_` values in at build time.
+
+The app gets a Google ID token and sends it to `POST /api/auth/google`; the backend verifies the signature, audience, issuer, expiry and nonce with `google-auth`, then signs the person in. Accounts are matched on the verified email, so earlier Google-created accounts keep working. This flow works on the web build. For the Android store build, Expo recommends the native `@react-native-google-signin/google-signin` library, which needs a development build (not Expo Go); the app side lives in `frontend/src/lib/google-auth.ts` so it can be swapped there, and the backend already accepts several client IDs.
 
 ### Food-photo recognition (add your Gemini key)
 

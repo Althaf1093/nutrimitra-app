@@ -1,16 +1,10 @@
-import * as Linking from "expo-linking";
-import * as WebBrowser from "expo-web-browser";
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { Platform } from "react-native";
 
 import { api, clearToken, post, saveToken } from "@/src/api";
 import { copy, Lang } from "@/src/i18n";
+import { useGoogleSignIn } from "@/src/lib/google-auth";
 import { storage } from "@/src/utils/storage";
 import type { Profile, User } from "@/src/types";
-
-if (Platform.OS !== "web") {
-  WebBrowser.maybeCompleteAuthSession();
-}
 
 type Status = "loading" | "anon" | "onboarding" | "ready";
 
@@ -29,14 +23,6 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-const GOOGLE_AUTH_URL = (process.env.EXPO_PUBLIC_GOOGLE_AUTH_URL || "https://auth.emergentagent.com").replace(/\/$/, "");
-const processedSessions = new Set<string>();
-
-function extractSessionId(url: string): string | null {
-  const match = url.match(/[?#&]session_id=([^&#]+)/);
-  return match ? decodeURIComponent(match[1]) : null;
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>("loading");
   const [user, setUser] = useState<User | null>(null);
@@ -54,42 +40,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStatus(result.profile && Number(result.profile.age) >= 18 ? "ready" : "onboarding");
   }, []);
 
-  const exchangeSession = useCallback(
-    async (sessionId: string) => {
-      if (processedSessions.has(sessionId)) return;
-      processedSessions.add(sessionId);
-      const result = await post<{ session_token: string; user: User }>("/auth/session", { session_id: sessionId });
-      await saveToken(result.session_token);
-      await applySession();
-    },
-    [applySession],
-  );
-
   useEffect(() => {
     let cancelled = false;
     const boot = async () => {
       try {
-        if (Platform.OS === "web" && typeof window !== "undefined") {
-          const sessionId = extractSessionId(window.location.href);
-          if (sessionId) {
-            try {
-              await exchangeSession(sessionId);
-              window.history.replaceState(window.history.state, "", window.location.pathname);
-            } catch {
-              // fall through to stored-session check
-            }
-          }
-        } else {
-          const initialUrl = await Linking.getInitialURL();
-          const sessionId = initialUrl ? extractSessionId(initialUrl) : null;
-          if (sessionId) {
-            try {
-              await exchangeSession(sessionId);
-            } catch {
-              // fall through to stored-session check
-            }
-          }
-        }
         await applySession();
       } catch {
         await clearToken();
@@ -101,15 +55,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     };
     boot();
-    const subscription = Linking.addEventListener("url", ({ url }) => {
-      const sessionId = extractSessionId(url);
-      if (sessionId) exchangeSession(sessionId).catch(() => undefined);
-    });
     return () => {
       cancelled = true;
-      subscription.remove();
     };
-  }, [applySession, exchangeSession]);
+  }, [applySession]);
 
   const signInEmail = useCallback(
     async (mode: "signin" | "signup", email: string, password: string, name: string) => {
@@ -120,22 +69,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [applySession],
   );
 
+  const googleSignIn = useGoogleSignIn();
+  const getGoogleIdToken = googleSignIn.getIdToken;
   const signInGoogle = useCallback(async () => {
-    const redirectUrl = Platform.OS === "web" && typeof window !== "undefined" ? `${window.location.origin}/` : Linking.createURL("/");
-    const authUrl = `${GOOGLE_AUTH_URL}/?redirect=${encodeURIComponent(redirectUrl)}`;
-    if (Platform.OS === "web" && typeof window !== "undefined") {
-      window.location.href = authUrl;
-      return;
-    }
-    const result = await WebBrowser.openAuthSessionAsync(authUrl, redirectUrl);
-    const url = (result as { url?: string }).url;
-    if (url) {
-      const sessionId = extractSessionId(url);
-      if (sessionId) await exchangeSession(sessionId);
-    }
-    // Android may return `dismiss` with no URL even on success — the Linking
-    // listener registered above captures the deep link in that case.
-  }, [exchangeSession]);
+    const result = await getGoogleIdToken();
+    if (!result) return; // closed or cancelled
+    const response = await post<{ token: string; user: User }>("/auth/google", { id_token: result.idToken, nonce: result.nonce });
+    await saveToken(response.token);
+    await applySession();
+  }, [applySession, getGoogleIdToken]);
+
 
   const completeOnboarding = useCallback((nextProfile: Profile) => {
     setProfile(nextProfile);

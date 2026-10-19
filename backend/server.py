@@ -297,12 +297,13 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-def check_auth_rate_limit(request: Request, action: str, email: str) -> None:
-    """Allow at most AUTH_RATE_LIMIT attempts per window per client IP and per email, for each action."""
+def check_auth_rate_limit(request: Request, action: str, email: Optional[str]) -> None:
+    """Allow at most AUTH_RATE_LIMIT attempts per window per client IP and, when known, per email, for each action."""
     ip = client_ip(request)
     if ip in AUTH_RATE_LIMIT_EXEMPT_IPS:
         return
-    waits = [wait for wait in (auth_limiter.record(f"{action}:ip:{ip}"), auth_limiter.record(f"{action}:email:{email}")) if wait]
+    keys = [f"{action}:ip:{ip}"] + ([f"{action}:email:{email}"] if email else [])
+    waits = [wait for wait in (auth_limiter.record(key) for key in keys) if wait]
     if waits:
         minutes = max(1, math.ceil(max(waits) / 60))
         raise HTTPException(
@@ -398,33 +399,66 @@ async def login(payload: AuthInput, request: Request):
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
-class SessionInput(BaseModel):
-    session_id: str = Field(min_length=6, max_length=300)
+GOOGLE_ISSUERS = {"accounts.google.com", "https://accounts.google.com"}
+GOOGLE_CERTS_URL = "https://www.googleapis.com/oauth2/v1/certs"
 
 
-@api_router.post("/auth/session")
-async def auth_session(payload: SessionInput):
-    """Exchange a managed Google OAuth session_id for an app session token."""
-    handoff = os.getenv("GOOGLE_AUTH_HANDOFF_URL", "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data")
+class GoogleInput(BaseModel):
+    id_token: str = Field(min_length=20, max_length=4000)
+    # The app sends the nonce it put in the sign-in request; the token must carry the same one.
+    nonce: Optional[str] = Field(default=None, max_length=200)
+
+
+def google_client_ids() -> List[str]:
+    """OAuth client IDs this server accepts ID tokens for (GOOGLE_CLIENT_IDS, comma separated; GOOGLE_CLIENT_ID also works).
+    Empty means Google sign-in is switched off."""
+    raw = os.getenv("GOOGLE_CLIENT_IDS") or os.getenv("GOOGLE_CLIENT_ID") or ""
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
+
+def verify_google_id_token_sync(token: str, client_ids: List[str], nonce: Optional[str] = None) -> Dict[str, Any]:
+    """Check an ID token's signature (against Google's public certs), audience, issuer, expiry and nonce.
+    Raises ValueError if anything is off; returns the verified claims."""
+    from google.auth.transport import requests as google_requests
+    from google.oauth2 import id_token as google_id_token
+
+    claims = google_id_token.verify_token(token, google_requests.Request(), audience=client_ids, certs_url=os.getenv("GOOGLE_CERTS_URL") or GOOGLE_CERTS_URL, clock_skew_in_seconds=10)
+    if claims.get("iss") not in GOOGLE_ISSUERS:
+        raise ValueError("Wrong token issuer")
+    if nonce is not None and claims.get("nonce") != nonce:
+        raise ValueError("Nonce does not match")
+    return dict(claims)
+
+
+async def verify_google_id_token(token: str, client_ids: List[str], nonce: Optional[str] = None) -> Dict[str, Any]:
+    """The one place Google verification happens (it fetches certificates over the network, so it runs off the
+    event loop). Tests replace this function with a fake verifier."""
+    return await asyncio.to_thread(verify_google_id_token_sync, token, client_ids, nonce)
+
+
+@api_router.post("/auth/google", response_model=TokenResponse)
+async def auth_google(payload: GoogleInput, request: Request):
+    """Sign in with a Google ID token obtained by the app. Accounts are matched on the verified email, so a
+    Google-created account from before keeps working, and a person with an email account signs into that account."""
+    check_auth_rate_limit(request, "google", None)
+    client_ids = google_client_ids()
+    if not client_ids:
+        raise HTTPException(status_code=503, detail={"code": "google_not_configured", "message": "Google sign-in isn't set up yet. Please use your email and password."})
     try:
-        async with httpx.AsyncClient(timeout=20) as http:
-            response = await http.get(handoff, headers={"X-Session-ID": payload.session_id})
-    except Exception as exc:
-        logger.warning("Google session exchange failed: %s", exc)
+        claims = await verify_google_id_token(payload.id_token, client_ids, payload.nonce)
+    except Exception as exc:  # google-auth raises ValueError or GoogleAuthError subclasses
+        logger.info("Google ID token rejected: %s", type(exc).__name__)
         raise HTTPException(status_code=401, detail="Google sign-in could not be verified") from exc
-    if response.status_code != 200:
-        raise HTTPException(status_code=401, detail="Google sign-in could not be verified")
-    data = response.json()
-    email = str(data.get("email") or "").lower()
-    if not email:
+    email = str(claims.get("email") or "").strip().lower()
+    if not email or claims.get("email_verified") is not True:
         raise HTTPException(status_code=401, detail="Google sign-in could not be verified")
     user = await db.users.find_one({"email": email}, {"_id": 0})
     if not user:
         user = {
             "id": str(uuid.uuid4()),
             "email": email,
-            "name": str(data.get("name") or email.split("@")[0]).title(),
-            "picture": data.get("picture", ""),
+            "name": str(claims.get("name") or email.split("@")[0]).strip().title()[:80],
+            "picture": str(claims.get("picture") or "")[:500],
             "password_hash": "",
             "language": "en",
             "onboarding_complete": False,
@@ -435,14 +469,7 @@ async def auth_session(payload: SessionInput):
         except DuplicateKeyError:
             # A concurrent sign-in created the account first; use that one.
             user = await db.users.find_one({"email": email}, {"_id": 0})
-    session_token = data.get("session_token") or str(uuid.uuid4())
-    await db.user_sessions.insert_one({
-        "session_token": session_token,
-        "user_id": user["id"],
-        "expires_at": datetime.now(timezone.utc) + timedelta(days=7),
-        "created_at": now_iso(),
-    })
-    return {"session_token": session_token, "user": public_user(user)}
+    return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
 @api_router.get("/me")
