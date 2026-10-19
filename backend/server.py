@@ -531,10 +531,10 @@ def retry_delay(response: httpx.Response, attempt: int) -> float:
     return min(max(AI_RETRY_DELAYS[attempt], suggested), 10.0)
 
 
-async def groq_chat(messages: List[Dict[str, str]], user_id: str, max_tokens: int = 1200) -> str:
+async def groq_chat(messages: List[Dict[str, str]], user_id: str, max_tokens: int = 2000) -> str:
     """Single swappable Groq chat call used by every AI surface.
 
-    Returns "" only when no API key is configured. Rate limits are retried with backoff;
+    Returns "" only when no API key is configured. Rate limits and empty replies are retried with backoff;
     if the provider still cannot answer, raises AIUnavailable."""
     if not GROQ_API_KEY:
         return ""
@@ -558,10 +558,19 @@ async def groq_chat(messages: List[Dict[str, str]], user_id: str, max_tokens: in
             logger.warning("Groq request failed for %s: HTTP %s", user_id, response.status_code)
             raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE)
         try:
-            return response.json()["choices"][0]["message"]["content"] or ""
+            content = response.json()["choices"][0]["message"]["content"] or ""
         except (ValueError, KeyError, IndexError, TypeError) as exc:
             logger.warning("Groq returned an unreadable response for %s: %s", user_id, exc)
             raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE) from exc
+        if content.strip():
+            return content
+        # Reasoning models sometimes spend the whole token budget thinking and return nothing; try again.
+        if attempt < len(AI_RETRY_DELAYS):
+            logger.info("Groq returned an empty reply for %s; retrying", user_id)
+            await asyncio.sleep(AI_RETRY_DELAYS[attempt])
+            continue
+        logger.warning("Groq returned an empty reply for %s after %d retries", user_id, len(AI_RETRY_DELAYS))
+        raise AIUnavailable("ai_unavailable", AI_UNAVAILABLE_MESSAGE)
     raise AIUnavailable("ai_busy", AI_BUSY_MESSAGE)
 
 
