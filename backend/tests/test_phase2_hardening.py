@@ -343,3 +343,39 @@ class TestCors:
             assert preflight(url, "http://localhost:8081").status_code == 400, "an explicit list replaces the local defaults"
         finally:
             stop_backend(proc)
+
+
+class TestLifespan:
+    """Item 4: startup/shutdown run through a lifespan handler, not the deprecated @app.on_event."""
+
+    def test_no_on_event_handlers(self):
+        assert server.app.router.on_startup == [] and server.app.router.on_shutdown == []
+        assert "on_event" not in Path(server.__file__).read_text(encoding="utf-8")
+
+    def test_lifespan_runs_startup_and_shutdown(self, monkeypatch):
+        from fastapi.testclient import TestClient
+
+        calls = []
+
+        async def fake_ensure_indexes():
+            calls.append("indexes")
+
+        class FakeClient:
+            def close(self):
+                calls.append("closed")
+
+        monkeypatch.setattr(server, "ensure_indexes", fake_ensure_indexes)
+        monkeypatch.setattr(server, "client", FakeClient())
+        with TestClient(server.app) as test_client:
+            assert calls == ["indexes"], "indexes are ensured before the first request"
+            assert test_client.get("/api/").status_code == 200
+        assert calls == ["indexes", "closed"], "the Mongo client is closed on shutdown"
+
+    def test_server_logs_startup_through_lifespan(self):
+        """A real server process starts, serves, and shuts down cleanly with the lifespan handler."""
+        url, proc = spawn_backend()
+        try:
+            assert requests.get(f"{url}/api/", timeout=10).status_code == 200
+        finally:
+            stop_backend(proc)
+        assert proc.returncode is not None
