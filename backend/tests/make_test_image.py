@@ -1,5 +1,5 @@
 """Generate a food-like JPEG with real visual features (edges, textures, shadows)
-for vision API testing, per /app/image_testing.md rules."""
+for vision API testing."""
 import base64
 import io
 import math
