@@ -1,5 +1,6 @@
 import pytest
 
+import server
 from fakes import FakeProvider, spawn_backend, stop_backend
 
 FAKE_GEMINI_KEY = "fake-gemini-key-for-tests"
@@ -24,3 +25,12 @@ def google_backend():
     url, proc = spawn_backend({"GOOGLE_CLIENT_IDS": "test-client.apps.googleusercontent.com"})
     yield url
     stop_backend(proc)
+
+
+@pytest.fixture(autouse=True)
+def restore_server_database():
+    """Some tests point server.client / server.db at a scratch Mongo client inside their own event loop and then
+    close it. Put the originals back after every test so a later in-process test never inherits a closed loop."""
+    client, db = server.client, server.db
+    yield
+    server.client, server.db = client, db

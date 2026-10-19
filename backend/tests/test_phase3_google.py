@@ -239,6 +239,12 @@ class TestFakeVerifier:
 
         monkeypatch.setenv("GOOGLE_CLIENT_IDS", CLIENT_A)
         monkeypatch.setattr(server, "verify_google_id_token", fake_verifier)
+        # A Mongo client of its own: motor clients are tied to the event loop they are first used in.
+        from motor.motor_asyncio import AsyncIOMotorClient
+
+        fresh_client = AsyncIOMotorClient(server.MONGO_URL)
+        monkeypatch.setattr(server, "client", fresh_client)
+        monkeypatch.setattr(server, "db", fresh_client[server.DB_NAME])
         with TestClient(server.app) as client:
             body = client.post("/api/auth/google", json={"id_token": "t" * 30, "nonce": "n1"}).json()
         assert body["user"]["email"] == email and body["user"]["name"] == "Fake Person"
@@ -293,3 +299,18 @@ class TestAppWiring:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         assert "GOOGLE_CLIENT_IDS" in readme and "EXPO_PUBLIC_GOOGLE_CLIENT_ID" in readme and "Web application" in readme
         assert {"expo-auth-session", "expo-crypto"} <= set(json.loads(self.read("package.json"))["dependencies"])
+
+
+ORIGINAL_DATABASE = (server.client, server.db)
+
+
+class TestIsolation:
+    """Regression: Phase 2 tests swap server.db for a scratch client and close it; an in-process test that ran
+    afterwards (the Google fake verifier) failed with "Event loop is closed", but only in a full run.
+    These two run in order: the first replaces the database, the second checks the conftest fixture put it back."""
+
+    def test_a_replaces_the_database(self):
+        server.client, server.db = object(), object()
+
+    def test_b_the_original_database_is_back(self):
+        assert (server.client, server.db) == ORIGINAL_DATABASE
