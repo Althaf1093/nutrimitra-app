@@ -54,7 +54,20 @@ test("2. onboarding: three steps and the 18+ rule", async ({ app }) => {
   await app.shot("under-18");
 
   await app.id("field-age").fill("18");
+
+  // Height can be typed in feet: 5.5 ft is about 168 cm, and the other unit is always echoed.
+  await app.id("chip-ft").click();
+  await app.id("field-height-(ft)").fill("5.5");
+  await expect(app.id("height-echo")).toContainText("168 cm");
+  await app.id("field-height-(ft)").fill("5'6");
+  await expect(app.id("height-echo")).toContainText("168 cm");
+  await app.id("field-height-(ft)").fill("1");
+  await app.id("onboarding-next-button").click();
+  await expect(app.id("onboarding-error")).toContainText("3 ft");
+  await app.shot("height-feet");
+  await app.id("chip-cm").click();
   await app.id("field-height-(cm)").fill("170");
+  await expect(app.id("height-echo")).toContainText("5′7″");
   await app.id("field-current-weight-(kg)").fill("72");
   await app.id("field-target-weight-(kg)").fill("68");
   await app.id("onboarding-next-button").click();
