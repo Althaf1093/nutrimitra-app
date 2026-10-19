@@ -49,6 +49,8 @@ export default function PlanScreen() {
     try {
       await post("/meals", { meal_type: meal.type, name: meal.name, calories: meal.calories, protein_g: meal.protein_g, carbs_g: meal.carbs_g, fat_g: meal.fat_g, source: "plan" });
       setMessage(t.addMeal);
+      // Re-fetch so today's logged meals show as done instead of "+".
+      setPlan(await api<Plan>("/plan"));
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Could not log meal");
     }

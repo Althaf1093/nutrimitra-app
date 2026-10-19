@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, post } from "@/src/api";
+import { api, del, post } from "@/src/api";
 import { AppIcon, MealCard } from "@/src/components/ui";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { ReadinessCard } from "@/src/components/readiness-card";
@@ -63,6 +63,19 @@ export default function TodayScreen() {
       load();
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Could not log meal");
+    }
+  };
+
+  const removeEntry = async (path: string) => {
+    setBusy(true);
+    try {
+      await del(path);
+      setMessage(t.removed);
+      await load();
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Could not remove entry");
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -142,11 +155,24 @@ export default function TodayScreen() {
             <MealCard key={`${meal.type}-${meal.name}`} meal={meal} onLog={() => logMeal(meal)} />
           ))}
           {(dashboard?.meals?.length || 0) > 0 ? (
-            <View style={styles.reasonCard}>
-              <Text style={styles.cardEyebrow}>LOGGED TODAY</Text>
+            <View style={styles.reasonCard} testID="logged-meals">
+              <Text style={styles.cardEyebrow}>{t.loggedToday.toUpperCase()}</Text>
               <Text style={styles.reasonText}>
                 {dashboard?.meals?.length} meal(s) · {dashboard?.calories || 0} kcal so far
               </Text>
+              {dashboard?.meals?.map((item) => (
+                <View key={item.id} style={styles.logRow} testID={`logged-meal-${item.id}`}>
+                  <View style={styles.flex}>
+                    <Text style={styles.mealName}>{item.name}</Text>
+                    <Text style={styles.mealMeta}>
+                      {item.meal_type} · {item.calories} kcal
+                    </Text>
+                  </View>
+                  <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeEntry(`/meals/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                    <Text style={styles.linkText}>{t.remove}</Text>
+                  </Pressable>
+                </View>
+              ))}
             </View>
           ) : null}
           <View style={styles.sectionHeader}>
@@ -179,6 +205,24 @@ export default function TodayScreen() {
               </Pressable>
             </View>
           </View>
+          {(dashboard?.activities?.length || 0) > 0 ? (
+            <View style={styles.reasonCard} testID="logged-activities">
+              <Text style={styles.cardEyebrow}>{t.loggedToday.toUpperCase()}</Text>
+              {dashboard?.activities?.map((item) => (
+                <View key={item.id} style={styles.logRow} testID={`logged-activity-${item.id}`}>
+                  <View style={styles.flex}>
+                    <Text style={styles.mealName}>{item.activity_type}</Text>
+                    <Text style={styles.mealMeta}>
+                      {item.duration_min} {t.minutes} · {item.active_calories} kcal
+                    </Text>
+                  </View>
+                  <Pressable testID={`remove-activity-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.activity_type}`} disabled={busy} onPress={() => removeEntry(`/activities/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                    <Text style={styles.linkText}>{t.remove}</Text>
+                  </Pressable>
+                </View>
+              ))}
+            </View>
+          ) : null}
           <View style={styles.sectionHeader}>
             <View style={styles.flex}>
               <Text style={styles.sectionTitleSmall}>{t.deviceActivity}</Text>

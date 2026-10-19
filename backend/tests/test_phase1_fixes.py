@@ -173,3 +173,87 @@ class TestUserTimezone:
         mongo.activities.delete_many({"user_id": fresh.user_id})
         mongo.weights.delete_many({"user_id": fresh.user_id})
         fresh.put(f"{BASE_URL}/api/profile", json=PROFILE, timeout=20)
+
+
+@pytest.fixture(scope="module")
+def other_user(mongo):
+    """A second account, to prove log entries cannot be changed across users."""
+    s = requests.Session()
+    s.headers.update({"Content-Type": "application/json"})
+    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"email": f"phase1.other.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20)
+    assert resp.status_code == 200, resp.text
+    s.headers["Authorization"] = f"Bearer {resp.json()['token']}"
+    user_id = resp.json()["user"]["id"]
+    yield s
+    mongo.users.delete_many({"id": user_id})
+
+
+class TestCorrectableLogs:
+    """Fix 4: meals, activities and weights can be deleted (meals edited), scoped to their owner;
+    plan meals are flagged as logged and cannot be logged twice in a day."""
+
+    MEAL = {"meal_type": "lunch", "name": "Correctable dal", "calories": 450, "protein_g": 18, "carbs_g": 60, "fat_g": 12, "source": "manual"}
+
+    def test_delete_meal(self, fresh, other_user):
+        meal = fresh.post(f"{BASE_URL}/api/meals", json=self.MEAL, timeout=20).json()
+        assert other_user.delete(f"{BASE_URL}/api/meals/{meal['id']}", timeout=20).status_code == 404
+        resp = fresh.delete(f"{BASE_URL}/api/meals/{meal['id']}", timeout=20)
+        assert resp.status_code == 200, resp.text
+        assert resp.json() == {"deleted": True, "id": meal["id"]}
+        dash = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+        assert all(item["id"] != meal["id"] for item in dash["meals"])
+        assert fresh.delete(f"{BASE_URL}/api/meals/{meal['id']}", timeout=20).status_code == 404
+
+    def test_patch_meal(self, fresh, other_user):
+        meal = fresh.post(f"{BASE_URL}/api/meals", json=self.MEAL, timeout=20).json()
+        assert other_user.patch(f"{BASE_URL}/api/meals/{meal['id']}", json={"calories": 1}, timeout=20).status_code == 404
+        resp = fresh.patch(f"{BASE_URL}/api/meals/{meal['id']}", json={"calories": 300, "name": "Smaller dal"}, timeout=20)
+        assert resp.status_code == 200, resp.text
+        body = resp.json()
+        assert body["calories"] == 300 and body["name"] == "Smaller dal" and body["protein_g"] == 18
+        assert "_id" not in body
+        assert fresh.patch(f"{BASE_URL}/api/meals/{meal['id']}", json={}, timeout=20).status_code == 400
+        assert fresh.patch(f"{BASE_URL}/api/meals/{meal['id']}", json={"calories": -5}, timeout=20).status_code == 422
+        fresh.delete(f"{BASE_URL}/api/meals/{meal['id']}", timeout=20)
+
+    def test_delete_activity_and_weight(self, fresh, other_user):
+        activity = fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Walking", "duration_min": 20, "active_calories": 80}, timeout=20).json()
+        assert other_user.delete(f"{BASE_URL}/api/activities/{activity['id']}", timeout=20).status_code == 404
+        assert fresh.delete(f"{BASE_URL}/api/activities/{activity['id']}", timeout=20).status_code == 200
+        assert fresh.delete(f"{BASE_URL}/api/activities/{activity['id']}", timeout=20).status_code == 404
+        weight = fresh.post(f"{BASE_URL}/api/weight", json={"weight_kg": 61.2}, timeout=20).json()
+        assert other_user.delete(f"{BASE_URL}/api/weight/{weight['id']}", timeout=20).status_code == 404
+        assert fresh.delete(f"{BASE_URL}/api/weight/{weight['id']}", timeout=20).status_code == 200
+        progress = fresh.get(f"{BASE_URL}/api/progress", timeout=20).json()
+        assert all(item["id"] != weight["id"] for item in progress["weights"])
+
+    def test_delete_requires_auth(self):
+        assert requests.delete(f"{BASE_URL}/api/meals/anything", timeout=20).status_code == 401
+
+    def test_plan_meal_logged_flag_and_duplicate_guard(self, fresh, mongo):
+        mongo.plans.delete_many({"user_id": fresh.user_id})
+        mongo.meals.delete_many({"user_id": fresh.user_id})
+        mongo.plans.insert_one(marked_plan(fresh.user_id, started_days_ago=2))
+        plan = fresh.get(f"{BASE_URL}/api/plan", timeout=30).json()
+        assert plan["today_index"] == 2
+        assert not any(meal["logged"] for day in plan["days"] for meal in day["meals"])
+
+        breakfast = plan["days"][2]["meals"][0]
+        payload = {"meal_type": breakfast["type"], "name": breakfast["name"], "calories": breakfast["calories"], "protein_g": breakfast["protein_g"], "carbs_g": breakfast["carbs_g"], "fat_g": breakfast["fat_g"], "source": "plan"}
+        logged = fresh.post(f"{BASE_URL}/api/meals", json=payload, timeout=20)
+        assert logged.status_code == 200, logged.text
+        duplicate = fresh.post(f"{BASE_URL}/api/meals", json=payload, timeout=20)
+        assert duplicate.status_code == 409, duplicate.text
+
+        plan = fresh.get(f"{BASE_URL}/api/plan", timeout=30).json()
+        flags = {meal["name"]: meal["logged"] for meal in plan["days"][2]["meals"]}
+        assert flags == {"D3 breakfast": True, "D3 lunch": False, "D3 snack": False, "D3 dinner": False}
+        # Only today's day is flagged; the stored plan itself is not mutated.
+        assert not any(meal["logged"] for index, day in enumerate(plan["days"]) if index != 2 for meal in day["meals"])
+
+        # Deleting the log entry un-flags the plan meal and allows logging it again.
+        assert fresh.delete(f"{BASE_URL}/api/meals/{logged.json()['id']}", timeout=20).status_code == 200
+        plan = fresh.get(f"{BASE_URL}/api/plan", timeout=30).json()
+        assert plan["days"][2]["meals"][0]["logged"] is False
+        assert fresh.post(f"{BASE_URL}/api/meals", json=payload, timeout=20).status_code == 200
+        mongo.meals.delete_many({"user_id": fresh.user_id})
