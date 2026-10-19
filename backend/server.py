@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 import json
 import logging
 import os
@@ -369,6 +369,29 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
     return fallback
 
 
+def plan_start_date(plan: Dict[str, Any]) -> Optional[date]:
+    """The calendar date the plan's Day 1 falls on."""
+    try:
+        return datetime.fromisoformat(str(plan.get("updated_at")).replace("Z", "+00:00")).date()
+    except (ValueError, TypeError):
+        return None
+
+
+def plan_day_index(plan: Dict[str, Any], today: date) -> int:
+    """Index of today's plan day: days since the plan started, wrapped within the plan length."""
+    days = plan.get("days") or []
+    start = plan_start_date(plan)
+    if not days or start is None:
+        return 0
+    return (today - start).days % len(days)
+
+
+def with_today_index(plan: Dict[str, Any], today: date) -> Dict[str, Any]:
+    clean = {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
+    clean["today_index"] = plan_day_index(plan, today)
+    return clean
+
+
 @api_router.get("/plan")
 async def get_plan(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
@@ -381,12 +404,12 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
         except (ValueError, TypeError):
             age_days = 0
         if age_days < 7:
-            return existing
+            return with_today_index(existing, datetime.now(timezone.utc).date())
     # Missing or week-old plan → adaptive regeneration from recent logs
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
+    return with_today_index(plan, datetime.now(timezone.utc).date())
 
 
 @api_router.post("/plan/regenerate")
@@ -397,7 +420,7 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
+    return with_today_index(plan, datetime.now(timezone.utc).date())
 
 
 @api_router.get("/dashboard")
@@ -675,8 +698,8 @@ async def eat_now(user: Dict[str, Any] = Depends(current_user)):
     remaining = max(0, target - consumed)
     logged_types = {item.get("meal_type") for item in meals}
     suggestion: Optional[Dict[str, Any]] = None
-    for day in (plan or {}).get("days", [])[:1]:
-        for meal in day.get("meals", []):
+    if plan and plan.get("days"):
+        for meal in plan["days"][plan_day_index(plan, datetime.now(timezone.utc).date())].get("meals", []):
             if meal.get("type") not in logged_types:
                 suggestion = meal
                 break

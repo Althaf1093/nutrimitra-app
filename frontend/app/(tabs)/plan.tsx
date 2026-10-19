@@ -25,6 +25,7 @@ export default function PlanScreen() {
     try {
       const next = await post<Plan>("/plan/regenerate", {});
       setPlan(next);
+      setDay(next.today_index ?? 0);
       setMessage(t.planRefreshed);
     } catch {
       setMessage("Could not refresh plan");
@@ -36,7 +37,10 @@ export default function PlanScreen() {
   useFocusEffect(
     useCallback(() => {
       api<Plan>("/plan")
-        .then(setPlan)
+        .then((next) => {
+          setPlan(next);
+          setDay(next.today_index ?? 0);
+        })
         .catch(() => undefined);
     }, []),
   );
@@ -66,7 +70,7 @@ export default function PlanScreen() {
       <View style={{ height: 56, flexGrow: 0 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dayRow}>
           {plan?.days?.map((item, index) => (
-            <Chip key={item.day} label={`Day ${item.day}`} selected={day === index} onPress={() => setDay(index)} />
+            <Chip key={item.day} label={index === plan.today_index ? `Day ${item.day} · ${t.today}` : `Day ${item.day}`} selected={day === index} onPress={() => setDay(index)} />
           ))}
         </ScrollView>
       </View>

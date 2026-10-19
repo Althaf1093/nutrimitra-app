@@ -33,7 +33,8 @@ export type Meal = {
 
 export type PlanDay = { day: number; title: string; focus: string; meals: Meal[] };
 
-export type Plan = { days: PlanDay[]; reasoning: string; goal: string };
+// today_index: which day of the 7-day plan is "today" (days since the plan started, wrapped).
+export type Plan = { days: PlanDay[]; reasoning: string; goal: string; today_index?: number };
 
 export type Dashboard = {
   date: string;
