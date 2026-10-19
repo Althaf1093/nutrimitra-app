@@ -6,6 +6,7 @@ import re
 import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import bcrypt
 import httpx
@@ -15,7 +16,7 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -27,6 +28,7 @@ JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 72
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+DEFAULT_TIMEZONE = "Asia/Kolkata"
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -62,6 +64,17 @@ class ProfileInput(BaseModel):
     food_budget: str = "Balanced"
     wellness_goal: str = "Healthier living"
     language: str = "en"
+    timezone: str = Field(default=DEFAULT_TIMEZONE, max_length=64)
+
+    @field_validator("timezone")
+    @classmethod
+    def known_timezone(cls, value: str) -> str:
+        # An unrecognised device timezone must not block onboarding; fall back to India.
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            return DEFAULT_TIMEZONE
+        return value
 
 
 class MealLogInput(BaseModel):
@@ -93,6 +106,25 @@ class CoachInput(BaseModel):
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def user_zone(profile: Optional[Dict[str, Any]]) -> ZoneInfo:
+    """The user's timezone from their profile; India by default or when the stored value is unusable."""
+    try:
+        return ZoneInfo(str((profile or {}).get("timezone") or DEFAULT_TIMEZONE))
+    except (ZoneInfoNotFoundError, ValueError):
+        return ZoneInfo(DEFAULT_TIMEZONE)
+
+
+def local_today(zone: ZoneInfo) -> date:
+    return datetime.now(zone).date()
+
+
+async def user_clock(user_id: str) -> tuple:
+    """(profile, zone, today) for a user, so every "today" filter follows their local calendar."""
+    profile = await db.profiles.find_one({"user_id": user_id}, {"_id": 0})
+    zone = user_zone(profile)
+    return profile, zone, local_today(zone)
 
 
 def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
@@ -346,7 +378,7 @@ def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str
 
 async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str, Any]:
     """Regenerate the 7-day plan from the profile plus the last week of logged behaviour."""
-    week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).date().isoformat()
+    week_ago = (local_today(user_zone(profile)) - timedelta(days=7)).isoformat()
     meals = await db.meals.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
     activities = await db.activities.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
     weights = await db.weights.find({"user_id": user_id}, {"_id": 0}).sort("created_at", -1).to_list(10)
@@ -379,26 +411,29 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
     return fallback
 
 
-def plan_start_date(plan: Dict[str, Any]) -> Optional[date]:
-    """The calendar date the plan's Day 1 falls on."""
+def plan_start_date(plan: Dict[str, Any], zone: ZoneInfo = ZoneInfo("UTC")) -> Optional[date]:
+    """The local calendar date the plan's Day 1 falls on."""
     try:
-        return datetime.fromisoformat(str(plan.get("updated_at")).replace("Z", "+00:00")).date()
+        started = datetime.fromisoformat(str(plan.get("updated_at")).replace("Z", "+00:00"))
     except (ValueError, TypeError):
         return None
+    if started.tzinfo is None:
+        started = started.replace(tzinfo=timezone.utc)
+    return started.astimezone(zone).date()
 
 
-def plan_day_index(plan: Dict[str, Any], today: date) -> int:
+def plan_day_index(plan: Dict[str, Any], today: date, zone: ZoneInfo = ZoneInfo("UTC")) -> int:
     """Index of today's plan day: days since the plan started, wrapped within the plan length."""
     days = plan.get("days") or []
-    start = plan_start_date(plan)
+    start = plan_start_date(plan, zone)
     if not days or start is None:
         return 0
     return (today - start).days % len(days)
 
 
-def with_today_index(plan: Dict[str, Any], today: date) -> Dict[str, Any]:
+def with_today_index(plan: Dict[str, Any], zone: ZoneInfo) -> Dict[str, Any]:
     clean = {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
-    clean["today_index"] = plan_day_index(plan, today)
+    clean["today_index"] = plan_day_index(plan, local_today(zone), zone)
     return clean
 
 
@@ -407,19 +442,18 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
     if not profile:
         raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    zone = user_zone(profile)
     existing = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
     if existing:
-        try:
-            age_days = (datetime.now(timezone.utc).date() - datetime.fromisoformat(str(existing.get("updated_at")).replace("Z", "+00:00")).date()).days
-        except (ValueError, TypeError):
-            age_days = 0
+        start = plan_start_date(existing, zone)
+        age_days = (local_today(zone) - start).days if start else 0
         if age_days < 7:
-            return with_today_index(existing, datetime.now(timezone.utc).date())
+            return with_today_index(existing, zone)
     # Missing or week-old plan → adaptive regeneration from recent logs
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return with_today_index(plan, datetime.now(timezone.utc).date())
+    return with_today_index(plan, user_zone(profile))
 
 
 @api_router.post("/plan/regenerate")
@@ -430,15 +464,15 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return with_today_index(plan, datetime.now(timezone.utc).date())
+    return with_today_index(plan, user_zone(profile))
 
 
 @api_router.get("/dashboard")
 async def dashboard(user: Dict[str, Any] = Depends(current_user)):
-    today = datetime.now(timezone.utc).date().isoformat()
+    profile, _, local_date = await user_clock(user["id"])
+    today = local_date.isoformat()
     meals = await db.meals.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
     activities = await db.activities.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
-    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
     calories = sum(item.get("calories", 0) for item in meals)
     active = sum(item.get("active_calories", 0) for item in activities)
     return {"date": today, "meals": meals, "activities": activities, "calories": calories, "active_calories": active, "readiness": min(96, 64 + len(activities) * 7 + len(meals) * 4), "goal": (profile or {}).get("wellness_goal", "Healthier living")}
@@ -446,7 +480,8 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
 
 @api_router.post("/meals")
 async def log_meal(payload: MealLogInput, user: Dict[str, Any] = Depends(current_user)):
-    meal = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": datetime.now(timezone.utc).date().isoformat(), "created_at": now_iso()}
+    _, _, today = await user_clock(user["id"])
+    meal = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
     response = dict(meal)
     await db.meals.insert_one(meal)
     return response
@@ -454,7 +489,8 @@ async def log_meal(payload: MealLogInput, user: Dict[str, Any] = Depends(current
 
 @api_router.post("/activities")
 async def log_activity(payload: ActivityInput, user: Dict[str, Any] = Depends(current_user)):
-    activity = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": datetime.now(timezone.utc).date().isoformat(), "created_at": now_iso()}
+    _, _, today = await user_clock(user["id"])
+    activity = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
     response = dict(activity)
     await db.activities.insert_one(activity)
     return response
@@ -462,7 +498,8 @@ async def log_activity(payload: ActivityInput, user: Dict[str, Any] = Depends(cu
 
 @api_router.post("/weight")
 async def log_weight(payload: WeightInput, user: Dict[str, Any] = Depends(current_user)):
-    entry = {"id": str(uuid.uuid4()), "user_id": user["id"], "weight_kg": payload.weight_kg, "date": datetime.now(timezone.utc).date().isoformat(), "created_at": now_iso()}
+    _, _, today = await user_clock(user["id"])
+    entry = {"id": str(uuid.uuid4()), "user_id": user["id"], "weight_kg": payload.weight_kg, "date": today.isoformat(), "created_at": now_iso()}
     response = dict(entry)
     await db.weights.insert_one(entry)
     return response
@@ -693,8 +730,9 @@ async def coach_vision(payload: VisionInput, user: Dict[str, Any] = Depends(curr
 @api_router.get("/eat-now")
 async def eat_now(user: Dict[str, Any] = Depends(current_user)):
     """What Should I Eat Now — based on today's intake, goal and plan."""
-    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
-    today = datetime.now(timezone.utc).date().isoformat()
+    stored_profile, zone, local_date = await user_clock(user["id"])
+    profile = stored_profile or {}
+    today = local_date.isoformat()
     meals = await db.meals.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
     plan = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
     weight = float(profile.get("weight_kg") or 70)
@@ -709,7 +747,7 @@ async def eat_now(user: Dict[str, Any] = Depends(current_user)):
     logged_types = {item.get("meal_type") for item in meals}
     suggestion: Optional[Dict[str, Any]] = None
     if plan and plan.get("days"):
-        for meal in plan["days"][plan_day_index(plan, datetime.now(timezone.utc).date())].get("meals", []):
+        for meal in plan["days"][plan_day_index(plan, local_date, zone)].get("meals", []):
             if meal.get("type") not in logged_types:
                 suggestion = meal
                 break
@@ -765,8 +803,10 @@ async def health_sync(payload: List[HealthRecordInput], user: Dict[str, Any] = D
 async def health_summary(user: Dict[str, Any] = Depends(current_user)):
     """Today's device-measured activity (HealthKit / Health Connect), clearly sourced."""
     prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
-    today = datetime.now(timezone.utc).date().isoformat()
-    records = await db.health_records.find({"user_id": user["id"], "start": {"$gte": today}}, {"_id": 0}).to_list(500)
+    _, zone, local_date = await user_clock(user["id"])
+    # Records carry UTC ISO timestamps; compare against the user's local midnight expressed in UTC.
+    day_start = datetime.combine(local_date, datetime.min.time(), tzinfo=zone).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    records = await db.health_records.find({"user_id": user["id"], "start": {"$gte": day_start}}, {"_id": 0}).to_list(500)
     steps = 0
     active = 0.0
     sleep_minutes = 0

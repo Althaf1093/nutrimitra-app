@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { put } from "@/src/api";
 import { Button, Chip, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { deviceTimezone } from "@/src/lib/timezone";
 import { useStyles } from "@/src/styles";
 import type { Profile } from "@/src/types";
 
@@ -51,6 +52,7 @@ export default function OnboardingScreen() {
         height_cm: Number(draft.height_cm),
         weight_kg: Number(draft.weight_kg),
         target_weight_kg: Number(draft.target_weight_kg),
+        timezone: deviceTimezone(),
       };
       const result = await put<{ profile: Profile }>("/profile", payload);
       completeOnboarding(result.profile);
