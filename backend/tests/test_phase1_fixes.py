@@ -420,3 +420,31 @@ class TestPlanPrompt:
             assert f'"{key}":' in schema, key
         assert '"fat_g: ' not in schema
         assert schema.count('"') % 2 == 0, "unbalanced quotes in the plan schema"
+
+
+class TestActivityEstimate:
+    """Fix 8: quick-log activities get calories from duration x a MET estimate x body weight, not fixed 120/80 kcal."""
+
+    def test_estimate_formula(self):
+        # Walking 3.5 MET, 60 kg, 20 min: 3.5 * 3.5 * 60 / 200 * 20 = 73.5
+        assert server.estimate_active_calories("Walking", 20, 60) == 74
+        assert server.estimate_active_calories("Walking", 40, 60) == 147
+        assert server.estimate_active_calories("Home strength", 15, 80) == 105
+        assert server.estimate_active_calories("Walking", 20, 90) > server.estimate_active_calories("Walking", 20, 60)
+
+    def test_server_estimates_from_duration_and_latest_weight(self, fresh, mongo):
+        mongo.weights.delete_many({"user_id": fresh.user_id})
+        mongo.activities.delete_many({"user_id": fresh.user_id})
+        # No weight logged yet: uses the profile weight (60 kg).
+        walk = fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Walking", "duration_min": 30}, timeout=20).json()
+        assert walk["active_calories"] == server.estimate_active_calories("Walking", 30, 60)
+        assert walk["distance_km"] == 2.4
+        # A newer logged weight takes precedence over the profile.
+        fresh.post(f"{BASE_URL}/api/weight", json={"weight_kg": 80}, timeout=20)
+        strength = fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Home strength", "duration_min": 15}, timeout=20).json()
+        assert strength["active_calories"] == 105 and strength["distance_km"] == 0
+        # Explicit values (e.g. from a device) are kept as sent.
+        explicit = fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Walking", "duration_min": 30, "distance_km": 3.0, "active_calories": 200}, timeout=20).json()
+        assert explicit["active_calories"] == 200 and explicit["distance_km"] == 3.0
+        mongo.weights.delete_many({"user_id": fresh.user_id})
+        mongo.activities.delete_many({"user_id": fresh.user_id})

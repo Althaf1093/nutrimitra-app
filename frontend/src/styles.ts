@@ -143,6 +143,7 @@ export const useStyles = makeStyles((colors) =>
     coachBubbleText: { color: colors.onSurface, fontSize: 15, lineHeight: 22 },
     userBubbleText: { color: colors.onBrandPrimary, fontSize: 15, lineHeight: 22 },
     quickRow: { gap: 8, marginTop: 10 },
+    durationRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginBottom: 12 },
     chatComposer: { flexDirection: "row", gap: 10, padding: 14, borderTopWidth: 1, borderTopColor: colors.divider, backgroundColor: colors.surface },
     chatInput: { flex: 1, minWidth: 0, minHeight: 48, borderRadius: 24, borderWidth: 1, borderColor: colors.borderStrong, paddingHorizontal: 16, color: colors.onSurface, backgroundColor: colors.surfaceSecondary },
     sendButton: { width: 48, height: 48, borderRadius: 24, alignItems: "center", justifyContent: "center", backgroundColor: colors.brandPrimary, flexShrink: 0 },

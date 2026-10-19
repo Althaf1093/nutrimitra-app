@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, del, post } from "@/src/api";
-import { AppIcon, MealCard } from "@/src/components/ui";
+import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { ReadinessCard } from "@/src/components/readiness-card";
 import { useAuth } from "@/src/context/auth";
@@ -12,6 +12,8 @@ import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/heal
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Dashboard, Meal, Plan } from "@/src/types";
+
+const DURATIONS = [10, 20, 30, 45];
 
 export default function TodayScreen() {
   const styles = useStyles();
@@ -27,6 +29,7 @@ export default function TodayScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  const [duration, setDuration] = useState(20);
 
   const load = useCallback(async () => {
     try {
@@ -82,7 +85,8 @@ export default function TodayScreen() {
   const addActivity = async (type: string, duration: number) => {
     setBusy(true);
     try {
-      await post("/activities", { activity_type: type, duration_min: duration, distance_km: type === "Walking" ? 2.1 : 0, active_calories: type === "Walking" ? 120 : 80, source: "manual estimate" });
+      // Calories (and walking distance) are estimated by the server from duration and body weight.
+      await post("/activities", { activity_type: type, duration_min: duration, source: "manual estimate" });
       setMessage(t.addActivity);
       load();
     } catch (err) {
@@ -190,18 +194,27 @@ export default function TodayScreen() {
             </View>
             <View style={styles.flex}>
               <Text style={styles.mealName}>{t.startWalk}</Text>
-              <Text style={styles.reasonText}>A 20-minute comfortable walk is a useful place to begin. Listen to your body.</Text>
+              <Text style={styles.reasonText}>Pick a duration, then log it. Calories are estimated from the time and your weight. Listen to your body.</Text>
             </View>
+          </View>
+          <View style={styles.durationRow} testID="activity-duration">
+            {DURATIONS.map((minutes) => (
+              <Chip key={minutes} label={`${minutes} ${t.minutes}`} selected={duration === minutes} onPress={() => setDuration(minutes)} />
+            ))}
           </View>
           <View style={styles.row}>
             <View style={styles.half}>
-              <Pressable testID="log-walk-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Walking", 20)} style={({ pressed }) => [styles.button, pressed && styles.pressed, busy && styles.disabled]}>
-                <Text style={styles.buttonText}>Walk · 20 {t.minutes}</Text>
+              <Pressable testID="log-walk-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Walking", duration)} style={({ pressed }) => [styles.button, pressed && styles.pressed, busy && styles.disabled]}>
+                <Text style={styles.buttonText}>
+                  Walk · {duration} {t.minutes}
+                </Text>
               </Pressable>
             </View>
             <View style={styles.half}>
-              <Pressable testID="log-strength-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Home strength", 15)} style={({ pressed }) => [styles.button, styles.buttonSecondary, pressed && styles.pressed, busy && styles.disabled]}>
-                <Text style={styles.buttonSecondaryText}>Strength · 15 {t.minutes}</Text>
+              <Pressable testID="log-strength-button" accessibilityRole="button" disabled={busy} onPress={() => addActivity("Home strength", duration)} style={({ pressed }) => [styles.button, styles.buttonSecondary, pressed && styles.pressed, busy && styles.disabled]}>
+                <Text style={styles.buttonSecondaryText}>
+                  Strength · {duration} {t.minutes}
+                </Text>
               </Pressable>
             </View>
           </View>

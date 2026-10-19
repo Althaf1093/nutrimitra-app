@@ -103,7 +103,8 @@ class ActivityInput(BaseModel):
     activity_type: str
     duration_min: int = Field(ge=1, le=1440)
     distance_km: float = Field(default=0, ge=0, le=500)
-    active_calories: int = Field(default=0, ge=0, le=10000)
+    # Omit to have the server estimate it from duration and body weight.
+    active_calories: Optional[int] = Field(default=None, ge=0, le=10000)
     source: str = "manual estimate"
 
 
@@ -636,10 +637,32 @@ async def delete_meal(meal_id: str, user: Dict[str, Any] = Depends(current_user)
     return await delete_owned(db.meals, meal_id, user["id"], "Meal")
 
 
+# Compendium of Physical Activities MET values for the quick-log activities.
+ACTIVITY_METS = {"walking": 3.5, "home strength": 5.0, "strength": 5.0, "yoga": 2.5, "cycling": 6.0, "running": 8.0}
+DEFAULT_MET = 4.0
+WALKING_KMH = 4.8
+
+
+def estimate_active_calories(activity_type: str, duration_min: int, weight_kg: float) -> int:
+    """kcal = MET x 3.5 x body weight (kg) / 200, per minute."""
+    met = ACTIVITY_METS.get(activity_type.strip().lower(), DEFAULT_MET)
+    return int(round(met * 3.5 * weight_kg / 200 * duration_min))
+
+
+async def current_weight_kg(user_id: str, profile: Optional[Dict[str, Any]]) -> float:
+    """Latest logged weight, else the profile weight, else 70 kg."""
+    latest = await db.weights.find_one({"user_id": user_id}, {"_id": 0}, sort=[("created_at", -1)])
+    return float((latest or {}).get("weight_kg") or (profile or {}).get("weight_kg") or 70)
+
+
 @api_router.post("/activities")
 async def log_activity(payload: ActivityInput, user: Dict[str, Any] = Depends(current_user)):
-    _, _, today = await user_clock(user["id"])
+    profile, _, today = await user_clock(user["id"])
     activity = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
+    if payload.active_calories is None:
+        activity["active_calories"] = estimate_active_calories(payload.activity_type, payload.duration_min, await current_weight_kg(user["id"], profile))
+        if payload.activity_type.strip().lower() == "walking" and not payload.distance_km:
+            activity["distance_km"] = round(payload.duration_min * WALKING_KMH / 60, 1)
     response = dict(activity)
     await db.activities.insert_one(activity)
     return response
