@@ -12,10 +12,10 @@ import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { ReminderPrefs } from "@/src/types";
 
-function ToggleRow({ title, subtitle, value, onToggle, testID }: { title: string; subtitle: string; value: boolean; onToggle: () => void; testID: string }) {
+function ToggleRow({ title, subtitle, value, onToggle, testID, disabled = false }: { title: string; subtitle: string; value: boolean; onToggle: () => void; testID: string; disabled?: boolean }) {
   const styles = useStyles();
   return (
-    <Pressable testID={testID} accessibilityRole="button" accessibilityLabel={title} onPress={onToggle} style={styles.settingRow}>
+    <Pressable testID={testID} accessibilityRole="button" accessibilityLabel={title} accessibilityState={{ disabled }} disabled={disabled} onPress={onToggle} style={[styles.settingRow, disabled && styles.disabled]}>
       <View style={styles.flex}>
         <Text style={styles.mealName}>{title}</Text>
         <Text style={styles.mutedText}>{subtitle}</Text>
@@ -38,14 +38,22 @@ export default function SettingsScreen() {
   const [permission, setPermission] = useState<PermissionPrefs>({ health_sync: false, wearables: false, analytics: false, coach_memory: true });
   const [reminders, setReminders] = useState<ReminderPrefs>({ meals: true, hydration: false, movement: false, weekly: true });
   const [note, setNote] = useState("");
+  // The switches show defaults until the saved values arrive; tapping one before then would save the defaults over them.
+  const [loaded, setLoaded] = useState({ permissions: false, reminders: false });
 
   useEffect(() => {
     if (status !== "ready") return;
     api<{ health_sync?: boolean; wearables?: boolean; analytics?: boolean; coach_memory?: boolean }>("/permissions")
-      .then((prefs) => setPermission({ health_sync: !!prefs.health_sync, wearables: !!prefs.wearables, analytics: !!prefs.analytics, coach_memory: prefs.coach_memory !== false }))
+      .then((prefs) => {
+        setPermission({ health_sync: !!prefs.health_sync, wearables: !!prefs.wearables, analytics: !!prefs.analytics, coach_memory: prefs.coach_memory !== false });
+        setLoaded((current) => ({ ...current, permissions: true }));
+      })
       .catch(() => undefined);
     api<ReminderPrefs>("/reminders")
-      .then((prefs) => setReminders({ meals: !!prefs.meals, hydration: !!prefs.hydration, movement: !!prefs.movement, weekly: !!prefs.weekly }))
+      .then((prefs) => {
+        setReminders({ meals: !!prefs.meals, hydration: !!prefs.hydration, movement: !!prefs.movement, weekly: !!prefs.weekly });
+        setLoaded((current) => ({ ...current, reminders: true }));
+      })
       .catch(() => undefined);
   }, [status]);
 
@@ -62,12 +70,15 @@ export default function SettingsScreen() {
   }
 
   const updatePermission = async (key: keyof PermissionPrefs) => {
-    const next = { ...permission, [key]: !permission[key] };
-    setPermission(next);
-    await post("/permissions", next).catch(() => undefined);
+    if (!loaded.permissions) return;
+    const value = !permission[key];
+    setPermission({ ...permission, [key]: value });
+    // Send only what changed, so a stale copy of the other switches can never overwrite them on the server.
+    await post("/permissions", { [key]: value }).catch(() => undefined);
   };
 
   const updateReminder = async (key: keyof ReminderPrefs) => {
+    if (!loaded.reminders) return;
     setNote("");
     const next = { ...reminders, [key]: !reminders[key] };
     if (Object.values(next).some(Boolean) && remindersSupported()) {
@@ -114,17 +125,17 @@ export default function SettingsScreen() {
 
         <Text style={styles.cardEyebrow}>{t.health.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.healthSub}</Text>
-        <ToggleRow testID="toggle-health-sync" title="HealthKit / Health Connect" subtitle={t.optionalPermission} value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
-        <ToggleRow testID="toggle-wearables" title={t.wearables} subtitle={t.optionalPermission} value={permission.wearables} onToggle={() => updatePermission("wearables")} />
-        <ToggleRow testID="toggle-coach-memory" title={t.coachMemory} subtitle={t.coachMemorySub} value={permission.coach_memory} onToggle={() => updatePermission("coach_memory")} />
-        <ToggleRow testID="toggle-analytics" title={t.analytics} subtitle={t.analyticsSub} value={permission.analytics} onToggle={() => updatePermission("analytics")} />
+        <ToggleRow testID="toggle-health-sync" disabled={!loaded.permissions} title="HealthKit / Health Connect" subtitle={t.optionalPermission} value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
+        <ToggleRow testID="toggle-wearables" disabled={!loaded.permissions} title={t.wearables} subtitle={t.optionalPermission} value={permission.wearables} onToggle={() => updatePermission("wearables")} />
+        <ToggleRow testID="toggle-coach-memory" disabled={!loaded.permissions} title={t.coachMemory} subtitle={t.coachMemorySub} value={permission.coach_memory} onToggle={() => updatePermission("coach_memory")} />
+        <ToggleRow testID="toggle-analytics" disabled={!loaded.permissions} title={t.analytics} subtitle={t.analyticsSub} value={permission.analytics} onToggle={() => updatePermission("analytics")} />
 
         <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.reminders.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.remindersSub}</Text>
-        <ToggleRow testID="toggle-remind-meals" title={t.remindMeals} subtitle="8:00 · 13:00 · 19:30" value={reminders.meals} onToggle={() => updateReminder("meals")} />
-        <ToggleRow testID="toggle-remind-hydration" title={t.remindWater} subtitle={t.everyThreeHours} value={reminders.hydration} onToggle={() => updateReminder("hydration")} />
-        <ToggleRow testID="toggle-remind-movement" title={t.remindMove} subtitle={t.everyTwoHours} value={reminders.movement} onToggle={() => updateReminder("movement")} />
-        <ToggleRow testID="toggle-remind-weekly" title={t.remindWeekly} subtitle={t.sundays} value={reminders.weekly} onToggle={() => updateReminder("weekly")} />
+        <ToggleRow testID="toggle-remind-meals" disabled={!loaded.reminders} title={t.remindMeals} subtitle="8:00 · 13:00 · 19:30" value={reminders.meals} onToggle={() => updateReminder("meals")} />
+        <ToggleRow testID="toggle-remind-hydration" disabled={!loaded.reminders} title={t.remindWater} subtitle={t.everyThreeHours} value={reminders.hydration} onToggle={() => updateReminder("hydration")} />
+        <ToggleRow testID="toggle-remind-movement" disabled={!loaded.reminders} title={t.remindMove} subtitle={t.everyTwoHours} value={reminders.movement} onToggle={() => updateReminder("movement")} />
+        <ToggleRow testID="toggle-remind-weekly" disabled={!loaded.reminders} title={t.remindWeekly} subtitle={t.sundays} value={reminders.weekly} onToggle={() => updateReminder("weekly")} />
         {note === "blocked" ? (
           <View style={styles.reasonCard} testID="reminder-blocked">
             <Text style={styles.cardEyebrow}>{t.reminders.toUpperCase()}</Text>
