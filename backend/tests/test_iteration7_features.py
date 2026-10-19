@@ -188,9 +188,9 @@ class TestRegression:
         assert authed.get(f"{BASE_URL}/api/reminders", timeout=20).json()["hydration"] == toggled["hydration"]
         authed.put(f"{BASE_URL}/api/reminders", json={k: original.get(k, True) for k in ("meals", "hydration", "movement", "weekly")}, timeout=20)
 
-    def test_vision_still_works(self, authed):
+    def test_vision_still_works(self, authed, vision_backend):
         resp = authed.post(
-            f"{BASE_URL}/api/coach/vision",
+            f"{vision_backend}/api/coach/vision",
             json={"image_base64": make_food_image(), "language": "en", "meal_type": "lunch"},
             timeout=90,
         )

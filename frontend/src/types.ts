@@ -90,6 +90,7 @@ export type VisionResult = {
   alternatives: string[];
   meal_type: string;
   model: string;
+  provider?: string;
 };
 
 export type ReminderPrefs = {
