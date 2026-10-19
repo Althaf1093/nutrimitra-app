@@ -17,3 +17,7 @@ deterministic and never hit real rate limits. Override ports with `E2E_API_PORT`
 ## Output
 Screenshots: `e2e/screenshots/<phone|desktop>/<flow number>-<name>.png`. HTML report: `npm run report`.
 Logs: `e2e/.logs`. All of these are git-ignored.
+
+## Against the real photo provider (optional)
+`set E2E_REAL_VISION=1` then `npm run e2e -- real-photo`. The backend uses the keys in `backend/.env` (it loads them itself;
+nothing is printed) and `VISION_PROVIDER=auto` unless you set `E2E_VISION_PROVIDER`. It is skipped in the normal run.

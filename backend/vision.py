@@ -81,6 +81,16 @@ def extract_json(text: str) -> Optional[Dict[str, Any]]:
     return parsed if isinstance(parsed, dict) and parsed else None
 
 
+def error_reason(response: httpx.Response) -> str:
+    """The provider's own error message (never the request, so no image or key), for the log line."""
+    try:
+        error = response.json().get("error")
+    except (ValueError, AttributeError):
+        return ""
+    message = error.get("message") if isinstance(error, dict) else error
+    return f": {str(message)[:200]}" if message else ""
+
+
 def retry_delay(response: httpx.Response, attempt: int) -> float:
     try:
         suggested = float(response.headers.get("retry-after", ""))
@@ -114,7 +124,7 @@ class VisionProvider:
                 await asyncio.sleep(delay)
                 continue
             if response.status_code != 200:
-                raise ProviderError(f"{self.name} returned HTTP {response.status_code}")
+                raise ProviderError(f"{self.name} returned HTTP {response.status_code}{error_reason(response)}")
             try:
                 return response.json()
             except ValueError as exc:

@@ -123,6 +123,11 @@ def main() -> None:
             "AUTH_RATE_WINDOW_MINUTES": "1",
             "AUTH_RATE_LIMIT_EXEMPT_IPS": "",
         }
+        if os.environ.get("E2E_REAL_VISION"):
+            # Photo recognition against the real providers (keys come from backend/.env, which the backend loads itself).
+            for name in ("GROQ_API_KEY", "GROQ_BASE_URL", "GEMINI_API_KEY", "GEMINI_BASE_URL"):
+                env.pop(name, None)
+            env["VISION_PROVIDER"] = os.environ.get("E2E_VISION_PROVIDER", "auto")
         if os.environ.get("E2E_CORS"):
             env["CORS_ORIGINS"] = os.environ["E2E_CORS"]
         else:
