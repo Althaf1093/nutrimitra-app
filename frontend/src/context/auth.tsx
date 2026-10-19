@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
-import { api, clearToken, post, saveToken } from "@/src/api";
+import { api, clearToken, getToken, post, saveToken } from "@/src/api";
 import { copy, Lang } from "@/src/i18n";
 import { useGoogleSignIn } from "@/src/lib/google-auth";
 import { storage } from "@/src/utils/storage";
@@ -44,6 +44,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     const boot = async () => {
       try {
+        // Nothing saved means nobody is signed in: skip the request that would only come back 401.
+        if (!(await getToken())) {
+          if (!cancelled) setStatus("anon");
+          return;
+        }
         await applySession();
       } catch {
         await clearToken();
