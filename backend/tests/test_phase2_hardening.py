@@ -625,3 +625,55 @@ class TestCoachHistoryRecency:
             stop_backend(proc)
             fake.shutdown()
             mongo.coach_messages.delete_many({"user_id": fresh.user_id})
+
+
+class EmptyThenGood(BaseHTTPRequestHandler):
+    """Fake AI: "empty" mode answers with no content `empty_first` times, then a normal reply."""
+
+    state = {"empty_first": 1, "hits": 0, "max_tokens": []}
+
+    def do_POST(self):
+        request = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
+        EmptyThenGood.state["hits"] += 1
+        EmptyThenGood.state["max_tokens"].append(request.get("max_tokens"))
+        content = "" if EmptyThenGood.state["hits"] <= EmptyThenGood.state["empty_first"] else "Recovered reply"
+        body = json.dumps({"choices": [{"message": {"content": content}, "finish_reason": "length" if not content else "stop"}]}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *args):
+        pass
+
+
+class TestEmptyAiReply:
+    """A reasoning model sometimes returns an empty reply. It is retried, and if it stays empty the user
+    gets the structured ai_unavailable error rather than a blank or invented answer."""
+
+    @pytest.fixture(scope="class")
+    def backend(self):
+        fake = ThreadingHTTPServer(("127.0.0.1", 0), EmptyThenGood)
+        threading.Thread(target=fake.serve_forever, daemon=True).start()
+        url, proc = spawn_backend(GROQ_API_KEY="fake-key", GROQ_BASE_URL=f"http://127.0.0.1:{fake.server_address[1]}")
+        yield url
+        stop_backend(proc)
+        fake.shutdown()
+
+    def test_empty_reply_is_retried(self, backend, fresh, mongo):
+        EmptyThenGood.state.update(empty_first=1, hits=0, max_tokens=[])
+        resp = requests.post(f"{backend}/api/coach", json={"message": "hello", "language": "en"}, headers=fresh.headers, timeout=60)
+        assert resp.status_code == 200, resp.text
+        assert resp.json()["reply"] == "Recovered reply"
+        assert EmptyThenGood.state["hits"] == 2
+        assert EmptyThenGood.state["max_tokens"][0] == 2000, "the coach leaves room for reasoning tokens"
+        mongo.coach_messages.delete_many({"user_id": fresh.user_id})
+
+    def test_always_empty_returns_ai_unavailable_after_two_retries(self, backend, fresh, mongo):
+        EmptyThenGood.state.update(empty_first=99, hits=0, max_tokens=[])
+        resp = requests.post(f"{backend}/api/coach", json={"message": "hello", "language": "en"}, headers=fresh.headers, timeout=60)
+        assert resp.status_code == 503, resp.text
+        assert resp.json()["detail"]["code"] == "ai_unavailable"
+        assert EmptyThenGood.state["hits"] == 3
+        assert mongo.coach_messages.count_documents({"user_id": fresh.user_id}) == 0
