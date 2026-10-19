@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { copy } from "@/src/i18n";
 import { storage } from "@/src/utils/storage";
 
 const configuredUrl = Constants.expoConfig?.extra?.backendUrl as string | undefined;
@@ -32,19 +33,35 @@ export class ApiError extends Error {
 
 export const isAiBusy = (err: unknown) => err instanceof ApiError && err.code === "ai_busy";
 
+// Text for errors raised here, in the language the person chose (api() runs outside the language context).
+async function messages() {
+  const stored = await storage.getItem<string>("nutrimitra.lang", "");
+  return copy[stored === "te" ? "te" : "en"];
+}
+
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = await getToken();
   const headers = new Headers(options.headers);
   headers.set("Content-Type", "application/json");
   if (token) headers.set("Authorization", `Bearer ${token}`);
-  const response = await fetch(`${baseUrl}/api${path}`, { ...options, headers });
+  let response: Response;
+  try {
+    response = await fetch(`${baseUrl}/api${path}`, { ...options, headers });
+  } catch (err) {
+    // fetch only throws when nothing came back at all: the backend is down, the address is wrong, or (in a browser)
+    // CORS blocked the page. Say so plainly instead of the browser's bare "Failed to fetch".
+    const origin = typeof window !== "undefined" && window.location ? window.location.origin : "this app";
+    console.error(`[Wellstride] Could not reach the backend at ${baseUrl || "(EXPO_PUBLIC_BACKEND_URL is empty)"}. Check that it is running and that EXPO_PUBLIC_BACKEND_URL is right. In a browser, also check that the backend's CORS_ORIGINS allows ${origin}.`, err);
+    throw new ApiError((await messages()).cannotReachServer, 0, "network");
+  }
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
     const detail = body.detail;
     // FastAPI validation errors are a list of {msg}; show the first message.
     if (Array.isArray(detail) && typeof detail[0]?.msg === "string") throw new ApiError(detail[0].msg, response.status);
-    if (detail && typeof detail === "object" && !Array.isArray(detail)) throw new ApiError(detail.message || "Something went wrong", response.status, detail.code);
-    throw new ApiError(typeof detail === "string" ? detail : "Something went wrong", response.status);
+    const fallback = (await messages()).somethingWrong;
+    if (detail && typeof detail === "object" && !Array.isArray(detail)) throw new ApiError(detail.message || fallback, response.status, detail.code);
+    throw new ApiError(typeof detail === "string" ? detail : fallback, response.status);
   }
   return body as T;
 }

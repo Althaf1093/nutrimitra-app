@@ -48,16 +48,17 @@ AUTH_RATE_WINDOW_SECONDS = int(os.getenv("AUTH_RATE_WINDOW_MINUTES", "15")) * 60
 AUTH_RATE_LIMIT_EXEMPT_IPS = {ip.strip() for ip in os.getenv("AUTH_RATE_LIMIT_EXEMPT_IPS", "127.0.0.1,::1").split(",") if ip.strip()}
 # Behind a reverse proxy (e.g. Render) the client IP is the first X-Forwarded-For entry.
 TRUST_PROXY_HEADERS = os.getenv("TRUST_PROXY_HEADERS", "").lower() in {"1", "true", "yes"}
-# Browser origins allowed to call the API (comma separated). Defaults cover the local Expo web build;
-# the native app is not subject to CORS.
-DEFAULT_CORS_ORIGINS = "http://localhost:8081,http://localhost:19006,http://127.0.0.1:8081,http://127.0.0.1:19006"
+# Browser origins allowed to call the API (comma separated). Unset means "this computer": the local web build on any
+# port, because Expo moves to another port whenever 8081 is busy. The native app is not subject to CORS.
+# Character classes, not backslashes, keep the dots and brackets literal.
+LOCAL_ORIGIN_PATTERN = "^https?://(localhost|127[.]0[.]0[.]1|[[]::1[]])(:[0-9]+)?$"
 
 
 def parse_origins(raw: str) -> List[str]:
     return [origin.strip().rstrip("/") for origin in raw.split(",") if origin.strip()]
 
 
-CORS_ORIGINS = parse_origins(os.getenv("CORS_ORIGINS") or DEFAULT_CORS_ORIGINS)
+CORS_ORIGINS = parse_origins(os.getenv("CORS_ORIGINS") or "")
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -1265,4 +1266,4 @@ async def health_summary(user: Dict[str, Any] = Depends(current_user)):
 
 app.include_router(api_router)
 # Auth uses Bearer tokens, not cookies, so credentials (cookies) are not allowed cross-origin.
-app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_credentials=False, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
+app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_origin_regex=None if CORS_ORIGINS else LOCAL_ORIGIN_PATTERN, allow_credentials=False, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
