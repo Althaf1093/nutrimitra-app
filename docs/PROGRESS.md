@@ -130,3 +130,64 @@ main), plus two bug-fix PRs the full test run turned up. New tests are in
 7. **Long Coach chat**: after many messages, reopening Coach shows the latest ones, not the first.
 8. **Coach in general**: it should rarely say "AI is unavailable" now; if Groq is rate-limited you still
    get "AI is busy, try again in a minute".
+
+
+# Phase 3 progress (2026-10-19): identity, cleanup and vision
+
+All eight Phase 3 items are merged to main (one PR each, no stacked branches), plus one test-isolation fix.
+New tests: `test_phase3_identity.py`, `test_phase3_age.py`, `test_phase3_vision.py`, `test_phase3_google.py`,
+`test_phase3_i18n.py` and `test_phase3_housekeeping.py` (about 100 tests), plus shared fakes in `tests/fakes.py`
+and `tests/conftest.py`.
+
+## What changed
+
+| Item | PR | What changed |
+|------|----|--------------|
+| 1. Identity | #23 | The app is **Wellstride**: `app.json` name, slug and scheme `wellstride`, iOS bundle ID and Android package `in.inkbrief.wellstride`; every user-visible "NutriMitra" is renamed (screens, both languages, API status and title, AI prompts, README, CLAUDE.md). The repo, the `nutrimitra` database and the on-device keys (`nutrimitra.session.token`, `nutrimitra.lang`) are unchanged on purpose, because renaming the keys would sign everyone out. |
+| 2. Emergent cleanup | #24 | Deleted `.emergent/`, `test_reports/`, `test_result.md`, `image_testing.md`, the repo `.gitconfig`, the `preinstall` cmd-guard hook and `frontend/scripts/cmd-guard*`, `install-guard.sh`, `sync-shims.sh`. A clean `yarn install` works without them. |
+| 3. Placeholder branding | #25 | `frontend/scripts/make-icons.py` (re-runnable, Pillow) draws a "W" path mark and writes `icon.png`, `adaptive-icon.png` (inside Android's safe zone), `splash-image.png`, `favicon.png` and `assets/store/icon-512.png`. Adaptive-icon background `#4A6B5D`, splash background `#FDFBF7`. Unused template images deleted. I looked at every image and redrew the first draft. |
+| 4. 18+ | #26 | Profiles accept 18 to 100 (422 "You must be 18 or older to use Wellstride."). Onboarding checks the age, in English and Telugu, with a one-line note. A stored profile under 18 goes back through onboarding. No under-18 profiles exist in the local databases. |
+| 5. Vision provider | #27 | `backend/vision.py`: Gemini Flash default (`gemini-3.8-flash`, the id in Google's docs, via `generateContent`), Groq vision optional (`qwen/qwen3.8-27b`), `VISION_PROVIDER` = gemini / groq / auto. No provider set up gives a clear 503; unusable answers give 503 (was 502). Image bytes and keys are never logged. The three photo tests now pass against a local fake. Emergent vision removed. |
+| 6. Google sign-in | #28 | `POST /api/auth/google` verifies a Google ID token with `google-auth` (signature, audience from `GOOGLE_CLIENT_IDS`, issuer, expiry, nonce, verified email); accounts match on email, so old Google accounts keep working. The app uses `expo-auth-session`; the Google button is hidden unless `EXPO_PUBLIC_GOOGLE_CLIENT_ID` is set. The Emergent session code is gone. |
+| 7. i18n sweep | #29 | About 100 keys moved into `src/i18n.ts` in English and Telugu: Settings, Coach prompts, "Day N", "Back", headings, placeholders, option labels and messages. Saved values stay English. |
+| 8. Housekeeping | #30 | `LogBox.ignoreAllLogs(true)` removed. Removed `date-fns`, `dayjs`, `expo-blur`, `expo-haptics`, `expo-linear-gradient`, `react-native-dotenv`, `react-native-webview` and `@tanstack/react-query`. Kept `expo-linking` (a peer of `expo-router`). Aligned Expo patch versions and pinned one `react-native-screens`: `expo-doctor` went from 18/20 to **20/20**. |
+| Test fix | #31 | A conftest fixture restores `server.db` after tests that swap it (a Phase 2 test left a closed event loop that broke a later in-process test in a full run). |
+
+## What is verified (on the PC)
+
+- tsc: 0 errors. ESLint on `app` and `src`: 0 errors, the 2 known `require()` warnings. `expo export --platform web`
+  bundles after every UI change; `expo-doctor` is 20/20; a clean `yarn install` succeeds.
+- Full backend suite, run once on main after item 8: **203 passed, 2 failed**. All three photo-recognition tests now
+  pass (the "known failures" are gone). The two failures were `test_coach` (a real Groq rate limit, passes alone) and the
+  isolation bug fixed in #31.
+- Real checks without reading or printing a key: Groq's account lists `qwen/qwen3.8-27b`, and a real photo through
+  `POST /api/coach/vision` with `VISION_PROVIDER=groq` returned 200. With no Gemini key the default returns the clear 503.
+  Google token verification is tested with genuine RSA signatures against a local fake of Google's certificate endpoint.
+
+## Not verified, and what you need to do
+
+1. **Gemini is untested against Google.** Paste your key into `backend/.env` yourself (`GEMINI_API_KEY=`), restart the backend, then
+   try Photo. Until then photo logging says it isn't set up. Steps are in the README.
+2. **Google sign-in needs your credentials** (a "Web application" OAuth client ID): set `GOOGLE_CLIENT_IDS` in `backend/.env` and
+   `EXPO_PUBLIC_GOOGLE_CLIENT_ID` in `frontend/.env`, then `npx expo start --clear`. The button appears only when the app has the ID.
+   The browser popup flow is untested. For the Android store build, Expo recommends `@react-native-google-signin/google-signin`
+   (needs a development build, not Expo Go); the app side is isolated in `frontend/src/lib/google-auth.ts`. That is a Phase 5 task.
+3. **Dependencies changed.** Run `yarn install` in `frontend` before starting Expo, then `npx expo start --clear`. Expo packages
+   moved to the latest SDK 57 patch versions, so please run the app once on your phone.
+4. **Telugu needs a native reader.** I wrote Telugu for every new key; these are the ones I am least sure of:
+   `strengthWord`, `activeKcalNote`, `ringMoving`, `weightTrend`, `trendHint`, `privacyLine`, `planReasoningFallback`,
+   `optEggetarian`, `optEnjoy`, `optBudgetFriendly`, `optBalanced`, `optFlexible`, `wellnessNotice`, `aiBusy`, `aiBusyPlan`,
+   `ageMustBe18`, `googleFailed`. The older `photoDisclaimer` says "మీ యంత్రం" ("your machine"); "మీ పరికరం" ("your device") is probably meant.
+5. **Backend text is still English** (the Eat-now reasoning and disclaimer, the Progress weekly review, API error messages). Translating
+   it needs the backend to take a language, which is a behaviour change, so I left it.
+6. **Warnings may appear on the phone.** `LogBox.ignoreAllLogs` is gone, so yellow warning boxes that used to be hidden can show up.
+   Tell me which, and I will fix the real ones.
+
+## Please check on the phone
+
+1. Open the app: the name is Wellstride on the welcome screen, and you are still signed in.
+2. New account, onboarding: age 17 is refused with the 18+ message (also in Telugu); 18 continues.
+3. Settings, switch to Telugu, and look through Today, Plan, Coach, Progress, Settings, Eat now and Photo for leftover English.
+4. Photo, once you add the Gemini key: take a picture, check the confirm form. Without the key you see "isn't set up yet" and can still log by hand.
+5. Welcome screen without Google credentials: no Google button, and email sign-in works.
+6. Everything else (Today, Plan, Coach, Progress) behaves as before. This checks the Expo package updates.
