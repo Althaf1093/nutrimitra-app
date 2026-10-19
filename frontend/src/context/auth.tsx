@@ -18,6 +18,7 @@ type AuthContextValue = {
   signInEmail: (mode: "signin" | "signup", email: string, password: string, name: string, acceptTerms?: boolean) => Promise<void>;
   signInGoogle: (acceptTerms?: boolean) => Promise<void>;
   acceptConsent: () => Promise<void>;
+  refreshUser: () => Promise<void>;
   completeOnboarding: (profile: Profile) => void;
   signOut: () => Promise<void>;
 };
@@ -92,6 +93,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await applySession();
   }, [applySession]);
 
+  const refreshUser = useCallback(async () => {
+    await applySession();
+  }, [applySession]);
+
   const completeOnboarding = useCallback((nextProfile: Profile) => {
     setProfile(nextProfile);
     setStatus("ready");
@@ -110,8 +115,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, profile, lang, t: copy[lang], setLang: changeLang, signInEmail, signInGoogle, acceptConsent, completeOnboarding, signOut }),
-    [status, user, profile, lang, changeLang, signInEmail, signInGoogle, acceptConsent, completeOnboarding, signOut],
+    () => ({ status, user, profile, lang, t: copy[lang], setLang: changeLang, signInEmail, signInGoogle, acceptConsent, refreshUser, completeOnboarding, signOut }),
+    [status, user, profile, lang, changeLang, signInEmail, signInGoogle, acceptConsent, refreshUser, completeOnboarding, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

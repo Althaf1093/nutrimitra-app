@@ -32,7 +32,8 @@ def cleanup(p4db):
 
 
 def emails_to(p4, address):
-    return [r["body"] for r in p4.email.requests if r["path"] == "/emails" and address in r["body"].get("to", [])]
+    # Signing up also sends a verification email; these tests are about the reset email.
+    return [r["body"] for r in p4.email.requests if r["path"] == "/emails" and address in r["body"].get("to", []) and "reset" in r["body"]["subject"]]
 
 
 def wait_for_email(p4, address, count=1, seconds=10):
@@ -61,9 +62,23 @@ def login(p4, email, password):
     return requests.post(f"{p4.url}/api/auth/login", json={"email": email, "password": password}, timeout=20)
 
 
-def new_account(p4, cleanup):
+_client = None
+
+
+def mark_verified(email):
+    """Password reset only works for verified emails (item 5); these tests are about the reset itself."""
+    global _client
+    from pymongo import MongoClient
+
+    _client = _client or MongoClient(server.MONGO_URL, serverSelectionTimeoutMS=10000)
+    _client[server.DB_NAME].users.update_one({"email": email}, {"$set": {"email_verified": True}})
+
+
+def new_account(p4, cleanup, verified=True):
     response, email = p4_signup(p4)
     cleanup.append(email)
+    if verified:
+        mark_verified(email)
     return response.json()["token"], email
 
 

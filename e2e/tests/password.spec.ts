@@ -9,6 +9,9 @@ async function signUpAndOut(app: Parameters<Parameters<typeof test>[2]>[0]["app"
   await app.open();
   await app.signUp(email);
   await app.completeOnboarding();
+  // Password reset only works for a verified email, so verify it first (through the API; flow 16 does it on screen).
+  const sent = await lastEmail(email);
+  expect((await app.api("/auth/verify-email", { method: "POST", body: { code: /code is: (\d{6})/.exec(sent.text)![1] } })).status).toBe(200);
   await app.id("open-settings-button").click();
   await app.id("sign-out-button").click();
   await expect(app.id("welcome-screen")).toBeVisible();
@@ -67,4 +70,38 @@ test("15. forgot password: the emailed link opens the reset screen with the code
   await app.id("reset-back-button").click();
   await app.signIn(email, NEW_PASSWORD);
   await expect(app.id("today-screen")).toBeVisible();
+});
+
+test("16. verify email: banner on Today, wrong code, right code, banner gone", async ({ app }) => {
+  app.allow(/http 400 POST .*\/auth\/verify-email/, /console\.error Failed to load resource.*400/);
+  const email = uniqueEmail("verify");
+  await app.open();
+  await app.signUp(email);
+  await app.completeOnboarding();
+  await expect(app.id("verify-banner")).toBeVisible();
+  await app.shot("banner");
+  await app.id("verify-banner").click();
+  await expect(app.id("verify-email-screen")).toBeVisible();
+
+  await app.id("field-verification-code").fill("000000");
+  await app.id("verify-submit-button").click();
+  await expect(app.id("verify-error")).toContainText("invalid or has expired");
+
+  const first = /code is: (\d{6})/.exec((await lastEmail(email)).text)![1];
+  await app.id("verify-resend-button").click();
+  await expect(app.id("verify-note")).toBeVisible();
+  // The resend replaced the first code; wait until the second email is the newest one.
+  let code = first;
+  for (let attempt = 0; attempt < 40 && code === first; attempt++) {
+    code = /code is: (\d{6})/.exec((await lastEmail(email)).text)![1];
+    if (code === first) await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  await app.id("field-verification-code").fill(code);
+  await app.id("verify-submit-button").click();
+  await expect(app.id("verify-done-button")).toBeVisible();
+  await app.shot("verified");
+  await app.id("verify-done-button").click();
+  await expect(app.id("today-screen")).toBeVisible();
+  await expect(app.id("verify-banner")).toHaveCount(0);
+  expect((await app.api("/me")).body.user.email_verified).toBe(true);
 });

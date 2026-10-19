@@ -153,6 +153,15 @@ export default function TodayScreen() {
               <Text style={styles.reasonText}>{error}</Text>
             </View>
           ) : null}
+          {user && user.email_verified === false ? (
+            <Pressable testID="verify-banner" accessibilityRole="button" onPress={() => router.push("/verify-email")} style={({ pressed }) => [styles.eatBanner, { marginBottom: 12 }, pressed && styles.pressed]}>
+              <View style={styles.flex}>
+                <Text style={styles.bannerTitle}>{t.verifyBannerTitle}</Text>
+                <Text style={styles.bannerSub}>{t.verifyBannerSub}</Text>
+              </View>
+              <AppIcon name="chevron.right" color={colors.onSurface} size={18} />
+            </Pressable>
+          ) : null}
           <TodayProgressCard dashboard={dashboard} t={t} styles={styles} />
           <Pressable testID="eat-now-button" accessibilityRole="button" onPress={() => router.push("/eat-now")} style={({ pressed }) => [styles.eatBanner, pressed && styles.pressed]}>
             <View style={styles.bannerIcon}>
