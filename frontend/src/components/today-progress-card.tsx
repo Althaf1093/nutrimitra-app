@@ -26,7 +26,7 @@ export function TodayProgressCard({ dashboard, t, styles }: { dashboard: Dashboa
         <Text style={styles.ringText} testID="today-progress-minutes">
           {dashboard?.activity_minutes || 0}
         </Text>
-        <Text style={styles.ringCaption}>active {t.minutes}</Text>
+        <Text style={styles.ringCaption}>{t.activeWord} {t.minutes}</Text>
       </View>
     </View>
   );

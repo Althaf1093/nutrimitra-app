@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, isAiBusy, post } from "@/src/api";
 import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { optionLabel } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Meal, Plan } from "@/src/types";
@@ -77,7 +78,7 @@ export default function PlanScreen() {
         </ScrollView>
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
-        <Text style={styles.sectionSub}>{plan?.goal || t.planRhythm}</Text>
+        <Text style={styles.sectionSub}>{plan?.goal ? optionLabel(t, plan.goal) : t.planRhythm}</Text>
         <Text style={[styles.disclaimer, { marginTop: 4, marginBottom: 8 }]} testID="plan-wellness-notice">
           {t.wellnessNotice}
         </Text>

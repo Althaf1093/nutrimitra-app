@@ -97,3 +97,20 @@ class TestPermissionsEndpointKeepsOtherKeys:
             db = MongoClient("mongodb://127.0.0.1:27017").test_database
             db.permissions.delete_many({"user_id": user["user"]["id"]})
             db.users.delete_many({"id": user["user"]["id"]})
+
+
+class TestTeluguLeftoversFoundInTheBrowser:
+    """E2E flow 9 scans every main screen in Telugu. It found 'active' in the progress ring, the plan goal shown as the
+    stored English value, and the weekly review sentence, which came from the backend in English."""
+
+    def test_ring_caption_goal_and_weekly_review_use_the_catalogue(self):
+        assert "{t.activeWord} {t.minutes}" in read("src", "components", "today-progress-card.tsx")
+        assert "optionLabel(t, plan.goal)" in read("app", "(tabs)", "plan.tsx")
+        progress = read("app", "(tabs)", "progress.tsx")
+        assert "t.weeklyReview" in progress and "progress?.review" not in progress
+
+    def test_new_keys_exist_in_both_languages(self):
+        i18n = read("src", "i18n.ts")
+        english, telugu = i18n.split("  te: {", 1)
+        for key in ("activeWord", "weeklyReview"):
+            assert f"    {key}:" in english and f"    {key}:" in telugu
