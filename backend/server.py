@@ -270,11 +270,37 @@ async def save_profile(payload: ProfileInput, user: Dict[str, Any] = Depends(cur
     return {"profile": profile}
 
 
-def portion_for(profile: Dict[str, Any], meal: str) -> Dict[str, Any]:
+def calorie_target(profile: Dict[str, Any]) -> int:
+    """Daily energy estimate: Mifflin-St Jeor x activity factor, adjusted for the goal, floored at 1,200 kcal."""
+    weight = float(profile.get("weight_kg") or 70)
+    height = float(profile.get("height_cm") or 165)
+    age = int(profile.get("age") or 30)
+    sex_adjust = 5 if profile.get("sex") == "Male" else -161 if profile.get("sex") == "Female" else -78
+    activity_factor = {"Lightly active": 1.4, "Moderately active": 1.55, "Very active": 1.7}.get(str(profile.get("activity_level", "")), 1.5)
+    goal_adjust = {"Weight loss": -400, "Weight gain": 300, "Muscle building": 250}.get(str(profile.get("wellness_goal", "")), 0)
+    return max(1200, int(((10 * weight) + (6.25 * height) - (5 * age) + sex_adjust) * activity_factor + goal_adjust))
+
+
+MEAL_SHARES = {"breakfast": 0.25, "lunch": 0.35, "snack": 0.10, "dinner": 0.30}
+MEAL_FAT_SHARES = {"breakfast": 0.28, "lunch": 0.27, "snack": 0.35, "dinner": 0.27}
+# Small day-to-day swing so a fallback week does not repeat identical numbers; averages to ~1.0.
+DAY_FACTORS = (1.0, 0.95, 1.04, 0.98, 1.03, 0.96, 1.04)
+
+
+def portion_for(profile: Dict[str, Any], meal: str, day_index: int = 0) -> Dict[str, Any]:
+    """Fallback meal nutrition sized from the user's daily target, the meal's share of the day and the goal."""
     goal = profile.get("wellness_goal", "Healthier living")
-    protein = 32 if goal in {"Muscle building", "Weight gain"} else 24
+    protein_share = 0.25 if goal in {"Muscle building", "Weight gain", "Weight loss"} else 0.20
+    fat_share = MEAL_FAT_SHARES.get(meal, 0.28)
+    calories = int(round(calorie_target(profile) * MEAL_SHARES.get(meal, 0.25) * DAY_FACTORS[day_index % len(DAY_FACTORS)] / 5) * 5)
     portions = {"breakfast": "1 bowl", "lunch": "1 balanced plate", "snack": "1 small bowl", "dinner": "1 plate"}
-    return {"portion": portions.get(meal, "1 serving"), "protein_g": protein, "carbs_g": 42, "fat_g": 16, "calories": 430}
+    return {
+        "portion": portions.get(meal, "1 serving"),
+        "protein_g": round(calories * protein_share / 4),
+        "carbs_g": round(calories * (1 - protein_share - fat_share) / 4),
+        "fat_g": round(calories * fat_share / 9),
+        "calories": calories,
+    }
 
 
 def local_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -295,7 +321,7 @@ def local_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
             breakfast = protein
         meals = []
         for meal_type, name in [("breakfast", breakfast), ("lunch", lunch), ("snack", "Fruit, almonds & pumpkin seeds"), ("dinner", dinner)]:
-            nutrition = portion_for(profile, meal_type)
+            nutrition = portion_for(profile, meal_type, index - 1)
             meals.append({"type": meal_type, "name": name, **nutrition, "logged": False})
         days.append({"day": index, "title": f"Day {index}", "focus": "Protein + fibre balance", "meals": meals})
     return {"goal": profile.get("wellness_goal", "Healthier living"), "days": days, "generated_by": "NutriMitra nutrition engine", "updated_at": now_iso()}
@@ -805,13 +831,7 @@ async def eat_now(user: Dict[str, Any] = Depends(current_user)):
     today = local_date.isoformat()
     meals = await db.meals.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
     plan = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
-    weight = float(profile.get("weight_kg") or 70)
-    height = float(profile.get("height_cm") or 165)
-    age = int(profile.get("age") or 30)
-    sex_adjust = 5 if profile.get("sex") == "Male" else -161 if profile.get("sex") == "Female" else -78
-    activity_factor = {"Lightly active": 1.4, "Moderately active": 1.55, "Very active": 1.7}.get(str(profile.get("activity_level", "")), 1.5)
-    goal_adjust = {"Weight loss": -400, "Weight gain": 300, "Muscle building": 250}.get(str(profile.get("wellness_goal", "")), 0)
-    target = max(1200, int(((10 * weight) + (6.25 * height) - (5 * age) + sex_adjust) * activity_factor + goal_adjust))
+    target = calorie_target(profile)
     consumed = sum(int(item.get("calories", 0)) for item in meals)
     remaining = max(0, target - consumed)
     logged_types = {item.get("meal_type") for item in meals}
