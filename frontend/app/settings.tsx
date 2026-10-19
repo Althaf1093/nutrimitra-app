@@ -4,7 +4,7 @@ import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from "r
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post, put } from "@/src/api";
-import { AppIcon, Button, Chip } from "@/src/components/ui";
+import { AppIcon, Button, Chip, Field } from "@/src/components/ui";
 import { LegalLinks } from "@/src/components/legal-links";
 import { useAuth } from "@/src/context/auth";
 import { getHealthStatus } from "@/src/lib/health";
@@ -35,7 +35,12 @@ export default function SettingsScreen() {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { lang, setLang, t, signOut, status } = useAuth();
+  const { lang, setLang, t, signOut, status, user } = useAuth();
+  const [deleting, setDeleting] = useState(false);
+  const [deleteWord, setDeleteWord] = useState("");
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteBusy, setDeleteBusy] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
   const [permission, setPermission] = useState<PermissionPrefs>({ health_sync: false, wearables: false, analytics: false, coach_memory: true });
   const [reminders, setReminders] = useState<ReminderPrefs>({ meals: true, hydration: false, movement: false, weekly: true });
   const [note, setNote] = useState("");
@@ -174,6 +179,38 @@ export default function SettingsScreen() {
             router.replace("/");
           }}
         />
+
+        <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.deleteAccountHeading.toUpperCase()}</Text>
+        {deleting ? (
+          <View style={styles.reasonCard} testID="delete-account-form">
+            <Text style={styles.reasonText}>{t.deleteAccountWarning}</Text>
+            <Field label={t.deleteTypeDelete} value={deleteWord} onChangeText={setDeleteWord} />
+            {user?.has_password !== false ? <Field label={t.password} value={deletePassword} onChangeText={setDeletePassword} secureTextEntry /> : null}
+            {deleteError ? <Text style={styles.errorText} testID="delete-account-error">{deleteError}</Text> : null}
+            <Button
+              testID="delete-account-confirm-button"
+              label={deleteBusy ? "..." : t.deleteConfirmButton}
+              disabled={deleteBusy || deleteWord.trim() !== "DELETE" || (user?.has_password !== false && deletePassword.length === 0)}
+              onPress={async () => {
+                setDeleteBusy(true);
+                setDeleteError("");
+                try {
+                  await api("/account", { method: "DELETE", body: JSON.stringify({ confirm: deleteWord.trim(), password: deletePassword }) });
+                  await signOut();
+                  router.dismissAll();
+                  router.replace("/");
+                } catch (err) {
+                  setDeleteError(err instanceof Error ? err.message : t.pleaseTryAgain);
+                } finally {
+                  setDeleteBusy(false);
+                }
+              }}
+            />
+            <Button testID="delete-account-cancel-button" label={t.cancel} secondary onPress={() => { setDeleting(false); setDeleteWord(""); setDeletePassword(""); setDeleteError(""); }} />
+          </View>
+        ) : (
+          <Button testID="delete-account-button" label={t.deleteAccount} secondary onPress={() => setDeleting(true)} />
+        )}
         <View style={{ height: Math.max(insets.bottom, 16) }} />
       </ScrollView>
     </View>

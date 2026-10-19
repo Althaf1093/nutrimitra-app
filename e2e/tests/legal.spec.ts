@@ -57,3 +57,29 @@ test("12. consent: sign-up needs the box, and an account without consent is aske
   await expect(app.id("onboarding-screen")).toBeVisible();
   expect((await app.api("/me")).body.user.needs_consent).toBe(false);
 });
+
+test("13. delete account: confirm in Settings, signed out, cannot sign in again", async ({ app }) => {
+  app.allow(/http 401 POST .*\/auth\/login/, /http 403 DELETE .*\/account/, /console\.error Failed to load resource.*(401|403)/);
+  const email = uniqueEmail("delete");
+  await app.open();
+  await app.signUp(email);
+  await app.completeOnboarding();
+  await app.id("open-settings-button").click();
+  await app.id("delete-account-button").scrollIntoViewIfNeeded();
+  await app.id("delete-account-button").click();
+  await expect(app.id("delete-account-confirm-button")).toBeDisabled();
+
+  await app.id("field-type-delete-to-confirm").fill("DELETE");
+  await app.id("field-password").fill("not-my-password");
+  await app.id("delete-account-confirm-button").click();
+  await expect(app.id("delete-account-error")).toHaveText("Password is incorrect");
+  await app.shot("delete-wrong-password");
+
+  await app.id("field-password").fill(PASSWORD);
+  await app.id("delete-account-confirm-button").click();
+  await expect(app.id("welcome-screen")).toBeVisible();
+
+  await app.signIn(email);
+  await expect(app.id("auth-error")).toHaveText("Email or password is incorrect");
+  await app.shot("delete-done");
+});

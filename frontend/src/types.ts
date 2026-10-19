@@ -8,6 +8,7 @@ export type User = {
   language: Lang;
   // True until the person has agreed to the current Terms and Privacy Policy (asked once on next launch).
   needs_consent?: boolean;
+  has_password?: boolean;
 };
 
 export type Profile = {
