@@ -20,7 +20,7 @@ import bcrypt
 import httpx
 import jwt
 from dotenv import load_dotenv
-from fastapi import APIRouter, BackgroundTasks, Depends, FastAPI, HTTPException, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -30,6 +30,7 @@ from pymongo.errors import DuplicateKeyError, OperationFailure
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from pydantic_core import PydanticCustomError
 
+import foods
 import legal
 import mailer
 import vision
@@ -219,6 +220,8 @@ class MealLogInput(BaseModel):
     carbs_g: float = Field(ge=0, le=400)
     fat_g: float = Field(ge=0, le=250)
     source: str = "manual"
+    # What one serving was, e.g. "2 pieces (100 g)"; shown next to the meal. Optional.
+    portion: Optional[str] = Field(default=None, max_length=80)
 
 
 class MealPatchInput(BaseModel):
@@ -313,6 +316,9 @@ class SlidingWindowLimiter:
 
 
 auth_limiter = SlidingWindowLimiter(AUTH_RATE_LIMIT, AUTH_RATE_WINDOW_SECONDS)
+# Food search runs on every keystroke (after the app's debounce), so allow plenty per minute, per signed-in user.
+FOODS_RATE_LIMIT = int(os.getenv("FOODS_RATE_LIMIT", "120"))
+foods_limiter = SlidingWindowLimiter(FOODS_RATE_LIMIT, 60)
 
 
 def client_ip(request: Request) -> str:
@@ -1154,7 +1160,7 @@ async def log_meal(payload: MealLogInput, user: Dict[str, Any] = Depends(current
         existing = await db.meals.find({"user_id": user["id"], "date": today.isoformat(), "meal_type": payload.meal_type}, {"_id": 0}).to_list(50)
         if any(logged_key(item.get("meal_type"), item.get("name")) == logged_key(payload.meal_type, payload.name) for item in existing):
             raise HTTPException(status_code=409, detail="This meal is already logged today")
-    meal = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
+    meal = {**payload.model_dump(exclude_none=True), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
     response = dict(meal)
     await db.meals.insert_one(meal)
     return response
@@ -1183,6 +1189,83 @@ async def delete_owned(collection: Any, entry_id: str, user_id: str, label: str)
 @api_router.delete("/meals/{meal_id}")
 async def delete_meal(meal_id: str, user: Dict[str, Any] = Depends(current_user)):
     return await delete_owned(db.meals, meal_id, user["id"], "Meal")
+
+
+def check_foods_rate_limit(user_id: str) -> None:
+    wait = foods_limiter.record(f"foods:{user_id}")
+    if wait:
+        raise HTTPException(status_code=429, detail="Too many searches. Please wait a moment and try again.", headers={"Retry-After": str(wait)})
+
+
+async def recent_meal_docs(user_id: str, limit: int) -> List[Dict[str, Any]]:
+    """The person's most recently logged meals, one per distinct food name, newest first."""
+    docs = await db.meals.find({"user_id": user_id}, {"_id": 0}).sort("created_at", DESCENDING).limit(200).to_list(200)
+    seen, distinct = set(), []
+    for doc in docs:
+        key = foods.normalize(str(doc.get("name") or ""))
+        if key and key not in seen:
+            seen.add(key)
+            distinct.append(doc)
+        if len(distinct) >= limit:
+            break
+    return distinct
+
+
+def food_from_meal(doc: Dict[str, Any], recent: bool = True) -> Dict[str, Any]:
+    """A logged meal as a food row: the catalogue entry when the name matches one, else what the person logged."""
+    known = foods.catalogue.find_by_name(str(doc.get("name") or ""))
+    if known:
+        return known.public(recent=recent)
+    serving = doc.get("portion") or "1 serving (as logged)"
+    return {
+        "id": "meal-" + hashlib.sha1(foods.normalize(str(doc.get("name") or "")).encode()).hexdigest()[:12],
+        "name": doc.get("name", ""),
+        "te": "",
+        "category": "Logged",
+        "serving": serving,
+        "calories": int(doc.get("calories") or 0),
+        "protein_g": float(doc.get("protein_g") or 0),
+        "carbs_g": float(doc.get("carbs_g") or 0),
+        "fat_g": float(doc.get("fat_g") or 0),
+        "servings": [{"label": serving, "factor": 1.0}],
+        "estimate": False,
+        "recent": recent,
+    }
+
+
+@api_router.get("/foods/search")
+async def search_foods(q: str = "", limit: int = Query(20, ge=1, le=50), user: Dict[str, Any] = Depends(current_user)):
+    """Suggestions while typing. An empty query returns the person's recent foods (or common ones if they have none)."""
+    check_foods_rate_limit(user["id"])
+    text = q.strip()[:80]
+    recents = await recent_meal_docs(user["id"], 30)
+    if not foods.normalize(text):
+        if recents:
+            return {"query": text, "kind": "recent", "results": [food_from_meal(doc) for doc in recents[:limit]]}
+        return {"query": text, "kind": "popular", "results": [food.public() for food in foods.catalogue.popular(limit)]}
+    return {"query": text, "kind": "search", "note": foods.catalogue.note, "results": foods.catalogue.search(text, limit, [doc["name"] for doc in recents])}
+
+
+@api_router.get("/foods/recent")
+async def recent_foods(limit: int = Query(10, ge=1, le=30), user: Dict[str, Any] = Depends(current_user)):
+    check_foods_rate_limit(user["id"])
+    return {"results": [food_from_meal(doc) for doc in await recent_meal_docs(user["id"], limit)]}
+
+
+@api_router.get("/foods/frequent")
+async def frequent_foods(limit: int = Query(10, ge=1, le=30), user: Dict[str, Any] = Depends(current_user)):
+    """Foods logged at least twice in the last 90 days, most often first."""
+    check_foods_rate_limit(user["id"])
+    _, _, today = await user_clock(user["id"])
+    pipeline = [
+        {"$match": {"user_id": user["id"], "date": {"$gte": (today - timedelta(days=90)).isoformat()}}},
+        {"$group": {"_id": {"$toLower": "$name"}, "count": {"$sum": 1}, "last": {"$max": "$created_at"}, "doc": {"$first": "$$ROOT"}}},
+        {"$match": {"count": {"$gte": 2}}},
+        {"$sort": {"count": -1, "last": -1}},
+        {"$limit": limit},
+    ]
+    rows = await db.meals.aggregate(pipeline).to_list(limit)
+    return {"results": [{**food_from_meal(row["doc"], recent=False), "times": row["count"]} for row in rows]}
 
 
 # Compendium of Physical Activities MET values for the quick-log activities.
