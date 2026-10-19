@@ -3,7 +3,22 @@ import { copy } from "@/src/i18n";
 import { storage } from "@/src/utils/storage";
 
 const configuredUrl = Constants.expoConfig?.extra?.backendUrl as string | undefined;
-const baseUrl = (configuredUrl || process.env.EXPO_PUBLIC_BACKEND_URL || process.env.EXPO_BACKEND_URL || "").replace(/\/$/, "");
+const envUrl = (configuredUrl || process.env.EXPO_PUBLIC_BACKEND_URL || process.env.EXPO_BACKEND_URL || "").replace(/\/$/, "");
+
+/** In a browser opened on this computer, the backend is on this computer too, so a changed LAN IP never breaks it. */
+export function resolveBaseUrl(configured: string, hostname?: string): string {
+  if (hostname !== "localhost" && hostname !== "127.0.0.1") return configured;
+  try {
+    const url = new URL(configured);
+    if (url.hostname === "localhost" || url.hostname === "127.0.0.1") return configured;
+    url.hostname = hostname;
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return configured;
+  }
+}
+
+const baseUrl = resolveBaseUrl(envUrl, typeof window !== "undefined" ? window.location?.hostname : undefined);
 /** The server address, for links to its public pages (/privacy, /terms, /delete-account). */
 export const backendUrl = baseUrl;
 const TOKEN_KEY = "nutrimitra.session.token";
