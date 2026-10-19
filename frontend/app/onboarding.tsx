@@ -42,7 +42,25 @@ export default function OnboardingScreen() {
     const current = (draft[key] as string[]) || [];
     set(key, current.includes(value) ? current.filter((item) => item !== value) : [...current, value]);
   };
+  // Wellstride is 18+: the age must be a whole number from 18 to 100.
+  const ageOk = () => {
+    const age = Number(draft.age);
+    return Number.isInteger(age) && age >= 18 && age <= 100;
+  };
+  const next = () => {
+    if (step === 0 && !ageOk()) {
+      setError(t.ageMustBe18);
+      return;
+    }
+    setError("");
+    setStep(step + 1);
+  };
   const finish = async () => {
+    if (!ageOk()) {
+      setStep(0);
+      setError(t.ageMustBe18);
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -79,6 +97,9 @@ export default function OnboardingScreen() {
         {step === 0 ? (
           <View style={styles.formStack}>
             <Field label={t.age} value={String(draft.age)} onChangeText={(v) => set("age", v)} keyboardType="numeric" />
+            <Text style={styles.mutedText} testID="age-note">
+              {t.ageNote}
+            </Text>
             <View style={styles.field}>
               <Text style={styles.fieldLabel}>{t.sex}</Text>
               <View style={styles.chipWrap}>
@@ -145,7 +166,7 @@ export default function OnboardingScreen() {
         {error ? <Text style={styles.errorText} testID="onboarding-error">{error}</Text> : null}
         <View style={styles.stickyActions}>
           {step > 0 ? <Button label="Back" onPress={() => setStep(step - 1)} secondary /> : null}
-          <Button testID="onboarding-next-button" label={busy ? "Saving..." : step === 2 ? t.finish : t.continueNext} onPress={step === 2 ? finish : () => setStep(step + 1)} disabled={busy} />
+          <Button testID="onboarding-next-button" label={busy ? "Saving..." : step === 2 ? t.finish : t.continueNext} onPress={step === 2 ? finish : next} disabled={busy} />
         </View>
       </KeyboardAwareScrollView>
     </View>

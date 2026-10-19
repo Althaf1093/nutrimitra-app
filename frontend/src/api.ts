@@ -41,6 +41,8 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
     const detail = body.detail;
+    // FastAPI validation errors are a list of {msg}; show the first message.
+    if (Array.isArray(detail) && typeof detail[0]?.msg === "string") throw new ApiError(detail[0].msg, response.status);
     if (detail && typeof detail === "object" && !Array.isArray(detail)) throw new ApiError(detail.message || "Something went wrong", response.status, detail.code);
     throw new ApiError(typeof detail === "string" ? detail : "Something went wrong", response.status);
   }

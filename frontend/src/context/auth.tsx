@@ -50,7 +50,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedLang = await storage.getItem<Lang | "">("nutrimitra.lang", "");
     const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || "en") as Lang);
     setLang(resolvedLang);
-    setStatus(result.profile ? "ready" : "onboarding");
+    // A saved profile under 18 (from before the age rule) goes back through onboarding to re-enter an adult age.
+    setStatus(result.profile && Number(result.profile.age) >= 18 ? "ready" : "onboarding");
   }, []);
 
   const exchangeSession = useCallback(

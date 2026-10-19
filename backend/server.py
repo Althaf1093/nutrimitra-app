@@ -24,6 +24,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import ASCENDING, DESCENDING, ReturnDocument
 from pymongo.errors import DuplicateKeyError, OperationFailure
 from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic_core import PydanticCustomError
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -37,6 +38,8 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
 DEFAULT_TIMEZONE = "Asia/Kolkata"
+MIN_AGE = 18  # Wellstride is for adults only
+MAX_AGE = 100
 AUTH_RATE_LIMIT = int(os.getenv("AUTH_RATE_LIMIT", "10"))
 AUTH_RATE_WINDOW_SECONDS = int(os.getenv("AUTH_RATE_WINDOW_MINUTES", "15")) * 60
 # Local dev and the test suite call from loopback; set this to "" in production.
@@ -143,7 +146,17 @@ class TokenResponse(BaseModel):
 
 
 class ProfileInput(BaseModel):
-    age: int = Field(ge=13, le=100)
+    age: int
+
+    @field_validator("age")
+    @classmethod
+    def adult_age(cls, value: int) -> int:
+        if value < MIN_AGE:
+            raise PydanticCustomError("age_under_minimum", "You must be {min_age} or older to use Wellstride.", {"min_age": MIN_AGE})
+        if value > MAX_AGE:
+            raise PydanticCustomError("age_over_maximum", "Please enter an age of {max_age} or less.", {"max_age": MAX_AGE})
+        return value
+
     sex: str = "Prefer not to say"
     height_cm: float = Field(gt=90, lt=240)
     weight_kg: float = Field(gt=25, lt=300)
