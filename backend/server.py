@@ -26,6 +26,8 @@ from pymongo.errors import DuplicateKeyError, OperationFailure
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from pydantic_core import PydanticCustomError
 
+import vision
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 
@@ -348,7 +350,7 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
 
 @api_router.get("/")
 async def root():
-    return {"name": "Wellstride", "status": "ready", "ai_provider": "groq", "ai_model": GROQ_MODEL}
+    return {"name": "Wellstride", "status": "ready", "ai_provider": "groq", "ai_model": GROQ_MODEL, "vision": vision.status()}
 
 
 @api_router.post("/auth/signup", response_model=TokenResponse)
@@ -1084,16 +1086,6 @@ async def set_permissions(payload: Dict[str, bool], user: Dict[str, Any] = Depen
     return clean
 
 
-EMERGENT_LLM_KEY = os.getenv("EMERGENT_LLM_KEY", "")
-
-VISION_PROMPT = (
-    "Identify the food in this photo for an Indian wellness app. Respond with ONLY compact JSON, no markdown: "
-    '{"name": str, "portion": str, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
-    '"confidence": "low|medium|high", "alternatives": [str, str]}. '
-    "Estimate for a typical home serving. Prefer Indian dish names when relevant."
-)
-
-
 class VisionInput(BaseModel):
     image_base64: str = Field(min_length=200, max_length=9_000_000)
     language: str = "en"
@@ -1118,89 +1110,36 @@ class HealthRecordInput(BaseModel):
     source: Optional[str] = None
 
 
-async def pick_vision_model() -> str:
-    """Dynamically select an active Groq vision-capable model (never hardcoded). Empty string = none available."""
-    if not GROQ_API_KEY:
-        return ""
+def to_number(value: Any, default: float) -> float:
+    """A model-supplied number, falling back to the default when it is missing or not numeric."""
     try:
-        async with httpx.AsyncClient(timeout=15) as http:
-            response = await http.get(f"{GROQ_BASE_URL}/models", headers={"Authorization": f"Bearer {GROQ_API_KEY}"})
-            response.raise_for_status()
-            ids = [str(model.get("id", "")) for model in response.json().get("data", [])]
-    except Exception as exc:
-        logger.warning("Groq model listing failed: %s", exc)
-        return ""
-    named = sorted(model for model in ids if "vision" in model.lower())
-    if named:
-        return named[0]
-    llama4 = sorted(model for model in ids if "llama-4" in model.lower() and ("scout" in model.lower() or "maverick" in model.lower()))
-    return llama4[0] if llama4 else ""
-
-
-async def groq_vision(image_base64: str, user_id: str) -> tuple:
-    """Groq-first vision path. Empty text means no usable Groq vision model."""
-    model = await pick_vision_model()
-    if not model:
-        return "", ""
-    body = {
-        "model": model,
-        "temperature": 0.2,
-        "max_tokens": 500,
-        "messages": [{"role": "user", "content": [{"type": "text", "text": VISION_PROMPT}, {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}}]}],
-    }
-    try:
-        async with httpx.AsyncClient(timeout=45) as http:
-            response = await http.post(f"{GROQ_BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {GROQ_API_KEY}"}, json=body)
-            response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"], model
-    except Exception as exc:
-        logger.warning("Groq vision failed for %s: %s", user_id, exc)
-        return "", ""
-
-
-async def emergent_vision(image_base64: str, user_id: str) -> str:
-    """Fallback vision path via the Emergent universal key (OpenAI vision model)."""
-    if not EMERGENT_LLM_KEY:
-        return ""
-    try:
-        from emergentintegrations.llm.chat import ImageContent, LlmChat, UserMessage
-
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"vision-{user_id}-{uuid.uuid4().hex[:8]}", system_message="You are a precise nutrition vision analyst.").with_model("openai", "gpt-5.4-mini")
-        return str(await chat.send_message(UserMessage(text=VISION_PROMPT, file_contents=[ImageContent(image_base64=image_base64)])))
-    except Exception as exc:
-        logger.warning("Emergent vision fallback failed for %s: %s", user_id, exc)
-        return ""
+        return float(value)
+    except (TypeError, ValueError):
+        return default
 
 
 @api_router.post("/coach/vision")
 async def coach_vision(payload: VisionInput, user: Dict[str, Any] = Depends(current_user)):
     """Identify food from a base64 photo and estimate nutrition (user confirms)."""
-    text, model = await groq_vision(payload.image_base64, user["id"])
-    if not text:
-        text = await emergent_vision(payload.image_base64, user["id"])
-        model = "openai/gpt-5.4-mini"
-    if not text:
-        raise HTTPException(status_code=502, detail="Photo recognition is unavailable right now — please log manually")
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    parsed: Dict[str, Any] = {}
-    if match:
-        try:
-            parsed = json.loads(match.group(0))
-        except json.JSONDecodeError:
-            parsed = {}
-    if not parsed:
-        raise HTTPException(status_code=502, detail="Could not read nutrition from this photo — try another or log manually")
+    try:
+        result = await vision.analyze_image(payload.image_base64, user["id"])
+    except vision.VisionNotConfigured as exc:
+        raise HTTPException(status_code=503, detail={"code": "vision_not_configured", "message": "Photo recognition isn't set up on this server yet. You can still log your meal by hand."}) from exc
+    except vision.VisionUnavailable as exc:
+        raise HTTPException(status_code=503, detail={"code": "vision_unavailable", "message": "Photo recognition couldn't read this photo right now. Try again, or log your meal by hand."}) from exc
+    parsed = result.data
     return {
         "name": str(parsed.get("name") or "Mixed home meal")[:80],
         "portion": str(parsed.get("portion") or "1 serving")[:60],
-        "calories": max(0, min(3000, int(parsed.get("calories") or 350))),
-        "protein_g": max(0, min(300, float(parsed.get("protein_g") or 12))),
-        "carbs_g": max(0, min(400, float(parsed.get("carbs_g") or 40))),
-        "fat_g": max(0, min(250, float(parsed.get("fat_g") or 14))),
+        "calories": max(0, min(3000, int(to_number(parsed.get("calories"), 350)))),
+        "protein_g": max(0, min(300, to_number(parsed.get("protein_g"), 12))),
+        "carbs_g": max(0, min(400, to_number(parsed.get("carbs_g"), 40))),
+        "fat_g": max(0, min(250, to_number(parsed.get("fat_g"), 14))),
         "confidence": parsed.get("confidence") if parsed.get("confidence") in {"low", "medium", "high"} else "medium",
         "alternatives": [str(item)[:60] for item in (parsed.get("alternatives") or [])][:3],
         "meal_type": payload.meal_type,
-        "model": model,
+        "model": result.model,
+        "provider": result.provider,
     }
 
 

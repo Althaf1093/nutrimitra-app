@@ -16,11 +16,3 @@ pytest>=8.0.0
 pytest-xdist>=3.6.0
 requests>=2.31.0
 Pillow>=10.0.0  # tests/make_test_image.py generates a synthetic food photo
-
-# Optional: Emergent-managed LLM fallback for food-photo recognition
-# (only used when EMERGENT_LLM_KEY is set; the primary Groq vision path
-# does not need it, and the code degrades gracefully if this import
-# fails). Not published on public PyPI — it's Emergent's own package;
-# check Emergent's docs for their package index if you need this
-# fallback locally.
-# emergentintegrations==0.2.0

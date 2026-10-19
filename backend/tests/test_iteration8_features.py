@@ -200,9 +200,9 @@ class TestRegression:
         assert resp.status_code == 200, resp.text
         assert "suggestion" in resp.json()
 
-    def test_vision(self, authed):
+    def test_vision(self, authed, vision_backend):
         resp = authed.post(
-            f"{BASE_URL}/api/coach/vision",
+            f"{vision_backend}/api/coach/vision",
             json={"image_base64": make_food_image(), "language": "en", "meal_type": "lunch"},
             timeout=90,
         )

@@ -91,12 +91,12 @@ class TestEatNow:
 
 
 class TestCoachVision:
-    """Food-photo recognition: Groq vision (none on key) -> Emergent fallback."""
+    """Food-photo recognition, against a local fake Gemini (the vision_backend fixture), so no real key is needed."""
 
-    def test_vision_returns_structured_nutrition(self, authed):
+    def test_vision_returns_structured_nutrition(self, authed, vision_backend):
         image_b64 = make_food_image()
         resp = authed.post(
-            f"{BASE_URL}/api/coach/vision",
+            f"{vision_backend}/api/coach/vision",
             json={"image_base64": image_b64, "language": "en", "meal_type": "lunch"},
             timeout=90,
         )
