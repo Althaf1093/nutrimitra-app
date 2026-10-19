@@ -28,7 +28,7 @@ export default function PlanScreen() {
       setDay(next.today_index ?? 0);
       setMessage(t.planRefreshed);
     } catch (err) {
-      setMessage(isAiBusy(err) ? t.aiBusy : err instanceof Error ? err.message : "Could not refresh plan");
+      setMessage(isAiBusy(err) ? t.aiBusy : err instanceof Error ? err.message : t.couldNotRefresh);
     } finally {
       setRefreshing(false);
     }
@@ -52,7 +52,7 @@ export default function PlanScreen() {
       // Re-fetch so today's logged meals show as done instead of "+".
       setPlan(await api<Plan>("/plan"));
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Could not log meal");
+      setMessage(err instanceof Error ? err.message : t.couldNotLogMeal);
     }
   };
 
@@ -62,7 +62,7 @@ export default function PlanScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="plan-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>WELLSTRIDE · 7 DAYS</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE · {t.sevenDays.toUpperCase()}</Text>
           <Text style={styles.headerTitle}>{t.plan}</Text>
         </View>
         <Pressable testID="refresh-plan-button" accessibilityRole="button" accessibilityLabel={t.refreshPlan} disabled={refreshing} onPress={refreshPlan} style={[styles.iconButton, refreshing && styles.disabled]}>
@@ -72,12 +72,12 @@ export default function PlanScreen() {
       <View style={{ height: 56, flexGrow: 0 }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dayRow}>
           {plan?.days?.map((item, index) => (
-            <Chip key={item.day} label={index === plan.today_index ? `Day ${item.day} · ${t.today}` : `Day ${item.day}`} selected={day === index} onPress={() => setDay(index)} />
+            <Chip key={item.day} label={index === plan.today_index ? `${t.dayWord} ${item.day} · ${t.today}` : `${t.dayWord} ${item.day}`} selected={day === index} onPress={() => setDay(index)} />
           ))}
         </ScrollView>
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
-        <Text style={styles.sectionSub}>{plan?.goal || "Your adaptable 7-day rhythm"}</Text>
+        <Text style={styles.sectionSub}>{plan?.goal || t.planRhythm}</Text>
         <Text style={[styles.disclaimer, { marginTop: 4, marginBottom: 8 }]} testID="plan-wellness-notice">
           {t.wellnessNotice}
         </Text>
@@ -96,13 +96,13 @@ export default function PlanScreen() {
               <MealCard key={`${meal.type}-${meal.name}`} meal={meal} onLog={() => logMeal(meal)} />
             ))}
             <View style={styles.reasonCard}>
-              <Text style={styles.cardEyebrow}>NUTRITION NOTE</Text>
+              <Text style={styles.cardEyebrow}>{t.nutritionNote.toUpperCase()}</Text>
               <Text style={styles.reasonText}>{plan?.reasoning}</Text>
             </View>
           </>
         ) : (
           <View style={styles.center}>
-            <Text style={styles.mutedText}>Complete onboarding to generate your plan.</Text>
+            <Text style={styles.mutedText}>{t.planEmpty}</Text>
           </View>
         )}
       </ScrollView>

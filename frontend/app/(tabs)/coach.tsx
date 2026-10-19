@@ -38,7 +38,7 @@ function RecipeCard({ recipe, index, t, onLog }: { recipe: Recipe; index: number
   const styles = useStyles();
   return (
     <View style={styles.recipeCard} testID={`recipe-card-${index}`}>
-      <Text style={styles.cardEyebrow}>RECIPE</Text>
+      <Text style={styles.cardEyebrow}>{t.recipeCard.toUpperCase()}</Text>
       <Text style={styles.recipeTitle}>{recipe.name}</Text>
       <Text style={styles.mealMeta}>
         {recipe.time_min} {t.minutes} · {recipe.calories} kcal · {recipe.protein_g}g protein
@@ -78,7 +78,7 @@ export default function CoachScreen() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: "coach", text: lang === "te" ? "నమస్కారం. ఈ రోజు మీ ఆరోగ్య ప్రయాణంలో నేను మీతోనే ఉన్నాను." : "Hello. I’m here to make today’s wellness choices feel simpler." },
+    { role: "coach", text: t.coachGreeting },
   ]);
 
   // Conversation memory: restore previous session (stored only when the user
@@ -118,7 +118,7 @@ export default function CoachScreen() {
       await post("/meals", { meal_type: "snack", name: recipe.name, calories: recipe.calories, protein_g: recipe.protein_g, carbs_g: recipe.carbs_g, fat_g: recipe.fat_g, source: "coach recipe" });
       setNotice(t.addMeal);
     } catch {
-      setNotice("Could not log meal");
+      setNotice(t.couldNotLogMeal);
     }
   };
 
@@ -145,9 +145,9 @@ export default function CoachScreen() {
           ))}
           <Text style={styles.fieldLabel}>{t.quick}</Text>
           <View style={styles.quickRow}>
-            <Chip label="Easy protein ideas" selected={false} onPress={() => send("Give me an easy high-protein Indian meal idea.")} />
-            <Chip label="Recipe for dinner" selected={false} onPress={() => send("Share a quick healthy Indian dinner recipe I can cook tonight.")} />
-            <Chip label="I feel low energy" selected={false} onPress={() => send("I feel low energy today. What gentle steps can I take?")} />
+            <Chip label={t.quickProtein} selected={false} onPress={() => send(t.quickProteinPrompt)} />
+            <Chip label={t.quickDinner} selected={false} onPress={() => send(t.quickDinnerPrompt)} />
+            <Chip label={t.quickLowEnergy} selected={false} onPress={() => send(t.quickLowEnergyPrompt)} />
           </View>
         </ScrollView>
         {notice ? (

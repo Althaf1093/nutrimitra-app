@@ -109,26 +109,26 @@ export default function SettingsScreen() {
             <Text style={styles.mealName}>{t.healthTitle}</Text>
             <Text style={styles.mutedText}>{t.healthBuildNote}</Text>
           </View>
-          <Text style={styles.statusPill}>{healthStatus === "web-unsupported" ? "Web" : "Build"}</Text>
+          <Text style={styles.statusPill}>{healthStatus === "web-unsupported" ? t.statusWeb : t.statusBuild}</Text>
         </View>
 
         <Text style={styles.cardEyebrow}>{t.health.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.healthSub}</Text>
-        <ToggleRow testID="toggle-health-sync" title="HealthKit / Health Connect" subtitle="Optional, permission-based" value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
-        <ToggleRow testID="toggle-wearables" title="Supported wearables" subtitle="Optional, permission-based" value={permission.wearables} onToggle={() => updatePermission("wearables")} />
+        <ToggleRow testID="toggle-health-sync" title="HealthKit / Health Connect" subtitle={t.optionalPermission} value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
+        <ToggleRow testID="toggle-wearables" title={t.wearables} subtitle={t.optionalPermission} value={permission.wearables} onToggle={() => updatePermission("wearables")} />
         <ToggleRow testID="toggle-coach-memory" title={t.coachMemory} subtitle={t.coachMemorySub} value={permission.coach_memory} onToggle={() => updatePermission("coach_memory")} />
-        <ToggleRow testID="toggle-analytics" title="Anonymous product analytics" subtitle="Help improve Wellstride" value={permission.analytics} onToggle={() => updatePermission("analytics")} />
+        <ToggleRow testID="toggle-analytics" title={t.analytics} subtitle={t.analyticsSub} value={permission.analytics} onToggle={() => updatePermission("analytics")} />
 
         <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.reminders.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.remindersSub}</Text>
         <ToggleRow testID="toggle-remind-meals" title={t.remindMeals} subtitle="8:00 · 13:00 · 19:30" value={reminders.meals} onToggle={() => updateReminder("meals")} />
-        <ToggleRow testID="toggle-remind-hydration" title={t.remindWater} subtitle="Every 3 hours" value={reminders.hydration} onToggle={() => updateReminder("hydration")} />
-        <ToggleRow testID="toggle-remind-movement" title={t.remindMove} subtitle="Every 2 hours" value={reminders.movement} onToggle={() => updateReminder("movement")} />
-        <ToggleRow testID="toggle-remind-weekly" title={t.remindWeekly} subtitle="Sundays · 18:00" value={reminders.weekly} onToggle={() => updateReminder("weekly")} />
+        <ToggleRow testID="toggle-remind-hydration" title={t.remindWater} subtitle={t.everyThreeHours} value={reminders.hydration} onToggle={() => updateReminder("hydration")} />
+        <ToggleRow testID="toggle-remind-movement" title={t.remindMove} subtitle={t.everyTwoHours} value={reminders.movement} onToggle={() => updateReminder("movement")} />
+        <ToggleRow testID="toggle-remind-weekly" title={t.remindWeekly} subtitle={t.sundays} value={reminders.weekly} onToggle={() => updateReminder("weekly")} />
         {note === "blocked" ? (
           <View style={styles.reasonCard} testID="reminder-blocked">
             <Text style={styles.cardEyebrow}>{t.reminders.toUpperCase()}</Text>
-            <Text style={styles.reasonText}>{lang === "te" ? "నోటిఫికేషన్ అనుమతి ఆఫ్‌లో ఉంది. సెట్టింగ్స్‌లో ప్రారంభించండి." : "Notifications are turned off for Wellstride. Enable them in system settings to receive reminders."}</Text>
+            <Text style={styles.reasonText}>{t.notifBlocked}</Text>
             <View style={{ marginTop: 12 }}>
               <Button testID="reminder-open-settings" label={t.openSettings} onPress={() => Linking.openSettings()} secondary />
             </View>
@@ -136,7 +136,7 @@ export default function SettingsScreen() {
         ) : null}
         {note === "denied" ? (
           <View style={styles.reasonCard} testID="reminder-denied">
-            <Text style={styles.reasonText}>{lang === "te" ? "రిమైండర్ల కోసం నోటిఫికేషన్ అనుమతి అవసరం." : "Reminders need notification permission. Your preference is saved and will activate once allowed."}</Text>
+            <Text style={styles.reasonText}>{t.notifDenied}</Text>
           </View>
         ) : null}
 
