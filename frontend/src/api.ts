@@ -4,6 +4,8 @@ import { storage } from "@/src/utils/storage";
 
 const configuredUrl = Constants.expoConfig?.extra?.backendUrl as string | undefined;
 const baseUrl = (configuredUrl || process.env.EXPO_PUBLIC_BACKEND_URL || process.env.EXPO_BACKEND_URL || "").replace(/\/$/, "");
+/** The server address, for links to its public pages (/privacy, /terms, /delete-account). */
+export const backendUrl = baseUrl;
 const TOKEN_KEY = "nutrimitra.session.token";
 
 export async function getToken() {
