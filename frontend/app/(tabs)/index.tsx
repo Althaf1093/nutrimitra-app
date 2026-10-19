@@ -87,7 +87,7 @@ export default function TodayScreen() {
     setSyncing(false);
   };
 
-  const todayPlan = plan?.days?.[0];
+  const todayPlan = plan?.days?.[plan.today_index ?? 0];
   const meals = todayPlan?.meals || [];
   const deviceReady = getHealthStatus() === "ready";
   const sleepHours = health ? Math.round((health.sleep_minutes / 60) * 10) / 10 : 0;
