@@ -152,7 +152,10 @@ export default function SettingsScreen() {
           label={t.signOut}
           secondary
           onPress={async () => {
+            // Sign out, then clear the whole navigation stack (not just this modal) before going to the start screen.
+            // Replacing only the modal left the old tabs in the stack, and the next sign-in showed a second Today screen.
             await signOut();
+            router.dismissAll();
             router.replace("/");
           }}
         />
