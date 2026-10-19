@@ -220,3 +220,17 @@ too-many-attempts, cannot-reach.
 
 ## Not covered
 Real Gemini/Groq/Google calls (fakes only), and native phone behaviour: please still try the app on your phone.
+
+# Phase 4 progress
+
+## Photo self-test (2026-10-19)
+Through the running backend only (`.env` not opened): a throwaway user posted `e2e/fixtures/meal.jpg` to `/api/coach/vision`.
+- **Gemini (`gemini-3.8-flash`, the id Google's own error message recommends): the model id is right, but the key is not usable
+  yet.** Google answered 503 "high demand" (also for `gemini-flash-latest`) and, in the browser run, 429 "You exceeded your
+  current quota". `gemini-2.5-flash` is closed to new users and `gemini-3.8-flash-lite` does not exist. This is an account/quota
+  matter for the owner: check the key's plan and quota in Google AI Studio (https://aistudio.google.com), or enable billing.
+- **With `VISION_PROVIDER=auto` (Gemini, then Groq) it works today:** 200 with "Masala Rice", 320 kcal, macros, confidence, and
+  `provider: groq`. The Playwright photo flow against the real providers also passed (`E2E_REAL_VISION=1`, see `e2e/README.md`).
+- Fix shipped: the log line for a failing provider now includes the provider's own error message (never the image or the key),
+  which is how the 503/429 above were diagnosed. Test: `test_phase4_vision_log.py`.
+- **Do this:** set `VISION_PROVIDER=auto` in `backend/.env` so photo logging keeps working while Gemini is limited or busy.
