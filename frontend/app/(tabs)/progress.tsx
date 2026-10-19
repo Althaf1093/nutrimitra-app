@@ -1,15 +1,15 @@
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, post } from "@/src/api";
+import { api, del, post } from "@/src/api";
 import { Button } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
 
 type ProgressData = {
-  weights: { weight_kg: number; date: string }[];
+  weights: { id: string; weight_kg: number; date: string }[];
   activities: Record<string, unknown>[];
   review: string;
 };
@@ -46,6 +46,17 @@ export default function ProgressScreen() {
     }
   };
 
+  const removeWeight = async (id: string) => {
+    setBusy(true);
+    try {
+      await del(`/weight/${id}`);
+      load();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const entries = [...(progress?.weights || [])].reverse().slice(0, 10);
   const weights = (progress?.weights || []).map((item, index) => ({ ...item, date: `${item.date || "entry"}-${index}` }));
 
   return (
@@ -74,6 +85,22 @@ export default function ProgressScreen() {
           <TextInput testID="weight-input" value={weight} onChangeText={setWeight} placeholder="e.g. 68.5" placeholderTextColor={styles.placeholder.color as string} keyboardType="numeric" style={styles.inlineInput} />
           <Button testID="log-weight-button" label={busy ? "..." : t.log} onPress={save} disabled={busy || !weight} />
         </View>
+        {entries.length ? (
+          <View style={styles.reasonCard} testID="weight-entries">
+            <Text style={styles.cardEyebrow}>{t.weightEntries.toUpperCase()}</Text>
+            {entries.map((item) => (
+              <View key={item.id} style={styles.logRow} testID={`weight-entry-${item.id}`}>
+                <View style={styles.flex}>
+                  <Text style={styles.mealName}>{item.weight_kg} kg</Text>
+                  <Text style={styles.mealMeta}>{item.date}</Text>
+                </View>
+                <Pressable testID={`remove-weight-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.weight_kg} kg`} disabled={busy} onPress={() => removeWeight(item.id)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                  <Text style={styles.linkText}>{t.remove}</Text>
+                </Pressable>
+              </View>
+            ))}
+          </View>
+        ) : null}
         <View style={styles.reasonCard}>
           <Text style={styles.cardEyebrow}>{t.review.toUpperCase()}</Text>
           <Text style={styles.reasonText}>{progress?.review || "Your weekly review will appear after you log a few meals and movement sessions."}</Text>

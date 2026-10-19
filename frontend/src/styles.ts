@@ -109,6 +109,8 @@ export const useStyles = makeStyles((colors) =>
     logButton: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.surface, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: colors.borderStrong, flexShrink: 0 },
     logButtonDone: { backgroundColor: colors.brandPrimary, borderColor: colors.brandPrimary },
     logRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 8, borderTopWidth: 1, borderTopColor: colors.border },
+    editForm: { paddingTop: 10, gap: 4, borderTopWidth: 1, borderTopColor: colors.border },
+    rowActions: { flexDirection: "row", gap: 8 },
     removeButton: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 12, borderWidth: 1, borderColor: colors.borderStrong },
     logButtonText: { color: colors.brandPrimary, fontSize: 25, lineHeight: 27, fontWeight: "400" },
     reasonCard: { backgroundColor: colors.surfaceSecondary, borderLeftWidth: 3, borderLeftColor: colors.brandSecondary, padding: 17, borderRadius: 14, marginTop: 12 },
