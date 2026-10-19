@@ -177,7 +177,7 @@ class TestRegression:
     def test_dashboard(self, authed):
         resp = authed.get(f"{BASE_URL}/api/dashboard", timeout=30)
         assert resp.status_code == 200
-        assert "readiness" in resp.json()
+        assert "target_calories" in resp.json() and "activity_minutes" in resp.json()
 
     def test_reminders_roundtrip(self, authed):
         original = authed.get(f"{BASE_URL}/api/reminders", timeout=20).json()

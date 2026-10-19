@@ -448,3 +448,24 @@ class TestActivityEstimate:
         assert explicit["active_calories"] == 200 and explicit["distance_km"] == 3.0
         mongo.weights.delete_many({"user_id": fresh.user_id})
         mongo.activities.delete_many({"user_id": fresh.user_id})
+
+
+class TestTodayProgress:
+    """Fix 9: the dashboard reports logged calories vs target and activity minutes, not a fabricated readiness score."""
+
+    def test_dashboard_reports_plain_progress(self, fresh, mongo):
+        mongo.meals.delete_many({"user_id": fresh.user_id})
+        mongo.activities.delete_many({"user_id": fresh.user_id})
+        empty = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+        assert "readiness" not in empty
+        assert empty["calories"] == 0 and empty["activity_minutes"] == 0
+        assert empty["target_calories"] == server.calorie_target(PROFILE)
+        fresh.post(f"{BASE_URL}/api/meals", json={"meal_type": "lunch", "name": "Progress thali", "calories": 650, "protein_g": 25, "carbs_g": 80, "fat_g": 20}, timeout=20)
+        fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Walking", "duration_min": 30}, timeout=20)
+        fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Home strength", "duration_min": 15}, timeout=20)
+        dash = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+        assert dash["calories"] == 650
+        assert dash["activity_minutes"] == 45
+        assert dash["active_calories"] == sum(item["active_calories"] for item in dash["activities"])
+        mongo.meals.delete_many({"user_id": fresh.user_id})
+        mongo.activities.delete_many({"user_id": fresh.user_id})

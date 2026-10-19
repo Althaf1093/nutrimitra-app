@@ -593,9 +593,19 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
     today = local_date.isoformat()
     meals = await db.meals.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
     activities = await db.activities.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
-    calories = sum(item.get("calories", 0) for item in meals)
-    active = sum(item.get("active_calories", 0) for item in activities)
-    return {"date": today, "meals": meals, "activities": activities, "calories": calories, "active_calories": active, "readiness": min(96, 64 + len(activities) * 7 + len(meals) * 4), "goal": (profile or {}).get("wellness_goal", "Healthier living")}
+    calories = sum(int(item.get("calories") or 0) for item in meals)
+    active = sum(int(item.get("active_calories") or 0) for item in activities)
+    # Plain counts of what was logged today against the estimated target; no made-up score.
+    return {
+        "date": today,
+        "meals": meals,
+        "activities": activities,
+        "calories": calories,
+        "target_calories": calorie_target(profile or {}),
+        "active_calories": active,
+        "activity_minutes": sum(int(item.get("duration_min") or 0) for item in activities),
+        "goal": (profile or {}).get("wellness_goal", "Healthier living"),
+    }
 
 
 @api_router.post("/meals")

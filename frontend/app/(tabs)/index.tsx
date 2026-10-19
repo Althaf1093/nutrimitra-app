@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api, del, post } from "@/src/api";
 import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
-import { ReadinessCard } from "@/src/components/readiness-card";
+import { TodayProgressCard } from "@/src/components/today-progress-card";
 import { useAuth } from "@/src/context/auth";
 import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/health";
 import { useStyles } from "@/src/styles";
@@ -135,7 +135,7 @@ export default function TodayScreen() {
               <Text style={styles.reasonText}>{error}</Text>
             </View>
           ) : null}
-          <ReadinessCard dashboard={dashboard} t={t} styles={styles} />
+          <TodayProgressCard dashboard={dashboard} t={t} styles={styles} />
           <Pressable testID="eat-now-button" accessibilityRole="button" onPress={() => router.push("/eat-now")} style={({ pressed }) => [styles.eatBanner, pressed && styles.pressed]}>
             <View style={styles.bannerIcon}>
               <AppIcon name="sparkles" color={colors.onBrandPrimary} size={23} />
