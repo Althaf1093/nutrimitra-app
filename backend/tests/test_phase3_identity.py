@@ -81,3 +81,63 @@ class TestEmergentCleanup:
                 if pattern.search(path.read_text(encoding="utf-8", errors="ignore")):
                     offenders.append(str(path.relative_to(ROOT)))
         assert offenders == [], offenders
+
+
+class TestPlaceholderBranding:
+    """Item 3: generated placeholder icons with the right sizes and theme colours; template images are gone."""
+
+    GREEN = (74, 107, 93)
+    CREAM = (253, 251, 247)
+
+    @staticmethod
+    def image(*parts):
+        from PIL import Image
+
+        return Image.open(FRONTEND.joinpath(*parts))
+
+    def test_sizes_and_modes(self):
+        icon = self.image("assets", "images", "icon.png")
+        assert icon.size == (1024, 1024) and icon.mode == "RGB", "the iOS icon must be opaque"
+        assert self.image("assets", "images", "adaptive-icon.png").size == (1024, 1024)
+        assert self.image("assets", "images", "adaptive-icon.png").mode == "RGBA"
+        assert self.image("assets", "images", "splash-image.png").size == (1024, 1024)
+        assert self.image("assets", "images", "favicon.png").size == (48, 48)
+        assert self.image("assets", "store", "icon-512.png").size == (512, 512)
+
+    def test_theme_colours(self):
+        icon = self.image("assets", "images", "icon.png")
+        assert icon.getpixel((20, 20)) == self.GREEN
+        assert max(icon.getdata(), key=lambda px: sum(px)) == self.CREAM, "the mark is cream"
+        assert self.image("assets", "images", "splash-image.png").getpixel((20, 20)) == self.CREAM
+
+    def test_adaptive_icon_stays_in_the_safe_zone(self):
+        import math
+
+        adaptive = self.image("assets", "images", "adaptive-icon.png")
+        assert adaptive.getpixel((5, 5))[3] == 0, "the foreground is transparent so the green background shows"
+        left, top, right, bottom = adaptive.getchannel("A").getbbox()
+        farthest = max(math.hypot(x - 512, y - 512) for x, y in ((left, top), (right, top), (left, bottom), (right, bottom)))
+        assert farthest < 0.33 * 1024, "Android crops adaptive icons to about the middle 66%"
+        assert left > 100 and right < 924
+
+    def test_app_json_uses_the_theme_not_black(self):
+        expo = json.loads((FRONTEND / "app.json").read_text(encoding="utf-8"))["expo"]
+        assert expo["android"]["adaptiveIcon"]["backgroundColor"].lower() == "#4a6b5d"
+        splash = next(plugin[1] for plugin in expo["plugins"] if isinstance(plugin, list) and plugin[0] == "expo-splash-screen")
+        assert splash["backgroundColor"].lower() == "#fdfbf7"
+        assert (FRONTEND / expo["icon"]).exists() and (FRONTEND / expo["web"]["favicon"]).exists()
+        assert (FRONTEND / expo["android"]["adaptiveIcon"]["foregroundImage"]).exists()
+        assert (FRONTEND / splash["image"]).exists()
+
+    def test_template_images_are_removed_and_nothing_references_them(self):
+        images = {path.name for path in (FRONTEND / "assets" / "images").iterdir()}
+        assert images == {"icon.png", "adaptive-icon.png", "splash-image.png", "favicon.png"}
+        pattern = re.compile(r"partial-react-logo|react-logo|app-image")
+        for path in user_visible_files():
+            assert not pattern.search(path.read_text(encoding="utf-8")), path
+
+    def test_generator_script_is_committed_and_reproduces_the_assets(self):
+        script = FRONTEND / "scripts" / "make-icons.py"
+        assert script.exists()
+        text = script.read_text(encoding="utf-8")
+        assert "#4A6B5D" in text and "#FDFBF7" in text
