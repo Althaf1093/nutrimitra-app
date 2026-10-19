@@ -161,8 +161,14 @@ export const useStyles = makeStyles((colors) =>
     recipeLabel: { color: colors.brandSecondary, fontSize: 11, letterSpacing: 1, fontWeight: "700", lineHeight: 16, marginTop: 14, marginBottom: 4 },
     recipeItem: { color: colors.onSurfaceSecondary, fontSize: 13, lineHeight: 20 },
 
-    toast: { position: "absolute", left: 20, right: 20, bottom: 96, backgroundColor: colors.surfaceInverse, padding: 14, borderRadius: 14 },
-    toastText: { color: colors.onSurfaceInverse, textAlign: "center", fontSize: 13, fontWeight: "600", lineHeight: 18 },
+    // Feedback pill: a small light card, centred and capped in width. The host spans the screen but lets taps through.
+    toastHost: { position: "absolute", left: 16, right: 16, alignItems: "center", zIndex: 1000, elevation: 12 },
+    toast: { flexDirection: "row", alignItems: "center", gap: 10, maxWidth: 420, minHeight: 48, paddingVertical: 8, paddingLeft: 12, paddingRight: 14, borderRadius: 24, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, shadowColor: colors.surfaceInverse, shadowOpacity: 0.16, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 8 },
+    toastIcon: { width: 24, height: 24, borderRadius: 12, alignItems: "center", justifyContent: "center", flexShrink: 0 },
+    toastIconText: { fontSize: 14, lineHeight: 18, fontWeight: "800" },
+    toastText: { flexShrink: 1, color: colors.onSurface, fontSize: 14, fontWeight: "600", lineHeight: 20 },
+    toastAction: { minHeight: 32, paddingHorizontal: 10, marginLeft: 2, borderRadius: 16, backgroundColor: colors.surfaceSecondary, alignItems: "center", justifyContent: "center", flexShrink: 0 },
+    toastActionText: { color: colors.brandPrimary, fontSize: 13, fontWeight: "800", lineHeight: 18 },
 
     macroRow: { flexDirection: "row", gap: 8, flexWrap: "wrap", marginVertical: 18 },
     macro: { color: colors.onSurfaceSecondary, backgroundColor: colors.surfaceTertiary, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 10, fontSize: 12, fontWeight: "600", lineHeight: 16 },

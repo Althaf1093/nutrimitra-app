@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, del, post } from "@/src/api";
+import { useToast } from "@/src/components/toast";
 import { Button } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { useStyles } from "@/src/styles";
@@ -18,6 +19,7 @@ export default function ProgressScreen() {
   const styles = useStyles();
   const insets = useSafeAreaInsets();
   const { t } = useAuth();
+  const toast = useToast();
   const [progress, setProgress] = useState<ProgressData | null>(null);
   const [weight, setWeight] = useState("");
   const [busy, setBusy] = useState(false);
@@ -40,7 +42,10 @@ export default function ProgressScreen() {
     try {
       await post("/weight", { weight_kg: Number(weight) });
       setWeight("");
+      toast.show(t.weightLogged);
       load();
+    } catch (err) {
+      toast.show(err instanceof Error ? err.message : t.couldNotSaveWeight, { type: "error" });
     } finally {
       setBusy(false);
     }
@@ -50,7 +55,10 @@ export default function ProgressScreen() {
     setBusy(true);
     try {
       await del(`/weight/${id}`);
+      toast.show(t.weightRemoved, { type: "info" });
       load();
+    } catch (err) {
+      toast.show(err instanceof Error ? err.message : t.couldNotRemove, { type: "error" });
     } finally {
       setBusy(false);
     }
