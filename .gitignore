@@ -87,3 +87,11 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# e2e (Playwright) outputs
+e2e/node_modules/
+e2e/.web/
+e2e/.logs/
+e2e/screenshots/
+e2e/test-results/
+e2e/playwright-report/
