@@ -128,3 +128,48 @@ class TestGoogleAccountLogin:
             assert resp.json()["detail"] == "Email or password is incorrect"
         finally:
             mongo.users.delete_many({"id": user_id})
+
+
+class TestUserTimezone:
+    """Fix 3: "today" follows the user's profile timezone (India by default), not UTC."""
+
+    def test_zone_helpers(self):
+        assert str(server.user_zone(None)) == "Asia/Kolkata"
+        assert str(server.user_zone({"timezone": "Europe/London"})) == "Europe/London"
+        assert str(server.user_zone({"timezone": "Not/AZone"})) == "Asia/Kolkata"
+        # A plan created at 20:00 UTC on Oct 1 starts on Oct 2 in India.
+        plan = {"days": [{}] * 7, "updated_at": "2026-10-01T20:00:00+00:00"}
+        india = server.ZoneInfo("Asia/Kolkata")
+        assert str(server.plan_start_date(plan, india)) == "2026-10-02"
+        assert server.plan_day_index(plan, datetime(2026, 10, 2).date(), india) == 0
+
+    def test_profile_timezone_default_and_validation(self, fresh):
+        assert server.ProfileInput(**PROFILE).timezone == "Asia/Kolkata"
+        assert server.ProfileInput(**PROFILE, timezone="Not/AZone").timezone == "Asia/Kolkata"
+        resp = fresh.put(f"{BASE_URL}/api/profile", json={**PROFILE, "timezone": "America/New_York"}, timeout=20)
+        assert resp.status_code == 200, resp.text
+        assert resp.json()["profile"]["timezone"] == "America/New_York"
+        me = fresh.get(f"{BASE_URL}/api/me", timeout=20).json()
+        assert me["profile"]["timezone"] == "America/New_York"
+
+    @pytest.mark.parametrize("zone_name", ["Asia/Kolkata", "Pacific/Kiritimati", "Pacific/Pago_Pago"])
+    def test_logs_and_dashboard_use_local_date(self, fresh, mongo, zone_name):
+        resp = fresh.put(f"{BASE_URL}/api/profile", json={**PROFILE, "timezone": zone_name}, timeout=20)
+        assert resp.status_code == 200, resp.text
+        local_date = datetime.now(server.ZoneInfo(zone_name)).date().isoformat()
+        meal = fresh.post(f"{BASE_URL}/api/meals", json={"meal_type": "snack", "name": f"TZ {zone_name}", "calories": 100, "protein_g": 3, "carbs_g": 10, "fat_g": 4}, timeout=20)
+        assert meal.status_code == 200, meal.text
+        assert meal.json()["date"] == local_date
+        activity = fresh.post(f"{BASE_URL}/api/activities", json={"activity_type": "Walking", "duration_min": 10, "active_calories": 40}, timeout=20)
+        assert activity.json()["date"] == local_date
+        weight = fresh.post(f"{BASE_URL}/api/weight", json={"weight_kg": 60}, timeout=20)
+        assert weight.json()["date"] == local_date
+        dash = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+        assert dash["date"] == local_date
+        assert any(item["name"] == f"TZ {zone_name}" for item in dash["meals"])
+        eat = fresh.get(f"{BASE_URL}/api/eat-now", timeout=20).json()
+        assert eat["consumed_calories"] >= 100
+        mongo.meals.delete_many({"user_id": fresh.user_id})
+        mongo.activities.delete_many({"user_id": fresh.user_id})
+        mongo.weights.delete_many({"user_id": fresh.user_id})
+        fresh.put(f"{BASE_URL}/api/profile", json=PROFILE, timeout=20)

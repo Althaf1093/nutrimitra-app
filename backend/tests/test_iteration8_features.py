@@ -17,6 +17,7 @@ import os
 import re
 import uuid
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 import pytest
 import requests
@@ -147,12 +148,17 @@ class TestHealthSummary:
 
         # Enable health sync and push today's records
         authed.post(f"{BASE_URL}/api/permissions", json={"health_sync": True}, timeout=20)
-        today = datetime.now(timezone.utc).date().isoformat()
+        # "Today" is the user's local day (profile timezone, India by default), sent as UTC timestamps.
+        local_midnight = datetime.combine(datetime.now(ZoneInfo("Asia/Kolkata")).date(), datetime.min.time(), tzinfo=ZoneInfo("Asia/Kolkata"))
+
+        def at(hours):
+            return (local_midnight + timedelta(hours=hours)).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
         tag = uuid.uuid4().hex[:8]
         records = [
-            {"external_id": f"TEST-steps-{tag}", "metric": "steps", "start": f"{today}T08:00:00Z", "end": f"{today}T09:00:00Z", "value": 4321, "unit": "count", "source": "test-adapter"},
-            {"external_id": f"TEST-sleep-{tag}", "metric": "sleep", "start": f"{today}T00:00:00Z", "end": f"{today}T06:30:00Z", "type": "asleep", "source": "test-adapter"},
-            {"external_id": f"TEST-kcal-{tag}", "metric": "activeCalories", "start": f"{today}T10:00:00Z", "end": f"{today}T10:30:00Z", "value": 155, "unit": "kcal", "source": "test-adapter"},
+            {"external_id": f"TEST-steps-{tag}", "metric": "steps", "start": at(8), "end": at(9), "value": 4321, "unit": "count", "source": "test-adapter"},
+            {"external_id": f"TEST-sleep-{tag}", "metric": "sleep", "start": at(0), "end": at(6.5), "type": "asleep", "source": "test-adapter"},
+            {"external_id": f"TEST-kcal-{tag}", "metric": "activeCalories", "start": at(10), "end": at(10.5), "value": 155, "unit": "kcal", "source": "test-adapter"},
         ]
         sync = authed.post(f"{BASE_URL}/api/health/sync", json=records, timeout=20)
         assert sync.status_code == 200, sync.text
