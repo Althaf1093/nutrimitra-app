@@ -126,7 +126,7 @@ async def lifespan(_: FastAPI):
     client.close()
 
 
-app = FastAPI(title="NutriMitra API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="Wellstride API", version="1.0.0", lifespan=lifespan)
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer(auto_error=False)
 
@@ -335,7 +335,7 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
 
 @api_router.get("/")
 async def root():
-    return {"name": "NutriMitra", "status": "ready", "ai_provider": "groq", "ai_model": GROQ_MODEL}
+    return {"name": "Wellstride", "status": "ready", "ai_provider": "groq", "ai_model": GROQ_MODEL}
 
 
 @api_router.post("/auth/signup", response_model=TokenResponse)
@@ -499,7 +499,7 @@ def local_plan(profile: Dict[str, Any]) -> Dict[str, Any]:
             nutrition = portion_for(profile, meal_type, index - 1)
             meals.append({"type": meal_type, "name": name, **nutrition, "logged": False})
         days.append({"day": index, "title": f"Day {index}", "focus": "Protein + fibre balance", "meals": meals})
-    return {"goal": profile.get("wellness_goal", "Healthier living"), "days": days, "generated_by": "NutriMitra nutrition engine", "updated_at": now_iso()}
+    return {"goal": profile.get("wellness_goal", "Healthier living"), "days": days, "generated_by": "Wellstride nutrition engine", "updated_at": now_iso()}
 
 
 AI_BUSY_MESSAGE = "The AI is busy right now. Please try again in a minute."
@@ -579,7 +579,7 @@ async def groq_text(system: str, prompt: str, user_id: str) -> str:
 
 
 PLAN_SYSTEM = (
-    "You are NutriMitra's Indian nutrition planning engine. Return ONLY valid JSON, no markdown: "
+    "You are Wellstride's Indian nutrition planning engine. Return ONLY valid JSON, no markdown: "
     '{"days": [{"day": 1, "title": str, "focus": str, "meals": [{"type": "breakfast"|"lunch"|"snack"|"dinner", "name": str, "portion": str, '
     '"calories": int, "protein_g": number, "carbs_g": number, "fat_g": number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
     "(breakfast, lunch, snack, dinner) per day. Rules: Indian-first meals with global nutritious ingredients where helpful; strictly respect "
@@ -955,7 +955,7 @@ async def progress(user: Dict[str, Any] = Depends(current_user)):
 
 
 COACH_SYSTEM = (
-    "You are NutriMitra, a warm bilingual Indian wellness coach. Give practical, non-diagnostic advice and keep answers under 140 words. "
+    "You are Wellstride, a warm bilingual Indian wellness coach. Give practical, non-diagnostic advice and keep answers under 140 words. "
     "Mention a doctor or dietitian for medical concerns. Use the conversation history for continuity but never invent health data. "
     "When the user asks for a recipe or a dish idea they could cook, end your reply with a fenced block exactly like "
     '```recipe\n{"name": str, "time_min": int, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
@@ -1019,7 +1019,7 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
         try:
             candidate = json.loads(match.group(1))
             recipe = {
-                "name": str(candidate.get("name") or "NutriMitra recipe")[:80],
+                "name": str(candidate.get("name") or "Wellstride recipe")[:80],
                 "time_min": max(1, min(180, int(candidate.get("time_min") or 20))),
                 "calories": max(0, min(2000, int(candidate.get("calories") or 350))),
                 "protein_g": max(0, min(200, float(candidate.get("protein_g") or 15))),

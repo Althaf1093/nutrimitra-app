@@ -63,7 +63,7 @@ export default function ProgressScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="progress-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE</Text>
           <Text style={styles.headerTitle}>{t.progress}</Text>
         </View>
       </View>

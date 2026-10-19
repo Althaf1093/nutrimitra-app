@@ -56,7 +56,7 @@ export default function EatNowScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="eat-now-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA PICK</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE PICK</Text>
           <Text style={styles.headerTitle}>{t.eatNow}</Text>
         </View>
         <Pressable testID="eat-now-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>

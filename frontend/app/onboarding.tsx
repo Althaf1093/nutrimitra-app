@@ -68,7 +68,7 @@ export default function OnboardingScreen() {
     <View style={styles.root} testID="onboarding-screen">
       <KeyboardAwareScrollView contentContainerStyle={styles.onboardingContent} keyboardShouldPersistTaps="handled">
         <View style={styles.stepTop}>
-          <Text style={styles.eyebrow}>NUTRIMITRA · {step + 1} / 3</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE · {step + 1} / 3</Text>
           <Text style={styles.stepCounter}>{step === 0 ? t.body : step === 1 ? t.preferences : t.rhythm}</Text>
         </View>
         <View style={styles.progressTrack}>
