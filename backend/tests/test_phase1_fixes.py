@@ -257,3 +257,34 @@ class TestCorrectableLogs:
         assert plan["days"][2]["meals"][0]["logged"] is False
         assert fresh.post(f"{BASE_URL}/api/meals", json=payload, timeout=20).status_code == 200
         mongo.meals.delete_many({"user_id": fresh.user_id})
+
+
+class TestFallbackCalories:
+    """Fix 5: fallback meals are sized from the user's calorie target instead of a fixed 430 kcal / 24 g."""
+
+    def test_calorie_target_matches_formula(self):
+        # Female, 30 y, 160 cm, 60 kg, moderately active: (600 + 1000 - 150 - 161) * 1.55 = 1997.95
+        assert server.calorie_target(PROFILE) == 1997
+        assert server.calorie_target({**PROFILE, "wellness_goal": "Weight loss"}) == 1597
+        assert server.calorie_target({**PROFILE, "weight_kg": 30, "height_cm": 120, "age": 80}) == 1200
+
+    def test_meals_vary_by_type_and_day(self):
+        plan = server.local_plan(PROFILE)
+        day_one = {meal["type"]: meal for meal in plan["days"][0]["meals"]}
+        assert len({meal["calories"] for meal in day_one.values()}) == 4
+        assert day_one["snack"]["calories"] < day_one["breakfast"]["calories"] < day_one["dinner"]["calories"] < day_one["lunch"]["calories"]
+        daily_totals = [sum(meal["calories"] for meal in day["meals"]) for day in plan["days"]]
+        assert len(set(daily_totals)) > 1, "every fallback day has identical calories"
+        week_average = sum(daily_totals) / len(daily_totals)
+        assert abs(week_average - server.calorie_target(PROFILE)) / server.calorie_target(PROFILE) < 0.03
+        assert all(meal["calories"] != 430 for day in plan["days"] for meal in day["meals"])
+
+    def test_meals_scale_with_target_and_goal(self):
+        small = server.portion_for({**PROFILE, "wellness_goal": "Weight loss"}, "lunch")
+        large = server.portion_for({**PROFILE, "sex": "Male", "weight_kg": 85, "height_cm": 180, "activity_level": "Very active", "wellness_goal": "Muscle building"}, "lunch")
+        assert large["calories"] > small["calories"] * 1.5
+        assert large["protein_g"] > small["protein_g"]
+        for meal in (small, large):
+            energy = 4 * meal["protein_g"] + 4 * meal["carbs_g"] + 9 * meal["fat_g"]
+            assert abs(energy - meal["calories"]) / meal["calories"] < 0.05, meal
+            assert 0 < meal["calories"] <= 1500
