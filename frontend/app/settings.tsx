@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post, put } from "@/src/api";
 import { AppIcon, Button, Chip } from "@/src/components/ui";
+import { LegalLinks } from "@/src/components/legal-links";
 import { useAuth } from "@/src/context/auth";
 import { getHealthStatus } from "@/src/lib/health";
 import { applyReminders, clearReminders, ensureReminderPermissions, remindersSupported } from "@/src/lib/notifications";
@@ -156,6 +157,9 @@ export default function SettingsScreen() {
           <Chip label="English" selected={lang === "en"} onPress={() => setLang("en")} />
           <Chip label="తెలుగు" selected={lang === "te"} onPress={() => setLang("te")} />
         </View>
+
+        <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.legalHeading.toUpperCase()}</Text>
+        <LegalLinks />
 
         <Text style={styles.disclaimer}>{t.disclaimer}</Text>
         <Button

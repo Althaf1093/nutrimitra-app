@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
+import { LegalLinks } from "@/src/components/legal-links";
 import { AppIcon, Button, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { googleEnabled } from "@/src/lib/google-auth";
@@ -83,6 +84,7 @@ export default function WelcomeScreen() {
           </Text>
         </View>
         <Text style={styles.safeNote}>{t.privacyLine}</Text>
+        <LegalLinks />
       </KeyboardAwareScrollView>
     </View>
   );

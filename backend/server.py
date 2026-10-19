@@ -19,6 +19,7 @@ import jwt
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import ASCENDING, DESCENDING, ReturnDocument
@@ -26,6 +27,7 @@ from pymongo.errors import DuplicateKeyError, OperationFailure
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from pydantic_core import PydanticCustomError
 
+import legal
 import vision
 
 ROOT_DIR = Path(__file__).parent
@@ -1265,5 +1267,25 @@ async def health_summary(user: Dict[str, Any] = Depends(current_user)):
 
 
 app.include_router(api_router)
+
+
+# Public pages (no login). The app links to them, and Google Play asks for the privacy policy and account-deletion URLs.
+def legal_page(page: str) -> HTMLResponse:
+    return HTMLResponse(legal.render(page), headers={"Cache-Control": "public, max-age=300"})
+
+
+@app.get("/privacy", include_in_schema=False)
+async def privacy_page():
+    return legal_page("privacy")
+
+
+@app.get("/terms", include_in_schema=False)
+async def terms_page():
+    return legal_page("terms")
+
+
+@app.get("/delete-account", include_in_schema=False)
+async def delete_account_page():
+    return legal_page("delete-account")
 # Auth uses Bearer tokens, not cookies, so credentials (cookies) are not allowed cross-origin.
 app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_origin_regex=None if CORS_ORIGINS else LOCAL_ORIGIN_PATTERN, allow_credentials=False, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
