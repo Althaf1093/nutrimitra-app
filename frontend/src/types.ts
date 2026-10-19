@@ -160,3 +160,6 @@ export type Ingredient = {
 };
 
 export type Kitchen = { items: string[]; meals_per_day: number; household_size: number; cooking_time: string | null; updated_at?: string };
+
+export type CheckinStatus = "nothing_logged" | "low_protein" | "on_track" | "low_energy" | "above";
+export type CheckinResult = { date: string; status: CheckinStatus; calories: number; target_calories: number; protein_g: number; target_protein_g: number; adjusted_day: number | null };

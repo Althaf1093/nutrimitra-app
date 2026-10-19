@@ -10,7 +10,7 @@ import { PhotoLogger } from "@/src/components/photo-logger";
 import { ToastProvider, useToast } from "@/src/components/toast";
 import { AppIcon, Chip } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
-import { defaultSlot, foodMealBody } from "@/src/lib/food";
+import { defaultSlot, foodMealBody, MEAL_SLOTS } from "@/src/lib/food";
 import { mealTypeLabel, type Copy } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
@@ -55,7 +55,7 @@ function LogFood() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
-  const params = useLocalSearchParams<{ mode?: string }>();
+  const params = useLocalSearchParams<{ mode?: string; slot?: string }>();
   const { lang, t, status } = useAuth();
   const [mode, setMode] = useState<Mode>(params.mode === "photo" ? "photo" : "search");
   const [query, setQuery] = useState("");
@@ -69,6 +69,8 @@ function LogFood() {
   const [busy, setBusy] = useState(false);
   const [added, setAdded] = useState<Record<string, boolean>>({});
   const [customName, setCustomName] = useState("");
+  // "I ate something else" opens this screen for one meal slot; otherwise the slot follows the time of day.
+  const currentSlot = () => (params.slot && MEAL_SLOTS.includes(params.slot) ? params.slot : defaultSlot());
   const requestId = useRef(0);
   const adding = useRef(false);
   const failedText = t.searchFailed;
@@ -149,7 +151,7 @@ function LogFood() {
   const quickAdd = async (food: FoodItem) => {
     if (adding.current) return;
     adding.current = true;
-    const ok = await logMeal(foodMealBody(food, defaultSlot()));
+    const ok = await logMeal(foodMealBody(food, currentSlot()));
     adding.current = false;
     if (ok) {
       setAdded((current) => ({ ...current, [food.id]: true }));
@@ -237,7 +239,7 @@ function LogFood() {
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         {mode === "photo" ? <PhotoLogger onLogged={() => router.back()} onBack={() => setMode("search")} /> : null}
-        {mode === "custom" ? <CustomFoodForm key={customName} initialName={customName} initialSlot={defaultSlot()} busy={busy} onAdd={addCustom} onCancel={() => setMode("search")} /> : null}
+        {mode === "custom" ? <CustomFoodForm key={customName} initialName={customName} initialSlot={currentSlot()} busy={busy} onAdd={addCustom} onCancel={() => setMode("search")} /> : null}
         {mode === "search" ? (
           <View>
             <View style={styles.searchBar}>
@@ -292,7 +294,7 @@ function LogFood() {
           </View>
         ) : null}
       </ScrollView>
-      <FoodSheet food={sheetFood} initialSlot={defaultSlot()} busy={busy} onAdd={addFromSheet} onClose={() => setSheetFood(null)} />
+      <FoodSheet food={sheetFood} initialSlot={currentSlot()} busy={busy} onAdd={addFromSheet} onClose={() => setSheetFood(null)} />
     </View>
   );
 }

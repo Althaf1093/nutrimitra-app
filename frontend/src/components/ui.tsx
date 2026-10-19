@@ -93,7 +93,7 @@ export function Field({ label, value, onChangeText, placeholder, secureTextEntry
   );
 }
 
-export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
+export function MealCard({ meal, onLog, onSwap, onAteOther }: { meal: Meal; onLog: () => void; onSwap?: () => void; onAteOther?: () => void }) {
   const styles = useStyles();
   const { lang, t } = useAuth();
   const { colors } = useTheme();
@@ -118,6 +118,25 @@ export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
           <Text style={styles.mealMeta} testID={`meal-uses-${meal.type}`}>
             {t.usesWord}: {uses}
           </Text>
+        ) : null}
+        {meal.ate_other && !meal.logged ? (
+          <Text style={[styles.mealMeta, { fontStyle: "italic" }]} testID={`meal-ate-other-${meal.type}`}>
+            {t.ateOther}
+          </Text>
+        ) : null}
+        {!meal.logged && (onSwap || onAteOther) ? (
+          <View style={{ flexDirection: "row", flexWrap: "wrap", columnGap: 18, marginTop: 8 }}>
+            {onSwap ? (
+              <Pressable testID={`swap-meal-${meal.type}`} accessibilityRole="button" accessibilityLabel={`${t.swapMeal} ${mealTypeLabel(t, meal.type)}`} hitSlop={8} onPress={onSwap}>
+                <Text style={styles.linkText}>{t.swapMeal}</Text>
+              </Pressable>
+            ) : null}
+            {onAteOther ? (
+              <Pressable testID={`ate-else-${meal.type}`} accessibilityRole="button" accessibilityLabel={`${t.ateElse} (${mealTypeLabel(t, meal.type)})`} hitSlop={8} onPress={onAteOther}>
+                <Text style={styles.linkText}>{t.ateElse}</Text>
+              </Pressable>
+            ) : null}
+          </View>
         ) : null}
       </View>
       {meal.logged ? (
