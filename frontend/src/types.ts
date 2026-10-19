@@ -36,10 +36,32 @@ export type PlanDay = { day: number; title: string; focus: string; meals: Meal[]
 // today_index: which day of the 7-day plan is "today" (days since the plan started, wrapped).
 export type Plan = { days: PlanDay[]; reasoning: string; goal: string; today_index?: number };
 
+export type LoggedMeal = {
+  id: string;
+  meal_type: string;
+  name: string;
+  calories: number;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  source: string;
+  date: string;
+};
+
+export type LoggedActivity = {
+  id: string;
+  activity_type: string;
+  duration_min: number;
+  distance_km: number;
+  active_calories: number;
+  source: string;
+  date: string;
+};
+
 export type Dashboard = {
   date: string;
-  meals: Record<string, unknown>[];
-  activities: Record<string, unknown>[];
+  meals: LoggedMeal[];
+  activities: LoggedActivity[];
   calories: number;
   active_calories: number;
   readiness: number;

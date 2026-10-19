@@ -16,6 +16,7 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import ReturnDocument
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 ROOT_DIR = Path(__file__).parent
@@ -85,6 +86,15 @@ class MealLogInput(BaseModel):
     carbs_g: float = Field(ge=0, le=400)
     fat_g: float = Field(ge=0, le=250)
     source: str = "manual"
+
+
+class MealPatchInput(BaseModel):
+    meal_type: Optional[str] = None
+    name: Optional[str] = Field(default=None, min_length=1, max_length=120)
+    calories: Optional[int] = Field(default=None, ge=0, le=3000)
+    protein_g: Optional[float] = Field(default=None, ge=0, le=300)
+    carbs_g: Optional[float] = Field(default=None, ge=0, le=400)
+    fat_g: Optional[float] = Field(default=None, ge=0, le=250)
 
 
 class ActivityInput(BaseModel):
@@ -431,10 +441,28 @@ def plan_day_index(plan: Dict[str, Any], today: date, zone: ZoneInfo = ZoneInfo(
     return (today - start).days % len(days)
 
 
-def with_today_index(plan: Dict[str, Any], zone: ZoneInfo) -> Dict[str, Any]:
+def logged_key(meal_type: Any, name: Any) -> tuple:
+    return (str(meal_type or "").strip().lower(), str(name or "").strip().lower())
+
+
+def with_today_index(plan: Dict[str, Any], zone: ZoneInfo, todays_meals: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Client view of a plan: today's day index, and today's plan meals flagged as logged.
+
+    The flag is derived from today's meal log (not stored), so deleting a log entry un-flags the meal."""
     clean = {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
-    clean["today_index"] = plan_day_index(plan, local_today(zone), zone)
+    index = plan_day_index(plan, local_today(zone), zone)
+    clean["today_index"] = index
+    logged = {logged_key(item.get("meal_type"), item.get("name")) for item in todays_meals}
+    days = []
+    for position, day in enumerate(clean.get("days") or []):
+        meals = [{**meal, "logged": position == index and logged_key(meal.get("type"), meal.get("name")) in logged} for meal in day.get("meals", [])]
+        days.append({**day, "meals": meals})
+    clean["days"] = days
     return clean
+
+
+async def todays_meals(user_id: str, zone: ZoneInfo) -> List[Dict[str, Any]]:
+    return await db.meals.find({"user_id": user_id, "date": local_today(zone).isoformat()}, {"_id": 0}).to_list(100)
 
 
 @api_router.get("/plan")
@@ -448,12 +476,13 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
         start = plan_start_date(existing, zone)
         age_days = (local_today(zone) - start).days if start else 0
         if age_days < 7:
-            return with_today_index(existing, zone)
+            return with_today_index(existing, zone, await todays_meals(user["id"], zone))
     # Missing or week-old plan → adaptive regeneration from recent logs
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return with_today_index(plan, user_zone(profile))
+    zone = user_zone(profile)
+    return with_today_index(plan, zone, await todays_meals(user["id"], zone))
 
 
 @api_router.post("/plan/regenerate")
@@ -464,7 +493,8 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     plan = await build_adaptive_plan(user["id"], profile)
     plan["user_id"] = user["id"]
     await db.plans.insert_one(plan)
-    return with_today_index(plan, user_zone(profile))
+    zone = user_zone(profile)
+    return with_today_index(plan, zone, await todays_meals(user["id"], zone))
 
 
 @api_router.get("/dashboard")
@@ -481,10 +511,40 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
 @api_router.post("/meals")
 async def log_meal(payload: MealLogInput, user: Dict[str, Any] = Depends(current_user)):
     _, _, today = await user_clock(user["id"])
+    if payload.source == "plan":
+        # A plan meal is logged once per day; repeated taps on "+" must not double-count it.
+        existing = await db.meals.find({"user_id": user["id"], "date": today.isoformat(), "meal_type": payload.meal_type}, {"_id": 0}).to_list(50)
+        if any(logged_key(item.get("meal_type"), item.get("name")) == logged_key(payload.meal_type, payload.name) for item in existing):
+            raise HTTPException(status_code=409, detail="This meal is already logged today")
     meal = {**payload.model_dump(), "id": str(uuid.uuid4()), "user_id": user["id"], "date": today.isoformat(), "created_at": now_iso()}
     response = dict(meal)
     await db.meals.insert_one(meal)
     return response
+
+
+@api_router.patch("/meals/{meal_id}")
+async def update_meal(meal_id: str, payload: MealPatchInput, user: Dict[str, Any] = Depends(current_user)):
+    changes = payload.model_dump(exclude_none=True)
+    if not changes:
+        raise HTTPException(status_code=400, detail="Nothing to update")
+    changes["updated_at"] = now_iso()
+    updated = await db.meals.find_one_and_update({"id": meal_id, "user_id": user["id"]}, {"$set": changes}, projection={"_id": 0}, return_document=ReturnDocument.AFTER)
+    if not updated:
+        raise HTTPException(status_code=404, detail="Meal not found")
+    return updated
+
+
+async def delete_owned(collection: Any, entry_id: str, user_id: str, label: str) -> Dict[str, Any]:
+    """Delete one log entry, only if it belongs to the signed-in user."""
+    result = await collection.delete_one({"id": entry_id, "user_id": user_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail=f"{label} not found")
+    return {"deleted": True, "id": entry_id}
+
+
+@api_router.delete("/meals/{meal_id}")
+async def delete_meal(meal_id: str, user: Dict[str, Any] = Depends(current_user)):
+    return await delete_owned(db.meals, meal_id, user["id"], "Meal")
 
 
 @api_router.post("/activities")
@@ -496,6 +556,11 @@ async def log_activity(payload: ActivityInput, user: Dict[str, Any] = Depends(cu
     return response
 
 
+@api_router.delete("/activities/{activity_id}")
+async def delete_activity(activity_id: str, user: Dict[str, Any] = Depends(current_user)):
+    return await delete_owned(db.activities, activity_id, user["id"], "Activity")
+
+
 @api_router.post("/weight")
 async def log_weight(payload: WeightInput, user: Dict[str, Any] = Depends(current_user)):
     _, _, today = await user_clock(user["id"])
@@ -503,6 +568,11 @@ async def log_weight(payload: WeightInput, user: Dict[str, Any] = Depends(curren
     response = dict(entry)
     await db.weights.insert_one(entry)
     return response
+
+
+@api_router.delete("/weight/{entry_id}")
+async def delete_weight(entry_id: str, user: Dict[str, Any] = Depends(current_user)):
+    return await delete_owned(db.weights, entry_id, user["id"], "Weight entry")
 
 
 @api_router.get("/progress")

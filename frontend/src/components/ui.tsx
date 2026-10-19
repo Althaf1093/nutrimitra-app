@@ -80,9 +80,15 @@ export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
           {meal.portion} · {meal.calories} kcal · {meal.protein_g}g protein
         </Text>
       </View>
-      <Pressable testID={`log-meal-${meal.type}`} accessibilityRole="button" accessibilityLabel={`Log ${meal.type}`} onPress={onLog} style={styles.logButton}>
-        <Text style={styles.logButtonText}>+</Text>
-      </Pressable>
+      {meal.logged ? (
+        <View testID={`meal-logged-${meal.type}`} accessibilityLabel={`${meal.type} logged`} style={[styles.logButton, styles.logButtonDone]}>
+          <AppIcon name="checkmark" color={colors.onBrandPrimary} size={18} />
+        </View>
+      ) : (
+        <Pressable testID={`log-meal-${meal.type}`} accessibilityRole="button" accessibilityLabel={`Log ${meal.type}`} onPress={onLog} style={styles.logButton}>
+          <Text style={styles.logButtonText}>+</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
