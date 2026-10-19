@@ -538,3 +538,53 @@ class TestHealthConditions:
         assert "వైద్య సలహా కాదు" in telugu
         assert "t.wellnessNotice" in (frontend / "app" / "(tabs)" / "coach.tsx").read_text(encoding="utf-8")
         assert "t.wellnessNotice" in (frontend / "app" / "(tabs)" / "plan.tsx").read_text(encoding="utf-8")
+
+
+class TestProgressEditDelete:
+    """Item 8: the Today screen edits a logged meal through PATCH /meals/{id}, and the Progress screen lists
+    weight entries with a Remove button (DELETE /weight/{id}). The app has no UI test harness, so these
+    check the exact requests the screens send plus the strings and wiring in the source."""
+
+    def test_edit_meal_request_sent_by_the_form(self, fresh, mongo):
+        meal = fresh.post(f"{BASE_URL}/api/meals", json={"meal_type": "lunch", "name": "Dal rice", "calories": 500, "protein_g": 15, "carbs_g": 80, "fat_g": 10}, timeout=20).json()
+        try:
+            dash = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+            assert any(item["id"] == meal["id"] and "protein_g" in item for item in dash["meals"]), "the Today list needs id and macros to prefill the form"
+            changes = {"name": "Dal rice with salad", "calories": 430, "protein_g": 17.5, "carbs_g": 70, "fat_g": 9}
+            resp = fresh.patch(f"{BASE_URL}/api/meals/{meal['id']}", json=changes, timeout=20)
+            assert resp.status_code == 200, resp.text
+            assert {key: resp.json()[key] for key in changes} == changes
+            assert resp.json()["meal_type"] == "lunch" and resp.json()["date"] == meal["date"], "untouched fields stay as logged"
+            after = fresh.get(f"{BASE_URL}/api/dashboard", timeout=20).json()
+            assert after["calories"] == 430
+            assert fresh.patch(f"{BASE_URL}/api/meals/{meal['id']}", json={**changes, "calories": 99999}, timeout=20).status_code == 422
+        finally:
+            mongo.meals.delete_many({"user_id": fresh.user_id})
+
+    def test_progress_lists_weight_entries_with_ids_and_delete_works(self, fresh, mongo):
+        mongo.weights.delete_many({"user_id": fresh.user_id})
+        try:
+            first = fresh.post(f"{BASE_URL}/api/weight", json={"weight_kg": 61.5}, timeout=20).json()
+            second = fresh.post(f"{BASE_URL}/api/weight", json={"weight_kg": 61.0}, timeout=20).json()
+            weights = fresh.get(f"{BASE_URL}/api/progress", timeout=20).json()["weights"]
+            assert [item["id"] for item in weights] == [first["id"], second["id"]]
+            assert all({"id", "weight_kg", "date"} <= set(item) for item in weights)
+            assert fresh.delete(f"{BASE_URL}/api/weight/{first['id']}", timeout=20).status_code == 200
+            left = fresh.get(f"{BASE_URL}/api/progress", timeout=20).json()["weights"]
+            assert [item["id"] for item in left] == [second["id"]]
+        finally:
+            mongo.weights.delete_many({"user_id": fresh.user_id})
+
+    def test_screens_are_wired_and_translated(self):
+        frontend = Path(server.__file__).parent.parent / "frontend"
+        read = lambda *parts: (frontend.joinpath(*parts)).read_text(encoding="utf-8")
+        today, progress, form = read("app", "(tabs)", "index.tsx"), read("app", "(tabs)", "progress.tsx"), read("src", "components", "meal-edit-form.tsx")
+        assert "patch(`/meals/${id}`" in today and "MealEditForm" in today and "edit-meal-${item.id}" in today
+        assert "del(`/weight/${id}`)" in progress and "remove-weight-${item.id}" in progress and "t.weightEntries" in progress
+        i18n = read("src", "i18n.ts")
+        english, telugu = i18n.split("  te: {", 1)
+        used = set(__import__("re").findall(r"\bt\.([A-Za-z]+)", today + progress + form))
+        new_keys = {"edit", "save", "cancel", "mealNameLabel", "caloriesLabel", "proteinLabel", "carbsLabel", "fatLabel", "checkNumbers", "mealUpdated", "weightEntries"}
+        assert new_keys <= used, new_keys - used
+        for key in new_keys:
+            assert f"    {key}:" in english and f"    {key}:" in telugu, f"{key} missing in a language"

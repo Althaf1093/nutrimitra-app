@@ -3,8 +3,9 @@ import { useCallback, useState } from "react";
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, del, post } from "@/src/api";
+import { api, del, patch, post } from "@/src/api";
 import { AppIcon, Chip, MealCard } from "@/src/components/ui";
+import { MealEditForm, type MealChanges } from "@/src/components/meal-edit-form";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { TodayProgressCard } from "@/src/components/today-progress-card";
 import { useAuth } from "@/src/context/auth";
@@ -30,6 +31,7 @@ export default function TodayScreen() {
   const [busy, setBusy] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [duration, setDuration] = useState(20);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -77,6 +79,20 @@ export default function TodayScreen() {
       await load();
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Could not remove entry");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const saveMeal = async (id: string, changes: MealChanges) => {
+    setBusy(true);
+    try {
+      await patch(`/meals/${id}`, changes);
+      setEditingId(null);
+      setMessage(t.mealUpdated);
+      await load();
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Could not update meal");
     } finally {
       setBusy(false);
     }
@@ -164,19 +180,28 @@ export default function TodayScreen() {
               <Text style={styles.reasonText}>
                 {dashboard?.meals?.length} meal(s) · {dashboard?.calories || 0} kcal so far
               </Text>
-              {dashboard?.meals?.map((item) => (
-                <View key={item.id} style={styles.logRow} testID={`logged-meal-${item.id}`}>
-                  <View style={styles.flex}>
-                    <Text style={styles.mealName}>{item.name}</Text>
-                    <Text style={styles.mealMeta}>
-                      {item.meal_type} · {item.calories} kcal
-                    </Text>
+              {dashboard?.meals?.map((item) =>
+                editingId === item.id ? (
+                  <MealEditForm key={item.id} meal={item} t={t} busy={busy} onSave={(changes) => saveMeal(item.id, changes)} onCancel={() => setEditingId(null)} />
+                ) : (
+                  <View key={item.id} style={styles.logRow} testID={`logged-meal-${item.id}`}>
+                    <View style={styles.flex}>
+                      <Text style={styles.mealName}>{item.name}</Text>
+                      <Text style={styles.mealMeta}>
+                        {item.meal_type} · {item.calories} kcal · {item.protein_g}g protein
+                      </Text>
+                    </View>
+                    <View style={styles.rowActions}>
+                      <Pressable testID={`edit-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.edit} ${item.name}`} disabled={busy} onPress={() => setEditingId(item.id)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                        <Text style={styles.linkText}>{t.edit}</Text>
+                      </Pressable>
+                      <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeEntry(`/meals/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                        <Text style={styles.linkText}>{t.remove}</Text>
+                      </Pressable>
+                    </View>
                   </View>
-                  <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeEntry(`/meals/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
-                    <Text style={styles.linkText}>{t.remove}</Text>
-                  </Pressable>
-                </View>
-              ))}
+                ),
+              )}
             </View>
           ) : null}
           <View style={styles.sectionHeader}>
