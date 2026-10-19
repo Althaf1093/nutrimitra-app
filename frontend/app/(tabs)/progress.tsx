@@ -103,7 +103,7 @@ export default function ProgressScreen() {
         ) : null}
         <View style={styles.reasonCard}>
           <Text style={styles.cardEyebrow}>{t.review.toUpperCase()}</Text>
-          <Text style={styles.reasonText}>{progress?.review || t.reviewEmpty}</Text>
+          <Text style={styles.reasonText}>{progress ? t.weeklyReview : t.reviewEmpty}</Text>
         </View>
         <Text style={styles.disclaimer}>{t.disclaimer}</Text>
       </ScrollView>
