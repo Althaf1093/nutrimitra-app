@@ -4,12 +4,16 @@ import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, isAiBusy, post } from "@/src/api";
+import { api, del, isAiBusy, post } from "@/src/api";
+import { useToast } from "@/src/components/toast";
 import { AppIcon, Button, Chip } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { Copy } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
+
+// The chat box sits just above the tab bar; toasts rise above it so they never cover the text field.
+const COMPOSER_LIFT = 64;
 
 export type Recipe = {
   name: string;
@@ -76,7 +80,7 @@ export default function CoachScreen() {
   const { lang, t } = useAuth();
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState("");
+  const toast = useToast();
   const [messages, setMessages] = useState<ChatMessage[]>([
     { role: "coach", text: t.coachGreeting },
   ]);
@@ -99,7 +103,6 @@ export default function CoachScreen() {
   const send = async (text = input) => {
     if (!text.trim()) return;
     setInput("");
-    setNotice("");
     setMessages((items) => [...items, { role: "user", text }]);
     setBusy(true);
     try {
@@ -107,7 +110,7 @@ export default function CoachScreen() {
       setMessages((items) => [...items, { role: "coach", text: result.reply, recipe: result.recipe }]);
     } catch (err) {
       // Not a coach reply: shown as a notice so it is never mistaken for (or stored as) advice.
-      setNotice(isAiBusy(err) ? t.aiBusy : t.aiUnavailable);
+      toast.show(isAiBusy(err) ? t.aiBusy : t.aiUnavailable, { type: "error", raise: COMPOSER_LIFT });
     } finally {
       setBusy(false);
     }
@@ -115,10 +118,17 @@ export default function CoachScreen() {
 
   const logRecipe = async (recipe: Recipe) => {
     try {
-      await post("/meals", { meal_type: "snack", name: recipe.name, calories: recipe.calories, protein_g: recipe.protein_g, carbs_g: recipe.carbs_g, fat_g: recipe.fat_g, source: "coach recipe" });
-      setNotice(t.addMeal);
+      const saved = await post<{ id: string }>("/meals", { meal_type: "snack", name: recipe.name, calories: recipe.calories, protein_g: recipe.protein_g, carbs_g: recipe.carbs_g, fat_g: recipe.fat_g, source: "coach recipe" });
+      toast.show(t.addMeal, {
+        raise: COMPOSER_LIFT,
+        actionLabel: t.undo,
+        onAction: () =>
+          del(`/meals/${saved.id}`)
+            .then(() => toast.show(t.undone, { type: "info", raise: COMPOSER_LIFT }))
+            .catch(() => toast.show(t.couldNotUndo, { type: "error", raise: COMPOSER_LIFT })),
+      });
     } catch {
-      setNotice(t.couldNotLogMeal);
+      toast.show(t.couldNotLogMeal, { type: "error", raise: COMPOSER_LIFT });
     }
   };
 
@@ -150,11 +160,6 @@ export default function CoachScreen() {
             <Chip label={t.quickLowEnergy} selected={false} onPress={() => send(t.quickLowEnergyPrompt)} />
           </View>
         </ScrollView>
-        {notice ? (
-          <Text style={notice === t.aiBusy || notice === t.aiUnavailable ? styles.errorText : styles.successText} testID="coach-notice">
-            {notice}
-          </Text>
-        ) : null}
         <Text style={styles.wellnessNotice} testID="coach-wellness-notice">
           {t.wellnessNotice}
         </Text>

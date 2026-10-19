@@ -8,12 +8,14 @@ import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { MealEditForm, type MealChanges } from "@/src/components/meal-edit-form";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { TodayProgressCard } from "@/src/components/today-progress-card";
+import { useToast } from "@/src/components/toast";
 import { useAuth } from "@/src/context/auth";
 import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/health";
+import { markPlanMeal, planMealBody } from "@/src/lib/plan";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import { mealTypeLabel } from "@/src/i18n";
-import type { Dashboard, Meal, Plan } from "@/src/types";
+import type { Dashboard, LoggedActivity, LoggedMeal, Meal, Plan } from "@/src/types";
 
 const DURATIONS = [10, 20, 30, 45];
 
@@ -26,7 +28,7 @@ export default function TodayScreen() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [plan, setPlan] = useState<Plan | null>(null);
   const [health, setHealth] = useState<HealthSummary | null>(null);
-  const [message, setMessage] = useState("");
+  const toast = useToast();
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -63,24 +65,69 @@ export default function TodayScreen() {
     setRefreshing(false);
   };
 
-  const logMeal = async (meal: Meal) => {
+  const failed = (err: unknown, fallback: string) => toast.show(err instanceof Error ? err.message : fallback, { type: "error" });
+
+  const undoLog = async (path: string) => {
     try {
-      await post("/meals", { meal_type: meal.type, name: meal.name, calories: meal.calories, protein_g: meal.protein_g, carbs_g: meal.carbs_g, fat_g: meal.fat_g, source: "plan" });
-      setMessage(t.addMeal);
+      await del(path);
+      toast.show(t.undone, { type: "info" });
+    } catch (err) {
+      failed(err, t.couldNotUndo);
+    }
+    await load();
+  };
+
+  const logMeal = async (meal: Meal) => {
+    // Optimistic: the "+" becomes the check at once; the server's answer confirms it or rolls it back.
+    const dayIndex = plan?.today_index ?? 0;
+    setPlan((current) => (current ? markPlanMeal(current, dayIndex, meal, true) : current));
+    try {
+      const saved = await post<LoggedMeal>("/meals", planMealBody(meal));
+      toast.show(t.addMeal, { actionLabel: t.undo, onAction: () => undoLog(`/meals/${saved.id}`) });
       load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : t.couldNotLogMeal);
+      setPlan((current) => (current ? markPlanMeal(current, dayIndex, meal, false) : current));
+      failed(err, t.couldNotLogMeal);
     }
   };
 
-  const removeEntry = async (path: string) => {
+  const removeMeal = async (item: LoggedMeal) => {
     setBusy(true);
     try {
-      await del(path);
-      setMessage(t.removed);
+      await del(`/meals/${item.id}`);
+      const restore = async () => {
+        try {
+          await post("/meals", { meal_type: item.meal_type, name: item.name, calories: item.calories, protein_g: item.protein_g, carbs_g: item.carbs_g, fat_g: item.fat_g, source: item.source });
+        } catch (err) {
+          failed(err, t.couldNotUndo);
+        }
+        await load();
+      };
+      toast.show(t.removed, { type: "info", actionLabel: t.undo, onAction: restore });
       await load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : t.couldNotRemove);
+      failed(err, t.couldNotRemove);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const removeActivity = async (item: LoggedActivity) => {
+    setBusy(true);
+    try {
+      await del(`/activities/${item.id}`);
+      const restore = async () => {
+        try {
+          await post("/activities", { activity_type: item.activity_type, duration_min: item.duration_min, distance_km: item.distance_km, active_calories: item.active_calories, source: item.source });
+        } catch (err) {
+          failed(err, t.couldNotUndo);
+        }
+        await load();
+      };
+      toast.show(t.removed, { type: "info", actionLabel: t.undo, onAction: restore });
+      await load();
+    } catch (err) {
+      failed(err, t.couldNotRemove);
     } finally {
       setBusy(false);
     }
@@ -91,10 +138,10 @@ export default function TodayScreen() {
     try {
       await patch(`/meals/${id}`, changes);
       setEditingId(null);
-      setMessage(t.mealUpdated);
+      toast.show(t.mealUpdated);
       await load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : t.couldNotUpdateMeal);
+      failed(err, t.couldNotUpdateMeal);
     } finally {
       setBusy(false);
     }
@@ -104,11 +151,11 @@ export default function TodayScreen() {
     setBusy(true);
     try {
       // Calories (and walking distance) are estimated by the server from duration and body weight.
-      await post("/activities", { activity_type: type, duration_min: duration, source: "manual estimate" });
-      setMessage(t.addActivity);
+      const saved = await post<LoggedActivity>("/activities", { activity_type: type, duration_min: duration, source: "manual estimate" });
+      toast.show(t.addActivity, { actionLabel: t.undo, onAction: () => undoLog(`/activities/${saved.id}`) });
       load();
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : t.couldNotLogActivity);
+      failed(err, t.couldNotLogActivity);
     } finally {
       setBusy(false);
     }
@@ -117,7 +164,7 @@ export default function TodayScreen() {
   const syncDevice = async () => {
     setSyncing(true);
     const result = await syncDeviceHealth();
-    setMessage(result ? t.syncDone : t.syncUnavailable);
+    toast.show(result ? t.syncDone : t.syncUnavailable, { type: result ? "success" : "info" });
     await load();
     setSyncing(false);
   };
@@ -206,7 +253,7 @@ export default function TodayScreen() {
                       <Pressable testID={`edit-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.edit} ${item.name}`} disabled={busy} onPress={() => setEditingId(item.id)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
                         <Text style={styles.linkText}>{t.edit}</Text>
                       </Pressable>
-                      <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeEntry(`/meals/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                      <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeMeal(item)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
                         <Text style={styles.linkText}>{t.remove}</Text>
                       </Pressable>
                     </View>
@@ -265,7 +312,7 @@ export default function TodayScreen() {
                       {item.duration_min} {t.minutes} · {item.active_calories} kcal
                     </Text>
                   </View>
-                  <Pressable testID={`remove-activity-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.activity_type}`} disabled={busy} onPress={() => removeEntry(`/activities/${item.id}`)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                  <Pressable testID={`remove-activity-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.activity_type}`} disabled={busy} onPress={() => removeActivity(item)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
                     <Text style={styles.linkText}>{t.remove}</Text>
                   </Pressable>
                 </View>
@@ -296,11 +343,6 @@ export default function TodayScreen() {
           <Text style={styles.disclaimer}>{t.disclaimer}</Text>
         </ScrollView>
       )}
-      {message ? (
-        <Pressable testID="today-toast" onPress={() => setMessage("")} style={styles.toast}>
-          <Text style={styles.toastText}>{message}</Text>
-        </Pressable>
-      ) : null}
     </View>
   );
 }

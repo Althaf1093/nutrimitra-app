@@ -3,13 +3,15 @@ import { useCallback, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { api, isAiBusy, post } from "@/src/api";
+import { api, del, isAiBusy, post } from "@/src/api";
+import { useToast } from "@/src/components/toast";
 import { AppIcon, Chip, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { optionLabel } from "@/src/i18n";
+import { markPlanMeal, planMealBody } from "@/src/lib/plan";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
-import type { Meal, Plan } from "@/src/types";
+import type { LoggedMeal, Meal, Plan } from "@/src/types";
 
 export default function PlanScreen() {
   const styles = useStyles();
@@ -18,7 +20,7 @@ export default function PlanScreen() {
   const { t } = useAuth();
   const [plan, setPlan] = useState<Plan | null>(null);
   const [day, setDay] = useState(0);
-  const [message, setMessage] = useState("");
+  const toast = useToast();
   const [refreshing, setRefreshing] = useState(false);
 
   const refreshPlan = async () => {
@@ -27,9 +29,9 @@ export default function PlanScreen() {
       const next = await post<Plan>("/plan/regenerate", {});
       setPlan(next);
       setDay(next.today_index ?? 0);
-      setMessage(t.planRefreshed);
+      toast.show(t.planRefreshed);
     } catch (err) {
-      setMessage(isAiBusy(err) ? t.aiBusy : err instanceof Error ? err.message : t.couldNotRefresh);
+      toast.show(isAiBusy(err) ? t.aiBusy : err instanceof Error ? err.message : t.couldNotRefresh, { type: "error" });
     } finally {
       setRefreshing(false);
     }
@@ -46,14 +48,29 @@ export default function PlanScreen() {
     }, []),
   );
 
-  const logMeal = async (meal: Meal) => {
+  const undoLog = async (id: string) => {
     try {
-      await post("/meals", { meal_type: meal.type, name: meal.name, calories: meal.calories, protein_g: meal.protein_g, carbs_g: meal.carbs_g, fat_g: meal.fat_g, source: "plan" });
-      setMessage(t.addMeal);
+      await del(`/meals/${id}`);
+      toast.show(t.undone, { type: "info" });
+    } catch (err) {
+      toast.show(err instanceof Error ? err.message : t.couldNotUndo, { type: "error" });
+    }
+    const fresh = await api<Plan>("/plan").catch(() => null);
+    if (fresh) setPlan(fresh);
+  };
+
+  const logMeal = async (meal: Meal) => {
+    // Optimistic: the "+" becomes the check at once; the server's answer confirms it or rolls it back.
+    const dayIndex = day;
+    setPlan((current) => (current ? markPlanMeal(current, dayIndex, meal, true) : current));
+    try {
+      const saved = await post<LoggedMeal>("/meals", planMealBody(meal));
+      toast.show(t.addMeal, { actionLabel: t.undo, onAction: () => undoLog(saved.id) });
       // Re-fetch so today's logged meals show as done instead of "+".
       setPlan(await api<Plan>("/plan"));
     } catch (err) {
-      setMessage(err instanceof Error ? err.message : t.couldNotLogMeal);
+      setPlan((current) => (current ? markPlanMeal(current, dayIndex, meal, false) : current));
+      toast.show(err instanceof Error ? err.message : t.couldNotLogMeal, { type: "error" });
     }
   };
 
@@ -107,9 +124,6 @@ export default function PlanScreen() {
           </View>
         )}
       </ScrollView>
-      {message ? (
-        <Chip label={message} selected onPress={() => setMessage("")} />
-      ) : null}
     </View>
   );
 }

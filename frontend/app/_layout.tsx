@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { ErrorBoundary } from "@/src/components/error-boundary";
+import { ToastProvider } from "@/src/components/toast";
 import { AuthProvider } from "@/src/context/auth";
 
 export default function RootLayout() {
@@ -17,11 +18,13 @@ export default function RootLayout() {
       <KeyboardProvider>
         <AuthProvider>
           <StatusBar style="dark" />
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="eat-now" options={{ presentation: "modal" }} />
-            <Stack.Screen name="log-food" options={{ presentation: "modal" }} />
-            <Stack.Screen name="settings" options={{ presentation: "modal" }} />
-          </Stack>
+          <ToastProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="eat-now" options={{ presentation: "modal" }} />
+              <Stack.Screen name="log-food" options={{ presentation: "modal" }} />
+              <Stack.Screen name="settings" options={{ presentation: "modal" }} />
+            </Stack>
+          </ToastProvider>
         </AuthProvider>
       </KeyboardProvider>
     </ErrorBoundary>

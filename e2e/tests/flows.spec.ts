@@ -209,14 +209,14 @@ test("7. coach: reply, recipe card, and the AI-busy message", async ({ app }) =>
   await expect(app.page.getByText("Quick vegetable khichdi")).toBeVisible();
   await app.shot("recipe");
   await app.idStarting("recipe-log-").click();
-  await expect(app.id("coach-notice")).toHaveText("Meal logged");
+  await expect(app.id("toast-message")).toHaveText("Meal logged");
   expect((await app.api("/dashboard")).body.meals.map((m: { name: string }) => m.name)).toContain("Quick vegetable khichdi");
 
   await setAi("busy");
   try {
     await app.id("coach-input").fill("Anything else?");
     await app.id("coach-send-button").click();
-    await expect(app.id("coach-notice")).toHaveText("AI is busy, try again in a minute.", { timeout: 30_000 });
+    await expect(app.id("toast-message")).toHaveText("AI is busy, try again in a minute.", { timeout: 30_000 });
     await app.shot("ai-busy");
   } finally {
     await setAi("ok");
