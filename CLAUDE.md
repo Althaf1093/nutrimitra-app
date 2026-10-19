@@ -23,8 +23,11 @@ Read docs/HANDOFF.md first. The GitHub repo (Althaf1093/nutrimitra-app, branch m
 - Never force-push to main. Never rewrite history on main.
 - Commits end with the Co-Authored-By trailer; PR descriptions end with the Claude Code footer
 - NEVER read, print or commit backend/.env or frontend/.env, or any key or token
-- Don't touch Emergent leftovers or branding until the owner has chosen the final app name,
-  package ID and vision provider (Phase 3). Ask once, then proceed.
+- Identity is decided and done (Phase 3): the app is Wellstride, package and bundle ID `in.inkbrief.wellstride`,
+  18+ only, photo recognition via Gemini Flash behind `backend/vision.py`. The repo, the `nutrimitra` database and
+  the on-device storage keys keep their old names on purpose. Emergent is gone from the repo.
+- Run `yarn install` in `frontend` after pulling (dependencies changed), and `npx expo start --clear` after changing
+  any `EXPO_PUBLIC_` value. `npx expo-doctor` should stay at 20/20.
 - After each merged PR, post a short summary: files changed, tests added, what to verify on the phone
 
 ## Phase order
