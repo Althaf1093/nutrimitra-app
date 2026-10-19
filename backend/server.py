@@ -968,14 +968,20 @@ def coach_system_prompt(profile: Dict[str, Any], language: str) -> str:
 RECIPE_BLOCK = re.compile(r"```recipe\s*(\{.*?\})\s*```", re.DOTALL)
 
 
+async def recent_coach_messages(user_id: str, limit: int) -> List[Dict[str, Any]]:
+    """The user's latest `limit` coach messages, oldest first. (Sorting ascending with a cap returned the
+    oldest messages, so a long conversation stopped showing, and stopped sending, anything recent.)"""
+    latest = await db.coach_messages.find({"user_id": user_id}, {"_id": 0}).sort("created_at", DESCENDING).limit(limit).to_list(limit)
+    return list(reversed(latest))
+
+
 @api_router.get("/coach/history")
 async def coach_history(user: Dict[str, Any] = Depends(current_user)):
     """Return stored conversation only when the user has coach memory enabled."""
     prefs = await db.permissions.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
     if prefs and prefs.get("coach_memory") is False:
         return {"messages": [], "memory": False}
-    messages = await db.coach_messages.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", 1).to_list(60)
-    return {"messages": messages[-30:], "memory": True}
+    return {"messages": await recent_coach_messages(user["id"], 30), "memory": True}
 
 
 @api_router.post("/coach")
@@ -985,7 +991,7 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
     memory = prefs.get("coach_memory") is not False
     history: List[Dict[str, Any]] = []
     if memory:
-        history = await db.coach_messages.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", 1).to_list(24)
+        history = await recent_coach_messages(user["id"], 12)
     messages = [{"role": "system", "content": coach_system_prompt(profile, payload.language)}]
     for item in history[-12:]:
         messages.append({"role": "user" if item.get("role") == "user" else "assistant", "content": str(item.get("text", ""))[:600]})

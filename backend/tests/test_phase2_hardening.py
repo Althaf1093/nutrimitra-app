@@ -588,3 +588,40 @@ class TestProgressEditDelete:
         assert new_keys <= used, new_keys - used
         for key in new_keys:
             assert f"    {key}:" in english and f"    {key}:" in telugu, f"{key} missing in a language"
+
+
+class TestCoachHistoryRecency:
+    """A long conversation must show, and send to the AI, its latest messages, not its first ones."""
+
+    @staticmethod
+    def seed(mongo, user_id, count):
+        base = datetime.now(timezone.utc) - timedelta(hours=2)
+        mongo.coach_messages.delete_many({"user_id": user_id})
+        mongo.coach_messages.insert_many([
+            {"id": str(uuid.uuid4()), "user_id": user_id, "role": "user" if n % 2 == 0 else "coach", "text": f"message {n:03d}", "created_at": (base + timedelta(seconds=n)).isoformat()}
+            for n in range(count)
+        ])
+
+    def test_history_returns_the_latest_30_in_order(self, fresh, mongo):
+        self.seed(mongo, fresh.user_id, 75)
+        try:
+            data = requests.get(f"{BASE_URL}/api/coach/history", headers=fresh.headers, timeout=20).json()
+            texts = [m["text"] for m in data["messages"]]
+            assert texts == [f"message {n:03d}" for n in range(45, 75)]
+        finally:
+            mongo.coach_messages.delete_many({"user_id": fresh.user_id})
+
+    def test_coach_sends_the_latest_messages_to_the_ai(self, fresh, mongo):
+        self.seed(mongo, fresh.user_id, 40)
+        fake = ThreadingHTTPServer(("127.0.0.1", 0), CaptureGroq)
+        threading.Thread(target=fake.serve_forever, daemon=True).start()
+        url, proc = spawn_backend(GROQ_API_KEY="fake-key", GROQ_BASE_URL=f"http://127.0.0.1:{fake.server_address[1]}")
+        try:
+            CaptureGroq.bodies.clear()
+            assert requests.post(f"{url}/api/coach", json={"message": "and now?", "language": "en"}, headers=fresh.headers, timeout=60).status_code == 200
+            sent = [m["content"] for m in CaptureGroq.bodies[-1]["messages"][1:]]
+            assert sent == [f"message {n:03d}" for n in range(28, 40)] + ["and now?"]
+        finally:
+            stop_backend(proc)
+            fake.shutdown()
+            mongo.coach_messages.delete_many({"user_id": fresh.user_id})
