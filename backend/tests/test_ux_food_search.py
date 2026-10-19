@@ -249,3 +249,11 @@ def test_search_without_the_server_ranks_family_before_look_alikes():
     found = [item["name"] for item in foods.catalogue.search("dosa", 40)]
     assert found.index("Plain dosa") < found.index("Dosakaya pappu")
     assert "Cucumber slices" not in found[:25]
+
+
+@pytest.mark.parametrize("word,category", [("snacks", "Snacks"), ("fruits", "Fruits"), ("drinks", "Drinks"), ("sweets", "Sweets"), ("egg", "Eggs")])
+def test_a_category_word_browses_the_category(p4, word, category):
+    token = new_user(p4)
+    top = search(p4, token, word, limit=10)["results"]
+    assert len(top) == 10
+    assert sum(1 for item in top if item["category"] == category) >= 8, [item["name"] for item in top]

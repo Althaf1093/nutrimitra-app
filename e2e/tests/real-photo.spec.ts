@@ -8,7 +8,8 @@ test.skip(!process.env.E2E_REAL_VISION, "set E2E_REAL_VISION=1 to run against th
 test("photo logging against the real vision provider", async ({ app }) => {
   test.setTimeout(240_000);
   await app.newUserOnToday("realphoto");
-  await app.id("log-food-photo-button").click();
+  await app.id("log-food-button").click();
+  await app.id("photo-mode-button").click();
   const chooser = app.page.waitForEvent("filechooser");
   await app.id("choose-photo-button").click();
   await (await chooser).setFiles(path.join(__dirname, "..", "fixtures", "meal.jpg"));

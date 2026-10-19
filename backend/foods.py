@@ -68,6 +68,7 @@ class Food:
         self.name_words = self.name_norm.split()
         self.te_norm = normalize(raw.get("te", ""))
         self.te_words = self.te_norm.split()
+        self.cat_words = {form for word in normalize(raw["category"]).split() for form in (word, singular(word))}
         self.bases = [normalize(term) for term in raw.get("base", [])]
         self.synonyms = [normalize(term) for term in raw.get("synonyms", [])]
         self.synonym_words = {word for phrase in self.synonyms for word in phrase.split()}
@@ -86,6 +87,8 @@ class Food:
             best = max(best, WORD_PREFIX)
         if any(base.startswith(token) for base in self.bases):
             best = max(best, FAMILY_PREFIX)
+        if token in self.cat_words:
+            best = max(best, WORD_EXACT)  # "snacks", "fruits", "drinks" browse a whole category
         if best == 0 and any(word.startswith(token) for word in self.synonym_words):
             best = SYNONYM_PREFIX
         if best == 0 and len(token) >= 3 and (token in self.name_norm or token in self.te_norm or (len(token) >= 4 and any(token in phrase for phrase in self.synonyms))):

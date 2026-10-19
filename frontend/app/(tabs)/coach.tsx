@@ -139,7 +139,7 @@ export default function CoachScreen() {
           <Text style={styles.eyebrow}>WELLSTRIDE AI</Text>
           <Text style={styles.headerTitle}>{t.coach}</Text>
         </View>
-        <Pressable testID="coach-photo-button" accessibilityRole="button" accessibilityLabel={t.photo} onPress={() => router.push("/log-food")} style={styles.iconButton}>
+        <Pressable testID="coach-photo-button" accessibilityRole="button" accessibilityLabel={t.photo} onPress={() => router.push({ pathname: "/log-food", params: { mode: "photo" } })} style={styles.iconButton}>
           <AppIcon name="camera.fill" color={colors.brandPrimary} size={20} />
         </Pressable>
       </View>
