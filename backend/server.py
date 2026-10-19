@@ -719,6 +719,22 @@ async def todays_meals(user_id: str, zone: ZoneInfo) -> List[Dict[str, Any]]:
     return await db.meals.find({"user_id": user_id, "date": local_today(zone).isoformat()}, {"_id": 0}).to_list(100)
 
 
+PLANS_KEPT_PER_USER = 5
+
+
+async def save_plan(plan: Dict[str, Any]) -> None:
+    """Insert a new plan, then delete the user's older ones beyond the latest PLANS_KEPT_PER_USER.
+
+    The plan just inserted is never deleted, even if its timestamp sorts oddly."""
+    result = await db.plans.insert_one(plan)
+    user_id = plan["user_id"]
+    keep = await db.plans.find({"user_id": user_id}, {"_id": 1}).sort([("updated_at", DESCENDING), ("_id", DESCENDING)]).limit(PLANS_KEPT_PER_USER).to_list(PLANS_KEPT_PER_USER)
+    keep_ids = [doc["_id"] for doc in keep]
+    if result.inserted_id not in keep_ids:
+        keep_ids = [result.inserted_id] + keep_ids[: PLANS_KEPT_PER_USER - 1]
+    await db.plans.delete_many({"user_id": user_id, "_id": {"$nin": keep_ids}})
+
+
 @api_router.get("/plan")
 async def get_plan(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
@@ -739,7 +755,7 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
         shown = existing or {**local_plan(profile), "reasoning": "A balanced starter plan while the AI is busy."}
         return {**with_today_index(shown, zone, await todays_meals(user["id"], zone)), "ai_status": exc.code, "ai_message": exc.message}
     plan["user_id"] = user["id"]
-    await db.plans.insert_one(plan)
+    await save_plan(plan)
     zone = user_zone(profile)
     return with_today_index(plan, zone, await todays_meals(user["id"], zone))
 
@@ -754,7 +770,7 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     except AIUnavailable as exc:
         raise ai_error(exc) from exc
     plan["user_id"] = user["id"]
-    await db.plans.insert_one(plan)
+    await save_plan(plan)
     zone = user_zone(profile)
     return with_today_index(plan, zone, await todays_meals(user["id"], zone))
 
