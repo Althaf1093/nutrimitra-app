@@ -1226,6 +1226,7 @@ def with_today_index(plan: Dict[str, Any], zone: ZoneInfo, todays_meals: List[Di
     logged = {logged_key(item.get("meal_type"), item.get("name")) for item in todays_meals}
     slots_logged = {str(item.get("meal_type") or "").strip().lower() for item in todays_meals}
     have = set((kitchen_doc or {}).get("items") or [])
+    kitchen_based = bool(plan.get("kitchen_based"))
     known = kitchen.catalogue.by_id
     days = []
     for position, day in enumerate(clean.get("days") or []):
@@ -1233,11 +1234,11 @@ def with_today_index(plan: Dict[str, Any], zone: ZoneInfo, todays_meals: List[Di
         for meal in day.get("meals", []):
             is_logged = position == index and logged_key(meal.get("type"), meal.get("name")) in logged
             other = position == index and not is_logged and str(meal.get("type") or "").strip().lower() in slots_logged
-            uses = [ingredient_ref(iid, iid in have) for iid in meal.get("ingredients") or [] if iid in known and not known[iid].assumed]
+            uses = [ingredient_ref(iid, iid in have or not kitchen_based) for iid in meal.get("ingredients") or [] if iid in known and not known[iid].assumed]
             meals.append({**meal, "logged": is_logged, "ate_other": other, "uses": uses})
         days.append({**day, "meals": meals})
     clean["days"] = days
-    clean["kitchen_based"] = bool(plan.get("kitchen_based"))
+    clean["kitchen_based"] = kitchen_based
     clean["also_buy"] = [ingredient_ref(iid, False) for iid in plan.get("also_buy") or [] if iid in known]
     clean["kitchen_changed"] = (plan.get("kitchen_hash") or None) != kitchen_plan.kitchen_signature(kitchen_doc)
     return clean
@@ -1302,6 +1303,144 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     zone = user_zone(profile)
     kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
     return with_today_index(plan, zone, await todays_meals(user["id"], zone), kitchen_doc)
+
+
+class SwapInput(BaseModel):
+    day: int = Field(ge=0, le=6)
+    type: str
+    name: str = Field(min_length=1, max_length=120)
+
+
+async def latest_plan_doc(user_id: str) -> Optional[Dict[str, Any]]:
+    """The newest plan including its database id (the client view leaves the id out)."""
+    return await db.plans.find_one({"user_id": user_id}, sort=[("updated_at", -1)])
+
+
+def swap_context(profile: Dict[str, Any], kitchen_doc: Optional[Dict[str, Any]]) -> "kitchen_plan.Context":
+    """Swaps and adjustments always work: without a kitchen they draw on what a typical home has."""
+    return kitchen_plan.make_context(profile, kitchen_doc, default_kitchen=True)
+
+
+def check_swap_target(plan: Optional[Dict[str, Any]], day: int, slot: str) -> Dict[str, Any]:
+    if slot not in kitchen_plan.SLOT_ORDER:
+        raise HTTPException(status_code=422, detail="Unknown meal type")
+    if not plan:
+        raise HTTPException(status_code=404, detail="No plan yet")
+    days = plan.get("days") or []
+    if day >= len(days):
+        raise HTTPException(status_code=422, detail="Unknown day")
+    meal = next((m for m in days[day].get("meals", []) if m.get("type") == slot), None)
+    if not meal:
+        raise HTTPException(status_code=404, detail="That meal is not in the plan")
+    return meal
+
+
+@api_router.get("/plan/swap")
+async def swap_options(day: int = Query(ge=0, le=6), type: str = "", user: Dict[str, Any] = Depends(current_user)):
+    """Three other meals for one slot of the plan, from the same kitchen."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    plan = await latest_plan_doc(user["id"])
+    check_swap_target(plan, day, type)
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    options = kitchen_plan.alternatives(swap_context(profile, kitchen_doc), profile, portion_for, plan, day, type)
+    view = with_today_index({**plan, "days": [{**d, "meals": options if i == day else []} for i, d in enumerate(plan["days"])]}, user_zone(profile), [], kitchen_doc)
+    return {"alternatives": view["days"][day]["meals"]}
+
+
+@api_router.post("/plan/swap")
+async def swap_meal(payload: SwapInput, user: Dict[str, Any] = Depends(current_user)):
+    """Replace one planned meal by one of the offered alternatives (chosen by name, so only real options can be put in)."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    zone = user_zone(profile)
+    plan = await latest_plan_doc(user["id"])
+    current = check_swap_target(plan, payload.day, payload.type)
+    todays = await todays_meals(user["id"], zone)
+    if payload.day == plan_day_index(plan, local_today(zone), zone) and logged_key(current.get("type"), current.get("name")) in {logged_key(m.get("meal_type"), m.get("name")) for m in todays}:
+        raise HTTPException(status_code=409, detail="This meal is already logged")
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    options = kitchen_plan.alternatives(swap_context(profile, kitchen_doc), profile, portion_for, plan, payload.day, payload.type, count=12)
+    chosen = next((meal for meal in options if meal["name"] == payload.name), None)
+    if not chosen:
+        raise HTTPException(status_code=422, detail="That meal is not one of the options")
+    days = plan["days"]
+    days[payload.day]["meals"] = [chosen if m.get("type") == payload.type else m for m in days[payload.day]["meals"]]
+    changes: Dict[str, Any] = {"days": days}
+    if plan.get("kitchen_based"):
+        changes["also_buy"] = kitchen_plan.plan_extras(days)
+    await db.plans.update_one({"_id": plan["_id"]}, {"$set": changes})
+    return with_today_index({**plan, **changes}, zone, todays, kitchen_doc)
+
+
+def protein_target(profile: Dict[str, Any]) -> int:
+    """Daily protein the plan's own meals add up to: the protein share of the calorie target (see portion_for)."""
+    share = 0.25 if profile.get("wellness_goal", "Healthier living") in {"Muscle building", "Weight gain", "Weight loss"} else 0.20
+    return round(calorie_target(profile) * share / 4)
+
+
+CHECKIN_LOW_PROTEIN = 0.75
+CHECKIN_LOW_ENERGY = 0.6
+CHECKIN_ABOVE = 1.25
+
+
+async def checkin_result(user_id: str, profile: Dict[str, Any], plan: Optional[Dict[str, Any]], zone: ZoneInfo) -> Dict[str, Any]:
+    today = local_today(zone)
+    meals = await todays_meals(user_id, zone)
+    calories = sum(int(m.get("calories") or 0) for m in meals)
+    protein = round(sum(float(m.get("protein_g") or 0) for m in meals))
+    target_calories, target_protein = calorie_target(profile), protein_target(profile)
+    if not meals:
+        status_code = "nothing_logged"
+    elif protein < target_protein * CHECKIN_LOW_PROTEIN:
+        status_code = "low_protein"
+    elif calories < target_calories * CHECKIN_LOW_ENERGY:
+        status_code = "low_energy"
+    elif calories > target_calories * CHECKIN_ABOVE:
+        status_code = "above"
+    else:
+        status_code = "on_track"
+    return {"date": today.isoformat(), "status": status_code, "calories": calories, "target_calories": target_calories, "protein_g": protein, "target_protein_g": target_protein, "adjusted_day": None}
+
+
+@api_router.get("/checkin")
+async def get_checkin(user: Dict[str, Any] = Depends(current_user)):
+    """Today's evening check-in if it was done."""
+    profile, zone, today = await user_clock(user["id"])
+    plan = await latest_plan_doc(user["id"])
+    done = (plan or {}).get("checkin")
+    return {"done": bool(done and done.get("date") == today.isoformat()), "result": done if done and done.get("date") == today.isoformat() else None}
+
+
+@api_router.post("/checkin")
+async def post_checkin(user: Dict[str, Any] = Depends(current_user)):
+    """Look at today's logged food against the plan's own numbers. If protein ran low, tomorrow's meals are made again to lean on
+    protein-rich foods from the person's kitchen. Honest and simple: nothing else changes, and nothing here is medical advice."""
+    profile, zone, today = await user_clock(user["id"])
+    if not profile:
+        raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    plan = await latest_plan_doc(user["id"])
+    if not plan:
+        raise HTTPException(status_code=404, detail="No plan yet")
+    earlier = plan.get("checkin")
+    if earlier and earlier.get("date") == today.isoformat() and earlier.get("status") != "nothing_logged":
+        return {"done": True, "result": earlier, "repeat": True}
+    result = await checkin_result(user["id"], profile, plan, zone)
+    if result["status"] == "low_protein":
+        days = plan["days"]
+        tomorrow = (plan_day_index(plan, today, zone) + 1) % len(days)
+        kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+        days[tomorrow] = kitchen_plan.rebuild_day(swap_context(profile, kitchen_doc), profile, portion_for, plan, tomorrow, prefer_protein=True)
+        result["adjusted_day"] = tomorrow
+        changes: Dict[str, Any] = {"days": days, "checkin": result}
+        if plan.get("kitchen_based"):
+            changes["also_buy"] = kitchen_plan.plan_extras(days)
+    else:
+        changes = {"checkin": result}
+    await db.plans.update_one({"_id": plan["_id"]}, {"$set": changes})
+    return {"done": True, "result": result, "repeat": False}
 
 
 @api_router.get("/plan/shopping-list")

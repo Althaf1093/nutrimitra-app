@@ -4,7 +4,8 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, del, patch, post } from "@/src/api";
-import { AppIcon, Chip, MealCard } from "@/src/components/ui";
+import { AppIcon, Button, Chip, MealCard } from "@/src/components/ui";
+import { SwapSheet, type SwapTarget } from "@/src/components/swap-sheet";
 import { MealEditForm, type MealChanges } from "@/src/components/meal-edit-form";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { TodayProgressCard } from "@/src/components/today-progress-card";
@@ -15,7 +16,7 @@ import { markPlanMeal, planMealBody } from "@/src/lib/plan";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import { mealTypeLabel } from "@/src/i18n";
-import type { Dashboard, LoggedActivity, LoggedMeal, Meal, Plan } from "@/src/types";
+import type { CheckinResult, Dashboard, LoggedActivity, LoggedMeal, Meal, Plan } from "@/src/types";
 
 const DURATIONS = [10, 20, 30, 45];
 
@@ -35,19 +36,25 @@ export default function TodayScreen() {
   const [syncing, setSyncing] = useState(false);
   const [duration, setDuration] = useState(20);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [swapTarget, setSwapTarget] = useState<SwapTarget | null>(null);
+  const [swapping, setSwapping] = useState(false);
+  const [checkin, setCheckin] = useState<CheckinResult | null>(null);
+  const [checkingIn, setCheckingIn] = useState(false);
 
   const couldNotLoad = t.couldNotLoad;
   const load = useCallback(async () => {
     try {
       setError("");
-      const [nextDashboard, nextPlan, nextHealth] = await Promise.all([
+      const [nextDashboard, nextPlan, nextHealth, nextCheckin] = await Promise.all([
         api<Dashboard>("/dashboard"),
         api<Plan>("/plan"),
         api<HealthSummary>("/health/summary").catch(() => null),
+        api<{ result: CheckinResult | null }>("/checkin").catch(() => ({ result: null })),
       ]);
       setDashboard(nextDashboard);
       setPlan(nextPlan);
       setHealth(nextHealth);
+      setCheckin(nextCheckin.result);
     } catch (err) {
       setError(err instanceof Error ? err.message : couldNotLoad);
     }
@@ -161,6 +168,40 @@ export default function TodayScreen() {
     }
   };
 
+  const swapMeal = async (meal: Meal) => {
+    if (!swapTarget) return;
+    setSwapping(true);
+    try {
+      const next = await post<Plan>("/plan/swap", { day: swapTarget.day, type: swapTarget.type, name: meal.name });
+      setPlan(next);
+      setSwapTarget(null);
+      toast.show(t.swapped);
+    } catch (err) {
+      failed(err, t.couldNotSwap);
+    } finally {
+      setSwapping(false);
+    }
+  };
+
+  const doCheckin = async () => {
+    setCheckingIn(true);
+    try {
+      const answer = await post<{ result: CheckinResult }>("/checkin", {});
+      setCheckin(answer.result);
+      if (answer.result.adjusted_day !== null) {
+        toast.show(t.checkinTomorrow, { type: "info" });
+        await load();
+      }
+    } catch (err) {
+      failed(err, t.checkinFailed);
+    } finally {
+      setCheckingIn(false);
+    }
+  };
+
+  const checkinMessage = (result: CheckinResult) =>
+    ({ nothing_logged: t.checkinNothing, low_protein: t.checkinLowProtein, on_track: t.checkinOnTrack, low_energy: t.checkinLowEnergy, above: t.checkinAbove })[result.status];
+
   const syncDevice = async () => {
     setSyncing(true);
     const result = await syncDeviceHealth();
@@ -169,6 +210,8 @@ export default function TodayScreen() {
     setSyncing(false);
   };
 
+  // The evening check-in shows from 5 pm (or once it is done).
+  const checkinVisible = !!plan && (new Date().getHours() >= 17 || (checkin !== null && checkin.status !== "nothing_logged"));
   const todayPlan = plan?.days?.[plan.today_index ?? 0];
   const meals = todayPlan?.meals || [];
   const deviceReady = getHealthStatus() === "ready";
@@ -230,8 +273,38 @@ export default function TodayScreen() {
             </Pressable>
           </View>
           {meals.map((meal) => (
-            <MealCard key={`${meal.type}-${meal.name}`} meal={meal} onLog={() => logMeal(meal)} />
+            <MealCard
+              key={`${meal.type}-${meal.name}`}
+              meal={meal}
+              onLog={() => logMeal(meal)}
+              onSwap={() => setSwapTarget({ day: plan?.today_index ?? 0, type: meal.type })}
+              onAteOther={() => router.push({ pathname: "/log-food", params: { slot: meal.type } })}
+            />
           ))}
+          {checkinVisible ? (
+            <View style={styles.reasonCard} testID="checkin-card">
+              <Text style={styles.cardEyebrow}>{t.checkinTitle.toUpperCase()}</Text>
+              {checkin && checkin.status !== "nothing_logged" ? (
+                <>
+                  <Text style={styles.reasonText} testID="checkin-message">
+                    {checkinMessage(checkin)}
+                  </Text>
+                  <Text style={styles.mutedText} testID="checkin-numbers">
+                    {checkin.calories} / {checkin.target_calories} kcal · {checkin.protein_g} / {checkin.target_protein_g} g {t.proteinWord}
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text style={styles.reasonText} testID="checkin-message">
+                    {checkin ? checkinMessage(checkin) : t.checkinSub}
+                  </Text>
+                  <View style={{ marginTop: 12 }}>
+                    <Button testID="checkin-button" label={checkingIn ? "..." : t.checkinButton} onPress={doCheckin} disabled={checkingIn} />
+                  </View>
+                </>
+              )}
+            </View>
+          ) : null}
           {(dashboard?.meals?.length || 0) > 0 ? (
             <View style={styles.reasonCard} testID="logged-meals">
               <Text style={styles.cardEyebrow}>{t.loggedToday.toUpperCase()}</Text>
@@ -343,6 +416,7 @@ export default function TodayScreen() {
           <Text style={styles.disclaimer}>{t.disclaimer}</Text>
         </ScrollView>
       )}
+      <SwapSheet target={swapTarget} busy={swapping} onChoose={swapMeal} onClose={() => setSwapTarget(null)} />
     </View>
   );
 }
