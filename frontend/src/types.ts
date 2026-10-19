@@ -124,3 +124,17 @@ export type FoodItem = {
   recent: boolean;
   times?: number;
 };
+
+// An ingredient from GET /kitchen/ingredients: names in both languages, its group, and its diet level.
+export type Ingredient = {
+  id: string;
+  name: string;
+  te: string;
+  group: string;
+  diet: "vegan" | "veg" | "egg" | "non";
+  aliases: string[];
+  protein: boolean;
+  assumed: boolean;
+};
+
+export type Kitchen = { items: string[]; meals_per_day: number; household_size: number; cooking_time: string | null; updated_at?: string };

@@ -79,9 +79,16 @@ test("2. onboarding: three steps and the 18+ rule", async ({ app }) => {
   await app.id("onboarding-next-button").click();
 
   await app.id("chip-very-active").click();
-  await app.id("chip-under-15-min").click();
   await app.id("chip-budget-friendly").click();
   await app.shot("step-3");
+  await app.id("onboarding-next-button").click();
+
+  // Step 4, the kitchen: shaped by the diet chosen on step 2 (vegan: no paneer or curd), and where the cooking time is set.
+  await expect(app.id("kitchen-editor")).toBeVisible();
+  await expect(app.id("chip-tofu")).toBeVisible();
+  await expect(app.id("chip-paneer")).toHaveCount(0);
+  await app.id("chip-under-15-min").click();
+  await app.shot("step-4");
   await app.id("onboarding-next-button").click();
   await expect(app.id("today-screen")).toBeVisible();
 
