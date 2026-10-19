@@ -379,3 +379,65 @@ class TestLifespan:
         finally:
             stop_backend(proc)
         assert proc.returncode is not None
+
+
+class TestPlanCap:
+    """Item 6: only the latest 5 plans per user are kept; the plan just created is never deleted."""
+
+    @staticmethod
+    def old_plans(user_id, count):
+        base = datetime.now(timezone.utc) - timedelta(days=30)
+        return [{"user_id": user_id, "goal": "x", "days": [], "updated_at": (base + timedelta(days=n)).isoformat(), "marker": f"old-{n}"} for n in range(count)]
+
+    def test_regenerate_prunes_to_five_and_keeps_newest(self, fresh, mongo):
+        # Backend without a Groq key: regeneration uses the local fallback and never calls the AI.
+        url, proc = spawn_backend(GROQ_API_KEY="")
+        other = f"other-{uuid.uuid4().hex[:8]}"
+        try:
+            mongo.plans.delete_many({"user_id": fresh.user_id})
+            mongo.plans.insert_many(self.old_plans(fresh.user_id, 7))
+            mongo.plans.insert_many(self.old_plans(other, 6))
+            resp = requests.post(f"{url}/api/plan/regenerate", json={}, headers=fresh.headers, timeout=60)
+            assert resp.status_code == 200, resp.text
+            plans = list(mongo.plans.find({"user_id": fresh.user_id}).sort("updated_at", -1))
+            assert len(plans) == 5
+            assert plans[0].get("marker") is None and plans[0]["updated_at"] == resp.json()["updated_at"], "the new plan is kept"
+            assert [p["marker"] for p in plans[1:]] == ["old-6", "old-5", "old-4", "old-3"], "the oldest were deleted"
+            assert mongo.plans.count_documents({"user_id": other}) == 6, "other users' plans are untouched"
+            for _ in range(2):
+                assert requests.post(f"{url}/api/plan/regenerate", json={}, headers=fresh.headers, timeout=60).status_code == 200
+            assert mongo.plans.count_documents({"user_id": fresh.user_id}) == 5
+        finally:
+            stop_backend(proc)
+            mongo.plans.delete_many({"user_id": {"$in": [fresh.user_id, other]}})
+
+    def test_first_plan_via_get_is_saved(self, fresh, mongo):
+        url, proc = spawn_backend(GROQ_API_KEY="")
+        try:
+            mongo.plans.delete_many({"user_id": fresh.user_id})
+            assert requests.get(f"{url}/api/plan", headers=fresh.headers, timeout=60).status_code == 200
+            assert mongo.plans.count_documents({"user_id": fresh.user_id}) == 1
+        finally:
+            stop_backend(proc)
+            mongo.plans.delete_many({"user_id": fresh.user_id})
+
+    def test_save_plan_never_deletes_the_new_plan(self, mongo):
+        """Even if the new plan's timestamp sorts oldest, it survives and the total is still 5."""
+        user_id = f"cap-{uuid.uuid4().hex[:8]}"
+        future = datetime.now(timezone.utc) + timedelta(days=100)
+        mongo.plans.insert_many([{"user_id": user_id, "days": [], "updated_at": (future + timedelta(days=n)).isoformat(), "marker": f"future-{n}"} for n in range(6)])
+
+        async def run():
+            server.client = AsyncIOMotorClient(server.MONGO_URL)
+            server.db = server.client[DB_NAME]
+            try:
+                await server.save_plan({"user_id": user_id, "days": [], "updated_at": datetime.now(timezone.utc).isoformat(), "marker": "new"})
+            finally:
+                server.client.close()
+
+        try:
+            asyncio.run(run())
+            markers = {p["marker"] for p in mongo.plans.find({"user_id": user_id})}
+            assert "new" in markers and len(markers) == 5
+        finally:
+            mongo.plans.delete_many({"user_id": user_id})
