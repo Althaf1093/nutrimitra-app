@@ -61,6 +61,10 @@ export const useStyles = makeStyles((colors) =>
     buttonText: { color: colors.onBrandPrimary, fontSize: 15, fontWeight: "700", lineHeight: 20, textAlign: "center" },
     buttonSecondary: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderStrong },
     buttonSecondaryText: { color: colors.onSurface, fontSize: 15, fontWeight: "700", lineHeight: 20, textAlign: "center" },
+    consentRow: { flexDirection: "row", alignItems: "flex-start", gap: 12, marginTop: 4, marginBottom: 4 },
+    consentBox: { width: 26, height: 26, borderRadius: 8, borderWidth: 1.5, borderColor: colors.borderStrong, backgroundColor: colors.surface, alignItems: "center", justifyContent: "center", marginTop: 1 },
+    consentBoxOn: { backgroundColor: colors.brandPrimary, borderColor: colors.brandPrimary },
+    consentTick: { color: "#FFFFFF", fontSize: 16, fontWeight: "700", lineHeight: 18 },
     linkText: { color: colors.brandPrimary, fontWeight: "700" },
 
     onboardingContent: { padding: 24, paddingTop: 58, paddingBottom: 40, maxWidth: 620, width: "100%", alignSelf: "center" },

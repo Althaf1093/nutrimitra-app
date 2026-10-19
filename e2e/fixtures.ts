@@ -66,6 +66,7 @@ export class App {
     await this.id("field-your-name").fill(name);
     await this.id("field-email-address").fill(email);
     await this.id("field-password").fill(password);
+    await this.id("consent-checkbox").click();
     await this.id("auth-submit-button").click();
   }
 

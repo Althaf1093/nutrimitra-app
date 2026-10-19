@@ -84,7 +84,7 @@ class TestPermissionsEndpointKeepsOtherKeys:
         import requests
 
         base = os.environ["EXPO_PUBLIC_BACKEND_URL"].rstrip("/")
-        user = requests.post(f"{base}/api/auth/signup", json={"email": f"perm.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20).json()
+        user = requests.post(f"{base}/api/auth/signup", json={"accept_terms": True, "email": f"perm.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20).json()
         headers = {"Authorization": f"Bearer {user['token']}"}
         try:
             requests.post(f"{base}/api/permissions", json={"health_sync": True, "analytics": True}, headers=headers, timeout=20)

@@ -18,6 +18,7 @@ export default function Index() {
     );
   }
   if (status === "anon") return <Redirect href="/welcome" />;
+  if (status === "consent") return <Redirect href="/consent" />;
   if (status === "onboarding") return <Redirect href="/onboarding" />;
   return <Redirect href="/(tabs)" />;
 }

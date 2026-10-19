@@ -320,7 +320,7 @@ test("10. rate limit: 11 wrong logins, then a valid user gets back in", async ({
   test.setTimeout(240_000);
   app.allow(/http 401 POST .*\/auth\/login/, /http 429 POST .*\/auth\/login/, /console\.error Failed to load resource.*(401|429)/);
   const valid = uniqueEmail("flow10valid");
-  const created = await fetch(`${API}/api/auth/signup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: valid, password: PASSWORD }) });
+  const created = await fetch(`${API}/api/auth/signup`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: valid, password: PASSWORD, accept_terms: true }) });
   expect(created.status).toBe(200);
 
   await app.open();

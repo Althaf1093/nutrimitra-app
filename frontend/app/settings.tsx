@@ -67,7 +67,7 @@ export default function SettingsScreen() {
     );
   }
   if (status !== "ready") {
-    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+    return <Redirect href={status === "consent" ? "/consent" : status === "onboarding" ? "/onboarding" : "/welcome"} />;
   }
 
   const updatePermission = async (key: keyof PermissionPrefs) => {

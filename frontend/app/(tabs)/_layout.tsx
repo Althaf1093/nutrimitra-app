@@ -23,7 +23,7 @@ export default function TabsLayout() {
     );
   }
   if (status !== "ready") {
-    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+    return <Redirect href={status === "consent" ? "/consent" : status === "onboarding" ? "/onboarding" : "/welcome"} />;
   }
 
   if (useNativeTabs) {

@@ -36,7 +36,7 @@ export default function EatNowScreen() {
     );
   }
   if (status !== "ready") {
-    return <Redirect href={status === "onboarding" ? "/onboarding" : "/welcome"} />;
+    return <Redirect href={status === "consent" ? "/consent" : status === "onboarding" ? "/onboarding" : "/welcome"} />;
   }
 
   const log = async () => {
