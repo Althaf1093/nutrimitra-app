@@ -152,10 +152,20 @@ async def signup(payload: AuthInput):
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
+def password_matches(password: str, stored_hash: Any) -> bool:
+    """bcrypt check that treats a missing or malformed hash (e.g. Google-created accounts) as a mismatch."""
+    if not stored_hash or not isinstance(stored_hash, str):
+        return False
+    try:
+        return bcrypt.checkpw(password.encode(), stored_hash.encode())
+    except ValueError:
+        return False
+
+
 @api_router.post("/auth/login", response_model=TokenResponse)
 async def login(payload: AuthInput):
     user = await db.users.find_one({"email": payload.email.lower()}, {"_id": 0})
-    if not user or not bcrypt.checkpw(payload.password.encode(), user["password_hash"].encode()):
+    if not user or not password_matches(payload.password, user.get("password_hash")):
         raise HTTPException(status_code=401, detail="Email or password is incorrect")
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 

@@ -104,3 +104,27 @@ class TestPlanDayIndex:
         resp = fresh.get(f"{BASE_URL}/api/eat-now", timeout=30)
         assert resp.status_code == 200, resp.text
         assert resp.json()["suggestion"]["name"] == "D6 breakfast"
+
+
+class TestGoogleAccountLogin:
+    """Fix 2: email login against a Google-created account (empty password hash) is a clean 401, not a 500."""
+
+    def test_password_matches_helper(self):
+        good = server.bcrypt.hashpw(b"StrongPass123", server.bcrypt.gensalt()).decode()
+        assert server.password_matches("StrongPass123", good) is True
+        assert server.password_matches("WrongPass123", good) is False
+        assert server.password_matches("StrongPass123", "") is False
+        assert server.password_matches("StrongPass123", None) is False
+        assert server.password_matches("StrongPass123", "not-a-bcrypt-hash") is False
+
+    @pytest.mark.parametrize("stored_hash", ["", "not-a-bcrypt-hash"])
+    def test_login_to_passwordless_account_returns_401(self, mongo, stored_hash):
+        email = f"google.{uuid.uuid4().hex[:10]}@example.com"
+        user_id = str(uuid.uuid4())
+        mongo.users.insert_one({"id": user_id, "email": email, "name": "Google User", "password_hash": stored_hash, "language": "en", "onboarding_complete": False, "created_at": datetime.now(timezone.utc).isoformat()})
+        try:
+            resp = requests.post(f"{BASE_URL}/api/auth/login", json={"email": email, "password": "AnyPassword123"}, timeout=20)
+            assert resp.status_code == 401, resp.text
+            assert resp.json()["detail"] == "Email or password is incorrect"
+        finally:
+            mongo.users.delete_many({"id": user_id})
