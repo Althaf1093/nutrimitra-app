@@ -44,7 +44,8 @@ class Ingredient:
         self.rank: int = DIET_RANK[raw["diet"]]
         self.protein: bool = bool(raw.get("protein"))
         self.assumed: bool = bool(raw.get("assumed"))
-        self.labels = [foods.normalize(raw["name"])] + [foods.normalize(a) for a in raw.get("aliases", [])]
+        # The full name, the name without its bracket ("Rice (white)" -> "rice"), and every alias.
+        self.labels = list(dict.fromkeys([foods.normalize(raw["name"]), foods.normalize(raw["name"].split("(")[0])] + [foods.normalize(a) for a in raw.get("aliases", [])]))
         # Every word of the name and aliases, singular and plural, so "peanut" finds "Peanuts" and "eggs" finds "Egg".
         self.word_set: Set[str] = {w for label in self.labels for w in label.split()} | {singular(w) for label in self.labels for w in label.split()}
 

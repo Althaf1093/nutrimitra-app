@@ -32,6 +32,7 @@ from pydantic_core import PydanticCustomError
 
 import foods
 import kitchen
+import kitchen_plan
 import legal
 import mailer
 import vision
@@ -958,6 +959,17 @@ PLAN_SYSTEM = (
 )
 
 
+KITCHEN_PLAN_SYSTEM = (
+    PLAN_SYSTEM
+    + " The user message also lists kitchen_items (what the person has at home), extra_items_allowed (other ingredients you may add), "
+    "max_extra_items, cooked_meals (the meals cooked at home; any other main meal must need no real cooking), cooking_time_cap_minutes and household_size. "
+    "Build every meal from kitchen_items first, plus the pantry basics (salt, spices, ginger, garlic, chillies, tamarind, curry leaves, coriander, "
+    "lemon, cooking oil). Across the WHOLE week use at most max_extra_items different ingredients from extra_items_allowed, and never any other ingredient. "
+    'Each meal also has "ingredients": the main ingredients it uses, written exactly as named in kitchen_items or extra_items_allowed (not the pantry basics). '
+    "Vary the meals and keep each within the cooking time."
+)
+
+
 def health_conditions(profile: Dict[str, Any]) -> List[str]:
     """The user's self-reported conditions, cleaned for use in a prompt."""
     raw = profile.get("conditions") or []
@@ -1059,6 +1071,7 @@ def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str
                     "protein_g": max(0, min(150, float(meal.get("protein_g") or 20))),
                     "carbs_g": max(0, min(200, float(meal.get("carbs_g") or 45))),
                     "fat_g": max(0, min(120, float(meal.get("fat_g") or 15))),
+                    "ingredients": [str(item)[:40] for item in meal["ingredients"][:12]] if isinstance(meal.get("ingredients"), list) else None,
                     "logged": False,
                 })
             except (TypeError, ValueError, AttributeError):
@@ -1067,23 +1080,86 @@ def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str
     return {"goal": fallback["goal"], "days": cleaned, "reasoning": str(candidate.get("reasoning") or fallback.get("reasoning", ""))[:600], "generated_by": "groq adaptive engine", "updated_at": now_iso()}
 
 
+def kitchen_plan_problems(days: List[Dict[str, Any]], ctx: "kitchen_plan.Context") -> List[str]:
+    """Check an AI plan against the ingredient catalogue and the person's kitchen. Returns what is wrong (empty when fine).
+
+    Every meal must name its ingredients; each must be a known ingredient within the person's diet and exclusions, and the
+    ones not in the kitchen (and not pantry basics) may be at most MAX_EXTRAS different items over the week."""
+    problems: List[str] = []
+    extras: set = set()
+    for day in days:
+        for meal in day.get("meals", []):
+            names = meal.get("ingredients")
+            if not isinstance(names, list):
+                problems.append(f"{meal.get('name')}: no ingredient list")
+                continue
+            for name in names:
+                item = kitchen.catalogue.find(name)
+                if item is None:
+                    problems.append(f"{meal.get('name')}: unknown ingredient {name}")
+                elif item.id not in ctx.allowed:
+                    problems.append(f"{meal.get('name')}: {item.name} is outside the diet or food list")
+                elif item.id not in ctx.available:
+                    extras.add(item.id)
+    if len(extras) > kitchen_plan.MAX_EXTRAS:
+        problems.append(f"{len(extras)} extra ingredients (at most {kitchen_plan.MAX_EXTRAS})")
+    return problems
+
+
+def apply_kitchen_fields(candidate: Dict[str, Any], ctx: "kitchen_plan.Context") -> None:
+    """Turn the model's ingredient names into catalogue ids, and mark what has to be bought."""
+    for day in candidate["days"]:
+        for meal in day["meals"]:
+            ids = [item.id for item in (kitchen.catalogue.find(name) for name in meal["ingredients"]) if item is not None]
+            ids = [iid for iid in dict.fromkeys(ids) if iid not in ctx.assumed]
+            meal["ingredients"] = ids
+            meal["extras"] = [iid for iid in ids if iid not in ctx.kitchen_ids]
+    candidate.update({"kitchen_based": True, "kitchen_hash": ctx.signature, "also_buy": kitchen_plan.plan_extras(candidate["days"]), "generated_by": "groq kitchen engine"})
+
+
+def kitchen_prompt_context(ctx: "kitchen_plan.Context") -> Dict[str, Any]:
+    """What the plan prompt is told about the kitchen: names the model can copy exactly, and how many extras it may add."""
+    by_id = kitchen.catalogue.by_id
+    return {
+        "kitchen_items": [by_id[iid].name for iid in ctx.order if iid in ctx.kitchen_ids],
+        "extra_items_allowed": [by_id[iid].name for iid in sorted(ctx.allowed) if iid not in ctx.available and by_id[iid].group != "pantry"],
+        "max_extra_items": kitchen_plan.MAX_EXTRAS,
+        "cooked_meals": sorted(ctx.cooked),
+        "cooking_time_cap_minutes": ctx.minutes_cap,
+        "household_size": ctx.household,
+    }
+
+
 async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str, Any]:
-    """Regenerate the 7-day plan from the profile plus the last week of logged behaviour."""
+    """Regenerate the 7-day plan from the profile, the kitchen (when there is one) and the last week of logged behaviour."""
     week_ago = (local_today(user_zone(profile)) - timedelta(days=7)).isoformat()
     meals = await db.meals.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
     activities = await db.activities.find({"user_id": user_id, "date": {"$gte": week_ago}}, {"_id": 0}).to_list(200)
     weights = await db.weights.find({"user_id": user_id}, {"_id": 0}).sort("created_at", -1).to_list(10)
-    fallback = local_plan(profile)
-    fallback["reasoning"] = "Each day pairs familiar Indian foods with fibre, protein, healthy fats and hydration for steady energy."
+    kitchen_doc = await db.kitchens.find_one({"user_id": user_id}, {"_id": 0})
+    ctx = kitchen_plan.make_context(profile, kitchen_doc)
+    if ctx:
+        fallback = kitchen_plan.build_week(ctx, profile, portion_for)
+        fallback["updated_at"] = now_iso()  # plans are found, and Day 1 dated, by this
+        system = KITCHEN_PLAN_SYSTEM
+    else:
+        fallback = local_plan(profile)
+        fallback["reasoning"] = "Each day pairs familiar Indian foods with fibre, protein, healthy fats and hydration for steady energy."
+        system = PLAN_SYSTEM
     context = plan_context(profile, meals, activities, weights)
+    if ctx:
+        context.update(kitchen_prompt_context(ctx))
     try:
         ai_text = await groq_chat(
-            [{"role": "system", "content": PLAN_SYSTEM}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
+            [{"role": "system", "content": system}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
             user_id,
             max_tokens=9000,
         )
     except AIUnavailable as exc:
         if exc.code == "ai_busy":
+            if ctx:
+                # A kitchen plan never needs the AI: the kitchen engine answers instead, so the person is not left waiting.
+                return fallback
             raise
         ai_text = ""
     if ai_text:
@@ -1096,6 +1172,12 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
                     if violations:
                         logger.warning("Groq plan for %s violated dietary restrictions (%s); using fallback", user_id, violations)
                         return fallback
+                    if ctx:
+                        problems = kitchen_plan_problems(candidate["days"], ctx)
+                        if problems:
+                            logger.warning("Groq plan for %s does not fit the kitchen (%s); using the kitchen engine", user_id, problems[:5])
+                            return fallback
+                        apply_kitchen_fields(candidate, ctx)
                     strip_condition_claims(candidate, profile, fallback)
                 return candidate
             except json.JSONDecodeError:
@@ -1127,19 +1209,37 @@ def logged_key(meal_type: Any, name: Any) -> tuple:
     return (str(meal_type or "").strip().lower(), str(name or "").strip().lower())
 
 
-def with_today_index(plan: Dict[str, Any], zone: ZoneInfo, todays_meals: List[Dict[str, Any]]) -> Dict[str, Any]:
+def ingredient_ref(iid: str, have: bool) -> Dict[str, Any]:
+    item = kitchen.catalogue.by_id[iid]
+    return {"id": iid, "name": item.name, "te": item.raw.get("te", ""), "group": item.group, "have": have}
+
+
+def with_today_index(plan: Dict[str, Any], zone: ZoneInfo, todays_meals: List[Dict[str, Any]], kitchen_doc: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Client view of a plan: today's day index, and today's plan meals flagged as logged.
 
-    The flag is derived from today's meal log (not stored), so deleting a log entry un-flags the meal."""
+    The flag is derived from today's meal log (not stored), so deleting a log entry un-flags the meal. A meal also says when
+    something else was eaten in its slot ("ate_other"), what it uses (and whether the person has it), and the plan says what to
+    buy and whether the kitchen changed since it was made."""
     clean = {key: value for key, value in plan.items() if key not in {"user_id", "_id"}}
     index = plan_day_index(plan, local_today(zone), zone)
     clean["today_index"] = index
     logged = {logged_key(item.get("meal_type"), item.get("name")) for item in todays_meals}
+    slots_logged = {str(item.get("meal_type") or "").strip().lower() for item in todays_meals}
+    have = set((kitchen_doc or {}).get("items") or [])
+    known = kitchen.catalogue.by_id
     days = []
     for position, day in enumerate(clean.get("days") or []):
-        meals = [{**meal, "logged": position == index and logged_key(meal.get("type"), meal.get("name")) in logged} for meal in day.get("meals", [])]
+        meals = []
+        for meal in day.get("meals", []):
+            is_logged = position == index and logged_key(meal.get("type"), meal.get("name")) in logged
+            other = position == index and not is_logged and str(meal.get("type") or "").strip().lower() in slots_logged
+            uses = [ingredient_ref(iid, iid in have) for iid in meal.get("ingredients") or [] if iid in known and not known[iid].assumed]
+            meals.append({**meal, "logged": is_logged, "ate_other": other, "uses": uses})
         days.append({**day, "meals": meals})
     clean["days"] = days
+    clean["kitchen_based"] = bool(plan.get("kitchen_based"))
+    clean["also_buy"] = [ingredient_ref(iid, False) for iid in plan.get("also_buy") or [] if iid in known]
+    clean["kitchen_changed"] = (plan.get("kitchen_hash") or None) != kitchen_plan.kitchen_signature(kitchen_doc)
     return clean
 
 
@@ -1169,23 +1269,23 @@ async def get_plan(user: Dict[str, Any] = Depends(current_user)):
     if not profile:
         raise HTTPException(status_code=409, detail="Complete your wellness profile first")
     zone = user_zone(profile)
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
     existing = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
     if existing:
         start = plan_start_date(existing, zone)
         age_days = (local_today(zone) - start).days if start else 0
         if age_days < 7:
-            return with_today_index(existing, zone, await todays_meals(user["id"], zone))
+            return with_today_index(existing, zone, await todays_meals(user["id"], zone), kitchen_doc)
     # Missing or week-old plan → adaptive regeneration from recent logs
     try:
         plan = await build_adaptive_plan(user["id"], profile)
     except AIUnavailable as exc:
         # Rate limited: keep showing the old plan (or an unsaved fallback) and say so; the next visit retries.
         shown = existing or {**local_plan(profile), "reasoning": "A balanced starter plan while the AI is busy."}
-        return {**with_today_index(shown, zone, await todays_meals(user["id"], zone)), "ai_status": exc.code, "ai_message": exc.message}
+        return {**with_today_index(shown, zone, await todays_meals(user["id"], zone), kitchen_doc), "ai_status": exc.code, "ai_message": exc.message}
     plan["user_id"] = user["id"]
     await save_plan(plan)
-    zone = user_zone(profile)
-    return with_today_index(plan, zone, await todays_meals(user["id"], zone))
+    return with_today_index(plan, zone, await todays_meals(user["id"], zone), kitchen_doc)
 
 
 @api_router.post("/plan/regenerate")
@@ -1200,7 +1300,41 @@ async def regenerate_plan(user: Dict[str, Any] = Depends(current_user)):
     plan["user_id"] = user["id"]
     await save_plan(plan)
     zone = user_zone(profile)
-    return with_today_index(plan, zone, await todays_meals(user["id"], zone))
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    return with_today_index(plan, zone, await todays_meals(user["id"], zone), kitchen_doc)
+
+
+@api_router.get("/plan/shopping-list")
+async def shopping_list(user: Dict[str, Any] = Depends(current_user)):
+    """The week's ingredients minus what the person already has at home, grouped for the shop."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=409, detail="Complete your wellness profile first")
+    plan = await db.plans.find_one({"user_id": user["id"]}, {"_id": 0}, sort=[("updated_at", -1)])
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    household = int((kitchen_doc or {}).get("household_size") or 2)
+    if not plan or not plan.get("kitchen_based"):
+        return {"kitchen_based": False, "household_size": household, "to_buy": [], "have": [], "kitchen_changed": bool(kitchen_doc and kitchen_doc.get("items"))}
+    uses: Dict[str, int] = {}
+    for day in plan.get("days", []):
+        for meal in day.get("meals", []):
+            for iid in meal.get("ingredients") or []:
+                if iid in kitchen.catalogue.by_id and not kitchen.catalogue.by_id[iid].assumed:
+                    uses[iid] = uses.get(iid, 0) + 1
+    owned = set((kitchen_doc or {}).get("items") or [])
+    order = {group: position for position, group in enumerate(kitchen.GROUPS)}
+
+    def rows(ids: List[str]) -> List[Dict[str, Any]]:
+        ordered = sorted(ids, key=lambda iid: (order.get(kitchen.catalogue.by_id[iid].group, 99), -uses[iid], kitchen.catalogue.by_id[iid].name))
+        return [{**ingredient_ref(iid, iid in owned), "meals": uses[iid]} for iid in ordered]
+
+    return {
+        "kitchen_based": True,
+        "household_size": household,
+        "to_buy": rows([iid for iid in uses if iid not in owned]),
+        "have": rows([iid for iid in uses if iid in owned]),
+        "kitchen_changed": (plan.get("kitchen_hash") or None) != kitchen_plan.kitchen_signature(kitchen_doc),
+    }
 
 
 @api_router.get("/dashboard")

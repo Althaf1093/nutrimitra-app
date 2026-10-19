@@ -25,9 +25,17 @@ export type Profile = {
   [key: string]: unknown;
 };
 
+// An ingredient a planned meal uses, and whether the person has it at home.
+export type IngredientRef = { id: string; name: string; te: string; group: string; have: boolean };
+
 export type Meal = {
   type: string;
   name: string;
+  te?: string;
+  uses?: IngredientRef[];
+  minutes?: number;
+  // Something else was logged in this meal's slot today.
+  ate_other?: boolean;
   portion: string;
   calories: number;
   protein_g: number;
@@ -40,7 +48,21 @@ export type PlanDay = { day: number; title: string; focus: string; meals: Meal[]
 
 // today_index: which day of the 7-day plan is "today" (days since the plan started, wrapped).
 // ai_status is set when the AI could not build a fresh plan (e.g. "ai_busy"); the plan shown is the previous one or a fallback.
-export type Plan = { days: PlanDay[]; reasoning: string; goal: string; today_index?: number; ai_status?: string; ai_message?: string };
+export type Plan = {
+  days: PlanDay[];
+  reasoning: string;
+  goal: string;
+  today_index?: number;
+  ai_status?: string;
+  ai_message?: string;
+  // Built from the person's kitchen; what to buy; and whether the kitchen changed since the plan was made.
+  kitchen_based?: boolean;
+  also_buy?: IngredientRef[];
+  kitchen_changed?: boolean;
+};
+
+export type ShoppingItem = IngredientRef & { meals: number };
+export type ShoppingList = { kitchen_based: boolean; household_size: number; to_buy: ShoppingItem[]; have: ShoppingItem[]; kitchen_changed: boolean };
 
 export type LoggedMeal = {
   id: string;
