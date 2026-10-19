@@ -62,3 +62,71 @@ throwaway user, so results don't depend on the shared preview account, and delet
    any password. You should see "Email or password is incorrect", not a crash or a spinner.
 8. **Telugu**: switch language and check the new strings (Logged today, Remove, Today's progress,
    AI busy).
+
+
+# Phase 2 progress (2026-10-19): backend hardening
+
+All eight Phase 2 items are merged to main as squash-merged PRs (one branch per item, each based on
+main), plus two bug-fix PRs the full test run turned up. New tests are in
+`backend/tests/test_phase2_hardening.py` (37 tests; same throwaway-user approach as Phase 1).
+
+## What changed
+
+| Item | PR | What changed | Tests |
+|------|----|--------------|-------|
+| 1. MongoDB indexes | #12 | `ensure_indexes()` runs at startup (idempotent): unique `users.email` and `users.id`; `(user_id, date)` and `(user_id, created_at)` on meals, activities, weights, coach_messages; `(user_id, updated_at)` on plans; `(user_id, start)` on health_records; a TTL index on `user_sessions.expires_at`. Duplicate emails already in the data are logged and a plain index is created instead, with no deletion (neither dev DB had any). The signup race is caught as `DuplicateKeyError` and returns 409. Sessions store `expires_at` as a date so the TTL applies; legacy string values are converted at startup. | TestIndexes (8), including 6 concurrent signups giving 1 account |
+| 2. Login protection | #13 | `/auth/login` and `/auth/signup`: 10 attempts per 15 min per IP and per email, then 429 with a clear message and `Retry-After`. In-memory, behind `SlidingWindowLimiter` (`record`/`reset`). Loopback is exempt by default so local dev and the tests are never blocked. | TestAuthRateLimit (6) |
+| 3. CORS allowlist | #14 | Origins come from `CORS_ORIGINS`; the default is the Expo web build (`localhost`/`127.0.0.1` on 8081 and 19006). Credentials are off (Bearer tokens). | TestCors (5) |
+| 4. Lifespan handler | #12, #15 | `@app.on_event` replaced by a `lifespan` (it had to land with item 1). #15 adds the regression tests. | TestLifespan (3) |
+| 5. Trimmed requirements | #16 | Removed boto3, requests-oauthlib, cryptography, passlib, python-jose, pandas, numpy, jq, typer, python-multipart, black, isort, flake8, mypy. | Verified in a fresh venv: backend runs, 87 tests collect, Phase 1+2 suites pass |
+| 6. Plans capped at 5 per user | #17 | New plans are saved through `save_plan()`, which deletes older ones beyond the latest 5 and never the new one. The preview account went from 14 plans to 5. | TestPlanCap (3) |
+| 7. Health conditions + disclaimer | #18 | Conditions are sent explicitly to the plan and coach prompts, framed as general wellness guidance (no diagnosis, no medicines, no "medically tailored"). A server-side guard replaces plan reasoning or day focus that names a user's condition. Coach and Plan show a disclaimer in English and Telugu. | TestHealthConditions (5) |
+| 8. UI gaps | #19 | Edit button on logged meals (inline form, `PATCH /meals/{id}`); a "Weight entries" card on Progress with Remove (`DELETE /weight/{id}`). English and Telugu. | TestProgressEditDelete (3) |
+| Bug: coach history | #20 | History and AI context read the **oldest** messages (ascending sort with a cap), so long chats stopped showing anything new. Now the newest are fetched and reversed. | TestCoachHistoryRecency (2) |
+| Bug: empty AI replies | #21 | The reasoning model sometimes returns an empty reply; it is now retried like a rate limit, and the coach's token limit goes 1200 to 2000. | TestEmptyAiReply (2) |
+
+## What is verified (on the PC)
+
+- tsc: 0 errors. ESLint on `app` and `src`: 0 errors, the 2 known `require()` warnings. The web export
+  bundles every screen after each UI change.
+- Full backend suite run on main: 91 passed, 7 failed. Three were the known photo-recognition
+  failures. The other four were real problems that led to #20 and #21 (two coach tests hit the empty
+  reply, one hit the oldest-messages bug, and the stale-plan test was rate-limited by Groq and passes
+  on its own). After those fixes each passes when re-run on its own. I did not run the whole suite a
+  second time, because of Groq 429s; the final merged code differs from the tested code only by #20 and #21.
+- Endpoints hit for real: 11 logins via the PC's LAN IP gave 10 x 401 and then 429; a CORS preflight
+  from `http://localhost:8081` was allowed; a user with PCOS and diabetes got a real Groq plan whose
+  reasoning no longer names either condition.
+
+## Things you should know
+
+- **Production settings.** `AUTH_RATE_LIMIT_EXEMPT_IPS` defaults to loopback so dev is never blocked;
+  set it to empty when deploying. Behind Render's proxy also set `TRUST_PROXY_HEADERS=1`, or every
+  user will share the proxy's IP. Set `CORS_ORIGINS` to the deployed web origin if you ship a web build.
+  All of these are documented in `backend/.env.example`; I did not touch the real `.env`.
+- **The rate limiter is per process and in memory.** It resets when the backend restarts and doesn't
+  work across several instances. Move `SlidingWindowLimiter` to Redis or Mongo before scaling out.
+- **Web build over the LAN.** If you open the Expo web build at `http://<PC IP>:8081`, add that origin
+  to `CORS_ORIGINS`. The phone app is not affected by CORS.
+- **Health-condition limits.** The server guard only checks the plan reasoning and day focus, not meal
+  names, and the coach can still make soft claims such as "keeps blood sugar steady". That is why the
+  disclaimer is always visible.
+- **Existing sessions.** Google-login sessions stored before this change are converted at startup.
+- **Memory.** The backend process I had started was stopped once by Claude Code because the PC was
+  low on memory. Start it again when needed.
+
+## Please check on the phone
+
+1. **Sign in/out and sign up** still work (indexes and the session change are invisible when correct).
+2. **Wrong password 11 times** from the phone: you should see "Too many attempts. Please wait 15 minutes
+   and try again." (Your phone is not loopback, so the limit applies; restarting the backend clears it.)
+3. **Coach and Plan** show the new "general wellness guidance, not medical advice" notice, and it is in
+   Telugu when you switch language.
+4. **Onboarding with a condition** (for example "PCOS"), then refresh the plan: the Nutrition note should
+   not mention the condition.
+5. **Today, logged meals**: tap Edit, change calories, Save. The row and the total update. An empty name
+   or a letter in a number gives an error. Remove still works.
+6. **Progress**: log two weights, then Remove one under "Weight entries".
+7. **Long Coach chat**: after many messages, reopening Coach shows the latest ones, not the first.
+8. **Coach in general**: it should rarely say "AI is unavailable" now; if Groq is rate-limited you still
+   get "AI is busy, try again in a minute".
