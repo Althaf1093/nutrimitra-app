@@ -87,6 +87,11 @@ INDEXES = [
 ]
 
 
+# Every collection that holds a person's data by user_id. Account deletion clears all of them (then the users row itself);
+# add new per-user collections here, and a test fails if one is missed.
+USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions"]
+
+
 async def ensure_email_index() -> bool:
     """Unique index on users.email. If existing data already has duplicates, report them and fall back to
     a plain index (data is never deleted); signups still guard with find-then-insert. Returns True if unique."""
@@ -332,6 +337,8 @@ def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
         "name": doc.get("name", ""),
         "language": doc.get("language", "en"),
         "onboarding_complete": bool(doc.get("onboarding_complete", False)),
+        # Google-created accounts have no password; deleting one is confirmed with the word DELETE alone.
+        "has_password": bool(doc.get("password_hash")),
         "consent_version": doc.get("consent_version"),
         # Accounts from before consent existed, or from before the policies last changed, are asked once on next launch.
         "needs_consent": doc.get("consent_version") != legal.CONSENT_VERSION,
@@ -509,6 +516,30 @@ async def accept_consent(payload: ConsentInput, user: Dict[str, Any] = Depends(c
     fields = consent_fields()
     await db.users.update_one({"id": user["id"]}, {"$set": fields})
     return {"user": public_user({**user, **fields})}
+
+
+class DeleteAccountInput(BaseModel):
+    confirm: str = ""
+    password: str = Field(default="", max_length=128)
+
+
+@api_router.delete("/account")
+async def delete_account(payload: DeleteAccountInput, request: Request, user: Dict[str, Any] = Depends(current_user)):
+    """Permanently deletes the signed-in person and everything stored about them.
+
+    Confirmation: the word DELETE, plus the password for accounts that have one (Google accounts have none, so the word
+    alone confirms them). Tokens stop working at once because current_user no longer finds the account."""
+    check_auth_rate_limit(request, "delete-account", user.get("email"))
+    if payload.confirm.strip() != "DELETE":
+        raise HTTPException(status_code=422, detail="Type DELETE to confirm.")
+    if user.get("password_hash") and not password_matches(payload.password, user.get("password_hash")):
+        raise HTTPException(status_code=403, detail="Password is incorrect")
+    removed: Dict[str, int] = {}
+    for name in USER_DATA_COLLECTIONS:
+        removed[name] = (await db[name].delete_many({"user_id": user["id"]})).deleted_count
+    await db.users.delete_one({"id": user["id"]})
+    logger.info("Deleted account %s (%s)", user["id"], ", ".join(f"{name}={count}" for name, count in removed.items() if count))
+    return {"ok": True}
 
 
 @api_router.get("/me")
