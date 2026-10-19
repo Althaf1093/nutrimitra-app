@@ -234,3 +234,65 @@ Through the running backend only (`.env` not opened): a throwaway user posted `e
 - Fix shipped: the log line for a failing provider now includes the provider's own error message (never the image or the key),
   which is how the 503/429 above were diagnosed. Test: `test_phase4_vision_log.py`.
 - **Do this:** set `VISION_PROVIDER=auto` in `backend/.env` so photo logging keeps working while Gemini is limited or busy.
+
+# UX run (2026-10-20): toasts and smart food search
+
+Three PRs, each merged to main: #50 toast, #51 food catalogue and search, #52 Log food screen. Plus #49 (the web build uses
+`localhost` for the backend when the page is on `localhost`, so a changed LAN IP no longer breaks the browser).
+
+## What changed
+- **Toast (#50).** `src/components/toast.tsx`, `useToast().show(message, {type, actionLabel, onAction})`. A small light pill (max 420
+  wide, centred) above the tab bar, check / info / "!" icon, soft shadow, fades in, goes away after 2.5 s (4 s for errors and for
+  toasts with Undo), swipe or tap to dismiss, one at a time (a new one replaces the old), taps pass through, `role` status or alert
+  and a native screen-reader announcement. Replaced the black bar on Today, the chip on Plan, the text on Coach; Progress now says
+  when a weight is saved or removed. Undo after logging or removing a meal or activity. The `+` on a plan meal turns into the check at
+  once (Today and Plan) and rolls back with an error toast if the API fails.
+- **Food catalogue (#51).** `backend/data/foods.json`: 589 foods, Indian-first plus common global foods, with Telugu names, synonyms,
+  default serving, kcal / protein / carbs / fat, and extra serving options. `GET /api/foods/search`, `/api/foods/recent`,
+  `/api/foods/frequent` (sign-in required, rate limited per person, `FOODS_RATE_LIMIT`, default 120 a minute). Matching covers names,
+  family terms ("egg", "dosa"), synonyms and Telugu names; plurals and typos ("dosaa", "omlet") are forgiven; ranking is match first,
+  then popularity, then your recent foods. An empty query returns your recents. A logged meal can carry a serving text (`portion`).
+- **Log food screen (#52).** One search box, suggestions as you type (200 ms), a one-tap `+` on every row, a bottom sheet for serving,
+  quantity and meal slot (default by time of day), Recent / Frequent / category chips when empty, "No match. Add it yourself." with a
+  custom food form, the photo path kept (Photo button here, and the Coach camera opens it directly). A failed search keeps the text and
+  shows the error toast. `AppIcon` now falls back to a glyph on web and Android, where the SF Symbols drew nothing (icons were blank
+  in the browser).
+
+## What is verified (on the PC)
+- tsc 0 errors, ESLint 0 errors (the 2 known `require()` warnings), `expo export --platform web` builds.
+- Backend: 35 new tests in `backend/tests/test_ux_food_search.py`. Full suite once at the end against a freshly restarted backend:
+  **324 passed, 4 failed**, then the 4 were fixed and `test_phase3_i18n.py` re-run (13 passed), so 328 of 328. Four i18n tests were failing for stale reasons and were fixed: two came from the Phase 4
+  consent strings (an empty connector string is legitimate), one from `cm` / `ft` unit labels, one because the plan meal body moved to
+  `src/lib/plan.ts`.
+- Playwright: new `toast.spec.ts` (2) and `food.spec.ts` (8). Screenshots reviewed: the pill is small, light, centred above the tab bar
+  and gone by itself; the sheet shows the totals changing with the quantity; Telugu renders. Full e2e once at the end: **29 passed, 1 skipped** (the real-photo
+  spec, which needs real keys) and 1 failed: flow 13 (delete account) hit the test backend's limit of 10 sign-ups a minute, because the
+  run now has more flows than that. `fixtures.ts` now waits when the last minute is nearly full; flows 11 to 13 and all `food` flows
+  re-ran green back to back.
+
+## Please check on the phone
+1. Today and Plan: tap `+` on a meal. The check appears at once, a small pill shows briefly (not a black bar), Undo works.
+2. Today: remove a meal and an activity, tap Undo. Coach: log a recipe, the pill sits above the chat box.
+3. Log food: type egg, dosa, idli, a typo (dosaa). Tap `+` for the default serving; tap a row, change the quantity, pick a slot, Add.
+4. The Photo button on that screen, and the camera on the Coach tab. Custom food from "Can't find it?".
+5. Telugu mode on the Log food screen and in the toast.
+6. Icons on Android and in the browser now show glyphs; check they look acceptable (they are plain text symbols, not the iOS icons).
+
+## Needs human review
+- **Nutrition values are estimates.** Every number in `foods.json` is a rounded estimate I wrote from general knowledge, not from a
+  food composition table. A nutritionist should review them before launch (restaurant dishes and mixed dishes vary the most; alcohol and
+  packaged items too). The app says "Nutrition values are estimates, not measurements." under the list and in the sheet.
+- **Telugu food names.** I wrote a Telugu name for about 95% of the 589 foods; none have been read by a native speaker. Least sure:
+  dishes with regional names (`Bobbatlu`, `Ariselu`, `Kajjikayalu`, `Punugulu`, `Mulakkada` / `Munagakaya` items, `Sunnundalu`, `Chekkalu`),
+  borrowed words spelled in Telugu (`ఆమ్లెట్`, `శాండ్‌విచ్`, `బర్గర్`, `మష్రూమ్`), and the mixed Telugu-English dishes ("చికెన్ 65").
+- **Telugu UI strings added in this run** (all new keys): `undo`, `undone`, `couldNotUndo`, `weightLogged`, `weightRemoved`,
+  `couldNotSaveWeight`, `logFood`, `logFoodEyebrow`, `searchFoodPlaceholder`, `searchFoods`, `clearSearch`, `recentFoods`,
+  `frequentFoods`, `popularFoods`, `browseFoods`, `catEggs`, `catDosa`, `catIdli`, `catRice`, `catDal`, `catCurry`, `catSnacks`,
+  `catFruits`, `catDrinks`, `noMatchAddYourself`, `addCustomFood`, `addCustomTitle`, `searchFailed`, `servingLabel`, `quantityLabel`,
+  `addToLog`, `addWord`, `estimateNote`, `backToSearch`, `totalLabel`. Least sure: `servingLabel` ("సర్వింగ్"), `quantityLabel`,
+  `frequentFoods`, `noMatchAddYourself`, `addCustomFood`, `estimateNote`.
+- `photo` now reads "Photo" / "ఫోటో" (it used to say "Log with photo"); the Today link is the new `logFood`.
+
+## Not covered
+Real Gemini / Groq calls (fakes only), native phone behaviour (keyboard, safe areas, the modal's toast host on iOS), and Android icon
+rendering. The Undo for a removed plan meal re-creates it as a new entry (same day), so its time of logging changes.

@@ -12,7 +12,7 @@ KEY_LINE = re.compile(r'^    (\w+): "(.*)",?$', re.M)
 EN = dict(KEY_LINE.findall(EN_BLOCK))
 TE = dict(KEY_LINE.findall(TE_BLOCK))
 TELUGU_LETTER = re.compile("[ఀ-౿]")
-SAME_AS_ENGLISH_OK = {"healthTitle"}  # product names: Apple Health / Health Connect
+SAME_AS_ENGLISH_OK = {"healthTitle", "consentAnd"}  # product names (Apple Health / Health Connect); a bare joining space
 
 
 def source_files():
@@ -33,8 +33,9 @@ class TestCatalogue:
         assert set(EN) == set(TE), (sorted(set(EN) - set(TE)), sorted(set(TE) - set(EN)))
 
     def test_no_empty_values(self):
-        assert [k for k, v in {**EN}.items() if not v.strip()] == []
-        assert [k for k, v in {**TE}.items() if not v.strip()] == []
+        # consentAfter is the text after the policy links, which is nothing in English ("I agree to the Terms and Privacy Policy").
+        assert [k for k, v in {**EN}.items() if not v.strip() and k != "consentAfter"] == []
+        assert [k for k, v in {**TE}.items() if not v.strip() and k != "consentAnd"] == []  # consentAnd is a joining space in Telugu
 
     def test_telugu_is_actually_telugu(self):
         untranslated = [k for k, v in TE.items() if not TELUGU_LETTER.search(v) and k not in SAME_AS_ENGLISH_OK]
@@ -55,6 +56,8 @@ class TestCatalogue:
 
 # Text that may stay in the code: product names, language names, proper nouns and developer-only text.
 ALLOWED = {
+    "cm",  # units next to the height field
+    "ft",
     "Apple Health · Health Connect",
     "English",
     "HealthKit / Health Connect",
@@ -146,5 +149,6 @@ class TestBehaviourIsUnchanged:
 
     def test_meal_types_sent_to_the_backend_are_not_translated(self):
         index = self.read("app", "(tabs)", "index.tsx")
-        assert "meal_type: meal.type" in index
+        assert "meal_type: meal.type" in self.read("src", "lib", "plan.ts")  # the body index.tsx and plan.tsx send for a plan meal
+        assert "planMealBody(meal)" in index
         assert "mealTypeLabel(t, item.meal_type)" in index

@@ -27,6 +27,17 @@ export async function setAi(mode: "ok" | "busy") {
   expect(response.ok).toBeTruthy();
 }
 
+// The test backend allows 10 sign-ups a minute per address (flow 10 relies on that limit). The run has more flows than that
+// now, so a sign-up waits when the last minute is already nearly full.
+const signupTimes: number[] = [];
+async function paceSignups() {
+  const recent = signupTimes.filter((time) => Date.now() - time < 61_000);
+  signupTimes.length = 0;
+  signupTimes.push(...recent);
+  if (recent.length >= 8) await new Promise((resolve) => setTimeout(resolve, 61_500 - (Date.now() - recent[0])));
+  signupTimes.push(Date.now());
+}
+
 export class App {
   readonly issues: Issue[] = [];
   private allowed: RegExp[] = [];
@@ -72,6 +83,7 @@ export class App {
   }
 
   async signUp(email: string, password = PASSWORD, name = "E2E Tester") {
+    await paceSignups();
     await this.id("auth-tab-signup").click();
     await this.id("field-your-name").fill(name);
     await this.id("field-email-address").fill(email);
