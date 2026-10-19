@@ -93,7 +93,7 @@ export default function SettingsScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="settings-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE</Text>
           <Text style={styles.headerTitle}>{t.settings}</Text>
         </View>
         <Pressable testID="settings-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
@@ -117,7 +117,7 @@ export default function SettingsScreen() {
         <ToggleRow testID="toggle-health-sync" title="HealthKit / Health Connect" subtitle="Optional, permission-based" value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
         <ToggleRow testID="toggle-wearables" title="Supported wearables" subtitle="Optional, permission-based" value={permission.wearables} onToggle={() => updatePermission("wearables")} />
         <ToggleRow testID="toggle-coach-memory" title={t.coachMemory} subtitle={t.coachMemorySub} value={permission.coach_memory} onToggle={() => updatePermission("coach_memory")} />
-        <ToggleRow testID="toggle-analytics" title="Anonymous product analytics" subtitle="Help improve NutriMitra" value={permission.analytics} onToggle={() => updatePermission("analytics")} />
+        <ToggleRow testID="toggle-analytics" title="Anonymous product analytics" subtitle="Help improve Wellstride" value={permission.analytics} onToggle={() => updatePermission("analytics")} />
 
         <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.reminders.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.remindersSub}</Text>
@@ -128,7 +128,7 @@ export default function SettingsScreen() {
         {note === "blocked" ? (
           <View style={styles.reasonCard} testID="reminder-blocked">
             <Text style={styles.cardEyebrow}>{t.reminders.toUpperCase()}</Text>
-            <Text style={styles.reasonText}>{lang === "te" ? "నోటిఫికేషన్ అనుమతి ఆఫ్‌లో ఉంది. సెట్టింగ్స్‌లో ప్రారంభించండి." : "Notifications are turned off for NutriMitra. Enable them in system settings to receive reminders."}</Text>
+            <Text style={styles.reasonText}>{lang === "te" ? "నోటిఫికేషన్ అనుమతి ఆఫ్‌లో ఉంది. సెట్టింగ్స్‌లో ప్రారంభించండి." : "Notifications are turned off for Wellstride. Enable them in system settings to receive reminders."}</Text>
             <View style={{ marginTop: 12 }}>
               <Button testID="reminder-open-settings" label={t.openSettings} onPress={() => Linking.openSettings()} secondary />
             </View>

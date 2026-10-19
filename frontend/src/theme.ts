@@ -1,4 +1,4 @@
-// Design tokens for NutriMitra. Values mirror /app/design_guidelines.json.
+// Design tokens for Wellstride. Values mirror /app/design_guidelines.json.
 //
 // The keys match the "color" block of /app/design_guidelines.json. Fill the
 // values from that file (or from the user's brand colors). Keep every key; do

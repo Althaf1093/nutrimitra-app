@@ -118,7 +118,7 @@ export default function LogFoodScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="log-food-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA VISION</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE VISION</Text>
           <Text style={styles.headerTitle}>{t.photo}</Text>
         </View>
         <Pressable testID="log-food-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>

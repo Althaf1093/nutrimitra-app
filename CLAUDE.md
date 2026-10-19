@@ -1,4 +1,4 @@
-# NutriMitra: Claude Code guide
+# Wellstride: Claude Code guide (the repo and database are still named nutrimitra)
 
 Read docs/HANDOFF.md first. The GitHub repo (Althaf1093/nutrimitra-app, branch main) is the source of truth.
 

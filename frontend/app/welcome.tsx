@@ -57,7 +57,7 @@ export default function WelcomeScreen() {
         <Pressable testID="language-toggle" onPress={() => setLang(lang === "en" ? "te" : "en")} style={styles.languagePill}>
           <Text style={styles.languageText}>{lang === "en" ? "తెలుగు" : "English"}</Text>
         </Pressable>
-        <Text style={styles.eyebrow}>NUTRIMITRA · INDIA</Text>
+        <Text style={styles.eyebrow}>WELLSTRIDE · INDIA</Text>
         <Text style={styles.heroTitle}>{t.welcome}</Text>
         <Text style={styles.heroSub}>{t.welcomeSub}</Text>
         <View style={styles.authCard}>

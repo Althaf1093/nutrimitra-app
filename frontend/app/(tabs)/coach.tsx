@@ -126,7 +126,7 @@ export default function CoachScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="coach-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA AI</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE AI</Text>
           <Text style={styles.headerTitle}>{t.coach}</Text>
         </View>
         <Pressable testID="coach-photo-button" accessibilityRole="button" accessibilityLabel={t.photo} onPress={() => router.push("/log-food")} style={styles.iconButton}>

@@ -1,6 +1,6 @@
-# NutriMitra
+# Wellstride
 
-A premium, privacy-first AI wellness companion for India, in English and Telugu. NutriMitra builds an adaptive 7-day food and movement plan from your profile and goals, helps you log meals (including by photo), tracks activity and weight trends, and gives day-to-day guidance through an AI coach — without medical diagnosis or unrealistic promises.
+A premium, privacy-first AI wellness companion for India, in English and Telugu. Wellstride builds an adaptive 7-day food and movement plan from your profile and goals, helps you log meals (including by photo), tracks activity and weight trends, and gives day-to-day guidance through an AI coach — without medical diagnosis or unrealistic promises.
 
 ## Features
 

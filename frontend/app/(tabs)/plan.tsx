@@ -62,7 +62,7 @@ export default function PlanScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]} testID="plan-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
-          <Text style={styles.eyebrow}>NUTRIMITRA · 7 DAYS</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE · 7 DAYS</Text>
           <Text style={styles.headerTitle}>{t.plan}</Text>
         </View>
         <Pressable testID="refresh-plan-button" accessibilityRole="button" accessibilityLabel={t.refreshPlan} disabled={refreshing} onPress={refreshPlan} style={[styles.iconButton, refreshing && styles.disabled]}>
