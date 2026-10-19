@@ -5,13 +5,17 @@ Switch its behaviour while a test runs:
 
     POST /__mode   {"mode": "ok" | "busy"}    busy = every call gets HTTP 429, like a rate limit
     GET  /__state                              {"mode": ..., "counts": {...}}
+    POST /emails                               fake of Resend: the message is kept, whatever the mode
+    GET  /__emails?to=<address>                the messages sent to that address, oldest first
 
 Standard library only.
 """
 import json
 import sys
+from urllib.parse import parse_qs, urlparse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+EMAILS = []
 STATE = {"mode": "ok", "counts": {"plan": 0, "coach": 0, "vision": 0, "rejected": 0}}
 
 MEALS = {
@@ -72,6 +76,10 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
     def do_GET(self):
+        url = urlparse(self.path)
+        if url.path == "/__emails":
+            address = parse_qs(url.query).get("to", [""])[0]
+            return self.respond(200, [m for m in EMAILS if address in m.get("to", [])])
         self.respond(200, STATE)
 
     def do_POST(self):
@@ -79,6 +87,9 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/__mode":
             STATE["mode"] = body.get("mode", "ok")
             return self.respond(200, STATE)
+        if self.path == "/emails":
+            EMAILS.append(body)
+            return self.respond(200, {"id": f"fake-{len(EMAILS)}"})
         if STATE["mode"] == "busy":
             STATE["counts"]["rejected"] += 1
             return self.respond(429, {"error": {"message": "Rate limit reached"}}, {"Retry-After": "0"})

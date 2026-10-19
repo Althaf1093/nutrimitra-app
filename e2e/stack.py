@@ -117,6 +117,10 @@ def main() -> None:
             "GEMINI_API_KEY": "fake-gemini-key",
             "GEMINI_BASE_URL": f"http://127.0.0.1:{AI_PORT}",
             "GOOGLE_CLIENT_IDS": "",
+            # Email goes to the fake's stand-in for Resend, so a test can read the reset and verification codes.
+            "RESEND_API_KEY": "re_fake_key",
+            "RESEND_BASE_URL": f"http://127.0.0.1:{AI_PORT}",
+            "EMAIL_FROM": "Wellstride <noreply@wellstride.test>",
             # The real limit settings, with no loopback exemption so the rate-limit flow is genuine; a 1 minute window
             # lets that flow also show a person getting back in.
             "AUTH_RATE_LIMIT": "10",

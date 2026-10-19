@@ -11,6 +11,16 @@ type Issue = { kind: string; text: string };
 
 export const uniqueEmail = (prefix = "e2e") => `${prefix}.${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}@example.com`;
 
+// The newest email the backend sent to an address (read from the fake of Resend), waiting a few seconds for it to arrive.
+export async function lastEmail(to: string): Promise<{ subject: string; text: string }> {
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const sent = (await (await fetch(`${AI}/__emails?to=${encodeURIComponent(to)}`)).json()) as { subject: string; text: string }[];
+    if (sent.length) return sent[sent.length - 1];
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  throw new Error(`no email was sent to ${to}`);
+}
+
 // Switches the fake AI between answering ("ok") and rate limiting every call ("busy").
 export async function setAi(mode: "ok" | "busy") {
   const response = await fetch(`${AI}/__mode`, { method: "POST", body: JSON.stringify({ mode }) });

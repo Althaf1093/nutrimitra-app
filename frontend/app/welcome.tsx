@@ -85,6 +85,11 @@ export default function WelcomeScreen() {
           {mode === "signup" ? <ConsentCheckbox checked={accepted} onChange={setAccepted} /> : null}
           {error ? <Text style={styles.errorText} testID="auth-error">{error}</Text> : null}
           <Button testID="auth-submit-button" label={busy ? "..." : mode === "signin" ? t.signIn : t.create} onPress={submit} disabled={busy || !email || password.length < 8 || (mode === "signup" && !accepted)} />
+          {mode === "signin" ? (
+            <Text testID="forgot-password-link" accessibilityRole="link" style={styles.linkText} onPress={() => router.push("/forgot-password")}>
+              {t.forgotPassword}
+            </Text>
+          ) : null}
           {googleEnabled ? <Button testID="google-signin-button" label={t.welcomeGoogle} onPress={google} secondary disabled={busy} /> : null}
           <Text style={styles.authHint}>
             {mode === "signin" ? t.noAccount : t.already}{" "}
