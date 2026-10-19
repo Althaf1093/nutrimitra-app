@@ -1,5 +1,5 @@
-import { Redirect, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { Redirect, useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -11,7 +11,7 @@ import { getHealthStatus } from "@/src/lib/health";
 import { applyReminders, clearReminders, ensureReminderPermissions, remindersSupported } from "@/src/lib/notifications";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
-import type { ReminderPrefs } from "@/src/types";
+import type { Kitchen, ReminderPrefs } from "@/src/types";
 
 function ToggleRow({ title, subtitle, value, onToggle, testID, disabled = false }: { title: string; subtitle: string; value: boolean; onToggle: () => void; testID: string; disabled?: boolean }) {
   const styles = useStyles();
@@ -44,6 +44,7 @@ export default function SettingsScreen() {
   const [permission, setPermission] = useState<PermissionPrefs>({ health_sync: false, wearables: false, analytics: false, coach_memory: true });
   const [reminders, setReminders] = useState<ReminderPrefs>({ meals: true, hydration: false, movement: false, weekly: true });
   const [note, setNote] = useState("");
+  const [kitchen, setKitchen] = useState<{ configured: boolean; kitchen: Kitchen | null } | null>(null);
   // The switches show defaults until the saved values arrive; tapping one before then would save the defaults over them.
   const [loaded, setLoaded] = useState({ permissions: false, reminders: false });
 
@@ -62,6 +63,16 @@ export default function SettingsScreen() {
       })
       .catch(() => undefined);
   }, [status]);
+
+  // The kitchen can change in its own screen on top of this one, so the summary reloads whenever Settings is shown again.
+  useFocusEffect(
+    useCallback(() => {
+      if (status !== "ready") return;
+      api<{ configured: boolean; kitchen: Kitchen | null }>("/kitchen")
+        .then(setKitchen)
+        .catch(() => undefined);
+    }, [status]),
+  );
 
   // Route guard: this modal requires an authenticated, onboarded session.
   if (status === "loading") {
@@ -129,7 +140,17 @@ export default function SettingsScreen() {
           <Text style={styles.statusPill}>{healthStatus === "web-unsupported" ? t.statusWeb : t.statusBuild}</Text>
         </View>
 
-        <Text style={styles.cardEyebrow}>{t.health.toUpperCase()}</Text>
+        <Pressable testID="open-kitchen" accessibilityRole="button" accessibilityLabel={t.settingsKitchen} onPress={() => router.push("/kitchen")} style={styles.settingRow}>
+          <View style={styles.flex}>
+            <Text style={styles.mealName}>{t.settingsKitchen}</Text>
+            <Text style={styles.mutedText} testID="kitchen-summary">
+              {kitchen?.kitchen && kitchen.kitchen.items.length > 0 ? `${kitchen.kitchen.items.length} ${t.kitchenItemsWord} · ${kitchen.kitchen.meals_per_day} ${t.kitchenMealsADay}` : kitchen ? t.kitchenNotSet : t.settingsKitchenSub}
+            </Text>
+          </View>
+          <AppIcon name="chevron.right" color={colors.onSurface} size={18} />
+        </Pressable>
+
+        <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.health.toUpperCase()}</Text>
         <Text style={styles.modalSub}>{t.healthSub}</Text>
         <ToggleRow testID="toggle-health-sync" disabled={!loaded.permissions} title="HealthKit / Health Connect" subtitle={t.optionalPermission} value={permission.health_sync} onToggle={() => updatePermission("health_sync")} />
         <ToggleRow testID="toggle-wearables" disabled={!loaded.permissions} title={t.wearables} subtitle={t.optionalPermission} value={permission.wearables} onToggle={() => updatePermission("wearables")} />
