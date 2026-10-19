@@ -306,3 +306,40 @@ class TestAuthRateLimit:
         email = unique_email("loopback")
         codes = [requests.post(f"{BASE_URL}/api/auth/login", json={"email": email, "password": "WrongPass123"}, timeout=20).status_code for _ in range(12)]
         assert codes == [401] * 12
+
+
+def preflight(url, origin, method="POST"):
+    return requests.options(f"{url}/api/auth/login", headers={"Origin": origin, "Access-Control-Request-Method": method, "Access-Control-Request-Headers": "authorization,content-type"}, timeout=20)
+
+
+class TestCors:
+    """Item 3: CORS allows only CORS_ORIGINS; the default covers the local Expo web build."""
+
+    def test_parse_origins(self):
+        assert server.parse_origins(" https://a.example.com/, http://localhost:8081 ,,") == ["https://a.example.com", "http://localhost:8081"]
+
+    @pytest.mark.parametrize("origin", ["http://localhost:8081", "http://localhost:19006"])
+    def test_default_allows_expo_web(self, origin):
+        resp = preflight(BASE_URL, origin)
+        assert resp.status_code == 200, resp.text
+        assert resp.headers.get("access-control-allow-origin") == origin
+        assert "authorization" in resp.headers.get("access-control-allow-headers", "").lower()
+        simple = requests.get(f"{BASE_URL}/api/", headers={"Origin": origin}, timeout=20)
+        assert simple.headers.get("access-control-allow-origin") == origin
+
+    def test_default_rejects_other_origins(self):
+        resp = preflight(BASE_URL, "https://evil.example.com")
+        assert resp.status_code == 400
+        assert "access-control-allow-origin" not in resp.headers
+        simple = requests.get(f"{BASE_URL}/api/", headers={"Origin": "https://evil.example.com"}, timeout=20)
+        assert "access-control-allow-origin" not in simple.headers
+        assert simple.headers.get("access-control-allow-credentials") is None
+
+    def test_env_allowlist_replaces_defaults(self):
+        url, proc = spawn_backend(CORS_ORIGINS="https://app.example.com, https://admin.example.com/")
+        try:
+            assert preflight(url, "https://app.example.com").headers.get("access-control-allow-origin") == "https://app.example.com"
+            assert preflight(url, "https://admin.example.com").headers.get("access-control-allow-origin") == "https://admin.example.com"
+            assert preflight(url, "http://localhost:8081").status_code == 400, "an explicit list replaces the local defaults"
+        finally:
+            stop_backend(proc)
