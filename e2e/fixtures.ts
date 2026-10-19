@@ -99,13 +99,15 @@ export class App {
     await this.id("auth-submit-button").click();
   }
 
-  /** Walks the three onboarding steps with the default (vegetarian, 30 year old) profile and lands on Today. */
+  /** Walks the four onboarding steps with the default (vegetarian, 30 year old) profile and lands on Today. */
   async completeOnboarding(age = "30") {
     await expect(this.id("onboarding-screen")).toBeVisible();
     await this.id("field-age").fill(age);
     await this.id("onboarding-next-button").click();
     await this.id("onboarding-next-button").click();
     await this.id("onboarding-next-button").click();
+    await expect(this.id("kitchen-editor")).toBeVisible();
+    await this.id("onboarding-next-button").click(); // nothing picked: the kitchen is skipped
     await expect(this.id("today-screen")).toBeVisible();
   }
 

@@ -1,0 +1,2682 @@
+{
+ "version": 1,
+ "note": "Ingredients a home kitchen may have. diet: vegan < veg (vegetarian) < egg < non (meat, fish). assumed items are in every kitchen.",
+ "ingredients": [
+  {
+   "id": "brinjal",
+   "name": "Brinjal",
+   "te": "వంకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "eggplant",
+    "aubergine",
+    "baingan",
+    "vankaya"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "okra",
+   "name": "Ladies finger (okra)",
+   "te": "బెండకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "okra",
+    "bhindi",
+    "bendakaya",
+    "ladies finger",
+    "vendakkai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "tomato",
+   "name": "Tomato",
+   "te": "టమాటా",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "tamata",
+    "thakkali"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "onion",
+   "name": "Onion",
+   "te": "ఉల్లిపాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "ulli",
+    "pyaz",
+    "kanda",
+    "vengayam",
+    "shallot",
+    "small onion"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "potato",
+   "name": "Potato",
+   "te": "బంగాళాదుంప",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "aloo",
+    "bangaladumpa",
+    "urulai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "cabbage",
+   "name": "Cabbage",
+   "te": "క్యాబేజీ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "patta gobi",
+    "muttaikose"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "cauliflower",
+   "name": "Cauliflower",
+   "te": "కాలీఫ్లవర్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "gobi",
+    "gobhi",
+    "phool gobi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "beans",
+   "name": "French beans",
+   "te": "బీన్స్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "green beans",
+    "beans",
+    "farasbi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "carrot",
+   "name": "Carrot",
+   "te": "క్యారెట్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "gajar"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "drumstick",
+   "name": "Drumstick",
+   "te": "మునగకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "moringa",
+    "munagakaya",
+    "murungakkai",
+    "sahjan"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "cluster-beans",
+   "name": "Cluster beans",
+   "te": "గోరుచిక్కుడు",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "gavar",
+    "guar",
+    "goruchikkudu",
+    "kothavarangai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "broad-beans",
+   "name": "Broad beans",
+   "te": "చిక్కుడుకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "chikkudukaya",
+    "avarakkai",
+    "sem",
+    "papdi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ridge-gourd",
+   "name": "Ridge gourd",
+   "te": "బీరకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "beerakaya",
+    "turai",
+    "peerkangai",
+    "tori"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "bottle-gourd",
+   "name": "Bottle gourd",
+   "te": "సొరకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "lauki",
+    "sorakaya",
+    "anapakaya",
+    "dudhi",
+    "calabash"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "bitter-gourd",
+   "name": "Bitter gourd",
+   "te": "కాకరకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "karela",
+    "kakarakaya",
+    "pavakkai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "snake-gourd",
+   "name": "Snake gourd",
+   "te": "పొట్లకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "potlakaya",
+    "padwal",
+    "pudalangai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ash-gourd",
+   "name": "Ash gourd",
+   "te": "బూడిద గుమ్మడికాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "petha",
+    "boodida gummadikaya",
+    "winter melon"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pumpkin",
+   "name": "Pumpkin",
+   "te": "గుమ్మడికాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "kaddu",
+    "gummadikaya",
+    "parangikai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "yellow-cucumber",
+   "name": "Yellow cucumber (dosakaya)",
+   "te": "దోసకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "dosakaya",
+    "sambar cucumber",
+    "madras cucumber"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "cucumber",
+   "name": "Cucumber",
+   "te": "కీరదోస",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "kheera",
+    "keera dosa",
+    "kakdi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "capsicum",
+   "name": "Capsicum",
+   "te": "క్యాప్సికం",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "bell pepper",
+    "shimla mirch",
+    "green pepper"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "beetroot",
+   "name": "Beetroot",
+   "te": "బీట్‌రూట్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "beet"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "raw-banana",
+   "name": "Raw banana",
+   "te": "అరటికాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "plantain",
+    "aratikaya",
+    "kaccha kela",
+    "vazhakkai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "raw-mango",
+   "name": "Raw mango",
+   "te": "మామిడికాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "mamidikaya",
+    "kachi keri",
+    "kairi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sweet-potato",
+   "name": "Sweet potato",
+   "te": "చిలగడదుంప",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "shakarkandi",
+    "genasu",
+    "chilagadadumpa"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "yam",
+   "name": "Yam (elephant foot)",
+   "te": "కంద",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "suran",
+    "kanda",
+    "chena",
+    "senai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "colocasia",
+   "name": "Colocasia (arbi)",
+   "te": "చామదుంప",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "arbi",
+    "chama dumpa",
+    "taro",
+    "seppankizhangu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "radish",
+   "name": "Radish",
+   "te": "ముల్లంగి",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "mooli",
+    "mullangi",
+    "daikon"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "turnip",
+   "name": "Turnip",
+   "te": "టర్నిప్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "shalgam"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "green-peas",
+   "name": "Green peas",
+   "te": "బఠాణీ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "matar",
+    "batani",
+    "peas"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "sweet-corn",
+   "name": "Sweet corn",
+   "te": "మొక్కజొన్న",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "corn",
+    "bhutta",
+    "mokka jonna",
+    "maize"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "mushroom",
+   "name": "Mushroom",
+   "te": "పుట్టగొడుగులు",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "button mushroom",
+    "puttagodugu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ivy-gourd",
+   "name": "Ivy gourd (dondakaya)",
+   "te": "దొండకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "dondakaya",
+    "tindora",
+    "kovakkai",
+    "tondli"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "banana-stem",
+   "name": "Banana stem",
+   "te": "అరటి దూట",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "vazhaithandu",
+    "aratidoota"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "banana-flower",
+   "name": "Banana flower",
+   "te": "అరటి పువ్వు",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "vazhaipoo",
+    "aratipuvvu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "raw-jackfruit",
+   "name": "Raw jackfruit",
+   "te": "పనస కాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "kathal",
+    "panasakaya",
+    "kadgi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "spring-onion",
+   "name": "Spring onion",
+   "te": "ఉల్లికాడలు",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "scallion",
+    "green onion",
+    "ullikadalu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "broccoli",
+   "name": "Broccoli",
+   "te": "బ్రోకలీ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "zucchini",
+   "name": "Zucchini",
+   "te": "జుకినీ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "courgette"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "lemon",
+   "name": "Lemon",
+   "te": "నిమ్మకాయ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "lime",
+    "nimbu",
+    "nimmakaya"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "apple-gourd",
+   "name": "Tinda (apple gourd)",
+   "te": "టిండా",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "round gourd",
+    "tinda",
+    "apple gourd"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "chayote",
+   "name": "Chayote (chow chow)",
+   "te": "చౌచౌ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "chow chow",
+    "bangalore brinjal",
+    "seemai vazhakkai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "kohlrabi",
+   "name": "Kohlrabi",
+   "te": "నూల్‌కోల్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "knol khol",
+    "nol kol"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pointed-gourd",
+   "name": "Pointed gourd",
+   "te": "పరవల్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "parwal",
+    "potol"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "lotus-stem",
+   "name": "Lotus stem",
+   "te": "తామర కాడ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "kamal kakdi",
+    "nadru"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "bell-pepper-red",
+   "name": "Red or yellow capsicum",
+   "te": "ఎర్ర క్యాప్సికం",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "red bell pepper",
+    "yellow bell pepper"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "lettuce",
+   "name": "Lettuce",
+   "te": "లెట్యూస్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "salad leaves",
+    "iceberg"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "celery",
+   "name": "Celery",
+   "te": "సెలెరీ",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "baby-corn",
+   "name": "Baby corn",
+   "te": "బేబీ కార్న్",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "babycorn"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "green-mango-ginger",
+   "name": "Mango ginger",
+   "te": "మామిడి అల్లం",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "amba haldi",
+    "mamidi allam"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "raw-papaya",
+   "name": "Raw papaya",
+   "te": "పచ్చి బొప్పాయి",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "papaya raw",
+    "boppayi kaya"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "mixed-vegetables",
+   "name": "Mixed vegetables (frozen or sambar mix)",
+   "te": "మిక్స్‌డ్ కూరగాయలు",
+   "group": "vegetables",
+   "diet": "vegan",
+   "aliases": [
+    "sambar vegetables",
+    "frozen mixed vegetables",
+    "mix veg"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "gongura",
+   "name": "Gongura (sorrel leaves)",
+   "te": "గోంగూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "roselle leaves",
+    "pulicha keerai",
+    "ambadi",
+    "sorrel"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "spinach",
+   "name": "Spinach",
+   "te": "పాలకూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "palak",
+    "keerai",
+    "palakura"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "fenugreek-leaves",
+   "name": "Fenugreek leaves (methi)",
+   "te": "మెంతికూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "methi",
+    "menthi kura",
+    "venthaya keerai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "amaranth-leaves",
+   "name": "Amaranth leaves",
+   "te": "తోటకూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "thotakura",
+    "chaulai",
+    "thandu keerai",
+    "araikeerai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "drumstick-leaves",
+   "name": "Drumstick leaves",
+   "te": "మునగాకు",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "munagaku",
+    "moringa leaves",
+    "murungai keerai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "chukka-kura",
+   "name": "Chukka kura (sour greens)",
+   "te": "చుక్కకూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "chukkakura",
+    "sour dock",
+    "bathua"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ponnaganti",
+   "name": "Ponnaganti kura",
+   "te": "పొన్నగంటి కూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "ponnanganni",
+    "alternanthera",
+    "dwarf copperleaf"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "dill-leaves",
+   "name": "Dill leaves",
+   "te": "సోయకూర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "soya kura",
+    "shepu",
+    "suva bhaji",
+    "sabsiga"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "mustard-greens",
+   "name": "Mustard greens",
+   "te": "ఆవాల ఆకులు",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "sarson",
+    "sarson ka saag"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "mixed-greens",
+   "name": "Other leafy greens",
+   "te": "ఇతర ఆకుకూరలు",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "kale",
+    "mixed greens",
+    "collard",
+    "lettuce greens"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pudina",
+   "name": "Mint leaves",
+   "te": "పుదీనా",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "mint",
+    "pudina",
+    "pudhina"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "coriander-leaves",
+   "name": "Coriander leaves",
+   "te": "కొత్తిమీర",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "cilantro",
+    "dhania",
+    "kothimeera",
+    "kothamalli"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "curry-leaves",
+   "name": "Curry leaves",
+   "te": "కరివేపాకు",
+   "group": "leafy",
+   "diet": "vegan",
+   "aliases": [
+    "kadi patta",
+    "karivepaku",
+    "kariveppilai"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "rice",
+   "name": "Rice (white)",
+   "te": "బియ్యం",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "chawal",
+    "biyyam",
+    "arisi",
+    "sona masoori",
+    "basmati",
+    "raw rice"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "brown-rice",
+   "name": "Brown rice",
+   "te": "దంపుడు బియ్యం",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "red rice",
+    "unpolished rice",
+    "hand pounded rice"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "wheat-flour",
+   "name": "Wheat flour (atta)",
+   "te": "గోధుమ పిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "atta",
+    "godhuma pindi",
+    "whole wheat flour",
+    "chapati flour"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "broken-wheat",
+   "name": "Broken wheat (dalia)",
+   "te": "గోధుమ రవ్వ",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "dalia",
+    "daliya",
+    "godhuma rava",
+    "cracked wheat",
+    "samba rava"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ragi",
+   "name": "Ragi (finger millet)",
+   "te": "రాగులు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "finger millet",
+    "ragi flour",
+    "nachni",
+    "raagi",
+    "ragi pindi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "jowar",
+   "name": "Jowar (sorghum)",
+   "te": "జొన్నలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "sorghum",
+    "jonna",
+    "jowar flour",
+    "cholam"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "bajra",
+   "name": "Bajra (pearl millet)",
+   "te": "సజ్జలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "pearl millet",
+    "sajja",
+    "kambu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "oats",
+   "name": "Oats",
+   "te": "ఓట్స్",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "rolled oats",
+    "quick oats",
+    "oatmeal"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "foxtail-millet",
+   "name": "Foxtail millet (korralu)",
+   "te": "కొర్రలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "korra",
+    "thinai",
+    "kangni",
+    "navane",
+    "foxtail"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "little-millet",
+   "name": "Little millet (samalu)",
+   "te": "సామలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "samai",
+    "kutki",
+    "saame",
+    "samalu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "barnyard-millet",
+   "name": "Barnyard millet (udalu)",
+   "te": "ఊదలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "udalu",
+    "sanwa",
+    "kuthiraivali",
+    "oodalu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "kodo-millet",
+   "name": "Kodo millet (arikalu)",
+   "te": "అరికెలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "arikalu",
+    "varagu",
+    "kodra",
+    "harka"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "browntop-millet",
+   "name": "Browntop millet (andu korralu)",
+   "te": "అండు కొర్రలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "andu korralu",
+    "positive millet",
+    "siridhanya"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "semolina",
+   "name": "Semolina (rava)",
+   "te": "బొంబాయి రవ్వ",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "rava",
+    "sooji",
+    "suji",
+    "rawa",
+    "bombay rava"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "poha",
+   "name": "Poha (flattened rice)",
+   "te": "అటుకులు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "atukulu",
+    "aval",
+    "avalakki",
+    "chivda rice"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "vermicelli",
+   "name": "Vermicelli (semiya)",
+   "te": "సేమియా",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "semiya",
+    "seviyan",
+    "shavige"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "idli-batter",
+   "name": "Idli / dosa batter",
+   "te": "ఇడ్లీ దోశ పిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "dosa batter",
+    "idli batter",
+    "dosa maavu",
+    "batter"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "bread",
+   "name": "Bread",
+   "te": "బ్రెడ్",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "brown bread",
+    "sandwich bread",
+    "pav"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "besan",
+   "name": "Besan (gram flour)",
+   "te": "శనగపిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "gram flour",
+    "senaga pindi",
+    "chickpea flour",
+    "kadalai maavu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "maida",
+   "name": "Maida (refined flour)",
+   "te": "మైదా",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "all purpose flour",
+    "plain flour"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sabudana",
+   "name": "Sabudana (sago)",
+   "te": "సగ్గుబియ్యం",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "saggubiyyam",
+    "javvarisi",
+    "tapioca pearls",
+    "sago"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "quinoa",
+   "name": "Quinoa",
+   "te": "క్వినోవా",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "puffed-rice",
+   "name": "Puffed rice (murmura)",
+   "te": "మురుమురాలు",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "murmura",
+    "borugulu",
+    "pori",
+    "mamra"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "rice-flour",
+   "name": "Rice flour",
+   "te": "బియ్యప్పిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "biyyapu pindi",
+    "arisi maavu",
+    "akki hittu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pasta",
+   "name": "Pasta or noodles",
+   "te": "పాస్తా",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "macaroni",
+    "noodles",
+    "spaghetti",
+    "penne"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "corn-flour",
+   "name": "Corn flour or makki atta",
+   "te": "మొక్కజొన్న పిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "makki atta",
+    "maize flour",
+    "cornmeal"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "multigrain-flour",
+   "name": "Multigrain flour",
+   "te": "మల్టీగ్రెయిన్ పిండి",
+   "group": "staples",
+   "diet": "vegan",
+   "aliases": [
+    "mixed millet flour",
+    "atta mix"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "toor-dal",
+   "name": "Toor dal (arhar)",
+   "te": "కందిపప్పు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "kandi pappu",
+    "tur dal",
+    "tuvar dal",
+    "pigeon pea",
+    "arhar"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "moong-dal",
+   "name": "Moong dal (yellow)",
+   "te": "పెసరపప్పు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "pesara pappu",
+    "mung dal",
+    "split green gram",
+    "yellow moong"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "green-moong",
+   "name": "Green moong (whole)",
+   "te": "పెసలు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "pesalu",
+    "whole moong",
+    "green gram",
+    "sabut moong",
+    "pachai payaru"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "masoor-dal",
+   "name": "Masoor dal (red lentils)",
+   "te": "ఎర్ర పప్పు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "erra pappu",
+    "red lentil",
+    "masur dal"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "chana-dal",
+   "name": "Chana dal",
+   "te": "శనగపప్పు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "senaga pappu",
+    "bengal gram dal",
+    "split chickpea",
+    "kadalai paruppu"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "urad-dal",
+   "name": "Urad dal",
+   "te": "మినపప్పు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "minapa pappu",
+    "black gram dal",
+    "ulundu",
+    "white urad"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "black-urad",
+   "name": "Whole black urad",
+   "te": "మినుములు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "minumulu",
+    "sabut urad",
+    "black gram",
+    "kaali dal"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "rajma",
+   "name": "Rajma (kidney beans)",
+   "te": "రాజ్మా",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "kidney beans",
+    "red beans",
+    "chikkudu ginjalu"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "chickpeas",
+   "name": "Kabuli chana (chickpeas)",
+   "te": "శనగలు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "chole",
+    "senagalu",
+    "white chana",
+    "chana",
+    "garbanzo"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "black-chana",
+   "name": "Black chana",
+   "te": "నల్ల శనగలు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "kala chana",
+    "desi chana",
+    "brown chickpeas"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "lobia",
+   "name": "Lobia (black-eyed peas)",
+   "te": "బొబ్బర్లు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "bobbarlu",
+    "alasandalu",
+    "cowpea",
+    "karamani",
+    "chawli"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "horse-gram",
+   "name": "Horse gram",
+   "te": "ఉలవలు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "ulavalu",
+    "kollu",
+    "kulthi",
+    "hurali"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "dried-peas",
+   "name": "Dried white or green peas",
+   "te": "ఎండు బఠాణీ",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "safed matar",
+    "vatana",
+    "dry peas"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "soya-chunks",
+   "name": "Soya chunks",
+   "te": "సోయా చంక్స్",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "nutrela",
+    "meal maker",
+    "soya granules",
+    "soy chunks"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "sprouts",
+   "name": "Sprouts (mixed)",
+   "te": "మొలకలు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "mulakalu",
+    "sprouted moong",
+    "sprouted pulses",
+    "moong sprouts"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "field-beans",
+   "name": "Field beans (mochai)",
+   "te": "అనుములు",
+   "group": "pulses",
+   "diet": "vegan",
+   "aliases": [
+    "anumulu",
+    "mochai",
+    "avarekalu",
+    "val"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "egg",
+   "name": "Egg",
+   "te": "గుడ్డు",
+   "group": "protein",
+   "diet": "egg",
+   "aliases": [
+    "eggs",
+    "anda",
+    "kodi guddu",
+    "muttai"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "chicken",
+   "name": "Chicken",
+   "te": "చికెన్",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "kodi",
+    "murgh",
+    "kozhi",
+    "chicken breast",
+    "chicken curry cut"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "mutton",
+   "name": "Mutton (goat)",
+   "te": "మటన్",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "goat meat",
+    "lamb",
+    "mamsam",
+    "bakra"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "fish",
+   "name": "Fish",
+   "te": "చేప",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "chepa",
+    "meen",
+    "machli",
+    "rohu",
+    "pomfret",
+    "seer fish",
+    "sardine",
+    "mackerel",
+    "tuna",
+    "surmai"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "prawns",
+   "name": "Prawns",
+   "te": "రొయ్యలు",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "shrimp",
+    "royyalu",
+    "eral",
+    "jhinga"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "crab",
+   "name": "Crab",
+   "te": "పీత",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "peethalu",
+    "nandu",
+    "kekda"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "dried-fish",
+   "name": "Dried fish",
+   "te": "ఎండు చేప",
+   "group": "protein",
+   "diet": "non",
+   "aliases": [
+    "karuvadu",
+    "endu chepa",
+    "sukha bombil",
+    "nethili"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "paneer",
+   "name": "Paneer",
+   "te": "పనీర్",
+   "group": "protein",
+   "diet": "veg",
+   "aliases": [
+    "cottage cheese",
+    "panir"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "tofu",
+   "name": "Tofu",
+   "te": "టోఫు",
+   "group": "protein",
+   "diet": "vegan",
+   "aliases": [
+    "bean curd",
+    "soya paneer"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "curd",
+   "name": "Curd (yogurt)",
+   "te": "పెరుగు",
+   "group": "dairy",
+   "diet": "veg",
+   "aliases": [
+    "dahi",
+    "yogurt",
+    "yoghurt",
+    "perugu",
+    "thayir",
+    "set curd"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "milk",
+   "name": "Milk",
+   "te": "పాలు",
+   "group": "dairy",
+   "diet": "veg",
+   "aliases": [
+    "paalu",
+    "doodh",
+    "cow milk",
+    "buffalo milk",
+    "toned milk"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "buttermilk",
+   "name": "Buttermilk",
+   "te": "మజ్జిగ",
+   "group": "dairy",
+   "diet": "veg",
+   "aliases": [
+    "chaas",
+    "majjiga",
+    "mor",
+    "lassi",
+    "chaach"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "cheese",
+   "name": "Cheese",
+   "te": "చీజ్",
+   "group": "dairy",
+   "diet": "veg",
+   "aliases": [
+    "cheese slice",
+    "cheddar",
+    "mozzarella",
+    "processed cheese"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "greek-yogurt",
+   "name": "Greek yogurt or hung curd",
+   "te": "గ్రీక్ యోగర్ట్",
+   "group": "dairy",
+   "diet": "veg",
+   "aliases": [
+    "hung curd",
+    "thick curd",
+    "high protein curd"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "banana",
+   "name": "Banana",
+   "te": "అరటిపండు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "kela",
+    "arati pandu",
+    "yelakki",
+    "nendran"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "apple",
+   "name": "Apple",
+   "te": "ఆపిల్",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "seb"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "orange",
+   "name": "Orange",
+   "te": "నారింజ",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "santra",
+    "narinja",
+    "mandarin"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sweet-lime",
+   "name": "Sweet lime (mosambi)",
+   "te": "బత్తాయి",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "mosambi",
+    "battayi",
+    "sathukudi"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "mango",
+   "name": "Mango (ripe)",
+   "te": "మామిడిపండు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "aam",
+    "mamidi pandu",
+    "ripe mango"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "papaya",
+   "name": "Papaya (ripe)",
+   "te": "బొప్పాయి",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "papita",
+    "boppayi",
+    "ripe papaya"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "guava",
+   "name": "Guava",
+   "te": "జామ",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "amrood",
+    "jama",
+    "peru"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "watermelon",
+   "name": "Watermelon",
+   "te": "పుచ్చకాయ",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "tarbooz",
+    "puchakaya"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "muskmelon",
+   "name": "Muskmelon",
+   "te": "ఖర్బూజా",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "kharbuza",
+    "cantaloupe",
+    "sakkarai pazham"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "grapes",
+   "name": "Grapes",
+   "te": "ద్రాక్ష",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "angoor",
+    "draksha"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pomegranate",
+   "name": "Pomegranate",
+   "te": "దానిమ్మ",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "anar",
+    "danimma"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pineapple",
+   "name": "Pineapple",
+   "te": "అనాసపండు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "ananas",
+    "anasapandu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sapota",
+   "name": "Sapota (chikoo)",
+   "te": "సపోటా",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "chikoo",
+    "chikku",
+    "sapodilla"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "custard-apple",
+   "name": "Custard apple",
+   "te": "సీతాఫలం",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "sitaphal",
+    "seethaphalam",
+    "sharifa"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pear",
+   "name": "Pear",
+   "te": "పియర్",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "nashpati"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "kiwi",
+   "name": "Kiwi",
+   "te": "కివి",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "dates",
+   "name": "Dates",
+   "te": "ఖర్జూరం",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "khajur",
+    "kharjuram",
+    "dry dates"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "amla",
+   "name": "Amla (gooseberry)",
+   "te": "ఉసిరి",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "usirikaya",
+    "indian gooseberry",
+    "nellikai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "jamun",
+   "name": "Jamun",
+   "te": "నేరేడు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "neredu",
+    "java plum",
+    "naval"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "berries",
+   "name": "Berries",
+   "te": "బెర్రీలు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "strawberry",
+    "blueberry",
+    "mulberry",
+    "raspberry"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "jackfruit",
+   "name": "Jackfruit (ripe)",
+   "te": "పనస తొనలు",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "panasa",
+    "ripe jackfruit",
+    "kathal ripe"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "litchi",
+   "name": "Litchi",
+   "te": "లిచీ",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "lychee"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "tender-coconut",
+   "name": "Tender coconut",
+   "te": "లేత కొబ్బరి",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "elaneer",
+    "bondam",
+    "nariyal pani"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "fig",
+   "name": "Fig (anjeer)",
+   "te": "అంజీర",
+   "group": "fruits",
+   "diet": "vegan",
+   "aliases": [
+    "anjeer",
+    "athi pazham"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "groundnut-oil",
+   "name": "Groundnut oil",
+   "te": "వేరుశనగ నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [
+    "peanut oil",
+    "palli noone",
+    "singdana tel"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sesame-oil",
+   "name": "Sesame oil",
+   "te": "నువ్వుల నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [
+    "gingelly oil",
+    "nuvvula noone",
+    "til oil",
+    "nallennai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "coconut-oil",
+   "name": "Coconut oil",
+   "te": "కొబ్బరి నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [
+    "kobbari noone",
+    "thengai ennai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sunflower-oil",
+   "name": "Sunflower oil",
+   "te": "పొద్దుతిరుగుడు నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [
+    "refined oil",
+    "vegetable oil",
+    "cooking oil"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "mustard-oil",
+   "name": "Mustard oil",
+   "te": "ఆవ నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [
+    "sarson ka tel",
+    "kadugu ennai"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "olive-oil",
+   "name": "Olive oil",
+   "te": "ఆలివ్ నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "rice-bran-oil",
+   "name": "Rice bran oil",
+   "te": "రైస్ బ్రాన్ నూనె",
+   "group": "oils",
+   "diet": "vegan",
+   "aliases": [],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "ghee",
+   "name": "Ghee",
+   "te": "నెయ్యి",
+   "group": "oils",
+   "diet": "veg",
+   "aliases": [
+    "clarified butter",
+    "neyyi",
+    "desi ghee"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "butter",
+   "name": "Butter",
+   "te": "వెన్న",
+   "group": "oils",
+   "diet": "veg",
+   "aliases": [
+    "makhan",
+    "amul butter",
+    "white butter"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "peanuts",
+   "name": "Peanuts (groundnuts)",
+   "te": "వేరుశనగ",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "groundnut",
+    "palli",
+    "moongfali",
+    "verusenaga",
+    "kadalekai"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "almonds",
+   "name": "Almonds",
+   "te": "బాదం",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "badam"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "cashews",
+   "name": "Cashews",
+   "te": "జీడిపప్పు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "kaju",
+    "jeedipappu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "walnuts",
+   "name": "Walnuts",
+   "te": "అక్రోట్",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "akhrot"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "pistachios",
+   "name": "Pistachios",
+   "te": "పిస్తా",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "pista"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "coconut",
+   "name": "Coconut (fresh or dry)",
+   "te": "కొబ్బరి",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "kobbari",
+    "nariyal",
+    "thengai",
+    "desiccated coconut",
+    "copra"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "sesame-seeds",
+   "name": "Sesame seeds",
+   "te": "నువ్వులు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "til",
+    "nuvvulu",
+    "ellu"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "flax-seeds",
+   "name": "Flax seeds",
+   "te": "అవిసె గింజలు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "alsi",
+    "avise ginjalu",
+    "linseed"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "chia-seeds",
+   "name": "Chia seeds",
+   "te": "చియా విత్తనాలు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "sabja"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "pumpkin-seeds",
+   "name": "Pumpkin seeds",
+   "te": "గుమ్మడి గింజలు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "pepitas",
+    "kaddu seeds"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "sunflower-seeds",
+   "name": "Sunflower seeds",
+   "te": "పొద్దుతిరుగుడు గింజలు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "surajmukhi seeds"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "jaggery",
+   "name": "Jaggery",
+   "te": "బెల్లం",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "gur",
+    "bellam",
+    "vellam"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "honey",
+   "name": "Honey",
+   "te": "తేనె",
+   "group": "extras",
+   "diet": "veg",
+   "aliases": [
+    "madhu",
+    "then"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "raisins",
+   "name": "Raisins",
+   "te": "కిస్మిస్",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "kishmish",
+    "dry grapes",
+    "munthiri"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "makhana",
+   "name": "Makhana (fox nuts)",
+   "te": "మఖానా",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "phool makhana",
+    "lotus seeds",
+    "fox nuts"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "roasted-chana",
+   "name": "Roasted chana (putnalu)",
+   "te": "వేయించిన శనగలు",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "putnalu",
+    "pappulu",
+    "bhuna chana",
+    "fried gram",
+    "roasted gram"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "sugar",
+   "name": "Sugar",
+   "te": "చక్కెర",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "chini",
+    "sakkara",
+    "panchadara"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "peanut-butter",
+   "name": "Peanut butter",
+   "te": "పీనట్ బటర్",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "pb",
+    "groundnut butter"
+   ],
+   "protein": true,
+   "assumed": false
+  },
+  {
+   "id": "dry-fruits",
+   "name": "Dry fruits mix",
+   "te": "డ్రై ఫ్రూట్స్",
+   "group": "extras",
+   "diet": "vegan",
+   "aliases": [
+    "mixed nuts",
+    "trail mix",
+    "dry fruit"
+   ],
+   "protein": false,
+   "assumed": false
+  },
+  {
+   "id": "salt",
+   "name": "Salt",
+   "te": "ఉప్పు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "namak",
+    "uppu",
+    "rock salt"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "turmeric",
+   "name": "Turmeric",
+   "te": "పసుపు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "haldi",
+    "pasupu",
+    "manjal"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "red-chilli-powder",
+   "name": "Red chilli powder",
+   "te": "కారం",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "karam",
+    "lal mirch",
+    "chilli powder",
+    "molaga podi"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "green-chilli",
+   "name": "Green chilli",
+   "te": "పచ్చిమిర్చి",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "pachi mirchi",
+    "hari mirch",
+    "pachai milagai"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "ginger",
+   "name": "Ginger",
+   "te": "అల్లం",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "adrak",
+    "allam",
+    "inji"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "garlic",
+   "name": "Garlic",
+   "te": "వెల్లుల్లి",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "lehsun",
+    "vellulli",
+    "poondu"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "mustard-seeds",
+   "name": "Mustard seeds",
+   "te": "ఆవాలు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "rai",
+    "avalu",
+    "kadugu",
+    "sarson"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "cumin",
+   "name": "Cumin seeds",
+   "te": "జీలకర్ర",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "jeera",
+    "jeelakarra",
+    "jeerakam"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "coriander-powder",
+   "name": "Coriander powder",
+   "te": "ధనియాల పొడి",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "dhania powder",
+    "dhaniyalu",
+    "malli podi"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "garam-masala",
+   "name": "Garam masala",
+   "te": "గరం మసాలా",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "masala powder",
+    "curry powder",
+    "kitchen king"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "pepper",
+   "name": "Black pepper",
+   "te": "మిరియాలు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "kali mirch",
+    "miriyalu",
+    "milagu"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "tamarind",
+   "name": "Tamarind",
+   "te": "చింతపండు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "imli",
+    "chintapandu",
+    "puli"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "asafoetida",
+   "name": "Asafoetida (hing)",
+   "te": "ఇంగువ",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "hing",
+    "inguva",
+    "perungayam"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "cardamom",
+   "name": "Cardamom and cloves",
+   "te": "యాలకులు లవంగాలు",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "elaichi",
+    "elakulu",
+    "laung",
+    "clove",
+    "cinnamon",
+    "whole spices"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "sambar-powder",
+   "name": "Sambar or rasam powder",
+   "te": "సాంబార్ పొడి",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "rasam powder",
+    "sambar masala",
+    "charu podi"
+   ],
+   "protein": false,
+   "assumed": true
+  },
+  {
+   "id": "kasuri-methi",
+   "name": "Dried fenugreek (kasuri methi)",
+   "te": "ఎండు మెంతికూర",
+   "group": "pantry",
+   "diet": "vegan",
+   "aliases": [
+    "kasoori methi",
+    "dry methi"
+   ],
+   "protein": false,
+   "assumed": true
+  }
+ ]
+}

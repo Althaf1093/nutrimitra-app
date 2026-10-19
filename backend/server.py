@@ -31,6 +31,7 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 from pydantic_core import PydanticCustomError
 
 import foods
+import kitchen
 import legal
 import mailer
 import vision
@@ -75,6 +76,7 @@ logger = logging.getLogger("nutrimitra")
 INDEXES = [
     ("users", [("id", ASCENDING)], {"unique": True, "name": "id_unique"}),
     ("profiles", [("user_id", ASCENDING)], {"name": "user_id"}),
+    ("kitchens", [("user_id", ASCENDING)], {"name": "user_id_unique", "unique": True}),
     ("permissions", [("user_id", ASCENDING)], {"name": "user_id"}),
     ("reminders", [("user_id", ASCENDING)], {"name": "user_id"}),
     ("meals", [("user_id", ASCENDING), ("date", ASCENDING)], {"name": "user_date"}),
@@ -99,7 +101,7 @@ INDEXES = [
 
 # Every collection that holds a person's data by user_id. Account deletion clears all of them (then the users row itself);
 # add new per-user collections here, and a test fails if one is missed.
-USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets", "email_verifications"]
+USER_DATA_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets", "email_verifications"]
 
 
 async def ensure_email_index() -> bool:
@@ -737,6 +739,76 @@ async def save_profile(payload: ProfileInput, user: Dict[str, Any] = Depends(cur
     await db.profiles.update_one({"user_id": user["id"]}, {"$set": profile}, upsert=True)
     await db.users.update_one({"id": user["id"]}, {"$set": {"onboarding_complete": True, "language": payload.language}})
     return {"profile": profile}
+
+
+class KitchenInput(BaseModel):
+    items: List[str] = Field(default_factory=list, max_length=kitchen.MAX_ITEMS)
+    meals_per_day: int = Field(default=3, ge=kitchen.MIN_MEALS, le=kitchen.MAX_MEALS)
+    household_size: int = Field(default=2, ge=kitchen.MIN_PEOPLE, le=kitchen.MAX_PEOPLE)
+    cooking_time: Optional[str] = None
+
+    @field_validator("cooking_time")
+    @classmethod
+    def known_cooking_time(cls, value: Optional[str]) -> Optional[str]:
+        if value is not None and value not in kitchen.COOKING_TIMES:
+            raise ValueError("Pick one of the cooking times offered.")
+        return value
+
+
+def public_kitchen(doc: Optional[Dict[str, Any]], profile: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """The saved kitchen as the app sees it. Items that no longer fit the diet (it may have changed since) are left out."""
+    if not doc:
+        return None
+    allowed = {item.id for item in kitchen.catalogue.visible((profile or {}).get("dietary_preferences", []), kitchen.profile_exclusions(profile))}
+    return {
+        "items": [iid for iid in doc.get("items", []) if iid in allowed],
+        "meals_per_day": doc.get("meals_per_day", 3),
+        "household_size": doc.get("household_size", 2),
+        "cooking_time": doc.get("cooking_time"),
+        "updated_at": doc.get("updated_at"),
+    }
+
+
+@api_router.get("/kitchen/ingredients")
+async def kitchen_ingredients(q: str = "", diet: Optional[str] = None, exclude: Optional[str] = None, user: Dict[str, Any] = Depends(current_user)):
+    """The ingredients this person may pick, by group. `diet` and `exclude` (comma separated) stand in for the saved profile,
+    which does not exist yet while they are still in onboarding."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    preferences = [part for part in diet.split(",")] if diet is not None else profile.get("dietary_preferences", [])
+    exclusions = [part for part in exclude.split(",")] if exclude is not None else kitchen.profile_exclusions(profile)
+    visible = kitchen.catalogue.search(kitchen.catalogue.visible(preferences, exclusions), q[:60])
+    return {"groups": kitchen.GROUPS, "ingredients": [item.public() for item in visible]}
+
+
+@api_router.get("/kitchen")
+async def get_kitchen(user: Dict[str, Any] = Depends(current_user)):
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    return {"configured": doc is not None, "kitchen": public_kitchen(doc, profile)}
+
+
+@api_router.put("/kitchen")
+async def put_kitchen(payload: KitchenInput, user: Dict[str, Any] = Depends(current_user)):
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
+    items, problems = kitchen.clean_kitchen_items(payload.items, (profile or {}).get("dietary_preferences", []), kitchen.profile_exclusions(profile))
+    if problems:
+        raise HTTPException(status_code=422, detail=problems[0])
+    doc = {"user_id": user["id"], "items": items, "meals_per_day": payload.meals_per_day, "household_size": payload.household_size, "cooking_time": payload.cooking_time, "updated_at": now_iso()}
+    await db.kitchens.update_one({"user_id": user["id"]}, {"$set": doc}, upsert=True)
+    return {"configured": True, "kitchen": public_kitchen(doc, profile)}
+
+
+# What "Export my data" returns: everything stored about the person except sign-in secrets, sessions and one-time codes.
+EXPORT_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records"]
+
+
+@api_router.get("/account/export")
+async def export_account(request: Request, user: Dict[str, Any] = Depends(current_user)):
+    check_auth_rate_limit(request, "export", user.get("email"))
+    data: Dict[str, Any] = {"exported_at": now_iso(), "user": public_user(user)}
+    for name in EXPORT_COLLECTIONS:
+        data[name] = await db[name].find({"user_id": user["id"]}, {"_id": 0, "user_id": 0}).to_list(5000)
+    return data
 
 
 def calorie_target(profile: Dict[str, Any]) -> int:

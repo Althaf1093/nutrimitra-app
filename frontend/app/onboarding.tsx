@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 import { put } from "@/src/api";
+import { KitchenEditor, type KitchenDraft } from "@/src/components/kitchen-editor";
 import { Button, Chip, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { optionLabel } from "@/src/i18n";
@@ -24,6 +25,8 @@ export default function OnboardingScreen() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [heightUnit, setHeightUnit] = useState<HeightUnit>("cm");
+  // The kitchen step is optional: nothing picked (or "Skip for now") means no kitchen is saved and plans stay general.
+  const [kitchen, setKitchen] = useState<Omit<KitchenDraft, "cooking_time">>({ items: [], meals_per_day: 3, household_size: 2 });
   const [draft, setDraft] = useState<Record<string, unknown>>({
     age: "30",
     sex: "Prefer not to say",
@@ -77,7 +80,7 @@ export default function OnboardingScreen() {
     setError("");
     setStep(step + 1);
   };
-  const finish = async () => {
+  const finish = async (withKitchen = true) => {
     if (!ageOk()) {
       setStep(0);
       setError(t.ageMustBe18);
@@ -100,6 +103,10 @@ export default function OnboardingScreen() {
         timezone: deviceTimezone(),
       };
       const result = await put<{ profile: Profile }>("/profile", payload);
+      if (withKitchen && kitchen.items.length > 0) {
+        // Saved after the profile (the server checks the items against the diet). If it fails the person can set it in Settings.
+        await put("/kitchen", { ...kitchen, cooking_time: String(draft.cooking_time) }).catch(() => undefined);
+      }
       completeOnboarding(result.profile);
       router.replace("/(tabs)");
     } catch (err) {
@@ -115,11 +122,11 @@ export default function OnboardingScreen() {
     <View style={styles.root} testID="onboarding-screen">
       <KeyboardAwareScrollView contentContainerStyle={styles.onboardingContent} keyboardShouldPersistTaps="handled">
         <View style={styles.stepTop}>
-          <Text style={styles.eyebrow}>WELLSTRIDE · {step + 1} / 3</Text>
-          <Text style={styles.stepCounter}>{step === 0 ? t.body : step === 1 ? t.preferences : t.rhythm}</Text>
+          <Text style={styles.eyebrow}>WELLSTRIDE · {step + 1} / 4</Text>
+          <Text style={styles.stepCounter}>{step === 0 ? t.body : step === 1 ? t.preferences : step === 2 ? t.rhythm : t.kitchenEyebrow}</Text>
         </View>
         <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, { width: `${((step + 1) / 3) * 100}%` }]} />
+          <View style={[styles.progressFill, { width: `${((step + 1) / 4) * 100}%` }]} />
         </View>
         <Text style={styles.sectionTitle}>{t.profileTitle}</Text>
         <Text style={styles.sectionSub}>{t.profileSub}</Text>
@@ -175,18 +182,22 @@ export default function OnboardingScreen() {
             <Field label={t.allergies} value={(draft.allergies as string[]).join(", ")} onChangeText={(v) => set("allergies", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder={t.placeholderAllergies} />
             <Field label={t.dislikes} value={(draft.disliked_foods as string[]).join(", ")} onChangeText={(v) => set("disliked_foods", v.split(",").map((x) => x.trim()).filter(Boolean))} placeholder={t.placeholderDislikes} />
           </View>
+        ) : step === 3 ? (
+          <KitchenEditor
+            value={{ ...kitchen, cooking_time: String(draft.cooking_time) }}
+            onChange={({ cooking_time, ...rest }) => {
+              setKitchen(rest);
+              set("cooking_time", cooking_time);
+            }}
+            diet={draft.dietary_preferences as string[]}
+            exclude={[...(draft.allergies as string[]), ...(draft.disliked_foods as string[])]}
+          />
         ) : (
           <View style={styles.formStack}>
             <Text style={styles.fieldLabel}>{t.activity}</Text>
             <View style={styles.chipWrap}>
               {activityLevels.map((item) => (
                 <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.activity_level === item} onPress={() => set("activity_level", item)} />
-              ))}
-            </View>
-            <Text style={styles.fieldLabel}>{t.cooking}</Text>
-            <View style={styles.chipWrap}>
-              {["Under 15 min", "20–30 min", "I enjoy cooking"].map((item) => (
-                <Chip key={item} label={item} text={optionLabel(t, item)} selected={draft.cooking_time === item} onPress={() => set("cooking_time", item)} />
               ))}
             </View>
             <Text style={styles.fieldLabel}>{t.budget}</Text>
@@ -205,7 +216,8 @@ export default function OnboardingScreen() {
         {error ? <Text style={styles.errorText} testID="onboarding-error">{error}</Text> : null}
         <View style={styles.stickyActions}>
           {step > 0 ? <Button label={t.back} onPress={() => setStep(step - 1)} secondary /> : null}
-          <Button testID="onboarding-next-button" label={busy ? t.saving : step === 2 ? t.finish : t.continueNext} onPress={step === 2 ? finish : next} disabled={busy} />
+          {step === 3 ? <Button testID="kitchen-skip-button" label={t.kitchenSkip} onPress={() => finish(false)} secondary disabled={busy} /> : null}
+          <Button testID="onboarding-next-button" label={busy ? t.saving : step === 3 ? t.finish : t.continueNext} onPress={step === 3 ? () => finish() : next} disabled={busy} />
         </View>
       </KeyboardAwareScrollView>
     </View>
