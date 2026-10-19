@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import uuid
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -17,7 +18,8 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import ReturnDocument
+from pymongo import ASCENDING, DESCENDING, ReturnDocument
+from pymongo.errors import DuplicateKeyError, OperationFailure
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 ROOT_DIR = Path(__file__).parent
@@ -35,10 +37,79 @@ DEFAULT_TIMEZONE = "Asia/Kolkata"
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
-app = FastAPI(title="NutriMitra API", version="1.0.0")
+logger = logging.getLogger("nutrimitra")
+
+# (collection, keys, options). Every query filters by user_id first, then by day or recency.
+INDEXES = [
+    ("users", [("id", ASCENDING)], {"unique": True, "name": "id_unique"}),
+    ("profiles", [("user_id", ASCENDING)], {"name": "user_id"}),
+    ("permissions", [("user_id", ASCENDING)], {"name": "user_id"}),
+    ("reminders", [("user_id", ASCENDING)], {"name": "user_id"}),
+    ("meals", [("user_id", ASCENDING), ("date", ASCENDING)], {"name": "user_date"}),
+    ("meals", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
+    ("activities", [("user_id", ASCENDING), ("date", ASCENDING)], {"name": "user_date"}),
+    ("activities", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
+    ("weights", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
+    ("coach_messages", [("user_id", ASCENDING), ("created_at", ASCENDING)], {"name": "user_created"}),
+    ("plans", [("user_id", ASCENDING), ("updated_at", DESCENDING)], {"name": "user_updated"}),
+    ("health_records", [("user_id", ASCENDING), ("start", ASCENDING)], {"name": "user_start"}),
+    ("health_records", [("user_id", ASCENDING), ("external_id", ASCENDING), ("source", ASCENDING)], {"name": "user_external"}),
+    ("user_sessions", [("session_token", ASCENDING)], {"name": "session_token"}),
+    # TTL: MongoDB removes a session once expires_at (a BSON date) has passed.
+    ("user_sessions", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
+]
+
+
+async def ensure_email_index() -> bool:
+    """Unique index on users.email. If existing data already has duplicates, report them and fall back to
+    a plain index (data is never deleted); signups still guard with find-then-insert. Returns True if unique."""
+    try:
+        await db.users.create_index([("email", ASCENDING)], unique=True, name="email_unique")
+        return True
+    except (DuplicateKeyError, OperationFailure) as exc:
+        duplicates = await db.users.aggregate([
+            {"$group": {"_id": {"$toLower": "$email"}, "count": {"$sum": 1}}},
+            {"$match": {"count": {"$gt": 1}}},
+        ]).to_list(100)
+        logger.error("users.email is not unique (%s); duplicates: %s. Created a non-unique index instead; resolve these accounts by hand.", exc, [(d["_id"], d["count"]) for d in duplicates])
+        await db.users.create_index([("email", ASCENDING)], name="email")
+        return False
+
+
+async def migrate_session_expiry() -> int:
+    """Older sessions stored expires_at as an ISO string, which a TTL index ignores; convert them to dates."""
+    converted = 0
+    async for session in db.user_sessions.find({"expires_at": {"$type": "string"}}, {"_id": 1, "expires_at": 1}):
+        expiry = parse_expiry(session["expires_at"])
+        if expiry:
+            await db.user_sessions.update_one({"_id": session["_id"]}, {"$set": {"expires_at": expiry}})
+            converted += 1
+    return converted
+
+
+async def ensure_indexes() -> None:
+    """Idempotent: create_index is a no-op when an identical index already exists."""
+    await ensure_email_index()
+    for collection, keys, options in INDEXES:
+        try:
+            await db[collection].create_index(keys, **options)
+        except OperationFailure as exc:
+            logger.error("Could not create index %s on %s: %s", options.get("name"), collection, exc)
+    converted = await migrate_session_expiry()
+    if converted:
+        logger.info("Converted %d session expiry values to dates", converted)
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    await ensure_indexes()
+    yield
+    client.close()
+
+
+app = FastAPI(title="NutriMitra API", version="1.0.0", lifespan=lifespan)
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer(auto_error=False)
-logger = logging.getLogger("nutrimitra")
 
 
 class AuthInput(BaseModel):
@@ -140,6 +211,17 @@ async def user_clock(user_id: str) -> tuple:
     return profile, zone, local_today(zone)
 
 
+def parse_expiry(value: Any) -> Optional[datetime]:
+    """Session expiry as an aware UTC datetime, from a BSON date (read back naive) or a legacy ISO string."""
+    if isinstance(value, datetime):
+        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
 def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "id": doc.get("id", ""),
@@ -164,7 +246,9 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
         user_id = payload.get("sub")
     except jwt.PyJWTError:
         session = await db.user_sessions.find_one({"session_token": credentials.credentials}, {"_id": 0})
-        if session and str(session.get("expires_at", "")) > now_iso():
+        expiry = parse_expiry((session or {}).get("expires_at"))
+        # The TTL monitor runs about once a minute, so check expiry here as well.
+        if session and expiry and expiry > datetime.now(timezone.utc):
             user_id = session.get("user_id")
     if not user_id:
         raise HTTPException(status_code=401, detail="Session expired")
@@ -193,7 +277,11 @@ async def signup(payload: AuthInput):
         "onboarding_complete": False,
         "created_at": now_iso(),
     }
-    await db.users.insert_one(user)
+    try:
+        await db.users.insert_one(user)
+    except DuplicateKeyError as exc:
+        # Two signups for the same email raced past the check above; the unique index caught it.
+        raise HTTPException(status_code=409, detail="An account with this email already exists") from exc
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
@@ -247,12 +335,16 @@ async def auth_session(payload: SessionInput):
             "onboarding_complete": False,
             "created_at": now_iso(),
         }
-        await db.users.insert_one(user)
+        try:
+            await db.users.insert_one(user)
+        except DuplicateKeyError:
+            # A concurrent sign-in created the account first; use that one.
+            user = await db.users.find_one({"email": email}, {"_id": 0})
     session_token = data.get("session_token") or str(uuid.uuid4())
     await db.user_sessions.insert_one({
         "session_token": session_token,
         "user_id": user["id"],
-        "expires_at": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+        "expires_at": datetime.now(timezone.utc) + timedelta(days=7),
         "created_at": now_iso(),
     })
     return {"session_token": session_token, "user": public_user(user)}
@@ -1020,8 +1112,3 @@ async def health_summary(user: Dict[str, Any] = Depends(current_user)):
 
 app.include_router(api_router)
 app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
