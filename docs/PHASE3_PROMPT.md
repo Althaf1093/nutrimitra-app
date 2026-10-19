@@ -9,7 +9,7 @@ do Phase 3 (items 1-8 below) end to end without asking me anything unless you hi
 - Package / bundle ID (Android package and iOS bundleIdentifier): `in.inkbrief.wellstride`
 - URL scheme and slug: `wellstride`
 - Launch Android first; keep the iOS config valid but do not spend time on iOS-specific work.
-- Vision provider: **Groq vision first, Gemini Flash as fallback**, behind a provider interface so it can be swapped later.
+- Vision provider: **Gemini Flash** (owner's decision), behind a provider interface so it can be swapped later; Groq vision is kept only as an optional secondary.
 - Age rule: **18 and over** for the whole app (no minors).
 - Icon: generate a simple **placeholder** (see item 3); a designer will replace it later.
 - Theme colors: green #4A6B5D on cream #FDFBF7.
@@ -57,15 +57,15 @@ NEVER read, print or commit backend/.env or frontend/.env. Never put a key in an
    that existing adult profiles keep working.
 
 5. **Vision provider.** Create a provider interface in backend/server.py (or a small backend/vision.py) with two
-   implementations, tried in this order: (a) **Groq vision** first, because Groq's docs (console.groq.com/docs/vision)
-   list a non-preview vision model (`qwen/qwen3.8-27b` at the time of writing; up to 3 images, ~2,048 tokens per
-   image). Check why `pick_vision_model` previously found no vision model: its matching is probably outdated and
-   should accept the documented model ids; make the id configurable via GROQ_VISION_MODEL, and verify against the
-   real Groq API through the backend itself (without reading or printing any .env or key). (b) **Gemini Flash** as the
-   fallback or alternative, config via GEMINI_API_KEY (optional) and GEMINI_MODEL (default: look up the current
-   Gemini Flash model id in Google's official docs using WebSearch/WebFetch; do not guess). A VISION_PROVIDER env
-   (groq | gemini | auto, default auto) selects the order. Remove the Emergent vision package dependency. If no provider is configured, POST /coach/vision returns a clear 503 with a helpful message
-   (no crash, no 502). Never log image bytes. Add GEMINI_API_KEY and GEMINI_MODEL to backend/.env.example (placeholder
+   implementations: (a) **Gemini Flash** as the default. Config via env: GEMINI_API_KEY (optional), GEMINI_MODEL
+   (default: look up the current Gemini Flash model id in Google's official docs using WebSearch/WebFetch and use
+   that; do not guess). (b) **Groq vision** as an optional secondary: Groq's docs (console.groq.com/docs/vision) list
+   a non-preview vision model (`qwen/qwen3.8-27b` at the time of writing). Find out why `pick_vision_model`
+   previously found no vision model (its matching is probably outdated), make the id configurable via
+   GROQ_VISION_MODEL, and verify it through the backend itself without reading or printing any .env or key.
+   A VISION_PROVIDER env (gemini | groq | auto, default gemini; auto tries Gemini then Groq) selects the order.
+   Remove the Emergent vision package dependency. If no provider is configured, POST /coach/vision returns a clear
+   503 with a helpful message (no crash, no 502). Never log image bytes. Add GEMINI_API_KEY and GEMINI_MODEL to backend/.env.example (placeholder
    values only). Tests must NOT need a real key: use a local fake Gemini server like the fake Groq already used in
    the Phase 1 tests. Document in README how I add my key (I will paste it into backend/.env myself).
    The 3 known photo-recognition tests should pass against the fake provider or be updated to use it.
