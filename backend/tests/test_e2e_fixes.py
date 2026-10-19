@@ -19,4 +19,4 @@ class TestNoRequestWithoutAToken:
         boot = auth[auth.index("const boot = async () => {"):]
         assert boot.index("await getToken()") < boot.index("await applySession()")
         assert 'setStatus("anon")' in boot[: boot.index("await applySession()")]
-        assert "getToken" in auth.split("\n")[3]  # imported from the api module
+        assert "getToken" in auth[: auth.index("export function AuthProvider")], "imported from the api module"
