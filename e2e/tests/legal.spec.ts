@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import path from "node:path";
-import { expect, API, PASSWORD, test, uniqueEmail } from "../fixtures";
+import { expect, API, lastEmail, PASSWORD, test, uniqueEmail } from "../fixtures";
 
 // Phase 4: the Privacy Policy and Terms are reachable from the sign-up screen and from Settings.
 

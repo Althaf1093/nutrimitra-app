@@ -1,10 +1,13 @@
 import asyncio
+import hashlib
+import hmac
 from datetime import date, datetime, timedelta, timezone
 import json
 import logging
 import os
 import re
 import math
+import secrets
 import time
 import uuid
 from collections import deque
@@ -17,7 +20,7 @@ import bcrypt
 import httpx
 import jwt
 from dotenv import load_dotenv
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -28,6 +31,7 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 from pydantic_core import PydanticCustomError
 
 import legal
+import mailer
 import vision
 
 ROOT_DIR = Path(__file__).parent
@@ -81,6 +85,9 @@ INDEXES = [
     ("plans", [("user_id", ASCENDING), ("updated_at", DESCENDING)], {"name": "user_updated"}),
     ("health_records", [("user_id", ASCENDING), ("start", ASCENDING)], {"name": "user_start"}),
     ("health_records", [("user_id", ASCENDING), ("external_id", ASCENDING), ("source", ASCENDING)], {"name": "user_external"}),
+    ("password_resets", [("user_id", ASCENDING)], {"name": "user_id"}),
+    # TTL: an expired reset code disappears on its own (and is checked again when used).
+    ("password_resets", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
     ("user_sessions", [("session_token", ASCENDING)], {"name": "session_token"}),
     # TTL: MongoDB removes a session once expires_at (a BSON date) has passed.
     ("user_sessions", [("expires_at", ASCENDING)], {"name": "expires_ttl", "expireAfterSeconds": 0}),
@@ -89,7 +96,7 @@ INDEXES = [
 
 # Every collection that holds a person's data by user_id. Account deletion clears all of them (then the users row itself);
 # add new per-user collections here, and a test fails if one is missed.
-USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions"]
+USER_DATA_COLLECTIONS = ["profiles", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets"]
 
 
 async def ensure_email_index() -> bool:
@@ -346,7 +353,8 @@ def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def issue_token(user_id: str) -> str:
-    payload = {"sub": user_id, "exp": datetime.now(timezone.utc) + timedelta(hours=JWT_EXPIRE_HOURS)}
+    now = datetime.now(timezone.utc)
+    payload = {"sub": user_id, "iat": int(now.timestamp()), "exp": now + timedelta(hours=JWT_EXPIRE_HOURS)}
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
@@ -354,9 +362,11 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
     if not credentials:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Sign in to continue")
     user_id: Optional[str] = None
+    issued_at = 0
     try:
         payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("sub")
+        issued_at = int(payload.get("iat") or 0)
     except jwt.PyJWTError:
         session = await db.user_sessions.find_one({"session_token": credentials.credentials}, {"_id": 0})
         expiry = parse_expiry((session or {}).get("expires_at"))
@@ -368,6 +378,9 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
     user = await db.users.find_one({"id": user_id}, {"_id": 0})
     if not user:
         raise HTTPException(status_code=401, detail="Account not found")
+    # A password reset signs every earlier token out (they were issued before the change).
+    if user.get("password_changed_at") and issued_at < int(user["password_changed_at"]):
+        raise HTTPException(status_code=401, detail="Session expired")
     return user
 
 
@@ -430,6 +443,98 @@ async def login(payload: AuthInput, request: Request):
     # A successful sign-in clears the account's counter; the per-IP counter keeps running.
     auth_limiter.reset(f"login:email:{email}")
     return {"token": issue_token(user["id"]), "user": public_user(user)}
+
+
+RESET_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no 0/O/1/I, so a code read from an email is hard to mistype
+RESET_CODE_LENGTH = 8
+RESET_MINUTES = 30
+RESET_MAX_WRONG_CODES = 5
+FORGOT_MESSAGE = "If an account exists for this email, we have sent a reset code. It works for 30 minutes."
+RESET_INVALID = "That code is invalid or has expired. Please request a new one."
+
+
+class ForgotInput(BaseModel):
+    email: EmailStr
+
+
+class ResetInput(BaseModel):
+    email: EmailStr
+    code: str = Field(min_length=4, max_length=40)
+    new_password: str = Field(min_length=8, max_length=128)
+
+
+def normalize_code(code: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]", "", code).upper()
+
+
+def hash_code(code: str) -> str:
+    """Codes are stored only as a keyed hash, so a copy of the database cannot be used to reset anyone's password."""
+    return hmac.new(JWT_SECRET.encode(), normalize_code(code).encode(), hashlib.sha256).hexdigest()
+
+
+def reset_email_text(email: str, code: str) -> str:
+    from urllib.parse import quote
+
+    link = f"wellstride://reset-password?email={quote(email)}&code={code}"
+    lines = [
+        f"Your Wellstride password reset code is: {code}",
+        "",
+        "Open the app and enter it on the Reset password screen, or open this link on your phone:",
+        link,
+        "",
+        f"The code works once and expires in {RESET_MINUTES} minutes. If you did not ask for this, ignore this email; your password has not changed.",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+@api_router.post("/auth/forgot-password")
+async def forgot_password(payload: ForgotInput, request: Request, background: BackgroundTasks):
+    """Always answers the same way, whether or not the email has an account (no account enumeration)."""
+    email = payload.email.lower()
+    check_auth_rate_limit(request, "forgot", email)
+    user = await db.users.find_one({"email": email}, {"_id": 0})
+    if user and user.get("password_hash"):
+        code = "".join(secrets.choice(RESET_CODE_ALPHABET) for _ in range(RESET_CODE_LENGTH))
+        await db.password_resets.delete_many({"user_id": user["id"]})  # a new request replaces any earlier code
+        await db.password_resets.insert_one({
+            "user_id": user["id"],
+            "code_hash": hash_code(code),
+            "attempts": 0,
+            "created_at": now_iso(),
+            "expires_at": datetime.now(timezone.utc) + timedelta(minutes=RESET_MINUTES),
+        })
+        # Sent after the response goes out, so the time taken does not tell anyone whether the account exists.
+        background.add_task(mailer.send_email, email, "Your Wellstride password reset code", reset_email_text(email, code))
+    return {"ok": True, "message": FORGOT_MESSAGE}
+
+
+@api_router.post("/auth/reset-password")
+async def reset_password(payload: ResetInput, request: Request):
+    email = payload.email.lower()
+    check_auth_rate_limit(request, "reset", email)
+    user = await db.users.find_one({"email": email}, {"_id": 0})
+    record = await db.password_resets.find_one({"user_id": user["id"]}) if user else None
+    accepted = False
+    if record:
+        expiry = parse_expiry(record.get("expires_at"))
+        if expiry and expiry > datetime.now(timezone.utc):
+            if hmac.compare_digest(str(record.get("code_hash")), hash_code(payload.code)):
+                # Deleting the record is what spends the code: only one request can ever get it back.
+                accepted = await db.password_resets.find_one_and_delete({"_id": record["_id"]}) is not None
+            elif int(record.get("attempts", 0)) + 1 >= RESET_MAX_WRONG_CODES:
+                await db.password_resets.delete_one({"_id": record["_id"]})
+            else:
+                await db.password_resets.update_one({"_id": record["_id"]}, {"$inc": {"attempts": 1}})
+    if not accepted:
+        raise HTTPException(status_code=400, detail=RESET_INVALID)
+    await db.users.update_one({"id": user["id"]}, {"$set": {
+        "password_hash": bcrypt.hashpw(payload.new_password.encode(), bcrypt.gensalt()).decode(),
+        "password_changed_at": int(datetime.now(timezone.utc).timestamp()),
+    }})
+    await db.password_resets.delete_many({"user_id": user["id"]})
+    await db.user_sessions.delete_many({"user_id": user["id"]})
+    auth_limiter.reset(f"login:email:{email}")
+    return {"ok": True}
 
 
 GOOGLE_ISSUERS = {"accounts.google.com", "https://accounts.google.com"}
