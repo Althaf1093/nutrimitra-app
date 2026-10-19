@@ -322,21 +322,62 @@ class TestCors:
         assert server.parse_origins(" https://a.example.com/, http://localhost:8081 ,,") == ["https://a.example.com", "http://localhost:8081"]
 
     @pytest.mark.parametrize("origin", ["http://localhost:8081", "http://localhost:19006"])
-    def test_default_allows_expo_web(self, origin):
-        resp = preflight(BASE_URL, origin)
+    def test_default_allows_expo_web(self, default_backend, origin):
+        resp = preflight(default_backend, origin)
         assert resp.status_code == 200, resp.text
         assert resp.headers.get("access-control-allow-origin") == origin
         assert "authorization" in resp.headers.get("access-control-allow-headers", "").lower()
-        simple = requests.get(f"{BASE_URL}/api/", headers={"Origin": origin}, timeout=20)
+        simple = requests.get(f"{default_backend}/api/", headers={"Origin": origin}, timeout=20)
         assert simple.headers.get("access-control-allow-origin") == origin
 
-    def test_default_rejects_other_origins(self):
-        resp = preflight(BASE_URL, "https://evil.example.com")
+    def test_default_rejects_other_origins(self, default_backend):
+        resp = preflight(default_backend, "https://evil.example.com")
         assert resp.status_code == 400
         assert "access-control-allow-origin" not in resp.headers
-        simple = requests.get(f"{BASE_URL}/api/", headers={"Origin": "https://evil.example.com"}, timeout=20)
+        simple = requests.get(f"{default_backend}/api/", headers={"Origin": "https://evil.example.com"}, timeout=20)
         assert "access-control-allow-origin" not in simple.headers
         assert simple.headers.get("access-control-allow-credentials") is None
+
+    @pytest.fixture(scope="class")
+    def default_backend(self):
+        url, proc = spawn_backend(CORS_ORIGINS="")
+        yield url
+        stop_backend(proc)
+
+    @pytest.mark.parametrize("origin", [
+        "http://localhost:8082", "http://localhost:3000", "http://localhost", "http://127.0.0.1:8102", "https://localhost:8443", "http://[::1]:8081",
+    ])
+    def test_default_allows_the_web_build_on_any_localhost_port(self, default_backend, origin):
+        """Expo moves to another port when 8081 is busy; the browser then used to fail with a bare "Failed to fetch"."""
+        resp = preflight(default_backend, origin, "PUT")
+        assert resp.status_code == 200, (origin, resp.text)
+        assert resp.headers.get("access-control-allow-origin") == origin
+        simple = requests.get(f"{default_backend}/api/", headers={"Origin": origin}, timeout=20)
+        assert simple.headers.get("access-control-allow-origin") == origin
+
+    @pytest.mark.parametrize("origin", [
+        "http://localhost.evil.com", "http://evil.com:8081", "http://localhost:8081.evil.com", "http://127.0.0.1.evil.com",
+        "http://localhost:abc", "http://192.168.0.5:8081", "null", "ftp://localhost:8081",
+    ])
+    def test_default_still_rejects_other_origins(self, default_backend, origin):
+        resp = preflight(default_backend, origin)
+        assert resp.status_code == 400, (origin, resp.status_code)
+        assert "access-control-allow-origin" not in resp.headers
+        assert "access-control-allow-origin" not in requests.get(f"{default_backend}/api/", headers={"Origin": origin}, timeout=20).headers
+
+    def test_default_pattern_has_no_backslashes_and_matches_only_local_origins(self):
+        import re
+
+        assert "\\" not in server.LOCAL_ORIGIN_PATTERN
+        pattern = re.compile(server.LOCAL_ORIGIN_PATTERN)
+        assert pattern.fullmatch("http://localhost:8082") and pattern.fullmatch("http://127.0.0.1")
+        assert not pattern.fullmatch("http://localhostx:8082") and not pattern.fullmatch("http://127a0b0c1:8082")
+
+    def test_the_app_names_the_problem_when_it_cannot_reach_the_backend(self):
+        api = (Path(server.__file__).parent.parent / "frontend" / "src" / "api.ts").read_text(encoding="utf-8")
+        assert 'code === "network"' in api or '"network"' in api
+        assert "CORS_ORIGINS allows" in api and "console.error" in api
+        assert "cannotReachServer" in api
 
     def test_env_allowlist_replaces_defaults(self):
         url, proc = spawn_backend(CORS_ORIGINS="https://app.example.com, https://admin.example.com/")

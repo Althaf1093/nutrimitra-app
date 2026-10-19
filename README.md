@@ -30,6 +30,11 @@ cp .env.example .env   # fill in MONGO_URL, JWT_SECRET, GROQ_API_KEY
 uvicorn server:app --reload --port 8001
 ```
 
+If you open the web build from somewhere other than `localhost` (for example `http://192.168.0.5:8081` from another device),
+add that origin to `CORS_ORIGINS` in `backend/.env`. The phone app is not affected by CORS. By default the web build is
+allowed on `localhost` / `127.0.0.1` on any port, so it keeps working when Expo picks a port other than 8081. When the
+app cannot reach the backend it says so, and the browser console names the backend address and the origin to allow.
+
 ### Frontend
 
 ```bash
