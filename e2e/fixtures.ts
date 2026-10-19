@@ -111,6 +111,23 @@ export class App {
     await expect(this.id("today-screen")).toBeVisible();
   }
 
+  /** Onboarding with the default profile and a kitchen of the given ingredient ids (vegetarian unless `diet` says otherwise). */
+  async onboardWithKitchen(items: string[], options: { diet?: string } = {}) {
+    await expect(this.id("onboarding-screen")).toBeVisible();
+    await this.id("field-age").fill("30");
+    await this.id("onboarding-next-button").click();
+    if (options.diet) {
+      await this.id("chip-vegetarian").click();
+      await this.id(`chip-${options.diet}`).click();
+    }
+    await this.id("onboarding-next-button").click();
+    await this.id("onboarding-next-button").click();
+    await expect(this.id("kitchen-editor")).toBeVisible();
+    for (const id of items) await this.id(`chip-${id}`).click();
+    await this.id("onboarding-next-button").click();
+    await expect(this.id("today-screen")).toBeVisible();
+  }
+
   async newUserOnToday(prefix = "e2e") {
     const email = uniqueEmail(prefix);
     await this.open();

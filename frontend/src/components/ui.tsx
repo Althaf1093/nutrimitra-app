@@ -95,8 +95,14 @@ export function Field({ label, value, onChangeText, placeholder, secureTextEntry
 
 export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
   const styles = useStyles();
-  const { t } = useAuth();
+  const { lang, t } = useAuth();
   const { colors } = useTheme();
+  const title = lang === "te" && meal.te ? meal.te : meal.name;
+  // What the meal is made of; a bought-for ingredient is marked, so the plan never hides what is missing.
+  const uses = (meal.uses ?? [])
+    .slice(0, 6)
+    .map((item) => `${lang === "te" && item.te ? item.te : item.name.split("(")[0].trim()}${item.have ? "" : ` (${t.buyWord})`}`)
+    .join(", ");
   return (
     <View style={styles.mealCard} testID={`meal-card-${meal.type}`}>
       <View style={styles.mealDot}>
@@ -104,10 +110,15 @@ export function MealCard({ meal, onLog }: { meal: Meal; onLog: () => void }) {
       </View>
       <View style={styles.flex}>
         <Text style={styles.mealType}>{mealTypeLabel(t, meal.type).toUpperCase()}</Text>
-        <Text style={styles.mealName}>{meal.name}</Text>
+        <Text style={styles.mealName}>{title}</Text>
         <Text style={styles.mealMeta}>
           {meal.portion} · {meal.calories} kcal · {meal.protein_g}g {t.proteinWord}
         </Text>
+        {uses ? (
+          <Text style={styles.mealMeta} testID={`meal-uses-${meal.type}`}>
+            {t.usesWord}: {uses}
+          </Text>
+        ) : null}
       </View>
       {meal.logged ? (
         <View testID={`meal-logged-${meal.type}`} accessibilityLabel={`${mealTypeLabel(t, meal.type)} ✓`} style={[styles.logButton, styles.logButtonDone]}>

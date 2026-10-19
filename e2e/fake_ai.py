@@ -27,13 +27,17 @@ MEALS = {
 KCAL = {"breakfast": 420, "lunch": 560, "snack": 180, "dinner": 480}
 
 
-def plan_json():
+def plan_json(context=None):
+    """A plan like the real model would write. When the request lists the person's kitchen, every meal names ingredients from it."""
+    kitchen = (context or {}).get("kitchen_items") or []
     days = []
     for number in range(1, 8):
         meals = []
         for meal_type in ("breakfast", "lunch", "snack", "dinner"):
             kcal = KCAL[meal_type] + number * 5
+            ingredients = [kitchen[(number + offset) % len(kitchen)] for offset in range(min(3, len(kitchen)))] if kitchen else None
             meals.append({
+                **({"ingredients": ingredients} if ingredients else {}),
                 "type": meal_type,
                 "name": MEALS[meal_type][number - 1],
                 "portion": "1 serving",
@@ -55,7 +59,13 @@ def chat_reply(body):
     last_user = next((m.get("content", "") for m in reversed(messages) if m.get("role") == "user"), "")
     if "planning engine" in system:
         STATE["counts"]["plan"] += 1
-        return plan_json()
+        context = {}
+        if "Context: " in last_user:
+            try:
+                context = json.loads(last_user.split("Context: ", 1)[1])
+            except ValueError:
+                context = {}
+        return plan_json(context)
     STATE["counts"]["coach"] += 1
     text = "Fake coach: try a balanced plate with dal, vegetables and one roti."
     if "recipe" in last_user.lower():

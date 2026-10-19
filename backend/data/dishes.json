@@ -1,0 +1,3606 @@
+{
+ "version": 1,
+ "note": "Dishes the kitchen plan engine builds from. needs: every group must be in the kitchen (one alternative each; @group = any ingredient of that group), at most one may be missing and goes on the also-buy list.",
+ "dishes": [
+  {
+   "name": "Idli with sambar and chutney",
+   "te": "ఇడ్లీ సాంబార్ చట్నీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "tomato",
+    "onion",
+    "drumstick",
+    "coconut",
+    "peanuts"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Dosa with chutney",
+   "te": "దోశ చట్నీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut",
+    "peanuts",
+    "tomato"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Masala dosa",
+   "te": "మసాలా దోశ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "potato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    }
+   ],
+   "uses": [
+    "green-peas"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Pesarattu with ginger chutney",
+   "te": "పెసరట్టు అల్లం చట్నీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "green-moong"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "rice"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Moong dal chilla",
+   "te": "పెసర పప్పు చిల్లా",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "moong-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "spinach"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Besan chilla with {veg}",
+   "te": "శనగపిండి చిల్లా {veg}",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "besan"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Vegetable upma",
+   "te": "వెజిటబుల్ ఉప్మా",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "semolina"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "peanuts",
+    "green-peas"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Poha",
+   "te": "అటుకుల ఉప్మా",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "poha"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "peanuts",
+    "potato",
+    "lemon"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Oats porridge with fruit",
+   "te": "ఓట్స్ పండ్లతో",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "oats"
+     ]
+    }
+   ],
+   "uses": [
+    "milk",
+    "banana",
+    "apple",
+    "almonds",
+    "dates"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Ragi porridge (ragi java)",
+   "te": "రాగి జావ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "ragi"
+     ]
+    }
+   ],
+   "uses": [
+    "milk",
+    "jaggery",
+    "buttermilk"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Ragi dosa",
+   "te": "రాగి దోశ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "ragi"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "curd"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Vegetable sandwich",
+   "te": "వెజ్ శాండ్‌విచ్",
+   "slots": [
+    "breakfast",
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "cucumber",
+    "tomato",
+    "carrot",
+    "onion",
+    "butter",
+    "cheese"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Egg bhurji with roti",
+   "te": "ఎగ్ బుర్జీ రొట్టె",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "green-chilli"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Boiled eggs with toast",
+   "te": "ఉడికించిన గుడ్లు టోస్ట్",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "butter",
+    "pepper"
+   ],
+   "minutes": 12,
+   "cost": 1
+  },
+  {
+   "name": "Masala omelette with toast",
+   "te": "మసాలా ఆమ్లెట్ టోస్ట్",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Paneer bhurji with roti",
+   "te": "పనీర్ బుర్జీ రొట్టె",
+   "slots": [
+    "breakfast",
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "capsicum"
+   ],
+   "minutes": 20,
+   "cost": 2
+  },
+  {
+   "name": "Aloo paratha with curd",
+   "te": "ఆలూ పరాఠా పెరుగు",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "potato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "butter",
+    "ghee"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Methi paratha",
+   "te": "మెంతి పరాఠా",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "fenugreek-leaves"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "curd"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Broken wheat (dalia) upma",
+   "te": "గోధుమ రవ్వ ఉప్మా",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "broken-wheat"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "green-peas"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Vermicelli upma",
+   "te": "సేమియా ఉప్మా",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "vermicelli"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "carrot",
+    "peanuts"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Sprouts salad bowl",
+   "te": "మొలకల సలాడ్",
+   "slots": [
+    "breakfast",
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sprouts"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "cucumber",
+    "lemon",
+    "coconut"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Fruit bowl with curd",
+   "te": "పండ్లు పెరుగు",
+   "slots": [
+    "breakfast",
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "dates",
+    "almonds",
+    "honey"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Banana oats smoothie",
+   "te": "బనానా ఓట్స్ స్మూతీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "banana"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "oats"
+     ]
+    }
+   ],
+   "uses": [
+    "milk",
+    "dates",
+    "almonds"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Overnight oats with fruit",
+   "te": "ఓవర్‌నైట్ ఓట్స్",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "oats"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "milk",
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "chia-seeds",
+    "banana",
+    "apple",
+    "almonds"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Ven pongal",
+   "te": "వెన్ పొంగల్",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "moong-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee",
+    "pepper",
+    "cashews"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Sabudana khichdi",
+   "te": "సగ్గుబియ్యం ఖిచ్డీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sabudana"
+     ]
+    }
+   ],
+   "uses": [
+    "peanuts",
+    "potato"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Jowar roti with chutney",
+   "te": "జొన్న రొట్టె చట్నీ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "jowar"
+     ]
+    }
+   ],
+   "uses": [
+    "peanuts",
+    "coconut",
+    "curd"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Tofu scramble with toast",
+   "te": "టోఫు స్క్రాంబుల్ టోస్ట్",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "tofu"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 15,
+   "cost": 2
+  },
+  {
+   "name": "Peanut butter banana toast",
+   "te": "పీనట్ బటర్ బనానా టోస్ట్",
+   "slots": [
+    "breakfast",
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "peanut-butter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "banana"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Millet upma",
+   "te": "మిల్లెట్ ఉప్మా",
+   "slots": [
+    "breakfast",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "millet",
+     "alts": [
+      "foxtail-millet",
+      "little-millet",
+      "barnyard-millet",
+      "kodo-millet",
+      "browntop-millet"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "peanuts"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Wheat dosa with chutney",
+   "te": "గోధుమ దోశ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "coconut",
+    "peanuts"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Ragi roti with {veg} curry",
+   "te": "రాగి రొట్టె {veg} కూర",
+   "slots": [
+    "breakfast",
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "ragi"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Curd poha",
+   "te": "పెరుగు అటుకులు",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "poha"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "cucumber",
+    "pomegranate"
+   ],
+   "minutes": 8,
+   "cost": 1
+  },
+  {
+   "name": "Besan masala toast",
+   "te": "శనగపిండి మసాలా టోస్ట్",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "besan"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Egg dosa",
+   "te": "ఎగ్ దోశ",
+   "slots": [
+    "breakfast"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    }
+   ],
+   "uses": [
+    "onion"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Dal rice with {veg} curry",
+   "te": "పప్పు అన్నం {veg} కూర",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "grain",
+     "alts": [
+      "rice",
+      "brown-rice"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal",
+      "masoor-dal",
+      "chana-dal"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee",
+    "curd",
+    "onion",
+    "tomato"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Sambar rice with {veg} fry",
+   "te": "సాంబార్ అన్నం {veg} వేపుడు",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "drumstick",
+    "tomato",
+    "onion",
+    "ghee"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Rasam rice",
+   "te": "చారు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "potato",
+    "curry-leaves",
+    "ghee"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Curd rice with {veg} fry",
+   "te": "పెరుగు అన్నం {veg} వేపుడు",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "pomegranate",
+    "curry-leaves"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Lemon rice with peanuts",
+   "te": "నిమ్మకాయ పులిహోర",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "peanuts"
+     ]
+    }
+   ],
+   "uses": [
+    "lemon",
+    "curry-leaves"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Tamarind rice (pulihora)",
+   "te": "పులిహోర",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "peanuts"
+     ]
+    }
+   ],
+   "uses": [
+    "tamarind",
+    "sesame-seeds"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Tomato rice with raita",
+   "te": "టమాటా అన్నం రైతా",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "cucumber"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Vegetable pulao with raita",
+   "te": "వెజ్ పులావ్ రైతా",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "grain",
+     "alts": [
+      "rice",
+      "brown-rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "green-peas",
+    "carrot",
+    "cardamom"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Vegetable biryani with raita",
+   "te": "వెజ్ బిర్యానీ రైతా",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "green-peas",
+    "cardamom",
+    "pudina"
+   ],
+   "minutes": 50,
+   "cost": 2
+  },
+  {
+   "name": "Moong dal khichdi",
+   "te": "పెసర ఖిచ్డీ",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "moong-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "ghee",
+    "carrot",
+    "green-peas"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Rajma chawal",
+   "te": "రాజ్మా చావల్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rajma"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala"
+   ],
+   "minutes": 55,
+   "cost": 1
+  },
+  {
+   "name": "Chole with roti",
+   "te": "ఛోలే రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chickpeas"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala"
+   ],
+   "minutes": 55,
+   "cost": 1
+  },
+  {
+   "name": "Chapati with dal and {veg} curry",
+   "te": "చపాతీ పప్పు {veg} కూర",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal",
+      "masoor-dal",
+      "chana-dal"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "onion",
+    "tomato"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Chapati with {veg} curry and curd",
+   "te": "చపాతీ {veg} కూర పెరుగు",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Palak dal with rice",
+   "te": "పాలకూర పప్పు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "spinach"
+     ]
+    }
+   ],
+   "uses": [
+    "garlic",
+    "ghee"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Gongura dal with rice",
+   "te": "గోంగూర పప్పు అన్నం",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "gongura"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee",
+    "onion"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Tomato pappu with rice",
+   "te": "టమాటా పప్పు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee",
+    "curry-leaves"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Gutti vankaya curry with rice",
+   "te": "గుత్తి వంకాయ అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "brinjal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "peanuts",
+    "coconut",
+    "sesame-seeds",
+    "curd"
+   ],
+   "minutes": 50,
+   "cost": 1
+  },
+  {
+   "name": "Bendakaya fry with sambar rice",
+   "te": "బెండకాయ వేపుడు సాంబార్ అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "okra"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Aloo gobi with roti",
+   "te": "ఆలూ గోబీ రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "potato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "cauliflower"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "green-peas"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Paneer makhani with roti",
+   "te": "పనీర్ మఖానీ రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "butter",
+    "onion",
+    "cashews"
+   ],
+   "minutes": 35,
+   "cost": 2
+  },
+  {
+   "name": "Palak paneer with roti",
+   "te": "పాలక్ పనీర్ రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "spinach"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "garlic"
+   ],
+   "minutes": 30,
+   "cost": 2
+  },
+  {
+   "name": "Matar paneer with rice or roti",
+   "te": "మటర్ పనీర్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "green-peas"
+     ]
+    },
+    {
+     "var": "grain",
+     "alts": [
+      "rice",
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 30,
+   "cost": 2
+  },
+  {
+   "name": "Egg curry with rice",
+   "te": "గుడ్డు కూర అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut",
+    "garam-masala"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Egg curry with chapati",
+   "te": "గుడ్డు కూర చపాతీ",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Egg fried rice with vegetables",
+   "te": "ఎగ్ ఫ్రైడ్ రైస్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "spring-onion",
+    "carrot",
+    "cabbage"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Chicken curry with rice",
+   "te": "చికెన్ కూర అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut",
+    "garam-masala",
+    "ginger"
+   ],
+   "minutes": 45,
+   "cost": 2
+  },
+  {
+   "name": "Chicken curry with roti",
+   "te": "చికెన్ కూర రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala"
+   ],
+   "minutes": 45,
+   "cost": 2
+  },
+  {
+   "name": "Chicken fry with dal rice",
+   "te": "చికెన్ వేపుడు పప్పు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "curry-leaves"
+   ],
+   "minutes": 50,
+   "cost": 2
+  },
+  {
+   "name": "Grilled chicken with salad and roti",
+   "te": "గ్రిల్డ్ చికెన్ సలాడ్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "cucumber",
+    "tomato",
+    "lemon"
+   ],
+   "minutes": 30,
+   "cost": 2
+  },
+  {
+   "name": "Fish curry with rice",
+   "te": "చేపల పులుసు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "fish"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    }
+   ],
+   "uses": [
+    "tamarind",
+    "coconut"
+   ],
+   "minutes": 40,
+   "cost": 2
+  },
+  {
+   "name": "Fish fry with dal rice",
+   "te": "చేపల వేపుడు పప్పు అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "fish"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "lemon"
+   ],
+   "minutes": 40,
+   "cost": 2
+  },
+  {
+   "name": "Prawn curry with rice",
+   "te": "రొయ్యల కూర అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "prawns"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut"
+   ],
+   "minutes": 40,
+   "cost": 3
+  },
+  {
+   "name": "Mutton curry with rice",
+   "te": "మటన్ కూర అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "mutton"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala",
+    "ginger"
+   ],
+   "minutes": 70,
+   "cost": 3
+  },
+  {
+   "name": "Soya chunks curry with roti",
+   "te": "సోయా చంక్స్ కూర రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "soya-chunks"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "onion"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    }
+   ],
+   "uses": [
+    "garam-masala",
+    "green-peas"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Tofu bhurji with roti",
+   "te": "టోఫు బుర్జీ రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "tofu"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "capsicum"
+   ],
+   "minutes": 20,
+   "cost": 2
+  },
+  {
+   "name": "Tofu and vegetable stir-fry with rice",
+   "te": "టోఫు వెజిటబుల్ స్టర్ ఫ్రై అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "tofu"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "garlic",
+    "spring-onion"
+   ],
+   "minutes": 25,
+   "cost": 2
+  },
+  {
+   "name": "Sprouts curry with roti",
+   "te": "మొలకల కూర రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sprouts"
+     ]
+    },
+    {
+     "var": "grain",
+     "alts": [
+      "wheat-flour",
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Lobia curry with rice",
+   "te": "బొబ్బర్ల కూర అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "lobia"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "coconut"
+   ],
+   "minutes": 45,
+   "cost": 1
+  },
+  {
+   "name": "Horse gram rasam with rice",
+   "te": "ఉలవ చారు అన్నం",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "horse-gram"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "garlic",
+    "curry-leaves"
+   ],
+   "minutes": 50,
+   "cost": 1
+  },
+  {
+   "name": "Ragi sangati with sambar",
+   "te": "రాగి సంగటి సాంబార్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "ragi"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "drumstick",
+    "onion",
+    "tomato"
+   ],
+   "minutes": 45,
+   "cost": 1
+  },
+  {
+   "name": "Jowar roti with {veg} curry",
+   "te": "జొన్న రొట్టె {veg} కూర",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "jowar"
+     ]
+    },
+    {
+     "var": "veg",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "curd"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Bajra roti with dal",
+   "te": "సజ్జ రొట్టె పప్పు",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "bajra"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal",
+      "masoor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee",
+    "onion"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Millet khichdi",
+   "te": "మిల్లెట్ ఖిచ్డీ",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "millet",
+     "alts": [
+      "foxtail-millet",
+      "little-millet",
+      "barnyard-millet",
+      "kodo-millet",
+      "browntop-millet"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "moong-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "ghee",
+    "carrot"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Quinoa vegetable bowl",
+   "te": "క్వినోవా వెజ్ బౌల్",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "quinoa"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "chickpeas",
+    "lemon",
+    "cucumber"
+   ],
+   "minutes": 25,
+   "cost": 3
+  },
+  {
+   "name": "Vegetable soup with toast",
+   "te": "వెజిటబుల్ సూప్ టోస్ట్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "pepper",
+    "garlic",
+    "butter"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Dal soup with roti",
+   "te": "పప్పు సూప్ రొట్టె",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "dal",
+     "alts": [
+      "moong-dal",
+      "masoor-dal",
+      "toor-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "tomato",
+    "garlic"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Veg fried rice with raita",
+   "te": "వెజ్ ఫ్రైడ్ రైస్ రైతా",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "spring-onion",
+    "garlic"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Mixed vegetable curry with chapati",
+   "te": "మిక్స్‌డ్ వెజ్ కూర చపాతీ",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "mixed-vegetables",
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Dosa with sambar",
+   "te": "దోశ సాంబార్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "tomato",
+    "onion",
+    "drumstick"
+   ],
+   "minutes": 30,
+   "cost": 1
+  },
+  {
+   "name": "Idli with sambar (dinner)",
+   "te": "ఇడ్లీ సాంబార్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "idli-batter"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "tomato",
+    "onion"
+   ],
+   "minutes": 25,
+   "cost": 1
+  },
+  {
+   "name": "Curd rice (light dinner)",
+   "te": "పెరుగు అన్నం (తేలికపాటి)",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "pomegranate",
+    "curry-leaves",
+    "cucumber"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Kadhi with rice",
+   "te": "కఢీ అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "besan"
+     ]
+    }
+   ],
+   "uses": [
+    "curry-leaves",
+    "onion"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "Paneer tikka with roti and salad",
+   "te": "పనీర్ టిక్కా రొట్టె సలాడ్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "capsicum",
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "onion",
+    "lemon"
+   ],
+   "minutes": 35,
+   "cost": 2
+  },
+  {
+   "name": "Egg white omelette with roti",
+   "te": "తెల్లసొన ఆమ్లెట్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "spinach"
+   ],
+   "minutes": 20,
+   "cost": 1
+  },
+  {
+   "name": "Chicken soup with toast",
+   "te": "చికెన్ సూప్ టోస్ట్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "bread"
+     ]
+    }
+   ],
+   "uses": [
+    "garlic",
+    "pepper",
+    "carrot"
+   ],
+   "minutes": 30,
+   "cost": 2
+  },
+  {
+   "name": "Fish tikka with salad",
+   "te": "ఫిష్ టిక్కా సలాడ్",
+   "slots": [
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "fish"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "@vegetables"
+     ]
+    }
+   ],
+   "uses": [
+    "curd",
+    "lemon",
+    "cucumber"
+   ],
+   "minutes": 30,
+   "cost": 2
+  },
+  {
+   "name": "Gongura chicken with rice",
+   "te": "గోంగూర చికెన్ అన్నం",
+   "slots": [
+    "lunch"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chicken"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "gongura"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "onion"
+   ],
+   "minutes": 50,
+   "cost": 2
+  },
+  {
+   "name": "Drumstick sambar with rice",
+   "te": "మునగకాయ సాంబార్ అన్నం",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "drumstick"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "toor-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    }
+   ],
+   "uses": [
+    "tomato",
+    "onion"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "{leafy} dal with roti",
+   "te": "{leafy} పప్పు రొట్టె",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "leafy",
+     "alts": [
+      "@leafy"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal",
+      "masoor-dal"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "wheat-flour"
+     ]
+    }
+   ],
+   "uses": [
+    "garlic"
+   ],
+   "minutes": 35,
+   "cost": 1
+  },
+  {
+   "name": "{leafy} curry with rice and dal",
+   "te": "{leafy} కూర అన్నం పప్పు",
+   "slots": [
+    "lunch",
+    "dinner"
+   ],
+   "needs": [
+    {
+     "var": "leafy",
+     "alts": [
+      "@leafy"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "rice"
+     ]
+    },
+    {
+     "var": "dal",
+     "alts": [
+      "toor-dal",
+      "moong-dal"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut"
+   ],
+   "minutes": 40,
+   "cost": 1
+  },
+  {
+   "name": "Fruit and nuts",
+   "te": "పండ్లు గింజలు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    }
+   ],
+   "uses": [
+    "almonds",
+    "walnuts",
+    "peanuts",
+    "cashews"
+   ],
+   "minutes": 5,
+   "cost": 2
+  },
+  {
+   "name": "Roasted chana",
+   "te": "వేయించిన శనగలు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "roasted-chana"
+     ]
+    }
+   ],
+   "uses": [
+    "buttermilk",
+    "lemon"
+   ],
+   "minutes": 3,
+   "cost": 1
+  },
+  {
+   "name": "Roasted peanuts",
+   "te": "వేయించిన పల్లీలు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "peanuts"
+     ]
+    }
+   ],
+   "uses": [
+    "jaggery"
+   ],
+   "minutes": 3,
+   "cost": 1
+  },
+  {
+   "name": "Sprouts chaat",
+   "te": "మొలకల చాట్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sprouts"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "lemon",
+    "cucumber"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Boiled corn chaat",
+   "te": "మొక్కజొన్న చాట్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sweet-corn"
+     ]
+    }
+   ],
+   "uses": [
+    "lemon",
+    "onion",
+    "butter"
+   ],
+   "minutes": 12,
+   "cost": 1
+  },
+  {
+   "name": "Sundal (boiled chana)",
+   "te": "శనగల సుండల్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "chana",
+     "alts": [
+      "chickpeas",
+      "black-chana"
+     ]
+    }
+   ],
+   "uses": [
+    "coconut",
+    "curry-leaves",
+    "onion"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Curd with {fruit}",
+   "te": "పెరుగు {fruit}",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    },
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    }
+   ],
+   "uses": [
+    "honey"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Roasted makhana",
+   "te": "వేయించిన మఖానా",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "makhana"
+     ]
+    }
+   ],
+   "uses": [
+    "buttermilk",
+    "ghee"
+   ],
+   "minutes": 5,
+   "cost": 2
+  },
+  {
+   "name": "Banana with peanut butter",
+   "te": "అరటిపండు పీనట్ బటర్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "banana"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "peanut-butter"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 3,
+   "cost": 1
+  },
+  {
+   "name": "Cucumber and carrot sticks with curd dip",
+   "te": "కీరదోస క్యారెట్ పెరుగు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "veg",
+     "alts": [
+      "cucumber",
+      "carrot"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    }
+   ],
+   "uses": [
+    "lemon"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Boiled egg",
+   "te": "ఉడికించిన గుడ్డు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "egg"
+     ]
+    }
+   ],
+   "uses": [
+    "pepper"
+   ],
+   "minutes": 10,
+   "cost": 1
+  },
+  {
+   "name": "Paneer cubes (pan-tossed)",
+   "te": "పనీర్ ముక్కలు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "paneer"
+     ]
+    }
+   ],
+   "uses": [
+    "pepper",
+    "capsicum"
+   ],
+   "minutes": 8,
+   "cost": 2
+  },
+  {
+   "name": "Dates and almonds",
+   "te": "ఖర్జూరం బాదం",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "dates"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "almonds"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 3,
+   "cost": 2
+  },
+  {
+   "name": "Murmura (puffed rice) bhel",
+   "te": "మురుమురాల భేల్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "puffed-rice"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "tomato",
+    "peanuts",
+    "lemon"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Fruit chaat",
+   "te": "ఫ్రూట్ చాట్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    }
+   ],
+   "uses": [
+    "lemon",
+    "pepper"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Warm milk with turmeric",
+   "te": "పసుపు పాలు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "milk"
+     ]
+    }
+   ],
+   "uses": [
+    "turmeric",
+    "honey"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Boiled sweet potato",
+   "te": "ఉడికించిన చిలగడదుంప",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "sweet-potato"
+     ]
+    }
+   ],
+   "uses": [
+    "lemon",
+    "pepper"
+   ],
+   "minutes": 15,
+   "cost": 1
+  },
+  {
+   "name": "Cucumber raita",
+   "te": "కీరదోస రైతా",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "curd"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "cucumber"
+     ]
+    }
+   ],
+   "uses": [
+    "pudina"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Chia pudding with fruit",
+   "te": "చియా పుడ్డింగ్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "chia-seeds"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "milk"
+     ]
+    }
+   ],
+   "uses": [
+    "banana",
+    "berries",
+    "honey"
+   ],
+   "minutes": 5,
+   "cost": 2
+  },
+  {
+   "name": "Greek yogurt with fruit and seeds",
+   "te": "గ్రీక్ యోగర్ట్ పండ్లు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "greek-yogurt"
+     ]
+    },
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    }
+   ],
+   "uses": [
+    "pumpkin-seeds",
+    "flax-seeds",
+    "honey"
+   ],
+   "minutes": 5,
+   "cost": 2
+  },
+  {
+   "name": "Dry fruit mix",
+   "te": "డ్రై ఫ్రూట్స్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "dry-fruits"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 2,
+   "cost": 2
+  },
+  {
+   "name": "Peanut and jaggery chikki",
+   "te": "పల్లీ చిక్కీ",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "peanuts"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "jaggery"
+     ]
+    }
+   ],
+   "uses": [
+    "sesame-seeds"
+   ],
+   "minutes": 3,
+   "cost": 1
+  },
+  {
+   "name": "Tomato cucumber salad",
+   "te": "టమాటా కీరదోస సలాడ్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "tomato"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "cucumber"
+     ]
+    }
+   ],
+   "uses": [
+    "onion",
+    "lemon",
+    "coriander-leaves"
+   ],
+   "minutes": 5,
+   "cost": 1
+  },
+  {
+   "name": "Coconut water and fruit",
+   "te": "కొబ్బరి నీళ్లు పండు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "tender-coconut"
+     ]
+    },
+    {
+     "var": "fruit",
+     "alts": [
+      "@fruits"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 3,
+   "cost": 2
+  },
+  {
+   "name": "Soaked almonds and walnuts",
+   "te": "బాదం అక్రోట్",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "almonds"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "walnuts"
+     ]
+    }
+   ],
+   "uses": [],
+   "minutes": 2,
+   "cost": 2
+  },
+  {
+   "name": "Buttermilk",
+   "te": "మజ్జిగ",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "buttermilk"
+     ]
+    }
+   ],
+   "uses": [
+    "curry-leaves",
+    "pudina"
+   ],
+   "minutes": 3,
+   "cost": 1
+  },
+  {
+   "name": "Besan laddu or til laddu",
+   "te": "శనగపిండి లడ్డు",
+   "slots": [
+    "snack"
+   ],
+   "needs": [
+    {
+     "var": "",
+     "alts": [
+      "jaggery"
+     ]
+    },
+    {
+     "var": "",
+     "alts": [
+      "sesame-seeds",
+      "besan"
+     ]
+    }
+   ],
+   "uses": [
+    "ghee"
+   ],
+   "minutes": 3,
+   "cost": 1
+  }
+ ]
+}
