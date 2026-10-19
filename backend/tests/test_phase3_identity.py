@@ -54,3 +54,30 @@ class TestIdentity:
         assert BASE_URL, "EXPO_PUBLIC_BACKEND_URL must be set"
         body = requests.get(f"{BASE_URL}/api/", timeout=20).json()
         assert body["name"] == "Wellstride"
+
+
+class TestEmergentCleanup:
+    """Item 2: the Emergent scaffolding is gone and nothing refers to it (Google login is replaced in item 6)."""
+
+    def test_files_are_removed(self):
+        for name in (".emergent", "test_reports", "test_result.md", "image_testing.md", ".gitconfig"):
+            assert not (ROOT / name).exists(), name
+        scripts = FRONTEND / "scripts"
+        assert not list(scripts.glob("*guard*")) and not (scripts / "sync-shims.sh").exists()
+
+    def test_install_has_no_preinstall_hook(self):
+        package = json.loads((FRONTEND / "package.json").read_text(encoding="utf-8"))
+        assert "preinstall" not in package["scripts"]
+        assert "cmd-guard" not in json.dumps(package)
+
+    def test_nothing_references_the_removed_files(self):
+        pattern = re.compile(r"cmd-guard|install-guard|sync-shims|image_testing|test_result\.md|\.emergent/")
+        offenders = []
+        for folder in (FRONTEND / "app", FRONTEND / "src", ROOT / "backend", FRONTEND / "package.json", FRONTEND / "app.json"):
+            files = [folder] if folder.is_file() else [p for p in folder.rglob("*") if p.suffix in {".py", ".ts", ".tsx", ".js", ".json"} and ".venv" not in p.parts and "node_modules" not in p.parts and "__pycache__" not in p.parts]
+            for path in files:
+                if path.name == "test_phase3_identity.py":
+                    continue
+                if pattern.search(path.read_text(encoding="utf-8", errors="ignore")):
+                    offenders.append(str(path.relative_to(ROOT)))
+        assert offenders == [], offenders
