@@ -145,6 +145,15 @@ class AuthInput(BaseModel):
     name: str = Field(default="", max_length=80)
 
 
+class SignupInput(AuthInput):
+    # Required: "I am 18 or over and agree to the Terms and Privacy Policy". The server records the current version itself.
+    accept_terms: bool = False
+
+
+class ConsentInput(BaseModel):
+    accept_terms: bool = False
+
+
 class TokenResponse(BaseModel):
     token: str
     user: Dict[str, Any]
@@ -323,6 +332,9 @@ def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
         "name": doc.get("name", ""),
         "language": doc.get("language", "en"),
         "onboarding_complete": bool(doc.get("onboarding_complete", False)),
+        "consent_version": doc.get("consent_version"),
+        # Accounts from before consent existed, or from before the policies last changed, are asked once on next launch.
+        "needs_consent": doc.get("consent_version") != legal.CONSENT_VERSION,
     }
 
 
@@ -358,9 +370,10 @@ async def root():
 
 
 @api_router.post("/auth/signup", response_model=TokenResponse)
-async def signup(payload: AuthInput, request: Request):
+async def signup(payload: SignupInput, request: Request):
     email = payload.email.lower()
     check_auth_rate_limit(request, "signup", email)
+    require_consent(payload.accept_terms)
     if await db.users.find_one({"email": email}, {"_id": 0}):
         raise HTTPException(status_code=409, detail="An account with this email already exists")
     user = {
@@ -371,6 +384,7 @@ async def signup(payload: AuthInput, request: Request):
         "language": "en",
         "onboarding_complete": False,
         "created_at": now_iso(),
+        **consent_fields(),
     }
     try:
         await db.users.insert_one(user)
@@ -378,6 +392,15 @@ async def signup(payload: AuthInput, request: Request):
         # Two signups for the same email raced past the check above; the unique index caught it.
         raise HTTPException(status_code=409, detail="An account with this email already exists") from exc
     return {"token": issue_token(user["id"]), "user": public_user(user)}
+
+
+def require_consent(accepted: bool) -> None:
+    if accepted is not True:
+        raise HTTPException(status_code=422, detail={"code": "consent_required", "message": "Please confirm that you are 18 or over and agree to the Terms and Privacy Policy."})
+
+
+def consent_fields() -> Dict[str, Any]:
+    return {"consent_version": legal.CONSENT_VERSION, "consent_at": now_iso()}
 
 
 def password_matches(password: str, stored_hash: Any) -> bool:
@@ -410,6 +433,8 @@ class GoogleInput(BaseModel):
     id_token: str = Field(min_length=20, max_length=4000)
     # The app sends the nonce it put in the sign-in request; the token must carry the same one.
     nonce: Optional[str] = Field(default=None, max_length=200)
+    # Needed the first time (when the account is created); an existing account is asked separately via POST /consent.
+    accept_terms: bool = False
 
 
 def google_client_ids() -> List[str]:
@@ -457,6 +482,7 @@ async def auth_google(payload: GoogleInput, request: Request):
         raise HTTPException(status_code=401, detail="Google sign-in could not be verified")
     user = await db.users.find_one({"email": email}, {"_id": 0})
     if not user:
+        require_consent(payload.accept_terms)
         user = {
             "id": str(uuid.uuid4()),
             "email": email,
@@ -466,6 +492,7 @@ async def auth_google(payload: GoogleInput, request: Request):
             "language": "en",
             "onboarding_complete": False,
             "created_at": now_iso(),
+            **consent_fields(),
         }
         try:
             await db.users.insert_one(user)
@@ -473,6 +500,15 @@ async def auth_google(payload: GoogleInput, request: Request):
             # A concurrent sign-in created the account first; use that one.
             user = await db.users.find_one({"email": email}, {"_id": 0})
     return {"token": issue_token(user["id"]), "user": public_user(user)}
+
+
+@api_router.post("/consent")
+async def accept_consent(payload: ConsentInput, user: Dict[str, Any] = Depends(current_user)):
+    """Records agreement to the current Terms and Privacy Policy (existing accounts are asked once)."""
+    require_consent(payload.accept_terms)
+    fields = consent_fields()
+    await db.users.update_one({"id": user["id"]}, {"$set": fields})
+    return {"user": public_user({**user, **fields})}
 
 
 @api_router.get("/me")

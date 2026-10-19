@@ -57,3 +57,24 @@ def p4():
     yield Phase4Backend(url, fake)
     stop_backend(proc)
     fake.close()
+
+
+@pytest.fixture(scope="session")
+def p4db():
+    """The database the test backends use (the same one backend/.env names), for checking what was stored."""
+    from pymongo import MongoClient
+
+    client = MongoClient(server.MONGO_URL, serverSelectionTimeoutMS=10000)
+    yield client[server.DB_NAME]
+    client.close()
+
+
+def p4_signup(backend, email=None, **extra):
+    """Create an account through the API with consent given (extra fields override). Returns (response, email)."""
+    import uuid
+
+    import requests
+
+    email = email or f"p4.{uuid.uuid4().hex[:10]}@example.com"
+    body = {"email": email, "password": "StrongPass123", "name": "Phase Four", "accept_terms": True, **extra}
+    return requests.post(f"{backend.url}/api/auth/signup", json=body, timeout=20), email

@@ -55,7 +55,7 @@ def fresh(mongo):
     s = requests.Session()
     s.headers.update({"Content-Type": "application/json"})
     email = f"phase1.{uuid.uuid4().hex[:10]}@example.com"
-    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"email": email, "password": "StrongPass123", "name": "Phase One"}, timeout=20)
+    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123", "name": "Phase One"}, timeout=20)
     assert resp.status_code == 200, resp.text
     s.headers["Authorization"] = f"Bearer {resp.json()['token']}"
     user_id = resp.json()["user"]["id"]
@@ -188,7 +188,7 @@ def other_user(mongo):
     """A second account, to prove log entries cannot be changed across users."""
     s = requests.Session()
     s.headers.update({"Content-Type": "application/json"})
-    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"email": f"phase1.other.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20)
+    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": f"phase1.other.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20)
     assert resp.status_code == 200, resp.text
     s.headers["Authorization"] = f"Bearer {resp.json()['token']}"
     user_id = resp.json()["user"]["id"]

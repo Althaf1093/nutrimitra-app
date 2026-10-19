@@ -96,7 +96,7 @@ def fresh(mongo):
     s = requests.Session()
     s.headers.update({"Content-Type": "application/json"})
     email = unique_email()
-    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"email": email, "password": "StrongPass123", "name": "Phase Two"}, timeout=20)
+    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123", "name": "Phase Two"}, timeout=20)
     assert resp.status_code == 200, resp.text
     s.headers["Authorization"] = f"Bearer {resp.json()['token']}"
     s.user_id = resp.json()["user"]["id"]
@@ -190,7 +190,7 @@ class TestIndexes:
         email = unique_email("race")
 
         def signup(_):
-            return requests.post(f"{BASE_URL}/api/auth/signup", json={"email": email, "password": "StrongPass123"}, timeout=30).status_code
+            return requests.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123"}, timeout=30).status_code
 
         with ThreadPoolExecutor(max_workers=6) as pool:
             codes = list(pool.map(signup, range(6)))
@@ -204,12 +204,12 @@ class TestIndexes:
 
     def test_email_is_case_insensitive(self, mongo):
         email = unique_email("Case.Mixed")
-        resp = requests.post(f"{BASE_URL}/api/auth/signup", json={"email": email, "password": "StrongPass123"}, timeout=20)
+        resp = requests.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123"}, timeout=20)
         assert resp.status_code == 200, resp.text
         user_id = resp.json()["user"]["id"]
         try:
             assert resp.json()["user"]["email"] == email.lower()
-            assert requests.post(f"{BASE_URL}/api/auth/signup", json={"email": email.upper(), "password": "StrongPass123"}, timeout=20).status_code == 409
+            assert requests.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": email.upper(), "password": "StrongPass123"}, timeout=20).status_code == 409
             assert requests.post(f"{BASE_URL}/api/auth/login", json={"email": email.lower(), "password": "StrongPass123"}, timeout=20).status_code == 200
         finally:
             remove_user(mongo, user_id)
@@ -298,7 +298,7 @@ class TestAuthRateLimit:
         ip = "203.0.113.250"
         emails = [unique_email("spam") for _ in range(11)]
         try:
-            codes = [requests.post(f"{limited_backend}/api/auth/signup", json={"email": e, "password": "StrongPass123"}, headers={"X-Forwarded-For": ip}, timeout=20).status_code for e in emails]
+            codes = [requests.post(f"{limited_backend}/api/auth/signup", json={"accept_terms": True, "email": e, "password": "StrongPass123"}, headers={"X-Forwarded-For": ip}, timeout=20).status_code for e in emails]
             assert codes == [200] * 10 + [429], codes
         finally:
             for user in mongo.users.find({"email": {"$in": emails}}):

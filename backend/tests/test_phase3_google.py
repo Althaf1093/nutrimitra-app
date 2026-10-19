@@ -106,7 +106,7 @@ def new_email(prefix="g"):
 
 
 def google(url, token, **extra):
-    return requests.post(f"{url}/api/auth/google", json={"id_token": token, **extra}, timeout=30)
+    return requests.post(f"{url}/api/auth/google", json={"id_token": token, "accept_terms": True, **extra}, timeout=30)
 
 
 class TestGoogleSignIn:
@@ -141,7 +141,7 @@ class TestGoogleSignIn:
     def test_email_account_with_the_same_verified_email_is_the_same_account(self, backend, cleanup):
         email = new_email("both")
         cleanup.append(email)
-        signup = requests.post(f"{backend}/api/auth/signup", json={"email": email, "password": "StrongPass123"}, timeout=20).json()
+        signup = requests.post(f"{backend}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123"}, timeout=20).json()
         assert google(backend, id_token(email)).json()["user"]["id"] == signup["user"]["id"]
         # ...and the password still works afterwards
         assert requests.post(f"{backend}/api/auth/login", json={"email": email, "password": "StrongPass123"}, timeout=20).status_code == 200
@@ -192,7 +192,7 @@ class TestGoogleOff:
             assert resp.json()["detail"]["code"] == "google_not_configured"
             assert "email and password" in resp.json()["detail"]["message"]
             email = new_email("plain")
-            signup = requests.post(f"{url}/api/auth/signup", json={"email": email, "password": "StrongPass123"}, timeout=20)
+            signup = requests.post(f"{url}/api/auth/signup", json={"accept_terms": True, "email": email, "password": "StrongPass123"}, timeout=20)
             assert signup.status_code == 200
             assert requests.post(f"{url}/api/auth/login", json={"email": email, "password": "StrongPass123"}, timeout=20).status_code == 200
             MongoClient("mongodb://127.0.0.1:27017").test_database.users.delete_many({"email": email})
@@ -246,7 +246,7 @@ class TestFakeVerifier:
         monkeypatch.setattr(server, "client", fresh_client)
         monkeypatch.setattr(server, "db", fresh_client[server.DB_NAME])
         with TestClient(server.app) as client:
-            body = client.post("/api/auth/google", json={"id_token": "t" * 30, "nonce": "n1"}).json()
+            body = client.post("/api/auth/google", json={"id_token": "t" * 30, "nonce": "n1", "accept_terms": True}).json()
         assert body["user"]["email"] == email and body["user"]["name"] == "Fake Person"
         assert seen == {"token": "t" * 30, "client_ids": [CLIENT_A], "nonce": "n1"}
 
@@ -283,7 +283,7 @@ class TestAppWiring:
 
     def test_sign_in_uses_the_new_endpoint_and_a_nonce(self):
         auth = self.read("src", "context", "auth.tsx")
-        assert '"/auth/google", { id_token: result.idToken, nonce: result.nonce }' in auth
+        assert '"/auth/google", { id_token: result.idToken, nonce: result.nonce, accept_terms: acceptTerms }' in auth
         assert "Linking" not in auth and "WebBrowser" not in auth
         google_auth = self.read("src", "lib", "google-auth.ts")
         assert "ResponseType.IdToken" in google_auth and "extraParams: { nonce }" in google_auth

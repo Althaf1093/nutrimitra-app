@@ -6,6 +6,8 @@ export type User = {
   name: string;
   onboarding_complete: boolean;
   language: Lang;
+  // True until the person has agreed to the current Terms and Privacy Policy (asked once on next launch).
+  needs_consent?: boolean;
 };
 
 export type Profile = {

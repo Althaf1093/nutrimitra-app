@@ -6,7 +6,7 @@ import { useGoogleSignIn } from "@/src/lib/google-auth";
 import { storage } from "@/src/utils/storage";
 import type { Profile, User } from "@/src/types";
 
-type Status = "loading" | "anon" | "onboarding" | "ready";
+type Status = "loading" | "anon" | "consent" | "onboarding" | "ready";
 
 type AuthContextValue = {
   status: Status;
@@ -15,8 +15,9 @@ type AuthContextValue = {
   lang: Lang;
   t: (typeof copy)["en"];
   setLang: (lang: Lang) => void;
-  signInEmail: (mode: "signin" | "signup", email: string, password: string, name: string) => Promise<void>;
-  signInGoogle: () => Promise<void>;
+  signInEmail: (mode: "signin" | "signup", email: string, password: string, name: string, acceptTerms?: boolean) => Promise<void>;
+  signInGoogle: (acceptTerms?: boolean) => Promise<void>;
+  acceptConsent: () => Promise<void>;
   completeOnboarding: (profile: Profile) => void;
   signOut: () => Promise<void>;
 };
@@ -37,7 +38,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || "en") as Lang);
     setLang(resolvedLang);
     // A saved profile under 18 (from before the age rule) goes back through onboarding to re-enter an adult age.
-    setStatus(result.profile && Number(result.profile.age) >= 18 ? "ready" : "onboarding");
+    // Accounts that have not agreed to the current Terms and Privacy Policy are asked once, before anything else.
+    setStatus(result.user.needs_consent ? "consent" : result.profile && Number(result.profile.age) >= 18 ? "ready" : "onboarding");
   }, []);
 
   useEffect(() => {
@@ -66,8 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [applySession]);
 
   const signInEmail = useCallback(
-    async (mode: "signin" | "signup", email: string, password: string, name: string) => {
-      const result = await post<{ token: string; user: User }>(mode === "signin" ? "/auth/login" : "/auth/signup", { email, password, name });
+    async (mode: "signin" | "signup", email: string, password: string, name: string, acceptTerms = false) => {
+      const result = await post<{ token: string; user: User }>(mode === "signin" ? "/auth/login" : "/auth/signup", mode === "signin" ? { email, password, name } : { email, password, name, accept_terms: acceptTerms });
       await saveToken(result.token);
       await applySession();
     },
@@ -76,14 +78,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const googleSignIn = useGoogleSignIn();
   const getGoogleIdToken = googleSignIn.getIdToken;
-  const signInGoogle = useCallback(async () => {
+  const signInGoogle = useCallback(async (acceptTerms = false) => {
     const result = await getGoogleIdToken();
     if (!result) return; // closed or cancelled
-    const response = await post<{ token: string; user: User }>("/auth/google", { id_token: result.idToken, nonce: result.nonce });
+    const response = await post<{ token: string; user: User }>("/auth/google", { id_token: result.idToken, nonce: result.nonce, accept_terms: acceptTerms });
     await saveToken(response.token);
     await applySession();
   }, [applySession, getGoogleIdToken]);
 
+
+  const acceptConsent = useCallback(async () => {
+    await post("/consent", { accept_terms: true });
+    await applySession();
+  }, [applySession]);
 
   const completeOnboarding = useCallback((nextProfile: Profile) => {
     setProfile(nextProfile);
@@ -103,8 +110,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, profile, lang, t: copy[lang], setLang: changeLang, signInEmail, signInGoogle, completeOnboarding, signOut }),
-    [status, user, profile, lang, changeLang, signInEmail, signInGoogle, completeOnboarding, signOut],
+    () => ({ status, user, profile, lang, t: copy[lang], setLang: changeLang, signInEmail, signInGoogle, acceptConsent, completeOnboarding, signOut }),
+    [status, user, profile, lang, changeLang, signInEmail, signInGoogle, acceptConsent, completeOnboarding, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

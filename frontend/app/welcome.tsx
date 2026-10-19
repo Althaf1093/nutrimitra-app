@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
-import { LegalLinks } from "@/src/components/legal-links";
+import { ApiError } from "@/src/api";
+import { ConsentCheckbox, LegalLinks } from "@/src/components/legal-links";
 import { AppIcon, Button, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { googleEnabled } from "@/src/lib/google-auth";
@@ -19,16 +20,18 @@ export default function WelcomeScreen() {
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
   // Signed-in users never sit on the auth screen — send them straight into the app.
   if (status === "ready") return <Redirect href="/(tabs)" />;
+  if (status === "consent") return <Redirect href="/consent" />;
   if (status === "onboarding") return <Redirect href="/onboarding" />;
 
   const submit = async () => {
     setBusy(true);
     setError("");
     try {
-      await signInEmail(mode, email, password, name);
+      await signInEmail(mode, email, password, name, accepted);
       router.replace("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : t.pleaseTryAgain);
@@ -41,8 +44,14 @@ export default function WelcomeScreen() {
     setBusy(true);
     setError("");
     try {
-      await signInGoogle();
+      await signInGoogle(accepted);
     } catch (err) {
+      // A new Google account needs the box ticked first: show it (it lives on the Create tab) and say why.
+      if (err instanceof ApiError && err.code === "consent_required") {
+        setMode("signup");
+        setError(t.consentRequired);
+        return;
+      }
       setError(err instanceof Error && err.message ? err.message : t.googleFailed);
     } finally {
       setBusy(false);
@@ -73,8 +82,9 @@ export default function WelcomeScreen() {
           {mode === "signup" && <Field label={t.name} value={name} onChangeText={setName} />}
           <Field label={t.email} value={email} onChangeText={setEmail} />
           <Field label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
+          {mode === "signup" ? <ConsentCheckbox checked={accepted} onChange={setAccepted} /> : null}
           {error ? <Text style={styles.errorText} testID="auth-error">{error}</Text> : null}
-          <Button testID="auth-submit-button" label={busy ? "..." : mode === "signin" ? t.signIn : t.create} onPress={submit} disabled={busy || !email || password.length < 8} />
+          <Button testID="auth-submit-button" label={busy ? "..." : mode === "signin" ? t.signIn : t.create} onPress={submit} disabled={busy || !email || password.length < 8 || (mode === "signup" && !accepted)} />
           {googleEnabled ? <Button testID="google-signin-button" label={t.welcomeGoogle} onPress={google} secondary disabled={busy} /> : null}
           <Text style={styles.authHint}>
             {mode === "signin" ? t.noAccount : t.already}{" "}

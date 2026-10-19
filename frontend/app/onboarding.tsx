@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
@@ -19,7 +19,7 @@ const activityLevels = ["Lightly active", "Moderately active", "Very active"];
 export default function OnboardingScreen() {
   const styles = useStyles();
   const router = useRouter();
-  const { lang, t, completeOnboarding } = useAuth();
+  const { lang, t, status, completeOnboarding } = useAuth();
   const [step, setStep] = useState(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -40,6 +40,8 @@ export default function OnboardingScreen() {
     wellness_goal: "Healthier living",
     language: lang,
   });
+  // Not signed in, or still to agree to the Terms: the onboarding screen is not the place to be.
+  const misplaced = status === "consent" || status === "anon";
   const set = (key: string, value: unknown) => setDraft((current) => ({ ...current, [key]: value }));
   const toggle = (key: string, value: string) => {
     const current = (draft[key] as string[]) || [];
@@ -106,6 +108,8 @@ export default function OnboardingScreen() {
       setBusy(false);
     }
   };
+
+  if (misplaced) return <Redirect href={status === "consent" ? "/consent" : "/welcome"} />;
 
   return (
     <View style={styles.root} testID="onboarding-screen">

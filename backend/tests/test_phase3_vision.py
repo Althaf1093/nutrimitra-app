@@ -31,7 +31,7 @@ def mongo():
 @pytest.fixture(scope="module")
 def session(mongo):
     s = requests.Session()
-    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"email": f"vision.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20)
+    resp = s.post(f"{BASE_URL}/api/auth/signup", json={"accept_terms": True, "email": f"vision.{uuid.uuid4().hex[:10]}@example.com", "password": "StrongPass123"}, timeout=20)
     assert resp.status_code == 200, resp.text
     s.headers["Authorization"] = f"Bearer {resp.json()['token']}"
     yield s
