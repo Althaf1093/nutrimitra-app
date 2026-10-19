@@ -9,7 +9,7 @@ New features under test:
 - Health summary: GET /api/health/summary aggregates today's synced device
   records (steps, sleep_minutes, active_calories) and reports connected from
   the health_sync permission.
-- Auth: POST /api/auth/session with a bogus session_id -> 401.
+- Auth: POST /api/auth/google with a bogus ID token -> 401.
 - Regression: login, /api/me, /api/coach, /api/coach/history, /api/eat-now,
   /api/coach/vision.
 """
@@ -70,13 +70,13 @@ def _validate_plan_shape(plan):
             assert 0 < int(m.get("calories", 0)) <= 1500
 
 
-class TestAuthSessionBogus:
-    """Managed Google handoff: bogus session_id must be rejected."""
+class TestAuthGoogleBogus:
+    """Google sign-in: a bogus ID token must be rejected."""
 
-    def test_bogus_session_id_returns_401(self):
+    def test_bogus_id_token_returns_401(self, google_backend):
         resp = requests.post(
-            f"{BASE_URL}/api/auth/session",
-            json={"session_id": f"bogus-{uuid.uuid4().hex}"},
+            f"{google_backend}/api/auth/google",
+            json={"id_token": f"bogus-{uuid.uuid4().hex}"},
             timeout=30,
         )
         assert resp.status_code == 401, resp.text

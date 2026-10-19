@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 import { AppIcon, Button, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { googleEnabled } from "@/src/lib/google-auth";
 import { useStyles } from "@/src/styles";
 
 export default function WelcomeScreen() {
@@ -18,8 +19,7 @@ export default function WelcomeScreen() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  // Signed-in users (including returning Google OAuth sessions) never sit on
-  // the auth screen — send them straight into the app.
+  // Signed-in users never sit on the auth screen — send them straight into the app.
   if (status === "ready") return <Redirect href="/(tabs)" />;
   if (status === "onboarding") return <Redirect href="/onboarding" />;
 
@@ -41,8 +41,8 @@ export default function WelcomeScreen() {
     setError("");
     try {
       await signInGoogle();
-    } catch {
-      setError("Google sign-in was interrupted. Please try again.");
+    } catch (err) {
+      setError(err instanceof Error && err.message ? err.message : t.googleFailed);
     } finally {
       setBusy(false);
     }
@@ -74,7 +74,7 @@ export default function WelcomeScreen() {
           <Field label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
           {error ? <Text style={styles.errorText} testID="auth-error">{error}</Text> : null}
           <Button testID="auth-submit-button" label={busy ? "..." : mode === "signin" ? t.signIn : t.create} onPress={submit} disabled={busy || !email || password.length < 8} />
-          <Button testID="google-signin-button" label={t.welcomeGoogle} onPress={google} secondary disabled={busy} />
+          {googleEnabled ? <Button testID="google-signin-button" label={t.welcomeGoogle} onPress={google} secondary disabled={busy} /> : null}
           <Text style={styles.authHint}>
             {mode === "signin" ? t.noAccount : t.already}{" "}
             <Text style={styles.linkText} onPress={() => setMode(mode === "signin" ? "signup" : "signin")}>
