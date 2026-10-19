@@ -135,6 +135,7 @@ export const useStyles = makeStyles((colors) =>
     inlineForm: { flexDirection: "row", alignItems: "center", gap: 10, marginTop: 14 },
     inlineInput: { flex: 1, minWidth: 0, minHeight: 50, borderRadius: 14, borderWidth: 1, borderColor: colors.borderStrong, paddingHorizontal: 14, color: colors.onSurface, backgroundColor: colors.surface },
     placeholder: { color: colors.muted },
+    wellnessNotice: { color: colors.muted, fontSize: 12, lineHeight: 17, paddingHorizontal: 20, paddingVertical: 8, borderTopWidth: 1, borderTopColor: colors.border, backgroundColor: colors.surfaceSecondary },
     disclaimer: { color: colors.muted, fontSize: 12, lineHeight: 18, marginTop: 22 },
 
     chatContent: { flexGrow: 1, padding: 20, paddingBottom: 18, maxWidth: 620, width: "100%", alignSelf: "center" },

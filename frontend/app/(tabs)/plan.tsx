@@ -78,6 +78,9 @@ export default function PlanScreen() {
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionSub}>{plan?.goal || "Your adaptable 7-day rhythm"}</Text>
+        <Text style={[styles.disclaimer, { marginTop: 4, marginBottom: 8 }]} testID="plan-wellness-notice">
+          {t.wellnessNotice}
+        </Text>
         {plan?.ai_status ? (
           <View style={styles.reasonCard} testID="plan-ai-busy">
             <Text style={styles.reasonText}>{plan.ai_status === "ai_busy" ? t.aiBusyPlan : t.aiUnavailable}</Text>

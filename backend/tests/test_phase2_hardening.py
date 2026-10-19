@@ -5,7 +5,9 @@ Same approach as test_phase1_fixes.py: integration tests against the live server
 user per module run. Pure helpers are unit-tested by importing server directly.
 """
 import asyncio
+import json
 import os
+import threading
 import socket
 import subprocess
 import sys
@@ -13,6 +15,7 @@ import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import pytest
@@ -441,3 +444,97 @@ class TestPlanCap:
             assert "new" in markers and len(markers) == 5
         finally:
             mongo.plans.delete_many({"user_id": user_id})
+
+
+class CaptureGroq(BaseHTTPRequestHandler):
+    """A fake AI provider that records the request bodies it receives and answers plainly."""
+
+    bodies = []
+
+    def do_POST(self):
+        CaptureGroq.bodies.append(json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0)))))
+        body = json.dumps({"choices": [{"message": {"content": "Capture reply"}}]}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def log_message(self, *args):
+        pass
+
+
+class TestHealthConditions:
+    """Item 7: stated health conditions reach the plan and coach prompts explicitly, framed as general
+    wellness guidance, and the app shows a plain-language disclaimer in English and Telugu."""
+
+    def test_health_conditions_cleaning(self):
+        assert server.health_conditions({"conditions": [" PCOS ", "", "diabetes", "x" * 100]}) == ["PCOS", "diabetes", "x" * 60]
+        assert server.health_conditions({"conditions": "asthma, thyroid"}) == ["asthma", "thyroid"]
+        assert server.health_conditions({}) == []
+        assert len(server.health_conditions({"conditions": [str(n) for n in range(30)]})) == 10
+
+    def test_prompts_frame_conditions_as_general_guidance(self):
+        profile = {**PROFILE, "conditions": ["PCOS", "diabetes"]}
+        context = server.plan_context(profile, [], [], [])
+        assert context["health_conditions"] == ["PCOS", "diabetes"]
+        assert "health_conditions" in server.PLAN_SYSTEM and "not medical advice" in server.PLAN_SYSTEM
+        assert "medically tailored" in server.PLAN_SYSTEM and "never mention medicines" in server.PLAN_SYSTEM
+        assert "never name a condition" in server.PLAN_SYSTEM and "supports, manages, treats" in server.PLAN_SYSTEM
+        coach = server.coach_system_prompt(profile, "en")
+        assert "Self-reported health conditions (user-provided, unverified): PCOS, diabetes." in coach
+        assert "not medical advice" in coach and "medically tailored" in coach and "supports, manages, treats" in coach
+        assert "has not listed any health conditions" in server.coach_system_prompt(PROFILE, "en")
+        assert "Respond in Telugu." in server.coach_system_prompt(PROFILE, "te")
+
+    def test_condition_claims_are_stripped_from_generated_plans(self):
+        profile = {**PROFILE, "conditions": ["Type 2 diabetes", "PCOS", "high blood pressure"]}
+        fallback = {"reasoning": "Neutral reasoning."}
+        plan = {
+            "reasoning": "Low-glycaemic meals that align with the user's type-2 diabetes and PCOS.",
+            "days": [{"focus": "Supports blood pressure control"}, {"focus": "Protein + fibre balance"}, {"focus": "Diabetic friendly day"}],
+        }
+        server.strip_condition_claims(plan, profile, fallback)
+        assert plan["reasoning"] == "Neutral reasoning."
+        assert [day["focus"] for day in plan["days"]] == ["Balanced nutrition", "Protein + fibre balance", "Balanced nutrition"]
+        clean = {"reasoning": "High-fibre meals with steady energy.", "days": [{"focus": "High protein"}]}
+        server.strip_condition_claims(clean, profile, fallback)
+        assert clean["reasoning"] == "High-fibre meals with steady energy." and clean["days"][0]["focus"] == "High protein", "'high' alone is not a condition"
+        untouched = {"reasoning": "Mentions diabetes.", "days": []}
+        server.strip_condition_claims(untouched, PROFILE, fallback)
+        assert untouched["reasoning"] == "Mentions diabetes.", "nothing is stripped when the user listed no conditions"
+
+    def test_conditions_are_sent_to_the_ai_for_plan_and_coach(self, fresh, mongo):
+        fake = ThreadingHTTPServer(("127.0.0.1", 0), CaptureGroq)
+        threading.Thread(target=fake.serve_forever, daemon=True).start()
+        url, proc = spawn_backend(GROQ_API_KEY="fake-key", GROQ_BASE_URL=f"http://127.0.0.1:{fake.server_address[1]}")
+        try:
+            assert requests.put(f"{url}/api/profile", json={**PROFILE, "conditions": ["PCOS", "hypertension"]}, headers=fresh.headers, timeout=20).status_code == 200
+            CaptureGroq.bodies.clear()
+            assert requests.post(f"{url}/api/plan/regenerate", json={}, headers=fresh.headers, timeout=60).status_code == 200
+            plan_request = CaptureGroq.bodies[-1]["messages"]
+            assert "medically tailored" in plan_request[0]["content"]
+            user_context = json.loads(plan_request[1]["content"].split("Context: ", 1)[1])
+            assert user_context["health_conditions"] == ["PCOS", "hypertension"]
+            assert user_context["profile"]["conditions"] == ["PCOS", "hypertension"]
+            CaptureGroq.bodies.clear()
+            reply = requests.post(f"{url}/api/coach", json={"message": "Dinner idea?", "language": "en"}, headers=fresh.headers, timeout=60)
+            assert reply.status_code == 200, reply.text
+            system = CaptureGroq.bodies[-1]["messages"][0]["content"]
+            assert "PCOS, hypertension" in system and "not medical advice" in system
+        finally:
+            stop_backend(proc)
+            fake.shutdown()
+            mongo.coach_messages.delete_many({"user_id": fresh.user_id})
+            mongo.plans.delete_many({"user_id": fresh.user_id})
+            requests.put(f"{BASE_URL}/api/profile", json=PROFILE, headers=fresh.headers, timeout=20)
+
+    def test_app_shows_the_disclaimer_in_both_languages(self):
+        frontend = Path(server.__file__).parent.parent / "frontend"
+        i18n = (frontend / "src" / "i18n.ts").read_text(encoding="utf-8")
+        english, telugu = i18n.split("  te: {", 1)
+        assert "wellnessNotice:" in english and "wellnessNotice:" in telugu
+        assert "not medical advice" in english and "not tailored to your medical conditions" in english
+        assert "వైద్య సలహా కాదు" in telugu
+        assert "t.wellnessNotice" in (frontend / "app" / "(tabs)" / "coach.tsx").read_text(encoding="utf-8")
+        assert "t.wellnessNotice" in (frontend / "app" / "(tabs)" / "plan.tsx").read_text(encoding="utf-8")
