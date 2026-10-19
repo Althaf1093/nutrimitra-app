@@ -399,7 +399,7 @@ async def groq_text(system: str, prompt: str, user_id: str) -> str:
 PLAN_SYSTEM = (
     "You are NutriMitra's Indian nutrition planning engine. Return ONLY valid JSON, no markdown: "
     '{"days": [{"day": 1, "title": str, "focus": str, "meals": [{"type": "breakfast"|"lunch"|"snack"|"dinner", "name": str, "portion": str, '
-    '"calories": int, "protein_g": number, "carbs_g": number, "fat_g: number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
+    '"calories": int, "protein_g": number, "carbs_g": number, "fat_g": number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
     "(breakfast, lunch, snack, dinner) per day. Rules: Indian-first meals with global nutritious ingredients where helpful; strictly respect "
     "dietary preferences, allergies and disliked foods; match cooking time and budget; balance protein, fibre and healthy fats; avoid repeating "
     "meals the user logged recently."

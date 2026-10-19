@@ -409,3 +409,14 @@ class TestAIBusy:
         assert body["ai_status"] == "ai_busy"
         assert body["today_index"] == 2 and body["days"][2]["meals"][0]["name"] == "D3 breakfast"
         mongo.plans.delete_many({"user_id": fresh.user_id})
+
+
+class TestPlanPrompt:
+    """Fix 7: the plan prompt's JSON schema quotes every key (it had "fat_g: number)."""
+
+    def test_every_schema_key_is_quoted(self):
+        schema = server.PLAN_SYSTEM[server.PLAN_SYSTEM.index("{"):server.PLAN_SYSTEM.rindex("}") + 1]
+        for key in ("days", "day", "title", "focus", "meals", "type", "name", "portion", "calories", "protein_g", "carbs_g", "fat_g", "reasoning"):
+            assert f'"{key}":' in schema, key
+        assert '"fat_g: ' not in schema
+        assert schema.count('"') % 2 == 0, "unbalanced quotes in the plan schema"
