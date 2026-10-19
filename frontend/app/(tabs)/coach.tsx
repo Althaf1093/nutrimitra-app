@@ -155,6 +155,9 @@ export default function CoachScreen() {
             {notice}
           </Text>
         ) : null}
+        <Text style={styles.wellnessNotice} testID="coach-wellness-notice">
+          {t.wellnessNotice}
+        </Text>
         <View style={styles.chatComposer}>
           <TextInput testID="coach-input" value={input} onChangeText={setInput} placeholder={t.ask} placeholderTextColor={styles.placeholder.color as string} style={styles.chatInput} onSubmitEditing={() => send()} returnKeyType="send" />
           <Pressable testID="coach-send-button" accessibilityRole="button" accessibilityLabel={t.send} onPress={() => send()} disabled={busy} style={[styles.sendButton, busy && styles.disabled]}>

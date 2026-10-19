@@ -575,8 +575,65 @@ PLAN_SYSTEM = (
     '"calories": int, "protein_g": number, "carbs_g": number, "fat_g": number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
     "(breakfast, lunch, snack, dinner) per day. Rules: Indian-first meals with global nutritious ingredients where helpful; strictly respect "
     "dietary preferences, allergies and disliked foods; match cooking time and budget; balance protein, fibre and healthy fats; avoid repeating "
-    "meals the user logged recently."
+    "meals the user logged recently. The context lists the user's self-reported health_conditions: favour generally sensible food choices for "
+    "them (for example, steady-carbohydrate and lower-sugar meals when diabetes or PCOS is listed, lower-salt meals for blood pressure) but treat "
+    "them only as user-provided information, never as a diagnosis. This is general wellness guidance, not medical advice: do not claim the plan is "
+    "medically tailored, prescribed or safe for a condition, and never mention medicines or doses. In the reasoning and meal names, never name a "
+    "condition or say the plan supports, manages, treats or suits it; describe only the food itself (for example 'lower-sugar, high-fibre meals')."
 )
+
+
+def health_conditions(profile: Dict[str, Any]) -> List[str]:
+    """The user's self-reported conditions, cleaned for use in a prompt."""
+    raw = profile.get("conditions") or []
+    if isinstance(raw, str):
+        raw = raw.split(",")
+    return [str(item).strip()[:60] for item in raw if str(item).strip()][:10]
+
+
+CONDITION_STOPWORDS = {"type", "with", "high", "low", "chronic", "issue", "issues", "problem", "problems", "disease", "syndrome", "condition", "conditions"}
+
+
+def condition_terms(profile: Dict[str, Any]) -> List[str]:
+    """Lowercase phrases and words that identify the user's stated conditions in generated text."""
+    terms = set()
+    for condition in health_conditions(profile):
+        lowered = condition.lower()
+        terms.add(lowered)
+        # Long words are cut to a 6-letter stem so "diabetic" matches "diabetes".
+        terms |= {word[:6] for word in re.findall(r"[a-z]{4,}", lowered) if word not in CONDITION_STOPWORDS}
+    return sorted(terms, key=len, reverse=True)
+
+
+def mentions_condition(text: str, profile: Dict[str, Any]) -> bool:
+    lowered = str(text).lower()
+    # Match at the start of a word, so "high" in "high-fibre" does not count for a condition called "high ...".
+    word_start = chr(92) + "b"
+    return any(re.search(word_start + re.escape(term), lowered) for term in condition_terms(profile))
+
+
+def strip_condition_claims(plan: Dict[str, Any], profile: Dict[str, Any], fallback: Dict[str, Any]) -> None:
+    """The prompt asks the model not to name a user's condition or claim the plan suits it. If it does anyway,
+    swap that text (the plan reasoning and each day's focus) for neutral wording, so the app never shows a
+    medical claim."""
+    if not condition_terms(profile):
+        return
+    if mentions_condition(plan.get("reasoning", ""), profile):
+        plan["reasoning"] = fallback.get("reasoning", "")
+    for day in plan.get("days", []):
+        if mentions_condition(day.get("focus", ""), profile):
+            day["focus"] = "Balanced nutrition"
+
+
+def plan_context(profile: Dict[str, Any], meals: List[Dict[str, Any]], activities: List[Dict[str, Any]], weights: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """What the plan generator is told about the user, with health conditions stated explicitly."""
+    return {
+        "profile": profile,
+        "health_conditions": health_conditions(profile),
+        "recent_meals_logged": [str(item.get("name", ""))[:40] for item in meals[-14:]],
+        "activity_sessions_last_7_days": len(activities),
+        "recent_weights_kg": [item.get("weight_kg") for item in weights[:7]],
+    }
 
 
 NON_VEG_KEYWORDS = ("chicken", "mutton", "fish", "egg", "eggs", "prawn", "shrimp", "beef", "pork", "meat", "keema", "lamb", "crab", "tuna", "salmon", "bacon", "sausage", "anchovy", "anchovies")
@@ -643,12 +700,7 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
     weights = await db.weights.find({"user_id": user_id}, {"_id": 0}).sort("created_at", -1).to_list(10)
     fallback = local_plan(profile)
     fallback["reasoning"] = "Each day pairs familiar Indian foods with fibre, protein, healthy fats and hydration for steady energy."
-    context = {
-        "profile": profile,
-        "recent_meals_logged": [str(item.get("name", ""))[:40] for item in meals[-14:]],
-        "activity_sessions_last_7_days": len(activities),
-        "recent_weights_kg": [item.get("weight_kg") for item in weights[:7]],
-    }
+    context = plan_context(profile, meals, activities, weights)
     try:
         ai_text = await groq_chat(
             [{"role": "system", "content": PLAN_SYSTEM}, {"role": "user", "content": f"Build this week's adaptive 7-day plan. Context: {json.dumps(context, default=str)}"}],
@@ -669,6 +721,7 @@ async def build_adaptive_plan(user_id: str, profile: Dict[str, Any]) -> Dict[str
                     if violations:
                         logger.warning("Groq plan for %s violated dietary restrictions (%s); using fallback", user_id, violations)
                         return fallback
+                    strip_condition_claims(candidate, profile, fallback)
                 return candidate
             except json.JSONDecodeError:
                 pass
@@ -898,8 +951,19 @@ COACH_SYSTEM = (
     "When the user asks for a recipe or a dish idea they could cook, end your reply with a fenced block exactly like "
     '```recipe\n{"name": str, "time_min": int, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
     '"ingredients": [str], "steps": [str]}\n``` '
-    "using realistic Indian home-cooking values. Include the block only for actual recipes."
+    "using realistic Indian home-cooking values. Include the block only for actual recipes. "
+    "You give general wellness guidance, not medical advice: never diagnose, never suggest medicines, doses or stopping treatment, and do not claim "
+    "your suggestions are medically tailored. If the user lists health conditions, keep suggestions generally sensible for them and remind them "
+    "to confirm anything important with their doctor or dietitian. Never say a food or plan supports, manages, treats, helps or is good for a "
+    "condition; describe only the food itself (for example 'lower in sugar, high in fibre')."
 )
+
+
+def coach_system_prompt(profile: Dict[str, Any], language: str) -> str:
+    language_line = "Respond in Telugu." if language == "te" else "Respond in English."
+    conditions = health_conditions(profile)
+    conditions_line = f"Self-reported health conditions (user-provided, unverified): {', '.join(conditions)}." if conditions else "The user has not listed any health conditions."
+    return f"{COACH_SYSTEM} {language_line} {conditions_line} User wellness profile (user-provided): {json.dumps(profile)}"
 
 RECIPE_BLOCK = re.compile(r"```recipe\s*(\{.*?\})\s*```", re.DOTALL)
 
@@ -922,8 +986,7 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
     history: List[Dict[str, Any]] = []
     if memory:
         history = await db.coach_messages.find({"user_id": user["id"]}, {"_id": 0}).sort("created_at", 1).to_list(24)
-    language_line = "Respond in Telugu." if payload.language == "te" else "Respond in English."
-    messages = [{"role": "system", "content": f"{COACH_SYSTEM} {language_line} User wellness profile (user-provided): {json.dumps(profile)}"}]
+    messages = [{"role": "system", "content": coach_system_prompt(profile, payload.language)}]
     for item in history[-12:]:
         messages.append({"role": "user" if item.get("role") == "user" else "assistant", "content": str(item.get("text", ""))[:600]})
     messages.append({"role": "user", "content": payload.message})
