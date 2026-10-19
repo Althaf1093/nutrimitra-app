@@ -191,3 +191,32 @@ and `tests/conftest.py`.
 4. Photo, once you add the Gemini key: take a picture, check the confirm form. Without the key you see "isn't set up yet" and can still log by hand.
 5. Welcome screen without Google credentials: no Google button, and email sign-in works.
 6. Everything else (Today, Plan, Coach, Progress) behaves as before. This checks the Expo package updates.
+
+# End-to-end browser run (2026-10-19)
+
+Playwright (in `e2e/`, not an app dependency) drives the Expo web build in Edge against a throwaway backend database with
+a fake AI provider. See `e2e/README.md`; run with `npm run e2e` inside `e2e`.
+
+## Result: 13 of 13 passed (3.0 min)
+Phone: flows 1 (sign up, sign out, sign in, wrong password), 1b (unreachable backend is explained), 2 (onboarding and
+18+), 3 (plan, AI busy), 4 (log, edit, remove a meal), 5 (activity), 6 (weight), 7 (coach, AI busy), 8 (photo logging),
+9 (Telugu and back, privacy, reminders, sign out, no leftover English or raw keys), 10 (11 wrong logins, then a valid
+user still gets in). Desktop pass: flows 1 and 4.
+
+## Bugs found and fixed (one PR each)
+- #33 Web build only worked from one origin: any localhost port is now allowed, and an unreachable backend gives a clear
+  message instead of "Failed to fetch".
+- #34 and #37 Needless `/me` request with no token, and stale navigation / signed-out requests after sign-out.
+- #36 expo-notifications web warning (loaded on devices only).
+- #35 A brittle no-token guard test.
+- #38 Settings toggles overwrote saved preferences.
+- #39 Telugu leftovers found by the browser scan.
+- This PR: screenshots were all named `undefined-*` and overwrote each other; now `<flow>-<name>.png`.
+
+## Screenshots (e2e/screenshots/phone, git-ignored)
+welcome, today, wrong-password, back-in, step-2, step-3, under-18, plan, ai-busy (plan and coach), logged, editing,
+three-activities, weight-logged, recipe, confirm, settings-english, settings-telugu, telugu-today/plan/coach/progress,
+too-many-attempts, cannot-reach.
+
+## Not covered
+Real Gemini/Groq/Google calls (fakes only), and native phone behaviour: please still try the app on your phone.

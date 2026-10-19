@@ -1,0 +1,16 @@
+{
+  "name": "wellstride-e2e",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Browser end-to-end tests for Wellstride (Playwright driving the web build)",
+  "scripts": {
+    "install-browser": "playwright install chromium",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:rebuild": "playwright test --config=playwright.config.ts",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0"
+  }
+}
