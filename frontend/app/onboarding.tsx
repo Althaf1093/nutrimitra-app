@@ -7,6 +7,7 @@ import { put } from "@/src/api";
 import { Button, Chip, Field } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { optionLabel } from "@/src/i18n";
+import { cmToFeetInches, cmToFeetText, HEIGHT_MAX_CM, HEIGHT_MIN_CM, parseHeightCm, type HeightUnit } from "@/src/lib/height";
 import { deviceTimezone } from "@/src/lib/timezone";
 import { useStyles } from "@/src/styles";
 import type { Profile } from "@/src/types";
@@ -22,6 +23,7 @@ export default function OnboardingScreen() {
   const [step, setStep] = useState(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [heightUnit, setHeightUnit] = useState<HeightUnit>("cm");
   const [draft, setDraft] = useState<Record<string, unknown>>({
     age: "30",
     sex: "Prefer not to say",
@@ -48,9 +50,26 @@ export default function OnboardingScreen() {
     const age = Number(draft.age);
     return Number.isInteger(age) && age >= 18 && age <= 100;
   };
+  const heightCm = parseHeightCm(String(draft.height_cm), heightUnit);
+  const heightOk = heightCm !== null && heightCm >= HEIGHT_MIN_CM && heightCm <= HEIGHT_MAX_CM;
+  const switchHeightUnit = (unit: HeightUnit) => {
+    if (unit === heightUnit) return;
+    if (heightOk) set("height_cm", unit === "ft" ? cmToFeetText(heightCm) : String(Math.round(heightCm)));
+    setHeightUnit(unit);
+  };
+  const heightEcho = () => {
+    if (!heightOk) return "";
+    if (heightUnit === "ft") return `${t.heightIs} ${Math.round(heightCm)} ${t.heightUnitCm}`;
+    const { feet, inches } = cmToFeetInches(heightCm);
+    return `${t.heightIs} ${feet}′${inches}″ (${cmToFeetText(heightCm)} ${t.heightUnitFt})`;
+  };
   const next = () => {
     if (step === 0 && !ageOk()) {
       setError(t.ageMustBe18);
+      return;
+    }
+    if (step === 0 && !heightOk) {
+      setError(t.heightInvalid);
       return;
     }
     setError("");
@@ -62,13 +81,18 @@ export default function OnboardingScreen() {
       setError(t.ageMustBe18);
       return;
     }
+    if (!heightOk) {
+      setStep(0);
+      setError(t.heightInvalid);
+      return;
+    }
     setBusy(true);
     setError("");
     try {
       const payload = {
         ...draft,
         age: Number(draft.age),
-        height_cm: Number(draft.height_cm),
+        height_cm: Math.round((heightCm ?? 0) * 10) / 10,
         weight_kg: Number(draft.weight_kg),
         target_weight_kg: Number(draft.target_weight_kg),
         timezone: deviceTimezone(),
@@ -109,7 +133,17 @@ export default function OnboardingScreen() {
                 ))}
               </View>
             </View>
-            <Field label={t.height} value={String(draft.height_cm)} onChangeText={(v) => set("height_cm", v)} keyboardType="numeric" />
+            <View style={styles.field}>
+              <Text style={styles.fieldLabel}>{t.height}</Text>
+              <View style={styles.chipWrap}>
+                <Chip label="cm" text={t.heightUnitCm} selected={heightUnit === "cm"} onPress={() => switchHeightUnit("cm")} />
+                <Chip label="ft" text={t.heightUnitFt} selected={heightUnit === "ft"} onPress={() => switchHeightUnit("ft")} />
+              </View>
+            </View>
+            <Field label={`${t.height} (${heightUnit === "cm" ? t.heightUnitCm : t.heightUnitFt})`} value={String(draft.height_cm)} onChangeText={(v) => set("height_cm", v)} keyboardType={heightUnit === "cm" ? "numeric" : "default"} />
+            <Text style={styles.mutedText} testID="height-echo">
+              {heightEcho() || (heightUnit === "ft" ? t.heightHintFt : "")}
+            </Text>
             <View style={styles.row}>
               <View style={styles.half}>
                 <Field label={t.weight} value={String(draft.weight_kg)} onChangeText={(v) => set("weight_kg", v)} keyboardType="numeric" />
