@@ -34,7 +34,8 @@ export type Meal = {
 export type PlanDay = { day: number; title: string; focus: string; meals: Meal[] };
 
 // today_index: which day of the 7-day plan is "today" (days since the plan started, wrapped).
-export type Plan = { days: PlanDay[]; reasoning: string; goal: string; today_index?: number };
+// ai_status is set when the AI could not build a fresh plan (e.g. "ai_busy"); the plan shown is the previous one or a fallback.
+export type Plan = { days: PlanDay[]; reasoning: string; goal: string; today_index?: number; ai_status?: string; ai_message?: string };
 
 export type LoggedMeal = {
   id: string;

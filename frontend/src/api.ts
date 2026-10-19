@@ -17,6 +17,21 @@ export async function clearToken() {
   return storage.secureRemove(TOKEN_KEY);
 }
 
+// Errors carry the HTTP status and, for structured errors such as {"code": "ai_busy", "message": ...}, the code.
+export class ApiError extends Error {
+  status: number;
+  code?: string;
+
+  constructor(message: string, status: number, code?: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.code = code;
+  }
+}
+
+export const isAiBusy = (err: unknown) => err instanceof ApiError && err.code === "ai_busy";
+
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = await getToken();
   const headers = new Headers(options.headers);
@@ -24,7 +39,11 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   if (token) headers.set("Authorization", `Bearer ${token}`);
   const response = await fetch(`${baseUrl}/api${path}`, { ...options, headers });
   const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.detail || "Something went wrong");
+  if (!response.ok) {
+    const detail = body.detail;
+    if (detail && typeof detail === "object" && !Array.isArray(detail)) throw new ApiError(detail.message || "Something went wrong", response.status, detail.code);
+    throw new ApiError(typeof detail === "string" ? detail : "Something went wrong", response.status);
+  }
   return body as T;
 }
 
