@@ -41,6 +41,11 @@ async function messages() {
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = await getToken();
+  // Only sign-in and a few public routes work without a token. Asking for anything else would just come back 401 (and show
+  // a red error in the console), which happens when a screen reloads in the moment after sign-out.
+  if (!token && !path.startsWith("/auth/") && !path.startsWith("/ingredients")) {
+    throw new ApiError((await messages()).signInToContinue, 401, "no_token");
+  }
   const headers = new Headers(options.headers);
   headers.set("Content-Type", "application/json");
   if (token) headers.set("Authorization", `Bearer ${token}`);
