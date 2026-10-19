@@ -6,9 +6,14 @@ user per module run. Pure helpers are unit-tested by importing server directly.
 """
 import asyncio
 import os
+import socket
+import subprocess
+import sys
+import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import pytest
 import requests
@@ -46,6 +51,33 @@ def remove_user(mongo, user_id):
     for name in USER_COLLECTIONS:
         mongo[name].delete_many({"user_id": user_id})
     mongo.users.delete_many({"id": user_id})
+
+
+def free_port():
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        return sock.getsockname()[1]
+
+
+def spawn_backend(**env_overrides):
+    """Start a second backend on the same database with extra environment; returns (url, process)."""
+    port = free_port()
+    env = {**os.environ, **env_overrides}
+    proc = subprocess.Popen([sys.executable, "-m", "uvicorn", "server:app", "--host", "127.0.0.1", "--port", str(port)], cwd=Path(server.__file__).parent, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    url = f"http://127.0.0.1:{port}"
+    for _ in range(60):
+        try:
+            if requests.get(f"{url}/api/", timeout=1).status_code == 200:
+                return url, proc
+        except requests.RequestException:
+            time.sleep(0.5)
+    proc.terminate()
+    pytest.fail("extra backend did not start")
+
+
+def stop_backend(proc):
+    proc.terminate()
+    proc.wait(timeout=20)
 
 
 @pytest.fixture(scope="module")
@@ -206,3 +238,71 @@ class TestIndexes:
         assert server.parse_expiry("2026-10-01T12:00:00Z") == aware
         assert server.parse_expiry("garbage") is None
         assert server.parse_expiry(None) is None
+
+
+@pytest.fixture(scope="module")
+def limited_backend():
+    """A backend with no loopback exemption that trusts X-Forwarded-For, so tests can act as different clients."""
+    url, proc = spawn_backend(AUTH_RATE_LIMIT="10", AUTH_RATE_WINDOW_MINUTES="15", AUTH_RATE_LIMIT_EXEMPT_IPS="", TRUST_PROXY_HEADERS="1")
+    yield url
+    stop_backend(proc)
+
+
+def login(url, email, password="WrongPass123", ip="203.0.113.1"):
+    return requests.post(f"{url}/api/auth/login", json={"email": email, "password": password}, headers={"X-Forwarded-For": ip}, timeout=20)
+
+
+class TestAuthRateLimit:
+    """Item 2: /auth/login and /auth/signup allow 10 attempts per 15 minutes per IP and per email."""
+
+    def test_limiter_window(self):
+        now = [1000.0]
+        limiter = server.SlidingWindowLimiter(3, 60, clock=lambda: now[0])
+        assert [limiter.record("k") for _ in range(3)] == [None, None, None]
+        assert limiter.record("k") == 60
+        now[0] += 30
+        assert limiter.record("k") == 30, "over-limit attempts are not counted, so the wait shrinks"
+        assert limiter.record("other") is None
+        now[0] += 31
+        assert limiter.record("k") is None, "the oldest attempts aged out of the window"
+        limiter.reset("k")
+        assert limiter.attempts.get("k") is None
+
+    def test_per_ip_login_limit(self, limited_backend):
+        ip = f"203.0.113.{uuid.uuid4().int % 200 + 1}"
+        codes = [login(limited_backend, unique_email("nobody"), ip=ip).status_code for _ in range(10)]
+        assert codes == [401] * 10
+        blocked = login(limited_backend, unique_email("nobody"), ip=ip)
+        assert blocked.status_code == 429, blocked.text
+        assert "Too many attempts" in blocked.json()["detail"] and "15 minutes" in blocked.json()["detail"]
+        assert 0 < int(blocked.headers["Retry-After"]) <= 900
+        assert login(limited_backend, unique_email("nobody"), ip="198.51.100.7").status_code == 401, "other clients are unaffected"
+
+    def test_per_email_login_limit_across_ips(self, limited_backend):
+        email = unique_email("target")
+        codes = [login(limited_backend, email, ip=f"192.0.2.{n}").status_code for n in range(1, 11)]
+        assert codes == [401] * 10
+        assert login(limited_backend, email, ip="192.0.2.99").status_code == 429
+
+    def test_successful_login_resets_the_email_counter(self, limited_backend, fresh):
+        for n in range(9):
+            assert login(limited_backend, fresh.email, ip=f"198.18.0.{n + 1}").status_code == 401
+        assert login(limited_backend, fresh.email, password="StrongPass123", ip="198.18.1.1").status_code == 200
+        for n in range(5):
+            assert login(limited_backend, fresh.email, ip=f"198.18.2.{n + 1}").status_code == 401, "counter was reset by the success"
+
+    def test_signup_limit_per_ip(self, limited_backend, mongo):
+        ip = "203.0.113.250"
+        emails = [unique_email("spam") for _ in range(11)]
+        try:
+            codes = [requests.post(f"{limited_backend}/api/auth/signup", json={"email": e, "password": "StrongPass123"}, headers={"X-Forwarded-For": ip}, timeout=20).status_code for e in emails]
+            assert codes == [200] * 10 + [429], codes
+        finally:
+            for user in mongo.users.find({"email": {"$in": emails}}):
+                remove_user(mongo, user["id"])
+
+    def test_local_and_test_suite_logins_are_exempt(self):
+        """The dev server exempts loopback by default, so the suite's many logins are never blocked."""
+        email = unique_email("loopback")
+        codes = [requests.post(f"{BASE_URL}/api/auth/login", json={"email": email, "password": "WrongPass123"}, timeout=20).status_code for _ in range(12)]
+        assert codes == [401] * 12

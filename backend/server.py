@@ -4,7 +4,10 @@ import json
 import logging
 import os
 import re
+import math
+import time
 import uuid
+from collections import deque
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -14,7 +17,7 @@ import bcrypt
 import httpx
 import jwt
 from dotenv import load_dotenv
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -34,6 +37,12 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
 DEFAULT_TIMEZONE = "Asia/Kolkata"
+AUTH_RATE_LIMIT = int(os.getenv("AUTH_RATE_LIMIT", "10"))
+AUTH_RATE_WINDOW_SECONDS = int(os.getenv("AUTH_RATE_WINDOW_MINUTES", "15")) * 60
+# Local dev and the test suite call from loopback; set this to "" in production.
+AUTH_RATE_LIMIT_EXEMPT_IPS = {ip.strip() for ip in os.getenv("AUTH_RATE_LIMIT_EXEMPT_IPS", "127.0.0.1,::1").split(",") if ip.strip()}
+# Behind a reverse proxy (e.g. Render) the client IP is the first X-Forwarded-For entry.
+TRUST_PROXY_HEADERS = os.getenv("TRUST_PROXY_HEADERS", "").lower() in {"1", "true", "yes"}
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -222,6 +231,62 @@ def parse_expiry(value: Any) -> Optional[datetime]:
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
+class SlidingWindowLimiter:
+    """In-memory sliding-window attempt counter, per process.
+
+    Only record() and reset() are used by the app, so this can be swapped for a Redis or Mongo store
+    with the same interface when the backend runs on more than one process."""
+
+    def __init__(self, limit: int, window_seconds: int, clock=time.monotonic):
+        self.limit = limit
+        self.window = window_seconds
+        self.clock = clock
+        self.attempts: Dict[str, deque] = {}
+
+    def record(self, key: str) -> Optional[int]:
+        """Count one attempt. Returns seconds to wait if the key is over the limit (the attempt is not counted)."""
+        now = self.clock()
+        if len(self.attempts) > 10_000:
+            # Bound memory: drop keys whose attempts have all aged out.
+            self.attempts = {k: w for k, w in self.attempts.items() if w and w[-1] > now - self.window}
+        window = self.attempts.setdefault(key, deque())
+        while window and window[0] <= now - self.window:
+            window.popleft()
+        if len(window) >= self.limit:
+            return max(1, math.ceil(window[0] + self.window - now))
+        window.append(now)
+        return None
+
+    def reset(self, key: str) -> None:
+        self.attempts.pop(key, None)
+
+
+auth_limiter = SlidingWindowLimiter(AUTH_RATE_LIMIT, AUTH_RATE_WINDOW_SECONDS)
+
+
+def client_ip(request: Request) -> str:
+    if TRUST_PROXY_HEADERS:
+        forwarded = request.headers.get("x-forwarded-for", "")
+        if forwarded.strip():
+            return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def check_auth_rate_limit(request: Request, action: str, email: str) -> None:
+    """Allow at most AUTH_RATE_LIMIT attempts per window per client IP and per email, for each action."""
+    ip = client_ip(request)
+    if ip in AUTH_RATE_LIMIT_EXEMPT_IPS:
+        return
+    waits = [wait for wait in (auth_limiter.record(f"{action}:ip:{ip}"), auth_limiter.record(f"{action}:email:{email}")) if wait]
+    if waits:
+        minutes = max(1, math.ceil(max(waits) / 60))
+        raise HTTPException(
+            status_code=429,
+            detail=f"Too many attempts. Please wait {minutes} minute{'s' if minutes != 1 else ''} and try again.",
+            headers={"Retry-After": str(max(waits))},
+        )
+
+
 def public_user(doc: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "id": doc.get("id", ""),
@@ -264,8 +329,9 @@ async def root():
 
 
 @api_router.post("/auth/signup", response_model=TokenResponse)
-async def signup(payload: AuthInput):
+async def signup(payload: AuthInput, request: Request):
     email = payload.email.lower()
+    check_auth_rate_limit(request, "signup", email)
     if await db.users.find_one({"email": email}, {"_id": 0}):
         raise HTTPException(status_code=409, detail="An account with this email already exists")
     user = {
@@ -296,10 +362,14 @@ def password_matches(password: str, stored_hash: Any) -> bool:
 
 
 @api_router.post("/auth/login", response_model=TokenResponse)
-async def login(payload: AuthInput):
-    user = await db.users.find_one({"email": payload.email.lower()}, {"_id": 0})
+async def login(payload: AuthInput, request: Request):
+    email = payload.email.lower()
+    check_auth_rate_limit(request, "login", email)
+    user = await db.users.find_one({"email": email}, {"_id": 0})
     if not user or not password_matches(payload.password, user.get("password_hash")):
         raise HTTPException(status_code=401, detail="Email or password is incorrect")
+    # A successful sign-in clears the account's counter; the per-IP counter keeps running.
+    auth_limiter.reset(f"login:email:{email}")
     return {"token": issue_token(user["id"]), "user": public_user(user)}
 
 
