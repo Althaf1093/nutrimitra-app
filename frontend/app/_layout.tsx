@@ -24,6 +24,7 @@ export default function RootLayout() {
               <Stack.Screen name="log-food" options={{ presentation: "modal" }} />
               <Stack.Screen name="settings" options={{ presentation: "modal" }} />
               <Stack.Screen name="shopping-list" options={{ presentation: "modal" }} />
+              <Stack.Screen name="kitchen" options={{ presentation: "modal" }} />
             </Stack>
           </ToastProvider>
         </AuthProvider>
