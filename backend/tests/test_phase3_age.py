@@ -117,7 +117,7 @@ class TestAgeGateInTheApp:
         onboarding = self.read("app", "onboarding.tsx")
         assert "age >= 18 && age <= 100" in onboarding and "Number.isInteger(age)" in onboarding
         assert "t.ageMustBe18" in onboarding and "t.ageNote" in onboarding
-        assert "onPress={step === 2 ? finish : next}" in onboarding
+        assert "onPress={step === 3 ? () => finish() : next}" in onboarding
         assert onboarding.count("ageOk()") >= 2, "checked both when continuing and when finishing"
 
     def test_both_languages_have_the_note_and_the_message(self):

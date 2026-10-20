@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-nati
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post, put } from "@/src/api";
-import { KitchenEditor, type KitchenDraft } from "@/src/components/kitchen-editor";
+import { COOKING_TIMES, KitchenEditor, type KitchenDraft } from "@/src/components/kitchen-editor";
 import { ToastProvider, useToast } from "@/src/components/toast";
 import { AppIcon, Button } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
@@ -35,7 +35,7 @@ function MyKitchen() {
   const [saved, setSaved] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [planUpdated, setPlanUpdated] = useState(false);
-  const profileCookingTime = String(profile?.cooking_time || "20–30 min");
+  const profileCookingTime = String(profile?.cooking_time || COOKING_TIMES[1]);
 
   useEffect(() => {
     if (status !== "ready") return;
