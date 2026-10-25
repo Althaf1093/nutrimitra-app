@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add food</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; height: 1000px; box-sizing: border-box; background: var(--cream); padding: 20px; display: flex; flex-direction: column; gap: 16px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink)">
+
+<div style="display: flex; align-items: center; gap: 12px">
+<button aria-label="Close" style="width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--line); background: var(--card); display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1f2a25" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+<div style="flex: 1"><div style="font-size: 12px; font-weight: 600; color: var(--muted)">Sunday, 25 Oct</div><div style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em">Add to Lunch</div></div>
+<div style="height: 32px; padding: 0 12px; border-radius: 16px; background: var(--green-100); color: var(--green-700); font-size: 12px; font-weight: 700; display: flex; align-items: center">Lunch ▾</div>
+</div>
+
+<div style="display: flex; gap: 10px">
+<div style="flex: 1; height: 52px; border-radius: 26px; background: var(--card); border: 1.5px solid var(--green-700); display: flex; align-items: center; gap: 10px; padding: 0 16px; box-shadow: var(--shadow)">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+<div style="font-size: 16px; font-weight: 600; flex: 1">egg</div>
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5e6862" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+</div>
+<button aria-label="Snap a photo" style="width: 52px; height: 52px; border-radius: 26px; border: 0; background: var(--green-700); display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
+</div>
+
+<div style="display: flex; gap: 8px; overflow: hidden">
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--green-700); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; flex: none">All</div>
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; align-items: center; flex: none">Eggs</div>
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; align-items: center; flex: none">Dosa</div>
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; align-items: center; flex: none">Rice</div>
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; align-items: center; flex: none">Drinks</div>
+<div style="height: 36px; padding: 0 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; display: flex; align-items: center; flex: none">Snacks</div>
+</div>
+
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">7 matches for "egg"</div>
+
+<div style="background: var(--card); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column">
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Boiled egg</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">1 large · 78 kcal · 6 g protein</div></div>
+<button aria-label="Add Boiled egg" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Half-boiled egg</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">1 large · 75 kcal · 6 g protein</div></div>
+<button aria-label="Add Half-boiled egg" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Omelette</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">2 eggs, onion · 190 kcal · 13 g protein</div></div>
+<button aria-label="Add Omelette" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Scrambled egg</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">2 eggs · 180 kcal · 12 g protein</div></div>
+<button aria-label="Add Scrambled egg" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Egg curry</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">1 bowl, 2 eggs · 280 kcal · 14 g protein</div></div>
+<button aria-label="Add Egg curry" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line)">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Egg bhurji</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">2 eggs · 210 kcal · 13 g protein</div></div>
+<button aria-label="Add Egg bhurji" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: var(--saffron-100); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c26e1b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 0 6.5 5 6.5 9.5a6.5 6.5 0 0 1-13 0C5.5 8 8.5 3 12 3z"/></svg></div>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 700">Egg white</div><div class="num" style="font-size: 12px; color: var(--muted); margin-top: 2px">1 large · 17 kcal · 4 g protein</div></div>
+<button aria-label="Add Egg white" style="width: 44px; height: 44px; border-radius: 22px; border: 1.5px solid var(--green-700); background: transparent; display: flex; align-items: center; justify-content: center; padding: 0"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+</div>
+
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; background: var(--green-50); border: 1px dashed var(--green-700); border-radius: 18px; padding: 14px 16px">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3f6254" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+<div style="flex: 1"><div style="font-size: 14px; font-weight: 700; color: var(--green-700)">Can't find it? Add your own food</div><div style="font-size: 12px; color: var(--muted); margin-top: 2px">Or search packaged foods</div></div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+:root {
+  --green-900: #24382f;
+  --green-700: #3f6254;
+  --green-600: #4a6b5d;
+  --green-100: #e4eee8;
+  --green-50: #f1f6f3;
+  --cream: #fbf8f2;
+  --card: #ffffff;
+  --line: #ece6da;
+  --ink: #1f2a25;
+  --muted: #5e6862;
+  --saffron: #c26e1b;
+  --saffron-100: #fbebd6;
+  --protein: #2f7f6f;
+  --carbs: #b9831a;
+  --fat: #d0553f;
+  --fibre: #6f5db0;
+  --shadow: 0 1px 2px rgba(31, 42, 37, 0.05), 0 8px 24px rgba(31, 42, 37, 0.06);
+}
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Telugu', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+.num { font-variant-numeric: tabular-nums; }
+button { font-family: inherit; }
