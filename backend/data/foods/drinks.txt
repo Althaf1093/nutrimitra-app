@@ -1,0 +1,265 @@
+# Tea
+Masala tea (with milk and sugar)|మసాలా టీ|Drinks|1 cup (150 ml)|2.5|13|3|0|masala chai,spiced tea
+Ginger tea (adrak chai, with milk)|అల్లం టీ|Drinks|1 cup (150 ml)|2.5|12|3|0|adrak chai,ginger chai
+Ginger tea (without milk)|అల్లం టీ|Drinks|1 cup (150 ml)|0|1|0|0|black ginger tea
+Milk tea (chai, 1 tsp sugar)|పాల టీ|Drinks|1 cup (150 ml)|2.5|8|3|0|chai,plain chai,doodh chai
+Milk tea (chai, no sugar)|పాల టీ (పంచదార లేకుండా)|Drinks|1 cup (150 ml)|2.5|5|3|0|sugarless chai
+Strong milk tea (kadak chai)|కడక్ చాయ్|Drinks|1 cup (150 ml)|3|11|4|0|kadak chai,cutting chai
+Cutting chai|కటింగ్ చాయ్|Drinks|1 small glass (80 ml)|1.5|7|2|0|cutting tea
+Irani chai|ఇరానీ చాయ్|Drinks|1 cup (120 ml)|3|14|4|0|irani tea,hyderabadi chai
+Cardamom tea (elaichi chai)|యాలకుల టీ|Drinks|1 cup (150 ml)|2.5|10|3|0|elaichi chai
+Tulsi tea|తులసి టీ|Drinks|1 cup (200 ml)|0|1|0|0|holy basil tea
+Lemon tea (with sugar)|నిమ్మ టీ|Drinks|1 cup (200 ml)|0|8|0|0|nimbu chai
+Lemon tea (no sugar)|నిమ్మ టీ|Drinks|1 cup (200 ml)|0|1|0|0|
+Black tea (no sugar)|బ్లాక్ టీ|Drinks|1 cup (200 ml)|0|0.5|0|0|plain tea,sugarless tea
+Black tea (1 tsp sugar)|బ్లాక్ టీ|Drinks|1 cup (200 ml)|0|5|0|0|
+Green tea (no sugar)|గ్రీన్ టీ|Drinks|1 cup (200 ml)|0|0.5|0|0|green chai
+Green tea with honey|గ్రీన్ టీ తేనెతో|Drinks|1 cup (200 ml)|0|7|0|0|
+Green tea with lemon|గ్రీన్ టీ నిమ్మతో|Drinks|1 cup (200 ml)|0|1.5|0|0|
+Jasmine green tea|జాస్మిన్ టీ|Drinks|1 cup (200 ml)|0|0.5|0|0|
+Matcha latte (with milk)|మచా లాటే|Drinks|1 cup (250 ml)|6|14|5|0|matcha
+Iced tea (sweetened)|ఐస్డ్ టీ|Drinks|1 glass (250 ml)|0|22|0|0|ice tea
+Iced lemon tea (bottled)|ఐస్డ్ లెమన్ టీ|Drinks|1 bottle (250 ml)|0|20|0|0|
+Peach iced tea (packaged)|పీచ్ ఐస్డ్ టీ|Drinks|1 can (250 ml)|0|24|0|0|
+Kashmiri kahwa|కహ్వా|Drinks|1 cup (150 ml)|0.5|6|1|0|kahwa
+Noon chai (Kashmiri pink tea)|నూన్ చాయ్|Drinks|1 cup (150 ml)|3|8|5|0|pink tea
+Bubble tea (milk tea with pearls)|బబుల్ టీ|Drinks|1 cup (400 ml)|3|55|5|0|boba
+Hibiscus tea|మందార టీ|Drinks|1 cup (200 ml)|0|1|0|0|
+Chamomile tea|చామొమైల్ టీ|Drinks|1 cup (200 ml)|0|0.5|0|0|
+Herbal kadha|కషాయం|Drinks|1 cup (150 ml)|0|4|0|0|kashayam,immunity drink
+Tea with jaggery|బెల్లం టీ|Drinks|1 cup (150 ml)|2.5|13|3|0|jaggery chai
+Tea with condensed milk|టీ|Drinks|1 cup (150 ml)|3|20|4|0|
+# Coffee
+Filter coffee (with milk and sugar)|ఫిల్టర్ కాఫీ|Drinks|1 cup (150 ml)|3|11|4|0|south indian coffee,kaapi
+Filter coffee (no sugar)|ఫిల్టర్ కాఫీ|Drinks|1 cup (150 ml)|3|5|4|0|sugarless coffee
+Filter coffee (strong decoction, less milk)|ఫిల్టర్ కాఫీ|Drinks|1 cup (100 ml)|1.5|7|2|0|
+Black coffee (no sugar)|బ్లాక్ కాఫీ|Drinks|1 cup (200 ml)|0.3|0|0|0|plain coffee
+Black coffee (1 tsp sugar)|బ్లాక్ కాఫీ|Drinks|1 cup (200 ml)|0.3|5|0|0|
+Instant coffee with milk and sugar|ఇన్‌స్టంట్ కాఫీ|Drinks|1 cup (150 ml)|3|11|3.5|0|nescafe,coffee with milk
+Instant coffee with milk (no sugar)|ఇన్‌స్టంట్ కాఫీ|Drinks|1 cup (150 ml)|3|5|3.5|0|
+Espresso|ఎస్ప్రెస్సో|Drinks|1 shot (30 ml)|0.1|0|0|0|
+Double espresso|ఎస్ప్రెస్సో|Drinks|2 shots (60 ml)|0.2|0|0|0|
+Americano|అమెరికానో|Drinks|1 cup (240 ml)|0.3|0|0|0|
+Cappuccino (whole milk)|కాపుచినో|Drinks|1 cup (240 ml)|6|9|6|0|cappucino
+Cappuccino (skimmed milk)|కాపుచినో|Drinks|1 cup (240 ml)|6|9|0.5|0|
+Cafe latte (whole milk)|కేఫ్ లాటే|Drinks|1 cup (300 ml)|9|13|9|0|latte,coffee latte
+Cafe latte (skimmed milk)|కేఫ్ లాటే|Drinks|1 cup (300 ml)|10|14|1|0|
+Flat white|ఫ్లాట్ వైట్|Drinks|1 cup (200 ml)|7|9|7|0|
+Cafe mocha|కేఫ్ మోచా|Drinks|1 cup (300 ml)|9|30|12|0|mocha
+Caramel macchiato|కారామెల్ మాకియాటో|Drinks|1 cup (300 ml)|9|32|8|0|
+Vanilla latte|వెనిల్లా లాటే|Drinks|1 cup (300 ml)|9|30|8|0|
+Hazelnut latte|హేజెల్‌నట్ లాటే|Drinks|1 cup (300 ml)|9|31|8|0|
+Cold coffee (with ice cream)|కోల్డ్ కాఫీ|Drinks|1 glass (300 ml)|7|38|10|0|cold coffee with icecream
+Cold coffee (milk, sugar)|కోల్డ్ కాఫీ|Drinks|1 glass (300 ml)|8|28|7|0|iced coffee
+Iced americano|ఐస్డ్ అమెరికానో|Drinks|1 glass (300 ml)|0.3|0|0|0|
+Iced latte|ఐస్డ్ లాటే|Drinks|1 glass (350 ml)|9|13|9|0|
+Frappe (blended coffee)|ఫ్రాపే|Drinks|1 glass (350 ml)|5|45|10|0|frappuccino
+Cold brew (no sugar)|కోల్డ్ బ్రూ|Drinks|1 glass (250 ml)|0.3|0|0|0|
+Dalgona coffee|డాల్గోనా కాఫీ|Drinks|1 glass (300 ml)|7|28|7|0|whipped coffee
+Bulletproof coffee|బులెట్‌ప్రూఫ్ కాఫీ|Drinks|1 cup (250 ml)|0.5|0|22|0|butter coffee
+Decaf coffee|డీకాఫ్ కాఫీ|Drinks|1 cup (200 ml)|0.3|0|0|0|
+Hot chocolate|హాట్ చాక్లెట్|Drinks|1 cup (240 ml)|8|28|7|0|cocoa
+Malt drink (Horlicks/Bournvita, with milk)|హార్లిక్స్|Drinks|1 glass (250 ml)|9|30|5|0|horlicks,bournvita,boost,complan
+Malt drink (with water)|హార్లిక్స్|Drinks|1 glass (250 ml)|2|20|1|0|
+# Milk and dairy drinks
+Milk (whole, cow)|పాలు|Drinks|1 glass (250 ml)|8|12|8|0|doodh,full cream milk
+Milk (toned)|పాలు|Drinks|1 glass (250 ml)|7.5|12|3.8|0|
+Milk (skimmed)|పాలు|Drinks|1 glass (250 ml)|8.5|12.5|0.5|0|
+Buffalo milk|గేదె పాలు|Drinks|1 glass (250 ml)|9|12|17|0|
+Soy milk (unsweetened)|సోయా పాలు|Drinks|1 glass (250 ml)|7|3|4|0|
+Almond milk (unsweetened)|బాదం పాలు (తీపి లేనివి)|Drinks|1 glass (250 ml)|1|1|2.5|0|
+Oat milk|ఓట్ పాలు|Drinks|1 glass (250 ml)|3|24|5|0|
+Coconut milk drink|కొబ్బరి పాలు|Drinks|1 glass (250 ml)|0.5|2|4.5|0|
+Haldi doodh (turmeric milk)|పసుపు పాలు|Drinks|1 glass (250 ml)|8|14|8|0|golden milk,turmeric milk
+Badam milk|బాదం పాలు|Drinks|1 glass (250 ml)|9|26|10|0|almond milk shake
+Kesar milk (saffron milk)|కేసర్ పాలు|Drinks|1 glass (250 ml)|8|20|8|0|saffron milk
+Rose milk|రోజ్ మిల్క్|Drinks|1 glass (250 ml)|7|28|7|0|
+Chocolate milk|చాక్లెట్ పాలు|Drinks|1 glass (250 ml)|8|28|7|0|
+Strawberry milkshake|స్ట్రాబెర్రీ మిల్క్‌షేక్|Drinks|1 glass (300 ml)|8|40|8|0|
+Banana milkshake|బనానా మిల్క్‌షేక్|Drinks|1 glass (300 ml)|9|45|8|0|
+Mango milkshake|మామిడి మిల్క్‌షేక్|Drinks|1 glass (300 ml)|8|45|8|0|
+Chocolate milkshake|చాక్లెట్ మిల్క్‌షేక్|Drinks|1 glass (300 ml)|9|45|11|0|
+Vanilla milkshake|వెనిల్లా మిల్క్‌షేక్|Drinks|1 glass (300 ml)|9|42|10|0|
+Oreo milkshake|ఓరియో మిల్క్‌షేక్|Drinks|1 glass (350 ml)|9|58|15|0|
+Dry fruit milkshake|డ్రై ఫ్రూట్ మిల్క్‌షేక్|Drinks|1 glass (300 ml)|11|42|14|0|
+Apple milkshake|యాపిల్ మిల్క్‌షేక్|Drinks|1 glass (300 ml)|8|38|7|0|
+Chikoo milkshake|సపోటా మిల్క్‌షేక్|Drinks|1 glass (300 ml)|8|45|8|0|sapota shake
+Avocado shake|అవకాడో షేక్|Drinks|1 glass (300 ml)|7|35|18|0|
+Falooda|ఫలూదా|Drinks|1 glass (350 ml)|8|60|10|0|
+Thandai|తండై|Drinks|1 glass (250 ml)|8|34|11|0|
+Sweet lassi|లస్సీ (తీపి)|Drinks|1 glass (250 ml)|6|34|6|0|lassi,punjabi lassi
+Salted lassi|లస్సీ (ఉప్పు)|Drinks|1 glass (250 ml)|6|9|5|0|namkeen lassi
+Mango lassi|మామిడి లస్సీ|Drinks|1 glass (250 ml)|6|40|5|0|
+Rose lassi|రోజ్ లస్సీ|Drinks|1 glass (250 ml)|6|36|5|0|
+Strawberry lassi|స్ట్రాబెర్రీ లస్సీ|Drinks|1 glass (250 ml)|6|34|5|0|
+Dry fruit lassi|డ్రై ఫ్రూట్ లస్సీ|Drinks|1 glass (250 ml)|9|38|11|0|
+Buttermilk (chaas, plain)|మజ్జిగ|Drinks|1 glass (250 ml)|3.5|5|1.5|0|chaas,majjiga,mor,neer mor
+Spiced buttermilk (masala chaas)|మసాలా మజ్జిగ|Drinks|1 glass (250 ml)|3.5|6|1.5|0|masala chaas,jeera chaas
+Thick buttermilk with curd|చిక్కటి మజ్జిగ|Drinks|1 glass (250 ml)|5|7|3|0|
+Neer mor (South Indian buttermilk)|నీర్ మోర్|Drinks|1 glass (250 ml)|3|4|1.5|0|
+Drinking yogurt (flavoured, packaged)|యోగర్ట్ డ్రింక్|Drinks|1 bottle (200 ml)|5|24|2|0|
+Kefir (plain)|కెఫిర్|Drinks|1 glass (200 ml)|7|9|4|0|
+Protein milk (packaged)|ప్రోటీన్ మిల్క్|Drinks|1 bottle (200 ml)|15|10|2|0|
+Flavoured milk (packaged)|ఫ్లేవర్డ్ మిల్క్|Drinks|1 bottle (200 ml)|6|24|5|0|
+# Juices, water, coolers
+Water|నీళ్లు|Drinks|1 glass (250 ml)|0|0|0|0|drinking water,paani
+Water (1 litre)|నీళ్లు|Drinks|1 bottle (1 L)|0|0|0|0|
+Warm lemon water|గోరువెచ్చని నిమ్మ నీళ్లు|Drinks|1 glass (250 ml)|0|2|0|0|
+Warm water with honey and lemon|తేనె నిమ్మ నీళ్లు|Drinks|1 glass (250 ml)|0|9|0|0|
+Jeera water|జీలకర్ర నీళ్లు|Drinks|1 glass (250 ml)|0|1|0|0|cumin water
+Methi water (fenugreek water)|మెంతి నీళ్లు|Drinks|1 glass (250 ml)|0|1|0|0|
+Sabja water (basil seed drink)|సబ్జా నీళ్లు|Drinks|1 glass (250 ml)|0.5|2|0.5|0|falooda seeds
+Fennel water (saunf)|సోంపు నీళ్లు|Drinks|1 glass (250 ml)|0|1|0|0|
+Coconut water (tender)|కొబ్బరి నీళ్లు|Drinks|1 glass (250 ml)|1|9|0|0|elaneer,nariyal pani
+Coconut water (packaged)|కొబ్బరి నీళ్లు|Drinks|1 pack (200 ml)|0.5|9|0|0|
+Sugarcane juice|చెరకు రసం|Drinks|1 glass (250 ml)|0.3|45|0|0|ganne ka ras
+Nimbu pani (sweet lemonade)|నిమ్మ షర్బత్|Drinks|1 glass (250 ml)|0|20|0|0|lemonade,shikanji,nimbu soda
+Nimbu pani (salted)|నిమ్మ నీళ్లు|Drinks|1 glass (250 ml)|0|3|0|0|
+Nimbu soda (sweet)|నిమ్మ సోడా|Drinks|1 glass (250 ml)|0|20|0|0|
+Masala soda|మసాలా సోడా|Drinks|1 glass (250 ml)|0|10|0|0|jaljeera soda
+Jaljeera|జల్‌జీరా|Drinks|1 glass (250 ml)|0.3|8|0|0|
+Aam panna|ఆమ్ పన్నా|Drinks|1 glass (250 ml)|0.5|26|0|0|raw mango drink
+Bael sherbet|బిల్వ షర్బత్|Drinks|1 glass (250 ml)|1|28|0|0|wood apple juice
+Rose sherbet|రోజ్ షర్బత్|Drinks|1 glass (250 ml)|0|28|0|0|rooh afza
+Sattu drink (sweet)|సత్తు షర్బత్|Drinks|1 glass (250 ml)|6|28|2|0|sattu sharbat
+Sattu drink (salted)|సత్తు|Drinks|1 glass (250 ml)|6|18|2|0|
+Ragi malt (sweet)|రాగి జావ|Drinks|1 glass (250 ml)|3|22|1|0|ragi java,ragi ambali
+Ragi malt (buttermilk, salted)|రాగి అంబలి|Drinks|1 glass (250 ml)|3|16|1|0|ambali
+Jowar ambali|జొన్న అంబలి|Drinks|1 glass (250 ml)|3|18|1|0|
+Rice kanji (gruel)|గంజి|Drinks|1 bowl (250 ml)|1.5|14|0.2|0|ganji,rice water
+Tamarind drink (imli panna)|చింతపండు షర్బత్|Drinks|1 glass (250 ml)|0.5|24|0|0|
+Kokum sherbet|కోకం షర్బత్|Drinks|1 glass (250 ml)|0|18|0|0|
+Orange juice (fresh)|నారింజ రసం|Drinks|1 glass (250 ml)|1.7|26|0.5|0|santra juice
+Orange juice (packaged)|నారింజ రసం|Drinks|1 glass (250 ml)|1|28|0|0|real juice
+Mosambi juice (sweet lime, fresh)|బత్తాయి రసం|Drinks|1 glass (250 ml)|1|22|0.3|0|sweet lime juice
+Apple juice (fresh)|యాపిల్ రసం|Drinks|1 glass (250 ml)|0.5|28|0.3|0|
+Apple juice (packaged)|యాపిల్ రసం|Drinks|1 glass (250 ml)|0.3|29|0|0|
+Pomegranate juice (fresh)|దానిమ్మ రసం|Drinks|1 glass (250 ml)|1|32|0.5|0|anar juice
+Pomegranate juice (packaged)|దానిమ్మ రసం|Drinks|1 glass (250 ml)|0.5|34|0|0|
+Mango juice (fresh)|మామిడి రసం|Drinks|1 glass (250 ml)|1.5|40|0.5|0|
+Mango drink (Frooti/Maaza type)|మ్యాంగో డ్రింక్|Drinks|1 pack (200 ml)|0.2|28|0|0|frooti,maaza,slice
+Pineapple juice (fresh)|పైనాపిల్ రసం|Drinks|1 glass (250 ml)|0.8|30|0.2|0|
+Grape juice (fresh)|ద్రాక్ష రసం|Drinks|1 glass (250 ml)|1|36|0.3|0|
+Watermelon juice|పుచ్చకాయ రసం|Drinks|1 glass (250 ml)|1|18|0.3|0|
+Muskmelon juice|ఖర్బూజా రసం|Drinks|1 glass (250 ml)|1|16|0.3|0|
+Carrot juice|క్యారెట్ రసం|Drinks|1 glass (250 ml)|1.5|16|0.3|0|
+Beetroot juice|బీట్‌రూట్ రసం|Drinks|1 glass (250 ml)|2|17|0.2|0|
+Tomato juice|టమాటా రసం|Drinks|1 glass (250 ml)|2|10|0.3|0|
+Amla juice|ఉసిరి రసం|Drinks|1 glass (100 ml)|0.5|8|0.1|0|gooseberry juice
+Bottle gourd juice (lauki)|సొరకాయ రసం|Drinks|1 glass (250 ml)|1|6|0.1|0|
+Ash gourd juice|బూడిద గుమ్మడి రసం|Drinks|1 glass (200 ml)|0.5|4|0|0|
+Wheatgrass juice|వీట్‌గ్రాస్ రసం|Drinks|1 shot (30 ml)|0.5|2|0.1|0|
+Aloe vera juice|కలబంద రసం|Drinks|1 glass (250 ml)|0|10|0|0|
+Mixed fruit juice (packaged)|మిక్స్డ్ ఫ్రూట్ జ్యూస్|Drinks|1 glass (250 ml)|0.5|30|0|0|
+Mixed fruit juice (fresh, no sugar)|మిక్స్డ్ ఫ్రూట్ జ్యూస్|Drinks|1 glass (250 ml)|1|26|0.3|0|
+Green juice (spinach, cucumber, apple)|గ్రీన్ జ్యూస్|Drinks|1 glass (250 ml)|2|18|0.3|0|
+ABC juice (apple, beetroot, carrot)|ఏబీసీ జ్యూస్|Drinks|1 glass (250 ml)|1.5|24|0.3|0|
+Smoothie (banana, milk)|స్మూతీ|Drinks|1 glass (300 ml)|8|40|5|0|banana smoothie
+Smoothie (mango, yogurt)|స్మూతీ|Drinks|1 glass (300 ml)|6|42|4|0|mango smoothie
+Smoothie (berry, yogurt)|స్మూతీ|Drinks|1 glass (300 ml)|6|30|3|0|berry smoothie
+Smoothie (spinach, banana)|స్మూతీ|Drinks|1 glass (300 ml)|4|34|2|0|green smoothie
+Smoothie (peanut butter, banana)|స్మూతీ|Drinks|1 glass (300 ml)|14|45|16|0|
+Oats banana smoothie|ఓట్స్ స్మూతీ|Drinks|1 glass (300 ml)|10|50|6|0|
+Protein smoothie|ప్రోటీన్ స్మూతీ|Drinks|1 glass (350 ml)|25|30|5|0|
+# Soft drinks and energy
+Cola (regular)|కోలా|Drinks|1 can (330 ml)|0|35|0|0|coke,pepsi,thums up,soft drink
+Cola (regular, 600 ml bottle)|కోలా|Drinks|1 bottle (600 ml)|0|64|0|0|
+Cola (diet or zero)|డైట్ కోలా|Drinks|1 can (330 ml)|0|0|0|0|coke zero,diet coke,diet pepsi
+Lemon-lime soda|లెమన్ సోడా|Drinks|1 can (330 ml)|0|33|0|0|sprite,7up,limca
+Orange soda|ఆరెంజ్ సోడా|Drinks|1 can (330 ml)|0|38|0|0|fanta,mirinda
+Ginger ale|జింజర్ ఏల్|Drinks|1 can (330 ml)|0|28|0|0|
+Tonic water|టానిక్ వాటర్|Drinks|1 glass (200 ml)|0|16|0|0|
+Soda water|సోడా|Drinks|1 bottle (300 ml)|0|0|0|0|club soda,plain soda
+Goli soda|గోలీ సోడా|Drinks|1 bottle (200 ml)|0|16|0|0|
+Iced tea can|ఐస్ టీ|Drinks|1 can (330 ml)|0|30|0|0|
+Energy drink (regular)|ఎనర్జీ డ్రింక్|Drinks|1 can (250 ml)|0.5|27|0|0|red bull,monster,sting
+Energy drink (large can)|ఎనర్జీ డ్రింక్|Drinks|1 can (500 ml)|1|55|0|0|monster
+Energy drink (sugar free)|ఎనర్జీ డ్రింక్|Drinks|1 can (250 ml)|0|1|0|0|
+Sports drink (Gatorade type)|స్పోర్ట్స్ డ్రింక్|Drinks|1 bottle (500 ml)|0|30|0|0|gatorade
+Electrolyte drink (ORS)|ఓఆర్ఎస్|Drinks|1 glass (250 ml)|0|5|0|0|ors,electral
+Electrolyte powder drink|ఎలక్ట్రోలైట్|Drinks|1 glass (250 ml)|0|9|0|0|
+Flavoured water (sweetened)|ఫ్లేవర్డ్ వాటర్|Drinks|1 bottle (500 ml)|0|15|0|0|
+Non-alcoholic beer|నాన్ ఆల్కహాలిక్ బీర్|Drinks|1 bottle (330 ml)|1.5|12|0|0.5|0.0 beer,alcohol free beer
+Protein shake (whey, with water)|ప్రోటీన్ షేక్|Drinks|1 scoop in 300 ml|24|3|1.5|0|whey shake,whey protein
+Protein shake (whey, with milk)|ప్రోటీన్ షేక్|Drinks|1 scoop in 300 ml milk|33|16|9|0|
+Plant protein shake (with water)|ప్లాంట్ ప్రోటీన్ షేక్|Drinks|1 scoop in 300 ml|21|5|3|0|pea protein
+Mass gainer shake|మాస్ గెయినర్|Drinks|1 serving in 400 ml|30|105|6|0|
+Ready-to-drink protein shake|ప్రోటీన్ షేక్|Drinks|1 pack (330 ml)|30|9|4|0|
+Meal replacement shake|మీల్ రీప్లేస్‌మెంట్|Drinks|1 serving in 300 ml|20|28|6|0|
+Soup (clear vegetable)|వెజిటబుల్ సూప్|Drinks|1 bowl (250 ml)|2|8|1|0|veg soup
+Tomato soup|టమాటా సూప్|Drinks|1 bowl (250 ml)|2|14|3|0|
+Sweet corn soup (veg)|స్వీట్ కార్న్ సూప్|Drinks|1 bowl (250 ml)|3|20|2|0|
+Hot and sour soup (veg)|హాట్ అండ్ సోర్ సూప్|Drinks|1 bowl (250 ml)|3|14|3|0|
+Chicken clear soup|చికెన్ సూప్|Drinks|1 bowl (250 ml)|8|5|3|0|
+Chicken sweet corn soup|చికెన్ స్వీట్ కార్న్ సూప్|Drinks|1 bowl (250 ml)|8|20|3|0|
+Mutton paya soup|పాయా|Drinks|1 bowl (250 ml)|12|3|9|0|
+Bone broth|బోన్ బ్రాత్|Drinks|1 cup (240 ml)|9|1|1|0|
+# Alcohol (neutral, for honest calorie tracking only)
+Beer, regular (330 ml bottle)|బీర్|Alcohol|1 bottle (330 ml)|1.5|13|0|13|lager,kingfisher,budweiser,heineken
+Beer, regular (650 ml bottle)|బీర్|Alcohol|1 bottle (650 ml)|3|26|0|26|big bottle beer
+Beer, strong (330 ml bottle)|స్ట్రాంగ్ బీర్|Alcohol|1 bottle (330 ml)|1.5|14|0|19|strong beer,kingfisher strong
+Beer, strong (650 ml bottle)|స్ట్రాంగ్ బీర్|Alcohol|1 bottle (650 ml)|3|28|0|38|
+Beer, light (330 ml bottle)|లైట్ బీర్|Alcohol|1 bottle (330 ml)|1|6|0|10|light beer
+Beer, light (650 ml bottle)|లైట్ బీర్|Alcohol|1 bottle (650 ml)|2|12|0|20|
+Beer, draught (pint, 500 ml)|డ్రాఫ్ట్ బీర్|Alcohol|1 pint (500 ml)|2|18|0|20|draft beer,pint
+Beer, craft IPA (pint, 500 ml)|క్రాఫ్ట్ బీర్|Alcohol|1 pint (500 ml)|2.5|18|0|28|ipa,craft beer
+Beer, wheat or white (330 ml)|వీట్ బీర్|Alcohol|1 bottle (330 ml)|2|14|0|13|hoegaarden,weissbier
+Stout beer (330 ml)|స్టౌట్|Alcohol|1 bottle (330 ml)|2|16|0|14|guinness
+Cider (330 ml)|సైడర్|Alcohol|1 bottle (330 ml)|0|20|0|13|
+Beer shandy or radler (330 ml)|షాండీ|Alcohol|1 bottle (330 ml)|0.5|18|0|6|
+Whisky (30 ml peg)|విస్కీ|Alcohol|1 small peg (30 ml)|0|0|0|9.5|whiskey,scotch,bourbon,blenders pride,royal stag
+Whisky (60 ml peg)|విస్కీ|Alcohol|1 large peg (60 ml)|0|0|0|19|whiskey,scotch
+Whisky (90 ml)|విస్కీ|Alcohol|3 small pegs (90 ml)|0|0|0|28.5|
+Whisky with soda (60 ml peg)|విస్కీ సోడా|Alcohol|1 large peg + soda|0|0|0|19|whisky soda
+Whisky with cola (60 ml peg)|విస్కీ కోలా|Alcohol|1 large peg + cola (200 ml)|0|22|0|19|
+Rum (30 ml peg)|రమ్|Alcohol|1 small peg (30 ml)|0|0|0|9.5|old monk,mcdowells rum,bacardi
+Rum (60 ml peg)|రమ్|Alcohol|1 large peg (60 ml)|0|0|0|19|
+Rum with cola (60 ml peg)|రమ్ కోలా|Alcohol|1 large peg + cola (200 ml)|0|22|0|19|cuba libre
+Vodka (30 ml peg)|వోడ్కా|Alcohol|1 small peg (30 ml)|0|0|0|9.5|smirnoff,absolut
+Vodka (60 ml peg)|వోడ్కా|Alcohol|1 large peg (60 ml)|0|0|0|19|
+Vodka with orange juice (60 ml peg)|వోడ్కా ఆరెంజ్|Alcohol|1 large peg + juice (150 ml)|1|18|0|19|screwdriver
+Gin (30 ml peg)|జిన్|Alcohol|1 small peg (30 ml)|0|0|0|9.5|
+Gin (60 ml peg)|జిన్|Alcohol|1 large peg (60 ml)|0|0|0|19|
+Gin and tonic (60 ml gin)|జిన్ అండ్ టానిక్|Alcohol|1 glass|0|14|0|19|g and t
+Brandy (30 ml peg)|బ్రాందీ|Alcohol|1 small peg (30 ml)|0|0|0|9.5|cognac,honey bee
+Brandy (60 ml peg)|బ్రాందీ|Alcohol|1 large peg (60 ml)|0|0|0|19|
+Tequila (30 ml shot)|టెకీలా|Alcohol|1 shot (30 ml)|0|0|0|9.5|
+Tequila (60 ml)|టెకీలా|Alcohol|2 shots (60 ml)|0|0|0|19|
+Indian made foreign liquor (60 ml peg)|మద్యం|Alcohol|1 large peg (60 ml)|0|0|0|19|imfl
+Feni (30 ml)|ఫెనీ|Alcohol|1 small peg (30 ml)|0|0|0|9.5|
+Arrack or country liquor (60 ml)|సారా|Alcohol|1 large peg (60 ml)|0|0|0|19|
+Toddy (palm wine, 250 ml)|కల్లు|Alcohol|1 glass (250 ml)|0.5|8|0|8|kallu
+Mahua or local brew (60 ml)|మహువా|Alcohol|1 peg (60 ml)|0|2|0|16|
+Red wine (150 ml glass)|రెడ్ వైన్|Alcohol|1 glass (150 ml)|0.1|4|0|14|
+Red wine (250 ml large glass)|రెడ్ వైన్|Alcohol|1 large glass (250 ml)|0.2|6|0|23|
+White wine (150 ml glass)|వైట్ వైన్|Alcohol|1 glass (150 ml)|0.1|4|0|14|
+White wine (250 ml large glass)|వైట్ వైన్|Alcohol|1 large glass (250 ml)|0.2|6|0|23|
+Rose wine (150 ml glass)|రోజ్ వైన్|Alcohol|1 glass (150 ml)|0.1|5|0|14|
+Sweet or dessert wine (75 ml)|స్వీట్ వైన్|Alcohol|1 small glass (75 ml)|0.1|10|0|9|
+Sparkling wine or champagne (125 ml)|షాంపేన్|Alcohol|1 flute (125 ml)|0.2|3|0|12|prosecco
+Sangria (200 ml)|సాంగ్రియా|Alcohol|1 glass (200 ml)|0.2|18|0|14|
+Mulled wine (200 ml)|మల్డ్ వైన్|Alcohol|1 glass (200 ml)|0.2|20|0|16|
+Port or sherry (60 ml)|పోర్ట్ వైన్|Alcohol|1 small glass (60 ml)|0.1|8|0|10|
+Vermouth (60 ml)|వెర్మౌత్|Alcohol|1 small glass (60 ml)|0|8|0|9|
+Cocktail: Mojito|మొహిటో|Alcohol|1 glass (250 ml)|0.2|18|0|14|
+Cocktail: Margarita|మార్గరీటా|Alcohol|1 glass (200 ml)|0.2|14|0|18|
+Cocktail: Cosmopolitan|కాస్మోపాలిటన్|Alcohol|1 glass (150 ml)|0.1|12|0|17|
+Cocktail: Long Island iced tea|లాంగ్ ఐలాండ్ ఐస్డ్ టీ|Alcohol|1 glass (300 ml)|0.2|25|0|35|
+Cocktail: Pina colada|పినా కొలాడా|Alcohol|1 glass (300 ml)|1|40|10|14|
+Cocktail: Old fashioned|ఓల్డ్ ఫ్యాషన్డ్|Alcohol|1 glass (100 ml)|0|6|0|18|
+Cocktail: Whisky sour|విస్కీ సావర్|Alcohol|1 glass (150 ml)|0|12|0|16|
+Cocktail: Bloody Mary|బ్లడీ మేరీ|Alcohol|1 glass (250 ml)|1.5|8|0|14|
+Cocktail: Martini|మార్టిని|Alcohol|1 glass (90 ml)|0|1|0|20|
+Cocktail: Tequila sunrise|టెకీలా సన్‌రైజ్|Alcohol|1 glass (250 ml)|0.5|24|0|14|
+Cocktail: Mai tai|మై టై|Alcohol|1 glass (250 ml)|0.3|20|0|20|
+Cocktail: Daiquiri|డైకిరీ|Alcohol|1 glass (150 ml)|0|10|0|16|
+Cocktail: Moscow mule|మాస్కో మ్యూల్|Alcohol|1 glass (250 ml)|0.1|16|0|14|
+Cocktail: Aperol spritz|ఆపెరోల్ స్ప్రిట్జ్|Alcohol|1 glass (200 ml)|0|16|0|10|
+Cocktail: Negroni|నెగ్రోని|Alcohol|1 glass (90 ml)|0|8|0|18|
+Cocktail: Espresso martini|ఎస్ప్రెస్సో మార్టిని|Alcohol|1 glass (120 ml)|0.2|14|0|16|
+Cocktail shot (30 ml)|షాట్|Alcohol|1 shot (30 ml)|0|5|0|8|
+Cream liqueur (Baileys, 45 ml)|క్రీమ్ లిక్కర్|Alcohol|1 measure (45 ml)|0.5|7|4|7|baileys
+Coffee liqueur (45 ml)|కాఫీ లిక్కర్|Alcohol|1 measure (45 ml)|0|13|0|6|kahlua
+Hard seltzer (330 ml)|హార్డ్ సెల్ట్‌జర్|Alcohol|1 can (330 ml)|0|2|0|11|
+Alcopop or ready-to-drink mixer (275 ml)|ఆల్కోపాప్|Alcohol|1 bottle (275 ml)|0|28|0|13|breezer
+Michelada (330 ml)|మిచెలాడా|Alcohol|1 glass (330 ml)|1.5|10|0|13|

@@ -1,0 +1,199 @@
+# Fruits
+Apple|యాపిల్|Fruits|1 medium (150 g)|0.4|21|0.3|0|seb
+Green apple|గ్రీన్ యాపిల్|Fruits|1 medium (150 g)|0.4|20|0.3|0|
+Banana (small)|అరటిపండు|Fruits|1 small (80 g)|1|18|0.2|0|
+Banana (large)|అరటిపండు|Fruits|1 large (140 g)|1.8|32|0.4|0|
+Banana (red)|ఎర్ర అరటి|Fruits|1 medium (100 g)|1.2|23|0.3|0|
+Banana (nendran)|నేంద్రం అరటి|Fruits|1 medium (150 g)|1.5|40|0.4|0|
+Orange|నారింజ|Fruits|1 medium (130 g)|1.2|15|0.2|0|santra
+Mosambi (sweet lime)|బత్తాయి|Fruits|1 medium (150 g)|1.2|14|0.3|0|
+Mandarin or kinnow|కిన్నో|Fruits|1 medium (100 g)|0.8|11|0.2|0|
+Grapes (green)|ద్రాక్ష|Fruits|1 cup (150 g)|1|27|0.2|0|
+Grapes (black)|నల్ల ద్రాక్ష|Fruits|1 cup (150 g)|1|27|0.2|0|
+Mango (1 medium)|మామిడిపండు|Fruits|1 medium (200 g)|1.5|30|0.6|0|
+Mango (sliced cup)|మామిడి ముక్కలు|Fruits|1 cup (165 g)|1.4|25|0.6|0|
+Mango (Banganapalli)|బంగినపల్లి మామిడి|Fruits|1 medium (250 g)|2|38|0.8|0|
+Mango (Alphonso)|అల్ఫోన్సో|Fruits|1 medium (200 g)|1.5|32|0.6|0|
+Mango (raw)|పచ్చి మామిడి|Fruits|1 medium (200 g)|1.5|26|0.4|0|
+Papaya|బొప్పాయి|Fruits|1 cup (150 g)|0.7|16|0.3|0|
+Watermelon|పుచ్చకాయ|Fruits|1 cup (150 g)|0.9|11|0.2|0|
+Muskmelon|ఖర్బూజా|Fruits|1 cup (160 g)|1.3|13|0.3|0|
+Pineapple|పైనాపిల్|Fruits|1 cup (165 g)|0.9|22|0.2|0|
+Pomegranate|దానిమ్మ|Fruits|1 cup seeds (140 g)|2.6|28|1.2|0|anar
+Guava|జామపండు|Fruits|1 medium (100 g)|2.6|14|1|0|
+Pear|బేరిపండు|Fruits|1 medium (150 g)|0.6|23|0.2|0|
+Peach|పీచ్|Fruits|1 medium (150 g)|1.4|14|0.4|0|
+Plum|ప్లమ్|Fruits|2 medium (130 g)|1|15|0.4|0|
+Cherries|చెర్రీలు|Fruits|1 cup (140 g)|1.4|22|0.3|0|
+Strawberries|స్ట్రాబెర్రీలు|Fruits|1 cup (150 g)|1|11|0.5|0|
+Blueberries|బ్లూబెర్రీలు|Fruits|1 cup (150 g)|1.1|21|0.5|0|
+Raspberries|రాస్ప్బెర్రీలు|Fruits|1 cup (125 g)|1.5|15|0.8|0|
+Kiwi|కివి|Fruits|1 medium (75 g)|0.8|11|0.4|0|
+Dragon fruit|డ్రాగన్ ఫ్రూట్|Fruits|1 medium (200 g)|2|24|0.6|0|
+Custard apple (sitaphal)|సీతాఫలం|Fruits|1 medium (150 g)|2.6|36|0.6|0|
+Chikoo (sapota)|సపోటా|Fruits|1 medium (100 g)|0.4|20|1|0|
+Lychee|లీచీ|Fruits|10 pieces (100 g)|0.8|17|0.4|0|
+Jackfruit (ripe)|పనస పండు|Fruits|1 cup (150 g)|2.7|36|0.8|0|
+Jackfruit (raw, cooked)|పనసకాయ|Vegetable curries|1 bowl (150 g)|3|14|1|0|
+Jamun|నేరేడు పండు|Fruits|1 cup (130 g)|1|18|0.2|0|
+Amla (gooseberry)|ఉసిరికాయ|Fruits|2 pieces (50 g)|0.5|7|0.1|0|
+Ber (jujube)|రేగు పండు|Fruits|5 pieces (50 g)|0.6|12|0.1|0|
+Fig (fresh)|అంజీర|Fruits|2 medium (100 g)|0.8|19|0.3|0|
+Fig (dried)|ఎండిన అంజీర|Fruits|2 pieces (30 g)|1|19|0.4|0|
+Dates (khajur)|ఖర్జూరం|Fruits|3 pieces (30 g)|0.6|22|0|0|
+Dates (medjool)|మెడ్జూల్ ఖర్జూరం|Fruits|2 pieces (48 g)|0.8|36|0|0|
+Raisins|ఎండు ద్రాక్ష|Fruits|1 tbsp (15 g)|0.4|12|0|0|kishmish
+Prunes|ప్రూన్స్|Fruits|3 pieces (30 g)|0.7|19|0.1|0|
+Apricot (dried)|ఎండిన ఆప్రికాట్|Fruits|4 pieces (35 g)|1.2|20|0.1|0|
+Cranberries (dried)|క్రాన్‌బెర్రీస్|Fruits|2 tbsp (25 g)|0|20|0|0|
+Coconut (fresh, 1 piece)|కొబ్బరి|Fruits|1 piece (30 g)|1|4|10|0|
+Tender coconut malai|లేత కొబ్బరి|Fruits|1 coconut malai (80 g)|1|4|2|0|
+Avocado|అవకాడో|Fruits|half (100 g)|2|9|15|0|
+Lemon (juice of 1)|నిమ్మరసం|Fruits|1 lemon (45 ml)|0.2|3|0|0|
+Tamarind (1 tbsp pulp)|చింతపండు|Fruits|1 tbsp (15 g)|0.3|9|0|0|
+Star fruit|స్టార్ ఫ్రూట్|Fruits|1 medium (90 g)|1|6|0.3|0|
+Fruit salad (mixed)|ఫ్రూట్ సలాడ్|Fruits|1 bowl (200 g)|2|32|0.5|0|
+Fruit salad with cream|క్రీమ్ ఫ్రూట్ సలాడ్|Fruits|1 bowl (200 g)|3|38|12|0|
+# Vegetables (raw or plainly cooked)
+Cucumber|దోసకాయ|Salads & light meals|1 medium (150 g)|1|5|0.2|0|kheera
+Tomato|టమాటా|Salads & light meals|1 medium (120 g)|1|5|0.2|0|
+Onion (raw)|ఉల్లిపాయ|Salads & light meals|1 medium (100 g)|1|9|0.1|0|
+Carrot (raw)|క్యారెట్|Salads & light meals|1 medium (80 g)|0.7|8|0.2|0|
+Beetroot (boiled)|బీట్‌రూట్|Salads & light meals|1 medium (100 g)|1.7|10|0.2|0|
+Radish (raw)|ముల్లంగి|Salads & light meals|1 small (50 g)|0.5|2|0|0|mooli
+Green salad|గ్రీన్ సలాడ్|Salads & light meals|1 bowl (150 g)|2|8|0.5|0|
+Kachumber salad|కచుంబర్ సలాడ్|Salads & light meals|1 bowl (150 g)|1.5|8|0.3|0|
+Onion tomato salad|ఉల్లి టమాటా సలాడ్|Salads & light meals|1 bowl (100 g)|1|7|0.2|0|
+Cucumber raita|దోసకాయ రైతా|Salads & light meals|1 bowl (100 g)|3|6|3|0|
+Boondi raita|బూందీ రైతా|Salads & light meals|1 bowl (100 g)|3|9|5|0|
+Pineapple raita|పైనాపిల్ రైతా|Salads & light meals|1 bowl (100 g)|3|12|3|0|
+Mixed vegetable raita|వెజిటబుల్ రైతా|Salads & light meals|1 bowl (100 g)|3|7|3|0|
+Caesar salad (with chicken)|సీజర్ సలాడ్|Salads & light meals|1 bowl (250 g)|25|14|22|0|
+Greek salad|గ్రీక్ సలాడ్|Salads & light meals|1 bowl (250 g)|8|12|20|0|
+Chickpea salad|శనగల సలాడ్|Salads & light meals|1 bowl (200 g)|11|30|6|0|
+Sprouts salad|మొలకల సలాడ్|Salads & light meals|1 bowl (150 g)|9|22|2|0|
+Quinoa salad|క్వినోవా సలాడ్|Salads & light meals|1 bowl (200 g)|8|32|9|0|
+Coleslaw|కోల్‌స్లా|Salads & light meals|1 cup (100 g)|1|9|9|0|
+Egg salad|ఎగ్ సలాడ్|Salads & light meals|1 bowl (150 g)|12|4|18|0|
+Tuna salad|ట్యూనా సలాడ్|Salads & light meals|1 bowl (200 g)|22|8|12|0|
+Chicken salad|చికెన్ సలాడ్|Salads & light meals|1 bowl (250 g)|28|10|14|0|
+Paneer salad|పనీర్ సలాడ్|Salads & light meals|1 bowl (200 g)|14|10|14|0|
+Corn salad|కార్న్ సలాడ్|Salads & light meals|1 bowl (150 g)|4|24|4|0|
+Lettuce leaves|లెట్యూస్|Salads & light meals|1 cup (40 g)|0.5|1|0|0|
+Spinach (boiled)|పాలకూర|Vegetable curries|1 cup (180 g)|5|7|0.5|0|palak
+Spinach (raw)|పాలకూర|Salads & light meals|1 cup (30 g)|0.9|1|0.1|0|
+Broccoli (steamed)|బ్రోకలీ|Vegetable curries|1 cup (90 g)|3|6|0.4|0|
+Cauliflower (steamed)|కాలీఫ్లవర్|Vegetable curries|1 cup (100 g)|2|5|0.3|0|
+Cabbage (cooked)|క్యాబేజీ|Vegetable curries|1 cup (100 g)|1.3|6|0.1|0|
+Green beans (steamed)|బీన్స్|Vegetable curries|1 cup (100 g)|2|7|0.2|0|
+Peas (green, boiled)|పచ్చి బఠానీ|Vegetable curries|1 cup (160 g)|8|21|0.6|0|
+Sweet corn (boiled kernels)|స్వీట్ కార్న్|Vegetable curries|1 cup (150 g)|5|29|2|0|
+Pumpkin (cooked)|గుమ్మడికాయ|Vegetable curries|1 cup (200 g)|2|12|0.2|0|
+Potato (boiled)|ఉడికించిన బంగాళాదుంప|Vegetable curries|1 medium (150 g)|3|26|0.2|0|
+Potato (baked)|బేక్డ్ పొటాటో|Vegetable curries|1 medium (170 g)|4|37|0.2|0|
+Sweet potato (boiled)|చిలగడదుంప|Vegetable curries|1 medium (150 g)|2.3|30|0.2|0|ratalu
+Sweet potato (roasted)|కాల్చిన చిలగడదుంప|Vegetable curries|1 medium (150 g)|2.3|32|0.2|0|
+Yam (boiled, suran)|కందగడ్డ|Vegetable curries|1 cup (130 g)|2|34|0.2|0|
+Tapioca (boiled)|కప్ప|Vegetable curries|1 cup (150 g)|1.5|50|0.3|0|cassava,kappa
+Mushrooms (sauteed)|పుట్టగొడుగులు|Vegetable curries|1 cup (100 g)|3.5|4|3|0|
+Zucchini (sauteed)|జుకినీ|Vegetable curries|1 cup (120 g)|1.5|5|3|0|
+Capsicum (stir fried)|క్యాప్సికం|Vegetable curries|1 cup (100 g)|1.2|6|3|0|
+Baby corn (boiled)|బేబీ కార్న్|Vegetable curries|1 cup (100 g)|2.5|8|0.4|0|
+Drumstick (boiled)|మునగకాయ|Vegetable curries|3 pieces (100 g)|2|8|0.2|0|
+Drumstick leaves (cooked)|మునగాకు|Vegetable curries|1 cup (80 g)|4|6|1|0|
+Raw banana (boiled)|ఉడికించిన అరటికాయ|Vegetable curries|1 medium (100 g)|1|28|0.2|0|
+Ivy gourd (tindora, cooked)|దొండకాయ|Vegetable curries|1 cup (100 g)|1.5|5|3|0|
+Ridge gourd (cooked)|బీరకాయ|Vegetable curries|1 cup (120 g)|1.5|5|2|0|
+Bottle gourd (cooked)|సొరకాయ|Vegetable curries|1 cup (150 g)|1|5|1|0|
+Brinjal (cooked)|వంకాయ|Vegetable curries|1 cup (120 g)|1.5|7|4|0|
+Okra (cooked)|బెండకాయ|Vegetable curries|1 cup (120 g)|2.4|8|3|0|
+Bitter gourd (cooked)|కాకరకాయ|Vegetable curries|1 cup (100 g)|1.8|5|3|0|
+Cluster beans (cooked)|గోరు చిక్కుడు|Vegetable curries|1 cup (100 g)|3|8|3|0|
+Lotus stem (cooked)|తామర కాడలు|Vegetable curries|1 cup (100 g)|2|10|3|0|
+Gongura leaves (cooked)|గోంగూర|Vegetable curries|1 cup (100 g)|2|4|3|0|
+Amaranth leaves (cooked)|తోటకూర|Vegetable curries|1 cup (100 g)|3|6|3|0|
+Fenugreek leaves (cooked)|మెంతికూర|Vegetable curries|1 cup (100 g)|3|6|3|0|
+Curry leaves (10)|కరివేపాకు|Vegetable curries|10 leaves (3 g)|0.2|0.6|0.1|0|
+Sprouts (moong, raw)|మొలకెత్తిన పెసలు|Salads & light meals|1 cup (100 g)|7|17|0.7|0|
+Sprouts (mixed, boiled)|మొలకలు|Salads & light meals|1 cup (150 g)|10|26|1|0|
+# Pulses, grains and basics
+Toor dal (cooked)|కందిపప్పు|Dal & sambar|1 cup (180 g)|9|22|0.6|0|
+Moong dal (cooked)|పెసరపప్పు|Dal & sambar|1 cup (180 g)|8|20|0.5|0|
+Masoor dal (cooked)|ఎర్ర కందిపప్పు|Dal & sambar|1 cup (180 g)|9|22|0.5|0|
+Chana dal (cooked)|శనగపప్పు|Dal & sambar|1 cup (180 g)|11|28|2|0|
+Urad dal (cooked)|మినప్పప్పు|Dal & sambar|1 cup (180 g)|10|22|1|0|
+Chickpeas (boiled)|ఉడికించిన శనగలు|Dal & sambar|1 cup (165 g)|15|45|4|0|kabuli chana
+Black chickpeas (boiled)|ఉడికించిన నల్ల శనగలు|Dal & sambar|1 cup (165 g)|14|40|4|0|kala chana
+Rajma (boiled)|ఉడికించిన రాజ్మా|Dal & sambar|1 cup (180 g)|15|40|1|0|kidney beans
+Lobia (boiled)|బొబ్బర్లు|Dal & sambar|1 cup (170 g)|13|35|1|0|black eyed peas
+Green gram whole (boiled)|ఉడికించిన పెసలు|Dal & sambar|1 cup (180 g)|14|38|1|0|
+Soybean (boiled)|సోయాబీన్|Dal & sambar|1 cup (170 g)|29|17|15|0|
+Soya chunks (boiled)|సోయా చంక్స్|Dal & sambar|1 cup (100 g)|26|20|0.5|0|meal maker
+Tofu|టోఫు|Dairy & paneer|100 g|8|2|5|0|
+Tempeh|టెంపే|Dairy & paneer|100 g|19|9|11|0|
+Besan (gram flour, 2 tbsp)|శనగపిండి|Millets & grains|2 tbsp (20 g)|4.5|11|1.3|0|
+Wheat flour (atta, 1/2 cup)|గోధుమ పిండి|Millets & grains|50 g|5.5|35|1|0|
+White rice (raw, 1/2 cup)|బియ్యం|Rice & mains|100 g|7|78|0.6|0|
+Basmati rice (cooked)|బాస్మతి అన్నం|Rice & mains|1 cup (160 g)|4|42|0.4|0|
+Jeera rice (plain)|జీరా రైస్|Rice & mains|1 cup (170 g)|4|42|4|0|
+Poha (cooked, plain)|అటుకులు|Tiffin|1 plate (150 g)|3|30|5|0|
+Poha with peanuts|పల్లీల పోహా|Tiffin|1 plate (170 g)|6|34|9|0|
+Oats (dry)|ఓట్స్|Millets & grains|1/2 cup (40 g)|5|27|3|0|
+Oats porridge (with milk)|ఓట్స్ గంజి|Millets & grains|1 bowl (250 g)|11|38|8|0|
+Oats porridge (with water)|ఓట్స్ గంజి|Millets & grains|1 bowl (250 g)|5|27|3|0|
+Overnight oats|ఓవర్‌నైట్ ఓట్స్|Millets & grains|1 jar (250 g)|12|42|9|0|
+Masala oats|మసాలా ఓట్స్|Millets & grains|1 bowl (200 g)|6|28|4|0|
+Muesli (with milk)|ముయెస్లీ|Millets & grains|1 bowl (200 g)|10|50|8|0|
+Cornflakes (with milk)|కార్న్‌ఫ్లేక్స్|Millets & grains|1 bowl (200 g)|8|44|5|0|
+Chocos or cereal (with milk)|చాకోస్|Millets & grains|1 bowl (200 g)|8|46|5|0|
+Granola (1/2 cup)|గ్రానోలా|Millets & grains|50 g|5|32|10|0|
+Dalia (cooked)|దలియా|Millets & grains|1 bowl (200 g)|6|34|3|0|broken wheat porridge
+Vegetable dalia|వెజిటబుల్ దలియా|Millets & grains|1 bowl (200 g)|6|34|5|0|
+Quinoa (cooked)|క్వినోవా|Millets & grains|1 cup (185 g)|8|39|4|0|
+Foxtail millet (cooked)|కొర్రలు|Millets & grains|1 cup (150 g)|4|36|1.5|0|korralu
+Little millet (cooked)|సామలు|Millets & grains|1 cup (150 g)|3.5|34|1.5|0|samalu
+Barnyard millet (cooked)|ఊదలు|Millets & grains|1 cup (150 g)|4|34|1.5|0|udalu
+Kodo millet (cooked)|అరికెలు|Millets & grains|1 cup (150 g)|3.5|36|1|0|arikalu
+Browntop millet (cooked)|అండు కొర్రలు|Millets & grains|1 cup (150 g)|4|35|1.5|0|
+Pearl millet (cooked)|సజ్జలు|Millets & grains|1 cup (150 g)|5|34|2|0|
+Sorghum (cooked)|జొన్నలు|Millets & grains|1 cup (150 g)|5|38|1.5|0|
+Millet khichdi|మిల్లెట్ ఖిచిడీ|Millets & grains|1 bowl (250 g)|9|44|6|0|
+Millet upma|మిల్లెట్ ఉప్మా|Millets & grains|1 bowl (200 g)|5|34|6|0|
+Millet pongal|మిల్లెట్ పొంగల్|Millets & grains|1 bowl (200 g)|7|36|8|0|
+Vermicelli (cooked)|సేమియా|Millets & grains|1 cup (150 g)|4|30|3|0|
+Sabudana (soaked)|సగ్గుబియ్యం|Millets & grains|1 cup (150 g)|0.5|50|0.1|0|
+Corn (makka) flour roti|మక్క రొట్టె|Roti & bread|1 piece (60 g)|3|26|3|0|
+# Nuts, seeds, oils, spreads
+Almonds (10)|బాదం|Nuts & seeds|10 nuts (12 g)|2.5|2.5|6|0|badam
+Cashews (10)|జీడిపప్పు|Nuts & seeds|10 nuts (15 g)|2.7|4.5|7|0|kaju
+Walnuts (4 halves)|వాల్‌నట్స్|Nuts & seeds|4 halves (15 g)|2.3|2|10|0|akhrot
+Pistachios (20)|పిస్తా|Nuts & seeds|20 nuts (15 g)|3|4|7|0|
+Peanuts (raw, handful)|వేరుశనగ|Nuts & seeds|1 handful (30 g)|7.5|5|15|0|
+Brazil nuts (3)|బ్రెజిల్ నట్స్|Nuts & seeds|3 nuts (15 g)|2|2|10|0|
+Hazelnuts (10)|హేజెల్‌నట్స్|Nuts & seeds|10 nuts (14 g)|2|2|9|0|
+Pumpkin seeds|గుమ్మడి గింజలు|Nuts & seeds|1 tbsp (10 g)|3|1.5|5|0|
+Sunflower seeds|పొద్దుతిరుగుడు గింజలు|Nuts & seeds|1 tbsp (10 g)|2|2|5|0|
+Flax seeds|అవిసె గింజలు|Nuts & seeds|1 tbsp (10 g)|1.8|3|4|0|alsi
+Chia seeds|చియా గింజలు|Nuts & seeds|1 tbsp (12 g)|2|5|4|0|
+Sesame seeds|నువ్వులు|Nuts & seeds|1 tbsp (9 g)|1.6|2|4.5|0|til
+Watermelon seeds|పుచ్చ గింజలు|Nuts & seeds|1 tbsp (10 g)|3|1|5|0|
+Mixed nuts|మిక్స్డ్ నట్స్|Nuts & seeds|1 handful (30 g)|6|7|17|0|
+Trail mix|ట్రైల్ మిక్స్|Nuts & seeds|1 handful (30 g)|4|14|9|0|
+Peanut butter (1 tbsp)|పీనట్ బటర్|Nuts & seeds|1 tbsp (16 g)|4|3|8|0|
+Almond butter (1 tbsp)|ఆల్మండ్ బటర్|Nuts & seeds|1 tbsp (16 g)|3.5|3|9|0|
+Tahini (1 tbsp)|తహిని|Nuts & seeds|1 tbsp (15 g)|2.5|3|8|0|
+Ghee (1 tsp)|నెయ్యి|Dairy & paneer|1 tsp (5 g)|0|0|5|0|
+Butter (1 tsp)|వెన్న|Dairy & paneer|1 tsp (5 g)|0|0|4|0|
+Cooking oil (1 tsp)|నూనె|Dairy & paneer|1 tsp (5 ml)|0|0|5|0|
+Cooking oil (1 tbsp)|నూనె|Dairy & paneer|1 tbsp (15 ml)|0|0|14|0|
+Olive oil (1 tbsp)|ఆలివ్ ఆయిల్|Dairy & paneer|1 tbsp (15 ml)|0|0|14|0|
+Coconut oil (1 tbsp)|కొబ్బరి నూనె|Dairy & paneer|1 tbsp (15 ml)|0|0|14|0|
+Mayonnaise (1 tbsp)|మయోనైజ్|Dairy & paneer|1 tbsp (15 g)|0|0.5|10|0|
+Tomato ketchup (1 tbsp)|టమాటా కెచప్|Salads & light meals|1 tbsp (17 g)|0.2|4.5|0|0|
+Green chutney (mint coriander)|గ్రీన్ చట్నీ|Salads & light meals|2 tbsp (30 g)|0.5|2|1|0|
+Tamarind chutney (sweet)|చింతపండు చట్నీ|Salads & light meals|2 tbsp (30 g)|0.3|14|0|0|
+Coconut chutney|కొబ్బరి చట్నీ|Salads & light meals|2 tbsp (30 g)|1|3|6|0|
+Tomato chutney|టమాటా చట్నీ|Salads & light meals|2 tbsp (30 g)|0.5|4|4|0|
+Peanut chutney|పల్లీ చట్నీ|Salads & light meals|2 tbsp (30 g)|3|3|7|0|
+Sambar powder dry chutney (idli podi)|ఇడ్లీ పొడి|Salads & light meals|1 tbsp (10 g)|2|4|3|0|
+Podi with oil|పొడి నూనె|Salads & light meals|1 tbsp + 1 tsp oil|2|4|8|0|

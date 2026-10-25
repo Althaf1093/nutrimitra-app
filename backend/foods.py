@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 DATA_FILE = Path(__file__).parent / "data" / "foods.json"
+COMPACT_DIR = Path(__file__).parent / "data" / "foods"
 
 # Scores: the match decides the tier, popularity and recency only reorder foods inside it.
 EXACT_NAME = 100
@@ -141,11 +142,67 @@ class Food:
         }
 
 
+def slugify(text: str) -> str:
+    return "-".join(re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", text.lower())).split())
+
+
+def number(text: str) -> float:
+    return float(text) if text.strip() else 0.0
+
+
+def load_compact(folder: Path, taken_ids: Iterable[str], taken_names: Iterable[str]) -> List[Dict[str, Any]]:
+    """Rows of data/foods/*.txt: name|telugu|category|serving|protein|carbs|fat|alcohol|synonyms, one per line.
+    Calories are worked out from the macros (4/4/9, alcohol 7), so they always agree. A name already in the catalogue is skipped."""
+    ids, names = set(taken_ids), set(taken_names)
+    rows: List[Dict[str, Any]] = []
+    for path in sorted(folder.glob("*.txt")):
+        if path.name.lower() == "readme.txt":
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.startswith("#"):
+                continue
+            parts = [part.strip() for part in line.split("|")]
+            parts += [""] * (9 - len(parts))
+            name, te, category, serving, protein, carbs, fat, alcohol, synonyms = parts[:9]
+            if normalize(name) in names:
+                continue
+            base, n = slugify(name), 2
+            food_id = base
+            while food_id in ids:
+                food_id, n = f"{base}-{n}", n + 1
+            ids.add(food_id)
+            names.add(normalize(name))
+            p, c, f, a = number(protein), number(carbs), number(fat), number(alcohol)
+            row: Dict[str, Any] = {
+                "id": food_id,
+                "name": name,
+                "te": te,
+                "category": category,
+                "base": [],
+                "synonyms": [term.strip() for term in synonyms.split(",") if term.strip()],
+                "serving": serving,
+                "calories": round(4 * p + 4 * c + 9 * f + 7 * a),
+                "protein_g": p,
+                "carbs_g": c,
+                "fat_g": f,
+                "servings": [{"label": "Half portion", "factor": 0.5}, {"label": "1.5 portions", "factor": 1.5}, {"label": "2 portions", "factor": 2.0}],
+                "popular": 0,
+                "estimate": True,
+            }
+            if a:
+                row["alcohol_g"] = a
+            rows.append(row)
+    return rows
+
+
 class Catalogue:
-    def __init__(self, path: Path = DATA_FILE):
+    def __init__(self, path: Path = DATA_FILE, compact_dir: Optional[Path] = COMPACT_DIR):
         data = json.loads(path.read_text(encoding="utf-8"))
         self.note: str = data.get("note", "")
-        self.foods: List[Food] = [Food(raw) for raw in data["foods"]]
+        raws: List[Dict[str, Any]] = list(data["foods"])
+        if compact_dir is not None and compact_dir.is_dir():
+            raws += load_compact(compact_dir, [raw["id"] for raw in raws], [normalize(raw["name"]) for raw in raws])
+        self.foods: List[Food] = [Food(raw) for raw in raws]
         for position, food in enumerate(self.foods):
             food.order = position
         self.by_id: Dict[str, Food] = {food.id: food for food in self.foods}

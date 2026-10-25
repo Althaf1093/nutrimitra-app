@@ -4,7 +4,7 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 
 - [x] Logging 1: Today shows only logged food, add sheet, suggestions collapsed (PR: this one)
 - [x] Logging 2: Snap your meal opens the camera at once (same PR)
-- [ ] Logging 3: big food and drink catalogue (2,500+), FOOD_DATA_SOURCES.md
+- [x] Logging 3: big food and drink catalogue, 2,688 foods, FOOD_DATA_SOURCES.md (Open Food Facts lookup not done)
 - [ ] Logging 4: kitchen from a big list, Snap your kitchen
 - [ ] Design run (docs/DESIGN_PROMPT.md)
 - [ ] Insights run (docs/INSIGHTS_PROMPT.md)
