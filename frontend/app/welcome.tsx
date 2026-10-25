@@ -5,13 +5,97 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 import { ApiError } from "@/src/api";
 import { ConsentCheckbox, LegalLinks } from "@/src/components/legal-links";
+import { SegmentedControl } from "@/src/components/kit";
 import { AppIcon, Button, Field } from "@/src/components/ui";
+import { WelcomeArt } from "@/src/components/welcome-art";
 import { useAuth } from "@/src/context/auth";
 import { googleEnabled } from "@/src/lib/google-auth";
+import { useBreakpoint } from "@/src/lib/use-breakpoint";
 import { useStyles } from "@/src/styles";
+import { makeStyles, radius, useTheme } from "@/src/theme";
+
+const useWelcome = makeStyles((colors) => ({
+  page: {
+    flexGrow: 1,
+    width: "100%",
+    maxWidth: 1040,
+    alignSelf: "center",
+    padding: 22,
+    paddingTop: 20,
+    paddingBottom: 28,
+    gap: 18,
+  },
+  pageWide: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 56,
+    paddingTop: 48,
+  },
+  column: { gap: 18 },
+  columnWide: { flex: 1 },
+  top: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  brandRow: { flexDirection: "row", alignItems: "center", gap: 10 },
+  logo: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: colors.brandPrimary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brandName: {
+    color: colors.onSurface,
+    fontSize: 19,
+    fontWeight: "800",
+    letterSpacing: -0.4,
+  },
+  title: {
+    color: colors.onSurface,
+    fontSize: 30,
+    lineHeight: 40,
+    fontWeight: "800",
+  },
+  tag: { color: colors.brandPrimary, fontSize: 15, fontWeight: "600" },
+  sub: { color: colors.muted, fontSize: 14, lineHeight: 22 },
+  feature: { flexDirection: "row", alignItems: "center", gap: 12 },
+  featureIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  featureText: {
+    flex: 1,
+    color: colors.onSurface,
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.xl,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
+    boxShadow: colors.shadowCard,
+  },
+  age: {
+    color: colors.muted,
+    fontSize: 11,
+    lineHeight: 16,
+    textAlign: "center",
+  },
+}));
 
 export default function WelcomeScreen() {
   const styles = useStyles();
+  const w = useWelcome();
+  const { colors } = useTheme();
+  const { isDesktop } = useBreakpoint();
   const router = useRouter();
   const { lang, setLang, t, signInEmail, signInGoogle, status } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -52,54 +136,184 @@ export default function WelcomeScreen() {
         setError(t.consentRequired);
         return;
       }
-      setError(err instanceof Error && err.message ? err.message : t.googleFailed);
+      setError(
+        err instanceof Error && err.message ? err.message : t.googleFailed,
+      );
     } finally {
       setBusy(false);
     }
   };
 
+  const features = [
+    {
+      icon: "camera",
+      text: t.welcomeFeat1,
+      bg: colors.brandSoft,
+      fg: colors.brandPrimary,
+    },
+    {
+      icon: "kitchen",
+      text: t.welcomeFeat2,
+      bg: colors.accentSoft,
+      fg: colors.accent,
+    },
+    {
+      icon: "progress",
+      text: t.welcomeFeat3,
+      bg: colors.macroFibreSoft,
+      fg: colors.macroFibre,
+    },
+  ];
+
   return (
     <View style={styles.root} testID="welcome-screen">
-      <KeyboardAwareScrollView contentContainerStyle={styles.authContent} keyboardShouldPersistTaps="handled">
-        <View style={styles.brandMark}>
-          <AppIcon name="leaf.fill" color={styles.brandIcon.color as string} size={28} />
-        </View>
-        <Pressable testID="language-toggle" onPress={() => setLang(lang === "en" ? "te" : "en")} style={styles.languagePill}>
-          <Text style={styles.languageText}>{lang === "en" ? "తెలుగు" : "English"}</Text>
-        </Pressable>
-        <Text style={styles.eyebrow}>WELLSTRIDE · INDIA</Text>
-        <Text style={styles.heroTitle}>{t.welcome}</Text>
-        <Text style={styles.heroSub}>{t.welcomeSub}</Text>
-        <View style={styles.authCard}>
-          <View style={styles.authTabs}>
-            <Pressable testID="auth-tab-signin" onPress={() => setMode("signin")} style={[styles.authTab, mode === "signin" && styles.authTabActive]}>
-              <Text style={mode === "signin" ? styles.authTabActiveText : styles.authTabText}>{t.signIn}</Text>
-            </Pressable>
-            <Pressable testID="auth-tab-signup" onPress={() => setMode("signup")} style={[styles.authTab, mode === "signup" && styles.authTabActive]}>
-              <Text style={mode === "signup" ? styles.authTabActiveText : styles.authTabText}>{t.create}</Text>
-            </Pressable>
+      <KeyboardAwareScrollView
+        contentContainerStyle={[w.page, isDesktop && w.pageWide]}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={[w.column, isDesktop && w.columnWide]}>
+          <View style={w.top}>
+            <View style={w.brandRow}>
+              <View style={w.logo}>
+                <AppIcon
+                  name="activity"
+                  color={colors.onBrandPrimary}
+                  size={20}
+                />
+              </View>
+              <Text style={w.brandName}>Wellstride</Text>
+            </View>
+            <SegmentedControl
+              testID="language-toggle"
+              value={lang}
+              onChange={setLang}
+              options={[
+                { id: "te", label: "తెలుగు" },
+                { id: "en", label: "English" },
+              ]}
+            />
           </View>
-          {mode === "signup" && <Field label={t.name} value={name} onChangeText={setName} />}
-          <Field label={t.email} value={email} onChangeText={setEmail} />
-          <Field label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
-          {mode === "signup" ? <ConsentCheckbox checked={accepted} onChange={setAccepted} /> : null}
-          {error ? <Text style={styles.errorText} testID="auth-error">{error}</Text> : null}
-          <Button testID="auth-submit-button" label={busy ? "..." : mode === "signin" ? t.signIn : t.create} onPress={submit} disabled={busy || !email || password.length < 8 || (mode === "signup" && !accepted)} />
-          {mode === "signin" ? (
-            <Text testID="forgot-password-link" accessibilityRole="link" style={styles.linkText} onPress={() => router.push("/forgot-password")}>
-              {t.forgotPassword}
+          <WelcomeArt />
+          <View style={{ gap: 8 }}>
+            <Text style={w.title} accessibilityRole="header">
+              {t.welcome}
             </Text>
-          ) : null}
-          {googleEnabled ? <Button testID="google-signin-button" label={t.welcomeGoogle} onPress={google} secondary disabled={busy} /> : null}
-          <Text style={styles.authHint}>
-            {mode === "signin" ? t.noAccount : t.already}{" "}
-            <Text style={styles.linkText} onPress={() => setMode(mode === "signin" ? "signup" : "signin")}>
-              {mode === "signin" ? t.create : t.signIn}
-            </Text>
-          </Text>
+            <Text style={w.tag}>{t.welcomeTag}</Text>
+            <Text style={w.sub}>{t.welcomeSub}</Text>
+          </View>
+          <View style={{ gap: 10 }}>
+            {features.map((feature) => (
+              <View key={feature.icon} style={w.feature}>
+                <View style={[w.featureIcon, { backgroundColor: feature.bg }]}>
+                  <AppIcon name={feature.icon} color={feature.fg} size={20} />
+                </View>
+                <Text style={w.featureText}>{feature.text}</Text>
+              </View>
+            ))}
+          </View>
         </View>
-        <Text style={styles.safeNote}>{t.privacyLine}</Text>
-        <LegalLinks />
+        <View style={[w.column, isDesktop && w.columnWide]}>
+          <View style={w.card}>
+            <View style={styles.authTabs}>
+              <Pressable
+                testID="auth-tab-signin"
+                onPress={() => setMode("signin")}
+                style={[
+                  styles.authTab,
+                  mode === "signin" && styles.authTabActive,
+                ]}
+              >
+                <Text
+                  style={
+                    mode === "signin"
+                      ? styles.authTabActiveText
+                      : styles.authTabText
+                  }
+                >
+                  {t.signIn}
+                </Text>
+              </Pressable>
+              <Pressable
+                testID="auth-tab-signup"
+                onPress={() => setMode("signup")}
+                style={[
+                  styles.authTab,
+                  mode === "signup" && styles.authTabActive,
+                ]}
+              >
+                <Text
+                  style={
+                    mode === "signup"
+                      ? styles.authTabActiveText
+                      : styles.authTabText
+                  }
+                >
+                  {t.create}
+                </Text>
+              </Pressable>
+            </View>
+            {mode === "signup" && (
+              <Field label={t.name} value={name} onChangeText={setName} />
+            )}
+            <Field label={t.email} value={email} onChangeText={setEmail} />
+            <Field
+              label={t.password}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            {mode === "signup" ? (
+              <ConsentCheckbox checked={accepted} onChange={setAccepted} />
+            ) : null}
+            {error ? (
+              <Text style={styles.errorText} testID="auth-error">
+                {error}
+              </Text>
+            ) : null}
+            <Button
+              testID="auth-submit-button"
+              label={busy ? "..." : mode === "signin" ? t.signIn : t.create}
+              onPress={submit}
+              disabled={
+                busy ||
+                !email ||
+                password.length < 8 ||
+                (mode === "signup" && !accepted)
+              }
+            />
+            {mode === "signin" ? (
+              <Text
+                testID="forgot-password-link"
+                accessibilityRole="link"
+                style={styles.linkText}
+                onPress={() => router.push("/forgot-password")}
+              >
+                {t.forgotPassword}
+              </Text>
+            ) : null}
+            {googleEnabled ? (
+              <Button
+                testID="google-signin-button"
+                label={t.welcomeGoogle}
+                onPress={google}
+                secondary
+                disabled={busy}
+              />
+            ) : null}
+            <Text style={styles.authHint}>
+              {mode === "signin" ? t.noAccount : t.already}{" "}
+              <Text
+                style={styles.linkText}
+                onPress={() => setMode(mode === "signin" ? "signup" : "signin")}
+              >
+                {mode === "signin" ? t.create : t.signIn}
+              </Text>
+            </Text>
+          </View>
+          <Text style={styles.safeNote}>{t.privacyLine}</Text>
+          <LegalLinks />
+          <Text style={w.age}>{t.welcomeAge}</Text>
+        </View>
       </KeyboardAwareScrollView>
     </View>
   );
