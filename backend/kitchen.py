@@ -10,13 +10,14 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 import foods
 
 DATA_FILE = Path(__file__).parent / "data" / "ingredients.json"
+COMPACT_DIR = Path(__file__).parent / "data" / "ingredients"
 
 # vegan < vegetarian < eggetarian < everything. The strictest preference the person chose wins, like the plan safety net.
 DIET_RANK = {"vegan": 0, "veg": 1, "egg": 2, "non": 3}
 PREFERENCE_RANK = {"vegan": 0, "vegetarian": 1, "eggetarian": 2, "non-vegetarian": 3, "non vegetarian": 3}
-GROUPS = ["vegetables", "leafy", "staples", "pulses", "protein", "dairy", "fruits", "oils", "extras", "pantry"]
+GROUPS = ["vegetables", "leafy", "staples", "pulses", "protein", "dairy", "fruits", "oils", "spices", "extras", "condiments", "pantry"]
 COOKING_TIMES = ["Under 15 min", "20–30 min", "I enjoy cooking"]
-MAX_ITEMS = 250
+MAX_ITEMS = 500
 MIN_MEALS, MAX_MEALS = 1, 3
 MIN_PEOPLE, MAX_PEOPLE = 1, 12
 
@@ -58,10 +59,36 @@ class Ingredient:
         return bool(parts) and all(part in self.word_set for part in parts)
 
 
+def load_compact_ingredients(folder: Path, taken_ids: Iterable[str], taken_names: Iterable[str]) -> List[Dict[str, Any]]:
+    """Rows of data/ingredients/*.txt: name|telugu|group|diet|aliases|protein, one per line. A name already in the catalogue is skipped."""
+    ids, names = set(taken_ids), set(taken_names)
+    rows: List[Dict[str, Any]] = []
+    for path in sorted(folder.glob("*.txt")):
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.startswith("#"):
+                continue
+            parts = [part.strip() for part in line.split("|")]
+            parts += [""] * (6 - len(parts))
+            name, te, group, diet, aliases, protein = parts[:6]
+            if foods.normalize(name) in names:
+                continue
+            base, n = foods.slugify(name), 2
+            iid = base
+            while iid in ids:
+                iid, n = f"{base}-{n}", n + 1
+            ids.add(iid)
+            names.add(foods.normalize(name))
+            rows.append({"id": iid, "name": name, "te": te, "group": group, "diet": diet, "aliases": [a.strip() for a in aliases.split(",") if a.strip()], "protein": protein == "1", "assumed": False})
+    return rows
+
+
 class IngredientCatalogue:
-    def __init__(self, path: Path = DATA_FILE):
+    def __init__(self, path: Path = DATA_FILE, compact_dir: Optional[Path] = COMPACT_DIR):
         data = json.loads(path.read_text(encoding="utf-8"))
-        self.items: List[Ingredient] = [Ingredient(raw) for raw in data["ingredients"]]
+        raws: List[Dict[str, Any]] = list(data["ingredients"])
+        if compact_dir is not None and compact_dir.is_dir():
+            raws += load_compact_ingredients(compact_dir, [raw["id"] for raw in raws], [foods.normalize(raw["name"]) for raw in raws])
+        self.items: List[Ingredient] = [Ingredient(raw) for raw in raws]
         self.by_id: Dict[str, Ingredient] = {item.id: item for item in self.items}
         self.by_label: Dict[str, Ingredient] = {}
         for item in self.items:
@@ -74,7 +101,10 @@ class IngredientCatalogue:
         text = foods.normalize(name)
         if text in self.by_label:
             return self.by_label[text]
-        return self.by_label.get(" ".join(singular(w) for w in text.split()))
+        found = self.by_label.get(" ".join(singular(w) for w in text.split()))
+        if found is None and text.endswith("es"):  # "tomatoes" -> "tomato", "mangoes" -> "mango"
+            found = self.by_label.get(text[:-2])
+        return found
 
     def blocked_by(self, item: Ingredient, exclusions: Iterable[str]) -> bool:
         return any(item.matches_term(term) for term in exclusions if str(term).strip())

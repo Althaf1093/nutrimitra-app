@@ -781,6 +781,45 @@ async def kitchen_ingredients(q: str = "", diet: Optional[str] = None, exclude: 
     return {"groups": kitchen.GROUPS, "ingredients": [item.public() for item in visible]}
 
 
+class KitchenSnapInput(BaseModel):
+    image_base64: str = Field(min_length=200, max_length=9_000_000)
+    diet: Optional[str] = None
+    exclude: Optional[str] = None
+
+
+@api_router.post("/kitchen/snap")
+async def kitchen_snap(payload: KitchenSnapInput, user: Dict[str, Any] = Depends(current_user)):
+    """Ingredients a vision model sees in a photo of the fridge, shelf or groceries, matched to the catalogue and limited to
+    what this person may pick. Nothing is saved: the app shows the list and the person confirms it. The photo is not stored."""
+    profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0}) or {}
+    preferences = [part for part in payload.diet.split(",")] if payload.diet is not None else profile.get("dietary_preferences", [])
+    exclusions = [part for part in payload.exclude.split(",")] if payload.exclude is not None else kitchen.profile_exclusions(profile)
+    try:
+        names = await vision.analyze_ingredients(payload.image_base64, user["id"])
+    except vision.VisionNotConfigured as exc:
+        raise HTTPException(status_code=503, detail={"code": "vision_not_configured", "message": "Photo recognition isn't set up on this server yet. You can still pick your ingredients from the list."}) from exc
+    except vision.VisionUnavailable as exc:
+        raise HTTPException(status_code=503, detail={"code": "vision_unavailable", "message": "Photo recognition couldn't read this photo right now. Try again, or pick your ingredients from the list."}) from exc
+    visible = kitchen.catalogue.visible(preferences, exclusions)
+    allowed = {item.id for item in visible}
+    matched: List[Dict[str, Any]] = []
+    unmatched: List[str] = []
+    seen: set = set()
+    for name in names:
+        item = kitchen.catalogue.find(name)
+        if item is None:
+            # A looser match only when it is nearly the same name ("red onions" -> "Red onion"), never a longer product ("canned tomatoes").
+            words = len(foods.normalize(name).split())
+            found = [candidate for candidate in kitchen.catalogue.search(visible, name) if len(foods.normalize(candidate.name.split("(")[0]).split()) <= words]
+            item = found[0] if found else None
+        if item is None or item.assumed:
+            unmatched.append(name)
+        elif item.id in allowed and item.id not in seen:
+            seen.add(item.id)
+            matched.append(item.public())
+    return {"matches": matched, "unmatched": unmatched[:20]}
+
+
 @api_router.get("/kitchen")
 async def get_kitchen(user: Dict[str, Any] = Depends(current_user)):
     profile = await db.profiles.find_one({"user_id": user["id"]}, {"_id": 0})
