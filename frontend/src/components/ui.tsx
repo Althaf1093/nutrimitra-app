@@ -1,5 +1,6 @@
-import { SymbolView } from "expo-symbols";
-import { ColorValue, Pressable, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
+
+import { AppIcon } from "@/src/components/icon";
 
 import { useAuth } from "@/src/context/auth";
 import { mealTypeLabel } from "@/src/i18n";
@@ -7,51 +8,58 @@ import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
 import type { Meal } from "@/src/types";
 
-// SF Symbols only draw on iOS; on the web and Android the same name falls back to a plain glyph so no icon is blank.
-const GLYPHS: Record<string, string> = {
-  xmark: "✕",
-  checkmark: "✓",
-  "chevron.right": "›",
-  "arrow.clockwise": "↻",
-  "arrow.up": "↑",
-  "camera.fill": "📷",
-  "sun.max.fill": "☀",
-  "list.bullet.clipboard": "☰",
-  "chart.line.uptrend.xyaxis": "↗",
-  "bubble.left.and.bubble.right.fill": "💬",
-  sparkles: "✦",
-  "leaf.fill": "🌿",
-  "heart.text.square.fill": "♥",
-  gearshape: "⚙",
-  "gearshape.fill": "⚙",
-  "figure.walk": "🚶",
-};
+export { AppIcon } from "@/src/components/icon";
 
-export function AppIcon({ name, color, size = 22 }: { name: string; color: ColorValue; size?: number }) {
-  const glyph = (
-    <Text allowFontScaling={false} style={{ color, fontSize: Math.round(size * 0.85), lineHeight: size, width: size, textAlign: "center" }}>
-      {GLYPHS[name] ?? "•"}
-    </Text>
-  );
-  return (
-    <View testID={`icon-${name}`} accessibilityRole="image" style={{ width: size, height: size }}>
-      <SymbolView name={name as never} tintColor={color} size={size} fallback={glyph} />
-    </View>
-  );
-}
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 
-export function Button({ label, onPress, secondary = false, disabled = false, testID }: { label: string; onPress: () => void; secondary?: boolean; disabled?: boolean; testID?: string }) {
+// `secondary` is the older way to ask for the outlined button; `variant` is the full set. `loading` shows a spinner and blocks taps.
+export function Button({
+  label,
+  onPress,
+  secondary = false,
+  variant,
+  size = "md",
+  loading = false,
+  icon,
+  disabled = false,
+  testID,
+}: {
+  label: string;
+  onPress: () => void;
+  secondary?: boolean;
+  variant?: ButtonVariant;
+  size?: "sm" | "md" | "lg";
+  loading?: boolean;
+  icon?: string;
+  disabled?: boolean;
+  testID?: string;
+}) {
   const styles = useStyles();
+  const { colors } = useTheme();
+  const kind: ButtonVariant = variant ?? (secondary ? "secondary" : "primary");
+  const blocked = disabled || loading;
+  const textColor = kind === "primary" ? colors.onBrandPrimary : kind === "destructive" ? colors.error : kind === "ghost" ? colors.brandPrimary : colors.brandPrimary;
+  const frame =
+    kind === "secondary"
+      ? styles.buttonSecondary
+      : kind === "ghost"
+        ? { backgroundColor: "transparent" }
+        : kind === "destructive"
+          ? { backgroundColor: "transparent", borderWidth: 1.5, borderColor: colors.error }
+          : null;
+  const height = size === "sm" ? { minHeight: 44, paddingHorizontal: 16 } : size === "lg" ? { minHeight: 56, paddingHorizontal: 26 } : null;
   return (
     <Pressable
       testID={testID || `button-${label.toLowerCase().replace(/\s+/g, "-")}`}
       accessibilityRole="button"
       accessibilityLabel={label}
-      disabled={disabled}
+      accessibilityState={{ disabled: blocked, busy: loading }}
+      disabled={blocked}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, secondary && styles.buttonSecondary, pressed && styles.pressed, disabled && styles.disabled]}
+      style={({ pressed }) => [styles.button, frame, height, { flexDirection: "row", gap: 8 }, pressed && styles.pressed, disabled && styles.disabled]}
     >
-      <Text style={secondary ? styles.buttonSecondaryText : styles.buttonText}>{label}</Text>
+      {loading ? <ActivityIndicator size="small" color={textColor} /> : icon ? <AppIcon name={icon} color={textColor} size={18} strokeWidth={2.2} /> : null}
+      <Text style={[kind === "primary" ? styles.buttonText : styles.buttonSecondaryText, { color: textColor }]}>{label}</Text>
     </Pressable>
   );
 }

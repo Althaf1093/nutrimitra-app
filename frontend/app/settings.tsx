@@ -1,3 +1,5 @@
+import { SegmentedControl } from "@/src/components/kit";
+import { ModalShell } from "@/src/components/modal-shell";
 import { Redirect, useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from "react-native";
@@ -10,7 +12,7 @@ import { useAuth } from "@/src/context/auth";
 import { getHealthStatus } from "@/src/lib/health";
 import { applyReminders, clearReminders, ensureReminderPermissions, remindersSupported } from "@/src/lib/notifications";
 import { useStyles } from "@/src/styles";
-import { useTheme } from "@/src/theme";
+import { useTheme, useThemePreference } from "@/src/theme";
 import type { Kitchen, ReminderPrefs } from "@/src/types";
 
 function ToggleRow({ title, subtitle, value, onToggle, testID, disabled = false }: { title: string; subtitle: string; value: boolean; onToggle: () => void; testID: string; disabled?: boolean }) {
@@ -36,6 +38,7 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { lang, setLang, t, signOut, status, user } = useAuth();
+  const { preference, setPreference } = useThemePreference();
   const [deleting, setDeleting] = useState(false);
   const [deleteWord, setDeleteWord] = useState("");
   const [deletePassword, setDeletePassword] = useState("");
@@ -118,7 +121,7 @@ export default function SettingsScreen() {
   const healthStatus = getHealthStatus();
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="settings-screen">
+    <ModalShell testID="settings-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>WELLSTRIDE</Text>
@@ -178,6 +181,19 @@ export default function SettingsScreen() {
           </View>
         ) : null}
 
+        <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.appearance.toUpperCase()}</Text>
+        <Text style={styles.modalSub}>{t.appearanceSub}</Text>
+        <SegmentedControl
+          testID="theme-picker"
+          value={preference}
+          onChange={setPreference}
+          options={[
+            { id: "system", label: t.themeSystem },
+            { id: "light", label: t.themeLight },
+            { id: "dark", label: t.themeDark },
+          ]}
+        />
+
         <Text style={[styles.cardEyebrow, { marginTop: 24 }]}>{t.language.toUpperCase()}</Text>
         <View style={styles.chipWrap}>
           <Chip label="English" selected={lang === "en"} onPress={() => setLang("en")} />
@@ -234,6 +250,6 @@ export default function SettingsScreen() {
         )}
         <View style={{ height: Math.max(insets.bottom, 16) }} />
       </ScrollView>
-    </View>
+    </ModalShell>
   );
 }

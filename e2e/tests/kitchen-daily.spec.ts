@@ -13,8 +13,8 @@ async function kitchenUser(app: App, prefix: string) {
 // The plan's meal is a suggestion behind a small link on Today.
 // The Today tab stays mounted, so a suggestion opened earlier can still be open: only click a closed one.
 async function openSuggestion(app: App, slot: string) {
-  const toggle = app.id("today-screen").getByTestId(`suggestion-toggle-${slot}`);
-  if (!(await toggle.innerText()).includes("▾")) await toggle.click();
+  const today = app.id("today-screen");
+  if ((await today.getByTestId(`suggestion-${slot}`).count()) === 0) await today.getByTestId(`suggestion-toggle-${slot}`).click();
 }
 
 const todayCard = (app: App, slot: string) => app.id("today-screen").getByTestId(`meal-card-${slot}`);

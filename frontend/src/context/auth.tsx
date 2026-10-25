@@ -3,6 +3,7 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 import { api, clearToken, getToken, post, saveToken } from "@/src/api";
 import { copy, Lang } from "@/src/i18n";
 import { useGoogleSignIn } from "@/src/lib/google-auth";
+import { setFontLanguage } from "@/src/theme";
 import { storage } from "@/src/utils/storage";
 import type { Profile, User } from "@/src/types";
 
@@ -30,6 +31,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [lang, setLang] = useState<Lang>("en");
+
+  useEffect(() => {
+    setFontLanguage(lang);
+  }, [lang]);
 
   const applySession = useCallback(async () => {
     const result = await api<{ user: User; profile: Profile | null }>("/me");

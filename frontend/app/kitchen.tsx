@@ -1,7 +1,7 @@
+import { ModalShell } from "@/src/components/modal-shell";
 import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, post, put } from "@/src/api";
 import { COOKING_TIMES, KitchenEditor, type KitchenDraft } from "@/src/components/kitchen-editor";
@@ -25,7 +25,6 @@ export default function KitchenScreen() {
 function MyKitchen() {
   const styles = useStyles();
   const { colors } = useTheme();
-  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
   const { profile, t, status } = useAuth();
@@ -89,7 +88,7 @@ function MyKitchen() {
   };
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="kitchen-screen">
+    <ModalShell testID="kitchen-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>{t.kitchenEyebrow.toUpperCase()}</Text>
@@ -131,6 +130,6 @@ function MyKitchen() {
           </View>
         ) : null}
       </ScrollView>
-    </View>
+    </ModalShell>
   );
 }

@@ -51,7 +51,16 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/NotoSansTelugu.ttf"]
+          "fonts": [
+            "./node_modules/@expo-google-fonts/plus-jakarta-sans/400Regular/PlusJakartaSans_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/plus-jakarta-sans/500Medium/PlusJakartaSans_500Medium.ttf",
+            "./node_modules/@expo-google-fonts/plus-jakarta-sans/600SemiBold/PlusJakartaSans_600SemiBold.ttf",
+            "./node_modules/@expo-google-fonts/plus-jakarta-sans/700Bold/PlusJakartaSans_700Bold.ttf",
+            "./node_modules/@expo-google-fonts/plus-jakarta-sans/800ExtraBold/PlusJakartaSans_800ExtraBold.ttf",
+            "./node_modules/@expo-google-fonts/noto-sans-telugu/400Regular/NotoSansTelugu_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/noto-sans-telugu/600SemiBold/NotoSansTelugu_600SemiBold.ttf",
+            "./node_modules/@expo-google-fonts/noto-sans-telugu/700Bold/NotoSansTelugu_700Bold.ttf"
+          ]
         }
       ],
       "expo-image",
@@ -77,7 +86,9 @@
       [
         "expo-build-properties",
         {
-          "android": { "minSdkVersion": 26 }
+          "android": {
+            "minSdkVersion": 26
+          }
         }
       ]
     ],

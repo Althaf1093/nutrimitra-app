@@ -1,3 +1,4 @@
+import { ModalShell } from "@/src/components/modal-shell";
 import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
@@ -53,7 +54,7 @@ export default function EatNowScreen() {
   };
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="eat-now-screen">
+    <ModalShell testID="eat-now-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>{t.eatNowEyebrow.toUpperCase()}</Text>
@@ -111,6 +112,6 @@ export default function EatNowScreen() {
           </View>
         </>
       ) : null}
-    </View>
+    </ModalShell>
   );
 }
