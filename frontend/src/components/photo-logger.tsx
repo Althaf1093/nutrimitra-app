@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Linking, Platform, Text, View } from "react-native";
 
 import { post } from "@/src/api";
@@ -15,7 +15,7 @@ import type { VisionResult } from "@/src/types";
 type Phase = "pick" | "analyzing" | "confirm" | "error";
 
 // The photo path of Log food: take or choose a picture, check the estimate, save it as a meal.
-export function PhotoLogger({ onLogged, onBack }: { onLogged: () => void; onBack: () => void }) {
+export function PhotoLogger({ onLogged, onBack, initialSlot, autoStart }: { onLogged: () => void; onBack: () => void; initialSlot?: string; autoStart?: boolean }) {
   const styles = useStyles();
   const { colors } = useTheme();
   const { lang, t } = useAuth();
@@ -23,7 +23,7 @@ export function PhotoLogger({ onLogged, onBack }: { onLogged: () => void; onBack
   const [imageUri, setImageUri] = useState("");
   const [result, setResult] = useState<VisionResult | null>(null);
   const [draft, setDraft] = useState<VisionDraft>({ name: "", calories: "", protein_g: "", carbs_g: "", fat_g: "", portion: "" });
-  const [mealType, setMealType] = useState(defaultSlot());
+  const [mealType, setMealType] = useState(initialSlot || defaultSlot());
   const [error, setError] = useState("");
   const [blocked, setBlocked] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -79,6 +79,19 @@ export function PhotoLogger({ onLogged, onBack }: { onLogged: () => void; onBack
       setPhase("error");
     }
   };
+
+  // "Snap your meal" opens the camera at once (on the web, the file picker, with the camera on a phone browser).
+  const started = useRef(false);
+  const pickRef = useRef(pick);
+  useEffect(() => {
+    pickRef.current = pick;
+  });
+  useEffect(() => {
+    if (autoStart && !started.current) {
+      started.current = true;
+      pickRef.current("camera");
+    }
+  }, [autoStart]);
 
   const confirm = async () => {
     setBusy(true);

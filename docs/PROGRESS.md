@@ -1,3 +1,16 @@
+# Master run status (docs/MASTER_PROMPT.md)
+
+Resume here: `git pull`, find the first unchecked line, continue. Never redo merged work.
+
+- [x] Logging 1: Today shows only logged food, add sheet, suggestions collapsed (PR: this one)
+- [x] Logging 2: Snap your meal opens the camera at once (same PR)
+- [ ] Logging 3: big food and drink catalogue (2,500+), FOOD_DATA_SOURCES.md
+- [ ] Logging 4: kitchen from a big list, Snap your kitchen
+- [ ] Design run (docs/DESIGN_PROMPT.md)
+- [ ] Insights run (docs/INSIGHTS_PROMPT.md)
+- [ ] Extras run (docs/EXTRAS_PROMPT.md)
+- [ ] Final pass and Master run summary
+
 # Phase 1 progress (2026-10-19)
 
 All nine Phase 1 fixes from docs/PHASE1_PROMPT.md are merged to main, one squash-merged PR each:

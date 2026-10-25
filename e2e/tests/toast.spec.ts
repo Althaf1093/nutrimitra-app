@@ -2,15 +2,16 @@ import { expect, test } from "../fixtures";
 
 // The feedback toast: a small light pill above the tab bar that goes away by itself, never a full-width black bar.
 
-test("toast: small light pill, optimistic +, auto-dismiss, Undo for log and remove @desktop", async ({ app }) => {
+test("toast: small light pill, optimistic log, auto-dismiss, Undo for log and remove @desktop", async ({ app }) => {
   await app.newUserOnToday("toast");
   const toast = app.id("toast");
   const viewport = app.page.viewportSize()!;
 
   const started = Date.now();
-  await app.id("log-meal-breakfast").click();
-  // Optimistic: the + is already the check, without waiting for the reload.
-  await expect(app.id("meal-logged-breakfast")).toBeVisible();
+  await app.id("suggestion-toggle-breakfast").click();
+  await app.id("log-suggestion-breakfast").click();
+  // Optimistic: the suggestion is already gone, without waiting for the reload.
+  await expect(app.id("suggestion-toggle-breakfast")).toHaveCount(0);
   await expect(app.id("toast-message")).toHaveText("Meal logged");
   await expect(toast).toHaveAttribute("role", "status");
   await app.shot("toast-logged");
@@ -35,9 +36,9 @@ test("toast: small light pill, optimistic +, auto-dismiss, Undo for log and remo
   // Remove, then Undo brings the meal back.
   await app.idStarting("remove-meal-").click();
   await expect(app.id("toast-message")).toHaveText("Removed");
-  await expect(app.id("logged-meals")).toHaveCount(0);
+  await expect(app.id("today-empty")).toBeVisible();
   await app.id("toast-action").click();
-  await expect(app.id("logged-meals")).toBeVisible();
+  await expect(app.id("today-empty")).toHaveCount(0);
   await expect(toast).toHaveCount(0);
   await expect.poll(async () => (await app.api("/dashboard")).body.meals.length).toBe(1);
 
@@ -58,15 +59,16 @@ test("toast: small light pill, optimistic +, auto-dismiss, Undo for log and remo
   await expect.poll(async () => (await app.api("/dashboard")).body.activities.length).toBe(2);
 });
 
-test("toast: an error is announced as an alert and the + rolls back", async ({ app }) => {
+test("toast: an error is announced as an alert and the log rolls back", async ({ app }) => {
   app.allow(/http 5\d\d POST .*\/meals/, /console\.error Failed to load resource.*50\d/);
   await app.newUserOnToday("toasterr");
   await app.page.route("**/api/meals", (route) => (route.request().method() === "POST" ? route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ detail: "Something went wrong. Please try again." }) }) : route.continue()));
-  await app.id("log-meal-breakfast").click();
+  await app.id("suggestion-toggle-breakfast").click();
+  await app.id("log-suggestion-breakfast").click();
   await expect(app.id("toast")).toHaveAttribute("role", "alert");
   await expect(app.id("toast-icon-error")).toBeVisible();
-  // Rolled back: the + is back, nothing was logged.
-  await expect(app.id("log-meal-breakfast")).toBeVisible();
-  await expect(app.id("meal-logged-breakfast")).toHaveCount(0);
+  // Rolled back: the suggestion is back, nothing was logged.
+  await expect(app.id("log-suggestion-breakfast")).toBeVisible();
+  await expect(app.id("today-empty")).toBeVisible();
   await app.shot("toast-error");
 });

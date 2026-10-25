@@ -4,9 +4,10 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, Text, View } 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, del, patch, post } from "@/src/api";
-import { AppIcon, Button, Chip, MealCard } from "@/src/components/ui";
+import { AppIcon, Button, Chip } from "@/src/components/ui";
 import { SwapSheet, type SwapTarget } from "@/src/components/swap-sheet";
-import { MealEditForm, type MealChanges } from "@/src/components/meal-edit-form";
+import { type MealChanges } from "@/src/components/meal-edit-form";
+import { TodayMeals } from "@/src/components/today-meals";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { TodayProgressCard } from "@/src/components/today-progress-card";
 import { useToast } from "@/src/components/toast";
@@ -15,7 +16,6 @@ import { getHealthStatus, HealthSummary, syncDeviceHealth } from "@/src/lib/heal
 import { markPlanMeal, planMealBody } from "@/src/lib/plan";
 import { useStyles } from "@/src/styles";
 import { useTheme } from "@/src/theme";
-import { mealTypeLabel } from "@/src/i18n";
 import type { CheckinResult, Dashboard, LoggedActivity, LoggedMeal, Meal, Plan } from "@/src/types";
 
 const DURATIONS = [10, 20, 30, 45];
@@ -104,7 +104,7 @@ export default function TodayScreen() {
       await del(`/meals/${item.id}`);
       const restore = async () => {
         try {
-          await post("/meals", { meal_type: item.meal_type, name: item.name, calories: item.calories, protein_g: item.protein_g, carbs_g: item.carbs_g, fat_g: item.fat_g, source: item.source });
+          await post("/meals", { meal_type: item.meal_type, name: item.name, calories: item.calories, protein_g: item.protein_g, carbs_g: item.carbs_g, fat_g: item.fat_g, source: item.source, portion: item.portion });
         } catch (err) {
           failed(err, t.couldNotUndo);
         }
@@ -272,15 +272,18 @@ export default function TodayScreen() {
               <Text style={styles.linkText}>{t.logFood}</Text>
             </Pressable>
           </View>
-          {meals.map((meal) => (
-            <MealCard
-              key={`${meal.type}-${meal.name}`}
-              meal={meal}
-              onLog={() => logMeal(meal)}
-              onSwap={() => setSwapTarget({ day: plan?.today_index ?? 0, type: meal.type })}
-              onAteOther={() => router.push({ pathname: "/log-food", params: { slot: meal.type } })}
-            />
-          ))}
+          <TodayMeals
+            logged={dashboard?.meals || []}
+            suggestions={meals}
+            busy={busy}
+            editingId={editingId}
+            setEditingId={setEditingId}
+            onSave={saveMeal}
+            onRemove={removeMeal}
+            onAdd={(slot, mode) => router.push({ pathname: "/log-food", params: mode ? { slot, mode } : { slot } })}
+            onLogSuggestion={logMeal}
+            onSwap={(meal) => setSwapTarget({ day: plan?.today_index ?? 0, type: meal.type })}
+          />
           {checkinVisible ? (
             <View style={styles.reasonCard} testID="checkin-card">
               <Text style={styles.cardEyebrow}>{t.checkinTitle.toUpperCase()}</Text>
@@ -302,36 +305,6 @@ export default function TodayScreen() {
                     <Button testID="checkin-button" label={checkingIn ? "..." : t.checkinButton} onPress={doCheckin} disabled={checkingIn} />
                   </View>
                 </>
-              )}
-            </View>
-          ) : null}
-          {(dashboard?.meals?.length || 0) > 0 ? (
-            <View style={styles.reasonCard} testID="logged-meals">
-              <Text style={styles.cardEyebrow}>{t.loggedToday.toUpperCase()}</Text>
-              <Text style={styles.reasonText}>
-                {dashboard?.meals?.length} {t.mealsWord} · {dashboard?.calories || 0} kcal {t.soFar}
-              </Text>
-              {dashboard?.meals?.map((item) =>
-                editingId === item.id ? (
-                  <MealEditForm key={item.id} meal={item} t={t} busy={busy} onSave={(changes) => saveMeal(item.id, changes)} onCancel={() => setEditingId(null)} />
-                ) : (
-                  <View key={item.id} style={styles.logRow} testID={`logged-meal-${item.id}`}>
-                    <View style={styles.flex}>
-                      <Text style={styles.mealName}>{item.name}</Text>
-                      <Text style={styles.mealMeta}>
-                        {mealTypeLabel(t, item.meal_type)} · {item.calories} kcal · {item.protein_g}g {t.proteinWord}
-                      </Text>
-                    </View>
-                    <View style={styles.rowActions}>
-                      <Pressable testID={`edit-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.edit} ${item.name}`} disabled={busy} onPress={() => setEditingId(item.id)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
-                        <Text style={styles.linkText}>{t.edit}</Text>
-                      </Pressable>
-                      <Pressable testID={`remove-meal-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.name}`} disabled={busy} onPress={() => removeMeal(item)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
-                        <Text style={styles.linkText}>{t.remove}</Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                ),
               )}
             </View>
           ) : null}

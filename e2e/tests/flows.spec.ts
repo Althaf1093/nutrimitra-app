@@ -124,15 +124,24 @@ test("3. plan: today's day, refresh, and the AI-busy message", async ({ app }) =
   }
 });
 
-test("4. today: log a plan meal, edit it, remove it @desktop", async ({ app }) => {
+test("4. today: log a suggestion, edit it, remove it @desktop", async ({ app }) => {
   await app.newUserOnToday("flow4");
-  await expect(app.id("log-meal-breakfast")).toBeVisible();
+  // Nothing is pre-filled: an empty day says so, every slot has "+ Add food", the plan meal is a collapsed suggestion.
+  await expect(app.id("today-empty")).toBeVisible();
+  await expect(app.id("log-meal-breakfast")).toHaveCount(0);
+  await expect(app.id("meal-card-breakfast")).toHaveCount(0);
+  for (const slot of ["breakfast", "lunch", "snack", "dinner"]) await expect(app.id(`add-food-${slot}`)).toBeVisible();
   await expect(app.id("today-progress-calories")).toContainText("0");
+  await app.shot("empty-day");
 
-  await app.id("log-meal-breakfast").click();
-  await expect(app.id("meal-logged-breakfast")).toBeVisible();
-  await expect(app.id("log-meal-breakfast")).toHaveCount(0); // no "+" left, so it cannot be logged twice
-  await expect(app.id("logged-meals")).toBeVisible();
+  await app.id("suggestion-toggle-breakfast").click();
+  await expect(app.id("suggestion-breakfast")).toBeVisible();
+  await app.shot("suggestion-open");
+  await app.id("log-suggestion-breakfast").click();
+  await expect(app.id("suggestion-toggle-breakfast")).toHaveCount(0); // logged, so it cannot be logged twice
+  await expect(app.id("today-meals")).toBeVisible();
+  await expect(app.id("today-empty")).toHaveCount(0);
+  await expect(app.id("slot-kcal-breakfast")).toBeVisible();
   await app.shot("logged");
   const double = await app.api("/meals", { method: "POST", body: { meal_type: "breakfast", name: (await app.api("/dashboard")).body.meals[0].name, calories: 400, protein_g: 10, carbs_g: 50, fat_g: 10, source: "plan" } });
   expect(double.status).toBe(409);
@@ -141,13 +150,13 @@ test("4. today: log a plan meal, edit it, remove it @desktop", async ({ app }) =
   await app.id("field-calories-(kcal)").fill("300");
   await app.shot("editing");
   await app.idStarting("edit-meal-save-").click();
-  await expect(app.id("logged-meals")).toContainText("300 kcal");
+  await expect(app.id("today-meals")).toContainText("300 kcal");
   await expect(app.id("today-progress-calories")).toContainText("300");
   expect((await app.api("/dashboard")).body.calories).toBe(300);
 
   await app.idStarting("remove-meal-").click();
-  await expect(app.id("logged-meals")).toHaveCount(0);
-  await expect(app.id("log-meal-breakfast")).toBeVisible(); // the "+" is back
+  await expect(app.id("today-empty")).toBeVisible();
+  await expect(app.id("suggestion-toggle-breakfast")).toBeVisible(); // the suggestion is back
   await expect(app.id("today-progress-calories")).toContainText("0");
   expect((await app.api("/dashboard")).body.calories).toBe(0);
 });
@@ -232,12 +241,10 @@ test("7. coach: reply, recipe card, and the AI-busy message", async ({ app }) =>
 
 test("8. photo logging: upload, confirm form, save as a meal", async ({ app }) => {
   await app.newUserOnToday("flow8");
-  await app.id("log-food-button").click();
-  await expect(app.id("log-food-screen")).toBeVisible();
-  await app.id("photo-mode-button").click();
-
+  // "Snap your meal" opens the camera at once; on the web that is the file picker, with no further tap.
   const chooser = app.page.waitForEvent("filechooser");
-  await app.id("choose-photo-button").click();
+  await app.id("snap-meal-lunch").click();
+  await expect(app.id("log-food-screen")).toBeVisible();
   await (await chooser).setFiles(MEAL_IMAGE);
 
   await expect(app.id("vision-confirm")).toBeVisible();
@@ -245,7 +252,7 @@ test("8. photo logging: upload, confirm form, save as a meal", async ({ app }) =
   await app.shot("confirm");
   await app.id("vision-confirm-button").click();
   await expect(app.id("today-screen")).toBeVisible();
-  await expect(app.id("logged-meals")).toContainText("Dal tadka with rice");
+  await expect(app.id("slot-lunch")).toContainText("Dal tadka with rice");
   const meal = (await app.api("/dashboard")).body.meals[0];
   expect(meal).toMatchObject({ name: "Dal tadka with rice", calories: 520, source: "photo estimate" });
 });
@@ -293,8 +300,9 @@ test("9. settings: Telugu and back, privacy toggles, reminders, sign out", async
   await app.shot("settings-telugu");
   await app.id("settings-close").click();
   await expect(app.id("today-screen")).toBeVisible();
-  await app.id("log-meal-breakfast").click();
-  await expect(app.id("logged-meals")).toBeVisible();
+  await app.id("suggestion-toggle-breakfast").click();
+  await app.id("log-suggestion-breakfast").click();
+  await expect(app.id("today-meals")).toContainText("kcal");
 
   const screens: Array<[string, () => Promise<void>]> = [
     ["today", async () => undefined],

@@ -46,8 +46,8 @@ test("food: type egg, one-tap add, the toast leaves by itself, the meal is on To
 
   await app.id("log-food-close").click();
   await expect(app.id("today-screen")).toBeVisible();
-  await expect(app.id("logged-meals")).toContainText("Boiled egg");
-  await expect(app.id("logged-meals")).toContainText("78 kcal");
+  await expect(app.id("today-meals")).toContainText("Boiled egg");
+  await expect(app.id("today-meals")).toContainText("78 kcal");
 });
 
 test("food: dosa shows many variants, the serving sheet scales the numbers", async ({ app }) => {
@@ -166,6 +166,8 @@ test("food: the meal slot follows the time of day", async ({ app }) => {
 test("food: the photo path is still there from the same screen", async ({ app }) => {
   await app.newUserOnToday("foodphoto");
   await openLogFood(app);
+  // "Snap your meal" opens the picker at once; leave it empty and the choices stay on screen.
+  app.page.once("filechooser", (chooser) => chooser.setFiles([]));
   await app.id("photo-mode-button").click();
   await expect(app.id("photo-logger")).toBeVisible();
   await expect(app.id("choose-photo-button")).toBeVisible();

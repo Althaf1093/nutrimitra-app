@@ -9,9 +9,8 @@ test("photo logging against the real vision provider", async ({ app }) => {
   test.setTimeout(240_000);
   await app.newUserOnToday("realphoto");
   await app.id("log-food-button").click();
-  await app.id("photo-mode-button").click();
   const chooser = app.page.waitForEvent("filechooser");
-  await app.id("choose-photo-button").click();
+  await app.id("photo-mode-button").click();
   await (await chooser).setFiles(path.join(__dirname, "..", "fixtures", "meal.jpg"));
 
   await expect(app.id("vision-confirm")).toBeVisible({ timeout: 120_000 });
