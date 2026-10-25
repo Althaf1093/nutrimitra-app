@@ -93,7 +93,7 @@ export function Field({ label, value, onChangeText, placeholder, secureTextEntry
   );
 }
 
-export function MealCard({ meal, onLog, onSwap, onAteOther }: { meal: Meal; onLog: () => void; onSwap?: () => void; onAteOther?: () => void }) {
+export function MealCard({ meal, onLog, onSwap, onAteOther, hideLog }: { meal: Meal; onLog?: () => void; onSwap?: () => void; onAteOther?: () => void; hideLog?: boolean }) {
   const styles = useStyles();
   const { lang, t } = useAuth();
   const { colors } = useTheme();
@@ -139,7 +139,7 @@ export function MealCard({ meal, onLog, onSwap, onAteOther }: { meal: Meal; onLo
           </View>
         ) : null}
       </View>
-      {meal.logged ? (
+      {hideLog ? null : meal.logged ? (
         <View testID={`meal-logged-${meal.type}`} accessibilityLabel={`${mealTypeLabel(t, meal.type)} ✓`} style={[styles.logButton, styles.logButtonDone]}>
           <AppIcon name="checkmark" color={colors.onBrandPrimary} size={18} />
         </View>

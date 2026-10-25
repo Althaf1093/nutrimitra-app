@@ -69,6 +69,7 @@ function LogFood() {
   const [busy, setBusy] = useState(false);
   const [added, setAdded] = useState<Record<string, boolean>>({});
   const [customName, setCustomName] = useState("");
+  const [snapped, setSnapped] = useState(false);
   // "I ate something else" opens this screen for one meal slot; otherwise the slot follows the time of day.
   const currentSlot = () => (params.slot && MEAL_SLOTS.includes(params.slot) ? params.slot : defaultSlot());
   const requestId = useRef(0);
@@ -225,23 +226,35 @@ function LogFood() {
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>{t.logFoodEyebrow.toUpperCase()}</Text>
-          <Text style={styles.headerTitle}>{mode === "photo" ? t.photo : t.logFood}</Text>
+          <Text style={styles.headerTitle}>{mode === "photo" ? t.snapMeal : t.logFood}</Text>
         </View>
-        {mode === "search" ? (
-          <Pressable testID="photo-mode-button" accessibilityRole="button" accessibilityLabel={t.photo} onPress={() => setMode("photo")} style={({ pressed }) => [styles.chip, { flexDirection: "row", gap: 6, marginRight: 8 }, pressed && styles.pressed]}>
-            <AppIcon name="camera.fill" color={colors.brandPrimary} size={16} />
-            <Text style={styles.chipText}>{t.photo}</Text>
-          </Pressable>
-        ) : null}
         <Pressable testID="log-food-close" accessibilityRole="button" accessibilityLabel={t.close} onPress={() => router.back()} style={styles.iconButton}>
           <AppIcon name="xmark" color={colors.onSurface} size={20} />
         </Pressable>
       </View>
       <ScrollView contentContainerStyle={styles.screenContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        {mode === "photo" ? <PhotoLogger onLogged={() => router.back()} onBack={() => setMode("search")} /> : null}
+        {mode === "photo" ? <PhotoLogger initialSlot={currentSlot()} autoStart={params.mode === "photo" || snapped} onLogged={() => router.back()} onBack={() => setMode("search")} /> : null}
         {mode === "custom" ? <CustomFoodForm key={customName} initialName={customName} initialSlot={currentSlot()} busy={busy} onAdd={addCustom} onCancel={() => setMode("search")} /> : null}
         {mode === "search" ? (
           <View>
+            <Pressable
+              testID="photo-mode-button"
+              accessibilityRole="button"
+              accessibilityLabel={t.snapMeal}
+              onPress={() => {
+                setSnapped(true);
+                setMode("photo");
+              }}
+              style={({ pressed }) => [styles.eatBanner, { marginTop: 0, marginBottom: 14 }, pressed && styles.pressed]}
+            >
+              <View style={styles.bannerIcon}>
+                <AppIcon name="camera.fill" color={colors.onBrandPrimary} size={23} />
+              </View>
+              <View style={styles.flex}>
+                <Text style={styles.bannerTitle}>{t.snapMeal}</Text>
+                <Text style={styles.bannerSub}>{t.snapMealSub}</Text>
+              </View>
+            </Pressable>
             <View style={styles.searchBar}>
               <TextInput
                 testID="food-search-input"

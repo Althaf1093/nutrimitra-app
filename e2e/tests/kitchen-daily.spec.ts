@@ -10,10 +10,18 @@ async function kitchenUser(app: App, prefix: string) {
   await app.onboardWithKitchen(KITCHEN);
 }
 
+// The plan's meal is a suggestion behind a small link on Today.
+// The Today tab stays mounted, so a suggestion opened earlier can still be open: only click a closed one.
+async function openSuggestion(app: App, slot: string) {
+  const toggle = app.id("today-screen").getByTestId(`suggestion-toggle-${slot}`);
+  if (!(await toggle.innerText()).includes("▾")) await toggle.click();
+}
+
 const todayCard = (app: App, slot: string) => app.id("today-screen").getByTestId(`meal-card-${slot}`);
 
 test("daily: swap a meal for another from the same kitchen", async ({ app }) => {
   await kitchenUser(app, "kswap");
+  await openSuggestion(app, "lunch");
   const before = await todayCard(app, "lunch").innerText();
   await app.id("today-screen").getByTestId("swap-meal-lunch").click();
   await expect(app.id("swap-sheet")).toBeVisible();
@@ -35,6 +43,7 @@ test("daily: swap a meal for another from the same kitchen", async ({ app }) => 
 
 test("daily: I ate something else logs for that slot and marks the planned meal", async ({ app }) => {
   await kitchenUser(app, "kelse");
+  await openSuggestion(app, "breakfast");
   await app.id("today-screen").getByTestId("ate-else-breakfast").click();
   await expect(app.id("log-food-screen")).toBeVisible();
   await app.id("food-search-input").fill("banana");
@@ -42,7 +51,10 @@ test("daily: I ate something else logs for that slot and marks the planned meal"
   await expect(app.id("toast-message")).toContainText("Meal logged · Breakfast");
   await app.id("log-food-close").click();
   await expect(app.id("today-screen")).toBeVisible();
+  await expect(app.id("slot-breakfast")).toContainText("Banana");
+  await openSuggestion(app, "breakfast");
   await expect(app.id("today-screen").getByTestId("meal-ate-other-breakfast")).toHaveText("You logged something else for this meal");
+  await openSuggestion(app, "lunch");
   await expect(app.id("today-screen").getByTestId("swap-meal-lunch")).toBeVisible();
   await app.shot("ate-something-else");
 });
@@ -99,6 +111,9 @@ test("daily: Telugu strings for swap, check-in and the replaced meal", async ({ 
   await expect(app.id("today-screen")).toBeVisible();
   await expect(app.id("checkin-card")).toContainText("సాయంత్రం చెక్-ఇన్");
   await expect(app.id("checkin-button")).toContainText("చెక్-ఇన్");
+  await expect(app.id("today-screen").getByTestId("add-food-lunch")).toContainText("ఆహారం జోడించండి");
+  await expect(app.id("today-empty")).toContainText("ఇంకా ఏమీ లాగ్ చేయలేదు");
+  await openSuggestion(app, "lunch");
   await expect(app.id("today-screen").getByTestId("swap-meal-lunch")).toHaveText("మార్చు");
   await expect(app.id("today-screen").getByTestId("ate-else-lunch")).toHaveText("నేను వేరేది తిన్నాను");
   await app.id("today-screen").getByTestId("swap-meal-lunch").click();
