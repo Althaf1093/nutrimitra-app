@@ -1,0 +1,103 @@
+# Chicken, meat, seafood (plain preparations)
+Chicken breast (grilled)|చికెన్ బ్రెస్ట్|Chicken|100 g cooked|31|0|4|0|
+Chicken breast (boiled)|ఉడికించిన చికెన్ బ్రెస్ట్|Chicken|100 g cooked|30|0|3|0|
+Chicken breast (pan fried, 150 g)|చికెన్ బ్రెస్ట్|Chicken|150 g cooked|43|2|9|0|
+Chicken thigh (skinless, cooked)|చికెన్ థై|Chicken|100 g cooked|26|0|9|0|
+Chicken drumstick (curry cut, cooked)|చికెన్ లెగ్|Chicken|1 piece (100 g)|24|0|9|0|
+Chicken wings (fried, 4)|చికెన్ వింగ్స్|Chicken|4 pieces (120 g)|26|8|22|0|
+Chicken wings (grilled, 4)|గ్రిల్డ్ వింగ్స్|Chicken|4 pieces (120 g)|26|2|14|0|
+Buffalo wings (4)|బఫెలో వింగ్స్|Chicken|4 pieces (140 g)|26|6|26|0|
+Fried chicken (2 pieces)|ఫ్రైడ్ చికెన్|Chicken|2 pieces (200 g)|34|14|30|0|kfc
+Chicken nuggets (6)|చికెన్ నగ్గెట్స్|Chicken|6 pieces (110 g)|15|16|18|0|
+Chicken popcorn|చికెన్ పాప్‌కార్న్|Chicken|1 box (120 g)|18|18|18|0|
+Chicken strips (3)|చికెన్ స్ట్రిప్స్|Chicken|3 pieces (120 g)|20|18|16|0|
+Chicken tenders (grilled)|చికెన్ టెండర్స్|Chicken|120 g|28|3|5|0|
+Roast chicken (with skin)|రోస్ట్ చికెన్|Chicken|100 g cooked|27|0|14|0|
+Chicken sausage (2)|చికెన్ సాసేజ్|Chicken|2 pieces (80 g)|11|3|12|0|
+Chicken salami (3 slices)|చికెన్ సలామి|Chicken|3 slices (45 g)|8|1|7|0|
+Chicken liver (cooked)|చికెన్ లివర్|Chicken|100 g cooked|24|1|6|0|
+Chicken gizzard fry|చికెన్ గిజార్డ్|Chicken|1 plate (100 g)|22|4|10|0|
+Turkey breast (roasted)|టర్కీ|Chicken|100 g|29|0|2|0|
+Duck curry|డక్ కర్రీ|Chicken|1 bowl (200 g)|24|6|24|0|
+Quail fry|బటేర్ ఫ్రై|Chicken|2 pieces (100 g)|22|4|14|0|
+Mutton (goat, boiled)|మటన్|Mutton|100 g cooked|27|0|9|0|
+Mutton liver fry|మటన్ లివర్|Mutton|100 g|22|4|10|0|
+Mutton soup bones|మటన్ ఎముకల సూప్|Mutton|1 bowl (250 ml)|10|2|6|0|
+Lamb chop (grilled)|లాంబ్ చాప్|Mutton|2 pieces (120 g)|30|0|20|0|
+Beef steak (grilled)|బీఫ్ స్టీక్|Mutton|150 g cooked|40|0|20|0|
+Beef curry|బీఫ్ కర్రీ|Mutton|1 bowl (250 g)|28|8|24|0|
+Pork curry|పోర్క్ కర్రీ|Mutton|1 bowl (250 g)|26|6|30|0|
+Pork chops (grilled)|పోర్క్ చాప్స్|Mutton|150 g|36|0|18|0|
+Bacon (3 slices)|బేకన్|Mutton|3 slices (25 g)|9|0.3|11|0|
+Ham (2 slices)|హామ్|Mutton|2 slices (50 g)|9|1|3|0|
+Sausage (pork, 2)|సాసేజ్|Mutton|2 pieces (100 g)|12|2|26|0|
+Hot dog (with bun)|హాట్ డాగ్|Snacks|1 piece (150 g)|11|26|18|0|
+Salmon (grilled)|సాల్మన్|Fish & seafood|100 g cooked|25|0|13|0|
+Salmon (baked, 150 g)|సాల్మన్|Fish & seafood|150 g cooked|37|0|19|0|
+Tuna (canned in water)|ట్యూనా|Fish & seafood|1 can (100 g drained)|24|0|1|0|
+Tuna (canned in oil)|ట్యూనా|Fish & seafood|1 can (100 g drained)|25|0|8|0|
+Sardines (canned)|సార్డిన్స్|Fish & seafood|1 can (90 g)|22|0|10|0|
+Rohu fish curry|రోహు కర్రీ|Fish & seafood|1 bowl (200 g)|22|7|10|0|
+Katla fish curry|కట్లా కర్రీ|Fish & seafood|1 bowl (200 g)|22|7|10|0|
+Pomfret fry|పాంప్లెట్ ఫ్రై|Fish & seafood|1 piece (120 g)|20|6|14|0|
+Pomfret curry|పాంప్లెట్ కర్రీ|Fish & seafood|1 bowl (200 g)|20|7|10|0|
+Mackerel fry (bangda)|బంగ్డా ఫ్రై|Fish & seafood|1 piece (100 g)|20|5|16|0|
+Sardine fry (mathi)|మత్తి ఫ్రై|Fish & seafood|3 pieces (100 g)|19|5|14|0|
+Seer fish fry (vanjaram)|వంజరం ఫ్రై|Fish & seafood|1 piece (120 g)|24|6|14|0|surmai
+Seer fish curry|వంజరం కర్రీ|Fish & seafood|1 bowl (200 g)|23|7|11|0|
+Anchovy fry (nethili)|నెత్తిలి ఫ్రై|Fish & seafood|1 plate (80 g)|18|6|12|0|
+Tilapia (grilled)|తిలాపియా|Fish & seafood|100 g cooked|26|0|3|0|
+Basa fish fry|బాసా ఫ్రై|Fish & seafood|1 piece (120 g)|16|10|14|0|
+Fish and chips|ఫిష్ అండ్ చిప్స్|Fish & seafood|1 plate (350 g)|26|60|32|0|
+Fish fingers (4)|ఫిష్ ఫింగర్స్|Fish & seafood|4 pieces (100 g)|12|20|10|0|
+Fish sandwich|ఫిష్ శాండ్‌విచ్|Fish & seafood|1 sandwich (180 g)|16|34|14|0|
+Prawns (boiled)|ఉడికించిన రొయ్యలు|Fish & seafood|100 g|24|0|1|0|
+Prawn masala|ప్రాన్ మసాలా|Fish & seafood|1 bowl (200 g)|24|9|14|0|
+Prawn tempura (5)|ప్రాన్ టెంపురా|Fish & seafood|5 pieces (120 g)|14|20|16|0|
+Crab curry|పీత కూర|Fish & seafood|1 bowl (200 g)|22|8|12|0|
+Squid fry|స్క్విడ్ ఫ్రై|Fish & seafood|1 plate (120 g)|18|10|12|0|
+Sushi roll (salmon, 6 pieces)|సుషి|Fish & seafood|6 pieces (180 g)|12|42|6|0|
+Sushi roll (veg, 6 pieces)|వెజ్ సుషి|Fish & seafood|6 pieces (180 g)|5|44|3|0|
+Dried fish fry (karuvadu)|ఎండు చేప వేపుడు|Fish & seafood|1 plate (50 g)|22|2|8|0|
+Egg (boiled, 1)|ఉడికించిన గుడ్డు|Eggs|1 large (50 g)|6.3|0.6|5.3|0|
+Egg whites (3)|గుడ్డు తెల్లసొన|Eggs|3 whites (100 g)|11|0.7|0.2|0|
+Egg (fried, 1)|గుడ్డు ఫ్రై|Eggs|1 large (46 g)|6.3|0.4|7|0|
+Egg (scrambled, 2)|స్క్రాంబుల్డ్ ఎగ్|Eggs|2 eggs (120 g)|13|2|14|0|
+Egg (omelette, 3)|ఆమ్లెట్|Eggs|3 eggs (170 g)|19|2|20|0|
+Egg (duck, boiled)|బాతు గుడ్డు|Eggs|1 egg (70 g)|9|1|10|0|
+Egg (quail, 6)|పిట్ట గుడ్లు|Eggs|6 eggs (60 g)|8|0.5|7|0|
+Egg curry (restaurant)|ఎగ్ కర్రీ|Eggs|2 eggs + gravy (250 g)|14|12|18|0|
+Egg fried rice (restaurant)|ఎగ్ ఫ్రైడ్ రైస్|Eggs|1 plate (350 g)|16|72|16|0|
+Egg bhurji (2 eggs)|ఎగ్ భుర్జి|Eggs|2 eggs (120 g)|13|4|14|0|
+# Dairy and paneer
+Curd (full fat)|పెరుగు|Dairy & paneer|1 cup (150 g)|5|7|6|0|dahi
+Curd (toned)|పెరుగు|Dairy & paneer|1 cup (150 g)|5|7|4|0|
+Curd (low fat)|తక్కువ కొవ్వు పెరుగు|Dairy & paneer|1 cup (150 g)|5|7|1|0|
+Curd (small bowl)|పెరుగు|Dairy & paneer|1 small bowl (100 g)|3.5|5|4|0|
+Curd with sugar|చక్కెర పెరుగు|Dairy & paneer|1 cup (150 g)|5|17|6|0|
+Greek yogurt (plain)|గ్రీక్ యోగర్ట్|Dairy & paneer|1 cup (170 g)|17|6|1|0|
+Greek yogurt (full fat)|గ్రీక్ యోగర్ట్|Dairy & paneer|1 cup (170 g)|15|7|8|0|
+Greek yogurt with honey and nuts|గ్రీక్ యోగర్ట్|Dairy & paneer|1 bowl (200 g)|16|22|8|0|
+Flavoured yogurt (fruit)|ఫ్రూట్ యోగర్ట్|Dairy & paneer|1 cup (100 g)|3.5|17|2|0|
+Hung curd (thick)|చిక్కటి పెరుగు|Dairy & paneer|1/2 cup (100 g)|7|5|5|0|
+Skyr or high protein yogurt|స్కైర్|Dairy & paneer|1 cup (150 g)|16|6|0.3|0|
+Paneer (raw, cubes)|పనీర్|Dairy & paneer|50 g|9|1.5|11|0|
+Paneer (low fat)|తక్కువ కొవ్వు పనీర్|Dairy & paneer|50 g|10|2|5|0|
+Paneer (grilled, 100 g)|గ్రిల్డ్ పనీర్|Dairy & paneer|100 g|18|3|22|0|
+Cottage cheese|కాటేజ్ చీజ్|Dairy & paneer|1/2 cup (100 g)|11|3|4|0|
+Cheese slice|చీజ్ స్లైస్|Dairy & paneer|1 slice (20 g)|4|0.5|5|0|
+Cheddar cheese|చెడ్డార్ చీజ్|Dairy & paneer|1 slice (28 g)|7|0.4|9|0|
+Mozzarella cheese|మోజరెల్లా|Dairy & paneer|30 g|7|1|7|0|
+Parmesan (grated, 1 tbsp)|పార్మేసన్|Dairy & paneer|1 tbsp (5 g)|2|0|1.5|0|
+Processed cheese cube|చీజ్ క్యూబ్|Dairy & paneer|1 cube (20 g)|3.5|1|5.5|0|
+Cheese spread (1 tbsp)|చీజ్ స్ప్రెడ్|Dairy & paneer|1 tbsp (20 g)|2|1|5|0|
+Cream cheese (1 tbsp)|క్రీమ్ చీజ్|Dairy & paneer|1 tbsp (15 g)|0.8|0.5|5|0|
+Khoa (mawa, 30 g)|ఖోవా|Dairy & paneer|30 g|4|2|8|0|
+Fresh cream (1 tbsp)|క్రీమ్|Dairy & paneer|1 tbsp (15 g)|0.3|0.5|5|0|malai
+Condensed milk (1 tbsp)|కండెన్స్డ్ మిల్క్|Dairy & paneer|1 tbsp (20 g)|1.5|11|1.7|0|
+Milk powder (2 tbsp)|పాల పొడి|Dairy & paneer|2 tbsp (15 g)|4|6|4|0|
+Whey protein (1 scoop)|వే ప్రోటీన్|Dairy & paneer|1 scoop (30 g)|24|3|1.5|0|
+Casein protein (1 scoop)|కేసిన్ ప్రోటీన్|Dairy & paneer|1 scoop (33 g)|24|4|1|0|
+Soy protein (1 scoop)|సోయా ప్రోటీన్|Dairy & paneer|1 scoop (30 g)|23|2|1.5|0|
+Vegan protein powder (1 scoop)|ప్రోటీన్ పౌడర్|Dairy & paneer|1 scoop (30 g)|21|3|2|0|
+Creatine or supplement powder|సప్లిమెంట్|Dairy & paneer|1 scoop (5 g)|0|0|0|0|

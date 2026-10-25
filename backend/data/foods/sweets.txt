@@ -1,0 +1,92 @@
+Gulab jamun (1 piece)|గులాబ్ జామూన్|Sweets|1 piece (50 g)|2|26|7|0|
+Gulab jamun (2 pieces)|గులాబ్ జామూన్|Sweets|2 pieces (100 g)|4|52|14|0|
+Kala jamun|కాలా జామూన్|Sweets|1 piece (50 g)|2|27|8|0|
+Jalebi (2 pieces)|జిలేబీ|Sweets|2 pieces (60 g)|1.5|42|9|0|
+Imarti|ఇమర్తి|Sweets|1 piece (50 g)|1.5|34|8|0|
+Rasgulla (1 piece)|రసగుల్లా|Sweets|1 piece (40 g)|1.5|17|0.5|0|
+Kaju katli|కాజు కట్లీ|Sweets|2 pieces (30 g)|2|17|8|0|kaju barfi
+Kaju roll|కాజు రోల్|Sweets|2 pieces (30 g)|2|17|8|0|
+Pista barfi|పిస్తా బర్ఫీ|Sweets|2 pieces (30 g)|2|17|8|0|
+Badam barfi|బాదం బర్ఫీ|Sweets|2 pieces (30 g)|2|16|8|0|
+Milk barfi|మిల్క్ బర్ఫీ|Sweets|2 pieces (40 g)|4|24|8|0|
+Coconut barfi|కొబ్బరి బర్ఫీ|Sweets|2 pieces (40 g)|2|26|9|0|
+Besan barfi|బేసన్ బర్ఫీ|Sweets|2 pieces (40 g)|3|24|11|0|
+Mysore pak (small)|మైసూర్ పాక్|Sweets|1 piece (30 g)|1.5|15|10|0|
+Soan papdi|సోన్ పాపడీ|Sweets|1 piece (30 g)|2|20|7|0|
+Peda|పేడా|Sweets|2 pieces (40 g)|4|24|7|0|
+Kesar peda|కేసర్ పేడా|Sweets|2 pieces (40 g)|4|24|7|0|
+Mathura peda|మథుర పేడా|Sweets|2 pieces (40 g)|4|24|8|0|
+Motichoor laddu|మోతీచూర్ లడ్డు|Sweets|1 piece (45 g)|2|26|8|0|
+Besan laddu|బేసన్ లడ్డు|Sweets|1 piece (40 g)|3|22|10|0|
+Boondi laddu|బూందీ లడ్డు|Sweets|1 piece (45 g)|2|27|8|0|
+Tirupati laddu|తిరుపతి లడ్డు|Sweets|1 piece (175 g)|8|100|36|0|
+Rava laddu (coconut)|రవ్వ లడ్డు|Sweets|1 piece (40 g)|2|24|8|0|
+Til laddu (sesame)|నువ్వుల లడ్డు|Sweets|1 piece (30 g)|3|15|9|0|
+Dry fruit laddu|డ్రై ఫ్రూట్ లడ్డు|Sweets|1 piece (35 g)|3|16|9|0|
+Ragi laddu|రాగి లడ్డు|Sweets|1 piece (35 g)|3|20|7|0|
+Dates and nuts laddu|ఖర్జూరం లడ్డు|Sweets|1 piece (35 g)|3|20|8|0|
+Peanut laddu|పల్లీ లడ్డు|Sweets|1 piece (35 g)|4|16|9|0|
+Gond laddu|గోంద్ లడ్డు|Sweets|1 piece (50 g)|4|24|14|0|
+Coconut laddu|కొబ్బరి లడ్డు|Sweets|1 piece (40 g)|1.5|20|8|0|
+Kalakand|కలాకంద్|Sweets|1 piece (40 g)|5|20|8|0|
+Milk cake|మిల్క్ కేక్|Sweets|1 piece (40 g)|4|22|8|0|
+Rasmalai (1 piece)|రసమలై|Sweets|1 piece (60 g)|4|14|5|0|
+Ras malai (2 pieces)|రసమలై|Sweets|2 pieces (120 g)|8|28|10|0|
+Kulfi (malai)|కుల్ఫీ|Sweets|1 stick (80 g)|4|20|9|0|
+Kulfi (pista)|పిస్తా కుల్ఫీ|Sweets|1 stick (80 g)|4|20|10|0|
+Kulfi falooda|కుల్ఫీ ఫలూదా|Sweets|1 plate (200 g)|7|50|14|0|
+Ice cream (vanilla, 1 scoop)|ఐస్ క్రీమ్|Sweets|1 scoop (70 g)|2|16|7|0|
+Ice cream (vanilla, 2 scoops)|ఐస్ క్రీమ్|Sweets|2 scoops (140 g)|4|32|14|0|
+Ice cream (chocolate, 1 scoop)|చాక్లెట్ ఐస్ క్రీమ్|Sweets|1 scoop (70 g)|2.5|18|8|0|
+Ice cream (mango, 1 scoop)|మామిడి ఐస్ క్రీమ్|Sweets|1 scoop (70 g)|2|18|6|0|
+Ice cream cone|ఐస్ క్రీమ్ కోన్|Sweets|1 cone (100 g)|3|26|9|0|
+Ice cream sundae|ఐస్ క్రీమ్ సండే|Sweets|1 cup (200 g)|5|50|18|0|
+Ice lolly|ఐస్ క్యాండీ|Sweets|1 stick (60 g)|0|16|0|0|
+Gelato (1 scoop)|జెలాటో|Sweets|1 scoop (80 g)|3|22|7|0|
+Frozen yogurt|ఫ్రోజెన్ యోగర్ట్|Sweets|1 cup (120 g)|4|26|3|0|
+Halwa (suji)|సూజీ హల్వా|Sweets|1 bowl (100 g)|2|40|10|0|sheera
+Halwa (carrot, gajar)|గాజర్ హల్వా|Sweets|1 bowl (120 g)|4|36|12|0|gajar ka halwa
+Halwa (moong dal)|మూంగ్ దాల్ హల్వా|Sweets|1 bowl (100 g)|5|40|20|0|
+Halwa (bread)|బ్రెడ్ హల్వా|Sweets|1 bowl (100 g)|3|42|14|0|
+Halwa (wheat, atta)|గోధుమ హల్వా|Sweets|1 bowl (100 g)|3|44|12|0|
+Halwa (pumpkin)|గుమ్మడి హల్వా|Sweets|1 bowl (100 g)|2|34|9|0|
+Halwa (beetroot)|బీట్‌రూట్ హల్వా|Sweets|1 bowl (100 g)|3|34|10|0|
+Halwa (bottle gourd)|సొరకాయ హల్వా|Sweets|1 bowl (100 g)|3|30|9|0|
+Halwa (Bombay, Karachi)|కరాచీ హల్వా|Sweets|1 piece (40 g)|0.5|26|4|0|
+Tirunelveli halwa|తిరునెల్వేలి హల్వా|Sweets|1 piece (50 g)|1|34|10|0|
+Rice kheer|పాయసం|Sweets|1 bowl (150 g)|5|36|7|0|payasam
+Kheer (sabudana)|సగ్గుబియ్యం పాయసం|Sweets|1 bowl (150 g)|4|38|6|0|
+Kheer (vermicelli)|సేమియా పాయసం|Sweets|1 bowl (150 g)|4|36|7|0|
+Payasam (moong dal)|పెసర పాయసం|Sweets|1 bowl (150 g)|5|36|8|0|
+Payasam (ada)|అడ పాయసం|Sweets|1 bowl (150 g)|4|44|10|0|
+Payasam (gasagasala)|గసగసాల పాయసం|Sweets|1 bowl (150 g)|5|34|10|0|
+Double ka meetha|డబుల్ కా మీఠా|Sweets|1 piece (120 g)|6|50|18|0|
+Qubani ka meetha|ఖుబానీ కా మీఠా|Sweets|1 bowl (150 g)|4|48|10|0|
+Shahi tukda|షాహీ తుక్డా|Sweets|1 piece (120 g)|6|48|20|0|
+Phirni|ఫిర్నీ|Sweets|1 bowl (120 g)|5|30|6|0|
+Rabri|రబ్డీ|Sweets|1 bowl (100 g)|6|24|10|0|
+Malpua|మాల్పువా|Sweets|1 piece (60 g)|2|30|9|0|
+Rabri jalebi|రబ్డీ జిలేబీ|Sweets|1 plate (150 g)|6|58|18|0|
+Sheer khurma|షీర్ ఖుర్మా|Sweets|1 bowl (150 g)|7|44|10|0|
+Seviyan kheer|సేవియన్ ఖీర్|Sweets|1 bowl (150 g)|5|38|8|0|
+Kunafa|కునాఫా|Sweets|1 piece (100 g)|5|44|18|0|
+Baklava|బక్లవా|Sweets|1 piece (40 g)|2|20|10|0|
+Chikki mix|చిక్కీ|Sweets|2 pieces (50 g)|5|28|11|0|
+Jaggery (gud)|బెల్లం|Sweets|1 piece (10 g)|0|9|0|0|bellam
+Honey|తేనె|Sweets|1 tbsp (21 g)|0|17|0|0|
+Sugar (1 tsp)|పంచదార|Sweets|1 tsp (4 g)|0|4|0|0|
+Jam (1 tbsp)|జామ్|Sweets|1 tbsp (20 g)|0|13|0|0|
+Chocolate spread|చాక్లెట్ స్ప్రెడ్|Sweets|1 tbsp (20 g)|1|11|6|0|nutella
+Gajak|గజక్|Sweets|1 piece (30 g)|3|16|8|0|
+Pinni|పిన్నీ|Sweets|1 piece (50 g)|4|26|12|0|
+Dry fruit halwa|డ్రై ఫ్రూట్ హల్వా|Sweets|1 bowl (100 g)|4|36|16|0|
+Sandwich cookies cake bar|కేక్ బార్|Sweets|1 piece (50 g)|3|28|8|0|
+Tiramisu|తిరమిసు|Sweets|1 slice (120 g)|6|30|22|0|
+Pancake (2, with syrup)|పాన్‌కేక్|Sweets|2 pancakes (150 g)|6|56|10|0|
+Waffle (with syrup)|వాఫిల్|Sweets|1 waffle (120 g)|6|48|12|0|
+Apple pie slice|యాపిల్ పై|Sweets|1 slice (125 g)|2|40|14|0|
+Custard (bowl)|కస్టర్డ్|Sweets|1 bowl (150 g)|5|26|5|0|
+Fruit custard|ఫ్రూట్ కస్టర్డ్|Sweets|1 bowl (180 g)|5|36|5|0|
+Caramel custard|కారామెల్ కస్టర్డ్|Sweets|1 piece (120 g)|5|28|5|0|
+Chocolate mousse|చాక్లెట్ మూస్|Sweets|1 cup (100 g)|4|24|14|0|
+Panna cotta|పన్నా కాటా|Sweets|1 cup (120 g)|3|22|16|0|
