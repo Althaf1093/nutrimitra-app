@@ -158,7 +158,7 @@ def test_unknown_and_excluded_items_are_refused(p4):
 
 @pytest.mark.parametrize("body", [
     {"items": [], "meals_per_day": 0}, {"items": [], "meals_per_day": 4}, {"items": [], "household_size": 0}, {"items": [], "household_size": 13},
-    {"items": [], "cooking_time": "a long time"}, {"items": ["rice"] * 300}, {"items": "rice"},
+    {"items": [], "cooking_time": "a long time"}, {"items": ["rice"] * (kitchen.MAX_ITEMS + 1)}, {"items": "rice"},
 ])
 def test_bad_kitchen_values_are_refused(p4, body):
     assert put(p4, person(p4), **body).status_code == 422

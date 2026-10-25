@@ -5,11 +5,64 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 - [x] Logging 1: Today shows only logged food, add sheet, suggestions collapsed (PR: this one)
 - [x] Logging 2: Snap your meal opens the camera at once (same PR)
 - [x] Logging 3: big food and drink catalogue, 2,688 foods, FOOD_DATA_SOURCES.md (Open Food Facts lookup not done)
-- [ ] Logging 4: kitchen from a big list, Snap your kitchen
+- [x] Logging 4: kitchen from a big list (656 ingredients, group tabs), Snap your kitchen
 - [ ] Design run (docs/DESIGN_PROMPT.md)
 - [ ] Insights run (docs/INSIGHTS_PROMPT.md)
 - [ ] Extras run (docs/EXTRAS_PROMPT.md)
 - [ ] Final pass and Master run summary
+
+# Logging run (docs/LOGGING_PROMPT.md)
+
+PRs: #59 (Today shows only what was logged, Snap your meal), #60 (food catalogue), and the kitchen PR that adds this section.
+
+## What changed
+- **Today = what I ate (#59).** Today lists only logged food by Breakfast, Lunch, Snack and Dinner, with "+ Add food" and "Snap your meal"
+  per slot. The plan's meal is a collapsed "Suggestion for lunch" link with Swap, "I ate something else" and an explicit "Log this".
+  Calories and macros on top count only what was logged. An empty day says "Nothing logged yet - add your first meal".
+  The "Drinks" slot was not added: drinks are logged into whichever slot they belong to.
+- **Photo snap (#59).** "Snap your meal" opens the camera at once (on the web, the file picker, with the camera on a phone browser). The
+  existing vision flow, confirm form and AI-busy toast are unchanged. The photo is analysed in memory and is not stored (same as before).
+- **Food catalogue (#60).** 589 foods grew to 2,688 (about 2,100 new rows in `backend/data/foods/*.txt`): drinks (tea, coffee, juices,
+  lassi, shakes, soft drinks, energy drinks, soups), alcohol (beer 330/650 ml in regular, strong and light, spirits per 30 and 60 ml peg,
+  wine, cocktails; neutral wording), regional Indian dishes, street food, snacks, sweets, fruits, vegetables, grains and millets, proteins,
+  fast food, global dishes, packaged foods. Calories are calculated from macros. Every new row is `estimate: true`.
+  Sources and review needs: docs/FOOD_DATA_SOURCES.md.
+- **Kitchen from a big list.** The ingredient catalogue grew from 190 to 656 (vegetables, leafy greens, grains, millets and flours, pulses,
+  meat, fish, eggs, dairy, fruits, nuts, oils, spices and masalas, sauces and packaged staples), English and Telugu, in
+  `backend/data/ingredients/more.txt`. The editor has group tabs (All, Vegetables, ..., Spices, Sauces and packaged) next to search.
+  Two new groups: "spices" and "condiments". The per-kitchen limit rose from 250 to 500 items.
+- **Snap your kitchen.** New `POST /api/kitchen/snap` reads a photo of the fridge, shelf or groceries with the vision provider (a new
+  ingredient prompt; same providers and retries as meal photos), matches names to the catalogue, drops anything outside the person's diet
+  or allergies without telling them about it, and returns the matches. The app shows them as tick chips and nothing is saved until the
+  person taps "Add to my kitchen". Photos are not stored.
+
+## Tests added
+- `backend/tests/test_food_catalogue_data.py` (32): counts, unique ids, fields, calories vs macros, search finds the common foods and
+  drinks, alcohol servings.
+- `backend/tests/test_kitchen_big_list.py` (12): catalogue coverage, diet filtering of the new meat and fish, old names still resolve,
+  snap against a fake Gemini (matches, diet, duplicates, busy provider, bad reply, auth and bad image), a 300 item kitchen saves.
+- e2e: `e2e/tests/kitchen-big.spec.ts` (3): group tabs and search, snap and untick and add, cancel adds nothing. Existing flows, food,
+  kitchen-daily and toast specs were updated for the new Today.
+
+## Verified
+- tsc 0 errors, ESLint 0 errors (the 2 known `require()` warnings), web export builds. The e2e web build is cached: after a frontend
+  change run Playwright once with `E2E_REBUILD=1`.
+- pytest: food data, kitchen profile, kitchen plan, kitchen big list, Phase 3 vision, Phase 4 vision log, UX food search all pass.
+  Playwright: flows (13), kitchen (5), kitchen-daily (5), food and toast pass, kitchen-big (3) pass.
+
+## Not done
+- Open Food Facts "search packaged foods" fallback (skipped as the prompt allows; no attribution needed yet).
+- USDA or IFCT values: nothing was copied from a dataset, every value is an estimate.
+
+## Check on the phone
+- Today: add food into a slot, snap a real meal, open a suggestion, log it, remove it, see the empty day.
+- Search "masala tea", "green tea", "beer", "whisky", "rum", "wine", "ragi dosa", "biryani", "lassi" and log a drink in ml.
+- Settings > My Kitchen: use the group tabs, search "ajwain", then Snap your kitchen on a real fridge photo and untick a wrong item.
+
+## Needs a human
+- A nutritionist should review nutrition values, alcohol servings and the generated combination rows (`generated_combos.txt`).
+- A native Telugu reader should review the Telugu names (food and ingredient lists, and these new strings: addFood, snapMeal,
+  suggestionFor, nothingLoggedYet, snapMealSub, groupSpices, groupCondiments, kitchenAllTab, kitchenSnap*).
 
 # Phase 1 progress (2026-10-19)
 

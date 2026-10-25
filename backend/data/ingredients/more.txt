@@ -1,0 +1,483 @@
+# name|telugu|group|diet|aliases (comma separated)|protein (1 = main protein source)
+# Format: see kitchen.load_compact_ingredients. Diet: vegan, veg, egg, non.
+# Vegetables
+Elephant foot yam (suran)|కంద|vegetables|vegan|suran,senai kizhangu,kanda|0
+Tapioca (cassava)|కర్ర పెండలం|vegetables|vegan|kappa,cassava,maravalli kizhangu|0
+Arbi stem|చామ కాడలు|vegetables|vegan|colocasia stem|0
+Cucumber (English)|ఇంగ్లీష్ దోసకాయ|vegetables|vegan|kheera|0
+Tinda (apple gourd)|టిండా|vegetables|vegan|round gourd|0
+Parwal|పర్వల్|vegetables|vegan|pointed gourd parwal|0
+Spine gourd (kakrol)|ఆకాకరకాయ|vegetables|vegan|akakarakaya,teasel gourd|0
+Ivy gourd (small)|దొండకాయ|vegetables|vegan|tindora,kundru|0
+White radish (mooli)|ముల్లంగి|vegetables|vegan|daikon|0
+Red radish|ఎర్ర ముల్లంగి|vegetables|vegan||0
+Turnip greens|టర్నిప్ ఆకులు|leafy|vegan||0
+Bell pepper (green)|పచ్చ క్యాప్సికం|vegetables|vegan|green capsicum|0
+Bell pepper (yellow)|పసుపు క్యాప్సికం|vegetables|vegan|yellow capsicum|0
+Cherry tomato|చెర్రీ టమాటా|vegetables|vegan||0
+Tomato (country, small)|నాటు టమాటా|vegetables|vegan||0
+Pearl onion (sambar onion)|చిన్న ఉల్లిపాయ|vegetables|vegan|shallot,small onion,chinna ulli|0
+Red onion|ఎర్ర ఉల్లిపాయ|vegetables|vegan||0
+White onion|తెల్ల ఉల్లిపాయ|vegetables|vegan||0
+Leek|లీక్|vegetables|vegan||0
+Asparagus|ఆస్పరాగస్|vegetables|vegan||0
+Artichoke|ఆర్టిచోక్|vegetables|vegan||0
+Brussels sprouts|బ్రసెల్స్ స్ప్రౌట్స్|vegetables|vegan||0
+Red cabbage|ఎర్ర క్యాబేజీ|vegetables|vegan|purple cabbage|0
+Chinese cabbage|చైనీస్ క్యాబేజీ|vegetables|vegan|napa cabbage,bok choy|0
+Cauliflower (green or orange)|కాలీఫ్లవర్|vegetables|vegan||0
+Carrot (red)|ఎర్ర క్యారెట్|vegetables|vegan|gajar|0
+Peas (frozen)|ఫ్రోజెన్ బఠానీ|vegetables|vegan|frozen green peas|0
+Green chickpeas (hara chana)|పచ్చి శనగలు|vegetables|vegan|chola,fresh chickpea|0
+Fresh toor (pigeon pea pods)|పచ్చి కందులు|vegetables|vegan|toor fali,tuvar lilva|0
+Field beans pods (avarekai)|అనుములు|vegetables|vegan|avarekai,val papdi|0
+Flat beans (sem)|చిక్కుడు కాయలు|vegetables|vegan|sem phali,chikkudukaya|0
+French beans|ఫ్రెంచ్ బీన్స్|vegetables|vegan||0
+Yardlong beans (long beans)|బొబ్బర్ల కాయలు|vegetables|vegan|alasanda kaya,lobia pods|0
+Winged beans|రెక్కల చిక్కుడు|vegetables|vegan||0
+Amaranth stem|తోటకూర కాడలు|vegetables|vegan||0
+Sweet corn (cob)|మొక్కజొన్న కంకి|vegetables|vegan|corn on the cob,bhutta|0
+Baby potato|చిన్న బంగాళాదుంప|vegetables|vegan||0
+Sweet potato (purple)|ఊదా చిలగడదుంప|vegetables|vegan||0
+Beetroot leaves|బీట్‌రూట్ ఆకులు|leafy|vegan||0
+Banana (raw, plantain)|అరటికాయ|vegetables|vegan|plantain|0
+Jackfruit seeds|పనస గింజలు|vegetables|vegan||0
+Snake gourd (short)|పొట్లకాయ|vegetables|vegan|padwal,potlakaya|0
+Ribbed gourd (turai)|బీరకాయ|vegetables|vegan||0
+Sponge gourd|నేతి బీరకాయ|vegetables|vegan|neti beera|0
+Pumpkin (red)|ఎర్ర గుమ్మడికాయ|vegetables|vegan||0
+Pumpkin (white)|తెల్ల గుమ్మడికాయ|vegetables|vegan||0
+Raw turmeric|పచ్చి పసుపు|vegetables|vegan|kachi haldi|0
+Fresh turmeric root|పసుపు కొమ్ము|vegetables|vegan||0
+Mango ginger|మామిడి అల్లం|vegetables|vegan||0
+Green garlic|పచ్చి వెల్లుల్లి|vegetables|vegan||0
+Shallots|ఉల్లికాడలు|vegetables|vegan||0
+Yellow squash|ఎల్లో స్క్వాష్|vegetables|vegan||0
+Olives (green)|ఆలివ్స్|vegetables|vegan||0
+Black olives|నల్ల ఆలివ్స్|vegetables|vegan||0
+Jalapeno|జలపెనో|vegetables|vegan||0
+Banana flower (small)|అరటి పువ్వు|vegetables|vegan||0
+Sprouted moong|మొలకెత్తిన పెసలు|vegetables|vegan||0
+Bamboo shoots|వెదురు మొలకలు|vegetables|vegan||0
+Water chestnut|సింఘాడా|vegetables|vegan|singhara|0
+Lotus seeds|తామర గింజలు|vegetables|vegan|phool makhana|0
+Sorrel leaves (puli kura)|పుల్ల కూర|leafy|vegan||0
+Spinach (baby)|బేబీ పాలకూర|leafy|vegan||0
+Kale|కేల్|leafy|vegan||0
+Lettuce (iceberg)|లెట్యూస్|leafy|vegan||0
+Lettuce (romaine)|రోమైన్|leafy|vegan||0
+Arugula (rocket)|అరుగులా|leafy|vegan||0
+Cabbage leaves|క్యాబేజీ ఆకులు|leafy|vegan||0
+Radish leaves|ముల్లంగి ఆకులు|leafy|vegan||0
+Colocasia leaves (arbi leaves)|చామ ఆకులు|leafy|vegan|patra leaves|0
+Bathua (chenopodium)|బతువా|leafy|vegan||0
+Water spinach (kangkong)|నీటి పాలకూర|leafy|vegan||0
+Basil leaves|తులసి ఆకులు|leafy|vegan|tulsi|0
+Mint leaves|పుదీనా|leafy|vegan||0
+Parsley|పార్స్లీ|leafy|vegan||0
+Moringa leaves (dried)|ఎండిన మునగాకు|leafy|vegan||0
+Celery leaves|సెలెరీ ఆకులు|leafy|vegan||0
+Lemongrass|లెమన్‌గ్రాస్|leafy|vegan||0
+Spring onion greens|ఉల్లికాడ ఆకులు|leafy|vegan||0
+Bitter gourd leaves|కాకర ఆకులు|leafy|vegan||0
+Pumpkin leaves|గుమ్మడి ఆకులు|leafy|vegan||0
+Sweet potato leaves|చిలగడదుంప ఆకులు|leafy|vegan||0
+# Grains, flours and millets
+Basmati rice|బాస్మతి బియ్యం|staples|vegan|basmati|0
+Sona masoori rice|సోనా మసూరి బియ్యం|staples|vegan|sona masuri,sona masoori|0
+Ponni rice|పొన్ని బియ్యం|staples|vegan||0
+Matta rice (red rice)|ఎర్ర బియ్యం|staples|vegan|kerala red rice,red rice|0
+Black rice|నల్ల బియ్యం|staples|vegan|kavuni|0
+Idli rice (parboiled)|ఇడ్లీ బియ్యం|staples|vegan|boiled rice,parboiled rice,ukda chawal|0
+Hand-pounded rice|దంపుడు బియ్యం|staples|vegan||0
+Poha (thick)|మందపాటి అటుకులు|staples|vegan|thick poha,jada poha|0
+Poha (thin)|సన్న అటుకులు|staples|vegan|thin poha|0
+Red poha|ఎర్ర అటుకులు|staples|vegan||0
+Whole wheat atta|గోధుమ పిండి|staples|vegan|atta,chakki atta|0
+Multigrain atta|మల్టీగ్రెయిన్ పిండి|staples|vegan||0
+Sooji (fine)|సన్న రవ్వ|staples|vegan|fine rava|0
+Rava (bombay)|బొంబాయి రవ్వ|staples|vegan|upma rava,bombay rava|0
+Idli rava|ఇడ్లీ రవ్వ|staples|vegan||0
+Wheat rava (dalia)|గోధుమ రవ్వ|staples|vegan|dalia|0
+Rice rava|బియ్యం రవ్వ|staples|vegan||0
+Corn flour (makki atta)|మొక్కజొన్న పిండి|staples|vegan|makki ka atta|0
+Corn grits|కార్న్ గ్రిట్స్|staples|vegan||0
+Cornflakes|కార్న్‌ఫ్లేక్స్|staples|vegan||0
+Muesli|ముయెస్లీ|staples|vegan||0
+Granola|గ్రానోలా|staples|vegan||0
+Rolled oats|రోల్డ్ ఓట్స్|staples|vegan||0
+Steel cut oats|స్టీల్ కట్ ఓట్స్|staples|vegan||0
+Barley|బార్లీ|staples|vegan|jau|0
+Barley flour|బార్లీ పిండి|staples|vegan||0
+Buckwheat (kuttu)|కుట్టు|staples|vegan|kuttu atta|0
+Amaranth seeds (rajgira)|రాజ్‌గిరా|staples|vegan|rajgira,ramdana|0
+Water chestnut flour (singhara atta)|సింఘాడా పిండి|staples|vegan||0
+Sago pearls|సగ్గుబియ్యం|staples|vegan||0
+Soya flour|సోయా పిండి|staples|vegan||0
+Ragi flour|రాగి పిండి|staples|vegan|finger millet flour,ragi atta|0
+Ragi (whole)|రాగులు|staples|vegan|finger millet|0
+Jowar flour|జొన్న పిండి|staples|vegan|sorghum flour|0
+Jowar (whole)|జొన్నలు|staples|vegan|sorghum|0
+Bajra flour|సజ్జ పిండి|staples|vegan|pearl millet flour|0
+Bajra (whole)|సజ్జలు|staples|vegan|pearl millet|0
+Foxtail millet flour|కొర్ర పిండి|staples|vegan||0
+Little millet flour|సామల పిండి|staples|vegan||0
+Proso millet (varigalu)|వరిగలు|staples|vegan|proso|0
+Sama rice (barnyard)|ఊదలు|staples|vegan|vrat rice,sama ke chawal|0
+Pearl millet flakes|సజ్జ అటుకులు|staples|vegan||0
+Ragi flakes|రాగి అటుకులు|staples|vegan||0
+Millet noodles|మిల్లెట్ నూడిల్స్|staples|vegan||0
+Whole wheat bread|గోధుమ బ్రెడ్|staples|vegan|brown bread|0
+Multigrain bread|మల్టీగ్రెయిన్ బ్రెడ్|staples|vegan||0
+Pav (bread rolls)|పావ్|staples|vegan|ladi pav|0
+Burger buns|బర్గర్ బన్స్|staples|vegan||0
+Tortilla wraps|టోర్టిల్లా|staples|vegan|wraps|0
+Pizza base|పిజ్జా బేస్|staples|vegan||0
+Rusk|రస్క్|staples|vegan||0
+Papad|అప్పడం|staples|vegan|appalam|0
+Noodles (instant)|ఇన్‌స్టంట్ నూడిల్స్|staples|vegan|maggi|0
+Noodles (hakka)|హక్కా నూడిల్స్|staples|vegan||0
+Rice noodles|రైస్ నూడిల్స్|staples|vegan||0
+Macaroni|మాకరోనీ|staples|vegan||0
+Spaghetti|స్పగెట్టి|staples|vegan||0
+Couscous|కూస్‌కూస్|staples|vegan||0
+Bulgur wheat|బుల్గర్|staples|vegan||0
+Tapioca pearls|టాపియోకా పర్ల్స్|staples|vegan||0
+Dosa batter|దోశ పిండి|staples|vegan||0
+Idli dosa flour (ready mix)|ఇడ్లీ మిక్స్|staples|vegan||0
+Semolina (whole wheat)|గోధుమ రవ్వ|staples|vegan||0
+Rice (leftover cooked)|మిగిలిన అన్నం|staples|vegan|leftover rice,old rice|0
+Cooked millets|వండిన చిరుధాన్యాలు|staples|vegan||0
+# Pulses, lentils and legumes
+Moong dal (yellow, split)|పెసరపప్పు|pulses|vegan|yellow moong|1
+Moong (whole green)|పెసలు|pulses|vegan|green gram|1
+Urad dal (white, split)|మినప్పప్పు|pulses|vegan|white urad|1
+Urad (whole black)|నల్ల మినుములు|pulses|vegan|sabut urad|1
+Masoor (whole)|మసూర్ సబుత్|pulses|vegan|brown lentil|1
+Toor dal (oily)|కందిపప్పు|pulses|vegan|oily toor dal|1
+Kabuli chana (white chickpea)|తెల్ల శనగలు|pulses|vegan|kabuli chana,chole|1
+Kala chana (small black)|నల్ల శనగలు|pulses|vegan||1
+Green peas (dried)|ఎండిన బఠానీ|pulses|vegan|dry green peas|1
+White peas (safed vatana)|తెల్ల బఠానీ|pulses|vegan|dried white peas|1
+Matki (moth beans)|మటికీ|pulses|vegan|moth bean|1
+Kidney beans (red, large)|ఎర్ర రాజ్మా|pulses|vegan|red rajma|1
+Chitra rajma|చిత్ర రాజ్మా|pulses|vegan||1
+White beans (navy)|తెల్ల బీన్స్|pulses|vegan|cannellini beans|1
+Black beans|బ్లాక్ బీన్స్|pulses|vegan||1
+Lima beans|లిమా బీన్స్|pulses|vegan||1
+Black-eyed peas|అలసందలు|pulses|vegan|alasanda,karamani|1
+Cowpea red|ఎర్ర బొబ్బర్లు|pulses|vegan||1
+Horse gram (flour)|ఉలవ పిండి|pulses|vegan||1
+Hyacinth bean (avare, dry)|అనుములు|pulses|vegan||1
+Roasted gram dal (pottukadalai)|పుట్నాలు|pulses|vegan|pottukadalai,dalia dal,roasted gram|1
+Bengal gram flour|శనగపిండి|pulses|vegan|besan,gram flour|1
+Soya beans|సోయాబీన్స్|pulses|vegan|soybeans|1
+Soya granules|సోయా గ్రాన్యూల్స్|pulses|vegan|soya mince|1
+Soya milk|సోయా పాలు|dairy|vegan||1
+Tofu (firm)|టోఫు|protein|vegan||1
+Tempeh|టెంపే|protein|vegan||1
+Seitan|సెయిటన్|protein|vegan||1
+Peanuts (raw with skin)|పచ్చి వేరుశనగ|pulses|vegan|raw peanuts|1
+Lentil sprouts|మొలకెత్తిన పప్పులు|pulses|vegan||1
+Mixed sprouts|మొలకలు|pulses|vegan||1
+Protein powder (whey)|వే ప్రోటీన్|protein|veg|whey,whey protein|1
+Protein powder (plant)|ప్లాంట్ ప్రోటీన్|protein|vegan||1
+# Meat, fish, eggs
+Chicken breast|చికెన్ బ్రెస్ట్|protein|non||1
+Chicken thigh|చికెన్ థై|protein|non||1
+Chicken leg|చికెన్ లెగ్|protein|non|drumstick chicken|1
+Chicken wings|చికెన్ వింగ్స్|protein|non||1
+Chicken (with bone, curry cut)|చికెన్ (ఎముకలతో)|protein|non|curry cut chicken|1
+Chicken (country, desi)|నాటు కోడి|protein|non|desi chicken,natu kodi|1
+Chicken keema|చికెన్ కీమా|protein|non|minced chicken|1
+Chicken liver|చికెన్ లివర్|protein|non||1
+Chicken sausage|చికెన్ సాసేజ్|protein|non||1
+Mutton (with bone)|మటన్|protein|non|goat meat,bone-in mutton|1
+Mutton (boneless)|బోన్‌లెస్ మటన్|protein|non||1
+Mutton keema|మటన్ కీమా|protein|non|minced mutton|1
+Mutton liver|మటన్ లివర్|protein|non||1
+Lamb|లాంబ్|protein|non||1
+Beef|బీఫ్|protein|non||1
+Pork|పోర్క్|protein|non||1
+Bacon|బేకన్|protein|non||1
+Ham|హామ్|protein|non||1
+Duck|బాతు|protein|non||1
+Turkey|టర్కీ|protein|non||1
+Quail|పిట్ట|protein|non||1
+Rabbit|కుందేలు|protein|non||1
+Egg (country)|నాటు గుడ్డు|protein|egg||1
+Egg whites (carton)|గుడ్డు తెల్లసొన|protein|egg||1
+Duck egg|బాతు గుడ్డు|protein|egg||1
+Quail eggs|పిట్ట గుడ్లు|protein|egg||1
+Rohu|రోహు|protein|non|rohu fish,rahu|1
+Katla|కట్ల|protein|non|catla|1
+Pomfret|పాంప్లెట్|protein|non|chanduva|1
+Seer fish (vanjaram)|వంజరం|protein|non|king fish,surmai|1
+Mackerel|బంగ్డా|protein|non|bangda,kerala mackerel|1
+Sardine|మత్తి|protein|non|oil sardine,mathi|1
+Anchovy|నెత్తిలి|protein|non|nethili|1
+Tuna fish|ట్యూనా|protein|non|tuna|1
+Salmon|సాల్మన్|protein|non||1
+Hilsa (ilish)|పులస|protein|non|ilish,pulasa|1
+Tilapia|తిలాపియా|protein|non||1
+Basa fish|బాసా|protein|non||1
+Catfish (magur)|మగురు|protein|non|magur|1
+Murrel (korameenu)|కొర్రమీను|protein|non|snakehead,korameenu|1
+Sole fish|సోల్|protein|non||1
+Squid|స్క్విడ్|protein|non|calamari|1
+Cuttlefish|కటిల్‌ఫిష్|protein|non||1
+Oysters|ఆయిస్టర్స్|protein|non||1
+Mussels|మస్సెల్స్|protein|non||1
+Clams|క్లామ్స్|protein|non||1
+Lobster|లాబ్‌స్టర్|protein|non||1
+Prawns (tiger)|టైగర్ ప్రాన్స్|protein|non||1
+Prawns (small)|చిన్న రొయ్యలు|protein|non||1
+Dried prawns|ఎండు రొయ్యలు|protein|non||1
+Canned tuna|క్యాన్డ్ ట్యూనా|protein|non||1
+# Dairy
+Milk (toned)|టోన్డ్ పాలు|dairy|veg||0
+Milk (full cream)|ఫుల్ క్రీమ్ పాలు|dairy|veg||0
+Milk (buffalo)|గేదె పాలు|dairy|veg||0
+Milk powder|పాల పొడి|dairy|veg||0
+Condensed milk|కండెన్స్డ్ మిల్క్|dairy|veg||0
+Cream (fresh)|క్రీమ్|dairy|veg|malai,fresh cream|0
+Curd (thick)|చిక్కటి పెరుగు|dairy|veg||0
+Hung curd|వడకట్టిన పెరుగు|dairy|veg||0
+Skyr|స్కైర్|dairy|veg||1
+Cottage cheese (loose)|కాటేజ్ చీజ్|dairy|veg||1
+Mozzarella|మోజరెల్లా|dairy|veg||0
+Cheddar|చెడ్డార్|dairy|veg||0
+Processed cheese|ప్రాసెస్డ్ చీజ్|dairy|veg||0
+Cheese spread|చీజ్ స్ప్రెడ్|dairy|veg||0
+Parmesan|పార్మేసన్|dairy|veg||0
+Khoa (mawa)|ఖోవా|dairy|veg|mawa,khoya|0
+Condensed paneer (chhena)|ఛెన్నా|dairy|veg|chhena|1
+Paneer (low fat)|తక్కువ కొవ్వు పనీర్|dairy|veg||1
+Almond milk|బాదం పాలు|dairy|vegan||0
+Oat milk|ఓట్ పాలు|dairy|vegan||0
+Coconut milk|కొబ్బరి పాలు|dairy|vegan||0
+Coconut cream|కొబ్బరి క్రీమ్|dairy|vegan||0
+Kefir|కెఫిర్|dairy|veg||0
+# Fruits
+Apple (green)|గ్రీన్ యాపిల్|fruits|vegan||0
+Banana (nendran)|నేంద్రం అరటి|fruits|vegan||0
+Banana (red)|ఎర్ర అరటి|fruits|vegan||0
+Banana (small, elaichi)|యాలకి అరటి|fruits|vegan|elaichi banana,yelakki|0
+Mango (raw)|పచ్చి మామిడి|fruits|vegan||0
+Mango (Banganapalli)|బంగినపల్లి|fruits|vegan|banganapalli|0
+Mango (Alphonso)|అల్ఫోన్సో|fruits|vegan|hapus|0
+Mango (Totapuri)|తోతాపురి|fruits|vegan||0
+Grapes (black)|నల్ల ద్రాక్ష|fruits|vegan||0
+Grapes (green)|పచ్చ ద్రాక్ష|fruits|vegan||0
+Orange (Nagpur)|నాగ్‌పూర్ ఆరెంజ్|fruits|vegan|santra|0
+Mandarin (kinnow)|కిన్నో|fruits|vegan|kinnow|0
+Lemon|నిమ్మకాయ|fruits|vegan|nimbu|0
+Lime (sweet)|తీపి నిమ్మ|fruits|vegan||0
+Grapefruit|గ్రేప్‌ఫ్రూట్|fruits|vegan|chakotra|0
+Pomelo|పమెలో|fruits|vegan||0
+Peach|పీచ్|fruits|vegan||0
+Plum|ప్లమ్|fruits|vegan||0
+Apricot|ఆప్రికాట్|fruits|vegan||0
+Cherries|చెర్రీలు|fruits|vegan||0
+Strawberries|స్ట్రాబెర్రీలు|fruits|vegan||0
+Blueberries|బ్లూబెర్రీలు|fruits|vegan||0
+Raspberries|రాస్ప్బెర్రీలు|fruits|vegan||0
+Blackberries|బ్లాక్‌బెర్రీలు|fruits|vegan||0
+Mulberries|మల్బెర్రీలు|fruits|vegan||0
+Cranberries|క్రాన్‌బెర్రీలు|fruits|vegan||0
+Dragon fruit|డ్రాగన్ ఫ్రూట్|fruits|vegan||0
+Passion fruit|పాషన్ ఫ్రూట్|fruits|vegan||0
+Avocado|అవకాడో|fruits|vegan||0
+Star fruit|స్టార్ ఫ్రూట్|fruits|vegan||0
+Wood apple (bael)|వెలగపండు|fruits|vegan|bael,velagapandu|0
+Ber (jujube)|రేగు పండు|fruits|vegan|regu pandu,ber|0
+Raw tamarind pods|చింతకాయలు|fruits|vegan||0
+Palmyra fruit (ice apple)|తాటి ముంజలు|fruits|vegan|nungu,tati munjalu,ice apple|0
+Pomegranate (arils)|దానిమ్మ గింజలు|fruits|vegan||0
+Dates (fresh)|పచ్చి ఖర్జూరం|fruits|vegan||0
+Dates (medjool)|మెడ్జూల్ ఖర్జూరం|fruits|vegan||0
+Dried figs|ఎండిన అంజీర|fruits|vegan|anjeer|0
+Dried apricots|ఎండిన ఆప్రికాట్|fruits|vegan||0
+Prunes|ప్రూన్స్|fruits|vegan||0
+Dried cranberries|ఎండిన క్రాన్‌బెర్రీస్|fruits|vegan||0
+Papaya (raw)|పచ్చి బొప్పాయి|fruits|vegan||0
+Water apple (rose apple)|గులాబ్ జామ్ పండు|fruits|vegan||0
+Mangosteen|మాంగోస్టీన్|fruits|vegan||0
+Rambutan|రాంబుటాన్|fruits|vegan||0
+Persimmon|పెర్సిమన్|fruits|vegan||0
+Coconut (dry copra)|ఎండు కొబ్బరి|fruits|vegan|copra|0
+Coconut (fresh grated)|కొబ్బరి తురుము|fruits|vegan||0
+Coconut (tender)|లేత కొబ్బరి|fruits|vegan||0
+# Nuts, seeds and sweeteners
+Almonds (soaked)|నానబెట్టిన బాదం|extras|vegan||0
+Cashew pieces|జీడిపప్పు పలుకులు|extras|vegan||0
+Pistachios (shelled)|పిస్తా|extras|vegan||0
+Hazelnuts|హేజెల్‌నట్స్|extras|vegan||0
+Brazil nuts|బ్రెజిల్ నట్స్|extras|vegan||0
+Pecans|పెకాన్స్|extras|vegan||0
+Macadamia|మకాడేమియా|extras|vegan||0
+Pine nuts|పైన్ నట్స్|extras|vegan|chilgoza|0
+Watermelon seeds (magaz)|పుచ్చ గింజలు|extras|vegan|magaz,char magaz|0
+Poppy seeds (khus khus)|గసగసాలు|extras|vegan|gasagasalu,khus khus|0
+Black sesame|నల్ల నువ్వులు|extras|vegan||0
+White sesame|తెల్ల నువ్వులు|extras|vegan||0
+Niger seeds|వుల్లి నువ్వులు|extras|vegan|ramtil,uchellu|0
+Hemp seeds|హెంప్ సీడ్స్|extras|vegan||0
+Basil seeds (sabja)|సబ్జా గింజలు|extras|vegan|sabja,tukmaria|0
+Groundnut bar (chikki)|పల్లీ చిక్కీ|extras|vegan|peanut chikki|0
+Jaggery (powder)|బెల్లం పొడి|extras|vegan||0
+Palm jaggery|తాటి బెల్లం|extras|vegan|karupatti|0
+Brown sugar|బ్రౌన్ షుగర్|extras|vegan||0
+Candy sugar (mishri)|పలుకు పంచదార|extras|vegan|mishri,kalkandu|0
+Maple syrup|మేపుల్ సిరప్|extras|vegan||0
+Date syrup|ఖర్జూర సిరప్|extras|vegan||0
+Dark chocolate|డార్క్ చాక్లెట్|extras|vegan||0
+Cocoa powder|కోకో పౌడర్|extras|vegan||0
+Coffee powder|కాఫీ పొడి|extras|vegan|filter coffee powder,instant coffee|0
+Tea leaves|టీ పొడి|extras|vegan|chai patti,tea powder|0
+Green tea bags|గ్రీన్ టీ|extras|vegan||0
+Horlicks or malt drink powder|హార్లిక్స్|extras|veg|bournvita,boost|0
+Ragi malt powder|రాగి మాల్ట్|extras|vegan|ragi java mix|0
+Sattu (roasted gram flour)|సత్తు|extras|vegan||1
+Dry coconut powder|కొబ్బరి పొడి|extras|vegan||0
+Gelatin-free jelly|జెల్లీ|extras|vegan||0
+Agar agar|అగర్ అగర్|extras|vegan|china grass|0
+# Oils and fats
+Ghee (cow)|ఆవు నెయ్యి|oils|veg||0
+Ghee (buffalo)|గేదె నెయ్యి|oils|veg||0
+Butter (salted)|ఉప్పు వెన్న|oils|veg||0
+Butter (unsalted)|ఉప్పు లేని వెన్న|oils|veg||0
+White butter (makhan)|తెల్ల వెన్న|oils|veg|makhan|0
+Vanaspati (dalda)|వనస్పతి|oils|veg|dalda|0
+Margarine|మార్జరిన్|oils|vegan||0
+Peanut oil (cold pressed)|వేరుశనగ నూనె|oils|vegan|groundnut oil,gaani oil|0
+Gingelly oil (cold pressed)|నువ్వుల నూనె|oils|vegan|nallennai,til oil|0
+Coconut oil (virgin)|కొబ్బరి నూనె|oils|vegan||0
+Palm oil|పామాయిల్|oils|vegan||0
+Soybean oil|సోయాబీన్ నూనె|oils|vegan||0
+Canola oil|కనోలా నూనె|oils|vegan||0
+Corn oil|మొక్కజొన్న నూనె|oils|vegan||0
+Safflower oil|కుసుమ నూనె|oils|vegan||0
+Avocado oil|అవకాడో నూనె|oils|vegan||0
+Cooking spray|కుకింగ్ స్ప్రే|oils|vegan||0
+# Spices and masalas
+Cumin powder|జీలకర్ర పొడి|spices|vegan|jeera powder|0
+Cumin (black, shahi jeera)|షాహీ జీరా|spices|vegan|black cumin,shahi jeera|0
+Fennel seeds|సోంపు|spices|vegan|saunf,sombu|0
+Fenugreek seeds|మెంతులు|spices|vegan|methi seeds,menthulu|0
+Carom seeds (ajwain)|వాము|spices|vegan|ajwain,vamu|0
+Nigella seeds (kalonji)|కలోంజి|spices|vegan|kalonji,black seeds|0
+Mustard (yellow)|పసుపు ఆవాలు|spices|vegan||0
+Coriander seeds|ధనియాలు|spices|vegan|dhania seeds,dhaniyalu|0
+Black pepper (whole)|మిరియాలు|spices|vegan|miriyalu|0
+White pepper|తెల్ల మిరియాలు|spices|vegan||0
+Long pepper (pippali)|పిప్పళ్లు|spices|vegan|pippali|0
+Cloves|లవంగాలు|spices|vegan|laung|0
+Cinnamon stick|దాల్చిన చెక్క|spices|vegan|dalchini,cinnamon|0
+Cassia bark|తేజ్ పట్ట|spices|vegan||0
+Bay leaf|బిర్యానీ ఆకు|spices|vegan|tej patta,bay leaves|0
+Star anise|చక్ర పువ్వు|spices|vegan|chakra puvvu|0
+Mace (javitri)|జాపత్రి|spices|vegan|javitri,japatri|0
+Nutmeg (jaiphal)|జాజికాయ|spices|vegan|jaiphal,jajikaya|0
+Green cardamom|యాలకులు|spices|vegan|elaichi,yelakulu|0
+Black cardamom|నల్ల యాలకులు|spices|vegan|badi elaichi|0
+Saffron|కుంకుమ పువ్వు|spices|vegan|kesar,kumkuma puvvu|0
+Stone flower (kalpasi)|రాతిపువ్వు|spices|vegan|dagad phool|0
+Marathi moggu (kapok buds)|మరాఠీ మొగ్గు|spices|vegan||0
+Poppy seeds (white)|తెల్ల గసగసాలు|spices|vegan||0
+Dry red chillies|ఎండు మిరపకాయలు|spices|vegan|dry chilli,whole red chilli|0
+Byadgi chilli|బ్యాడగి మిరప|spices|vegan||0
+Guntur chilli powder|గుంటూరు కారం|spices|vegan|guntur karam,karam podi|0
+Kashmiri chilli powder|కాశ్మీరీ మిర్చి|spices|vegan||0
+Chilli flakes|చిల్లీ ఫ్లేక్స్|spices|vegan||0
+Paprika|పాప్రికా|spices|vegan||0
+Black salt (kala namak)|నల్ల ఉప్పు|spices|vegan|kala namak|0
+Rock salt (sendha namak)|సైంధవ లవణం|spices|vegan|sendha namak|0
+Chaat masala|చాట్ మసాలా|spices|vegan||0
+Pav bhaji masala|పావ్ భాజీ మసాలా|spices|vegan||0
+Biryani masala|బిర్యానీ మసాలా|spices|vegan||0
+Chicken masala|చికెన్ మసాలా|spices|vegan||0
+Meat masala|మటన్ మసాలా|spices|vegan||0
+Fish masala|ఫిష్ మసాలా|spices|vegan||0
+Kitchen king masala|కిచెన్ కింగ్|spices|vegan||0
+Chole masala|ఛోలే మసాలా|spices|vegan||0
+Rajma masala|రాజ్మా మసాలా|spices|vegan||0
+Rasam powder|రసం పొడి|spices|vegan||0
+Curry powder|కర్రీ పౌడర్|spices|vegan||0
+Tandoori masala|తందూరీ మసాలా|spices|vegan||0
+Ginger garlic paste|అల్లం వెల్లుల్లి పేస్ట్|spices|vegan|ginger garlic paste|0
+Ginger powder (sonth)|శొంఠి|spices|vegan|sonth,dry ginger|0
+Garlic powder|వెల్లుల్లి పొడి|spices|vegan||0
+Onion powder|ఉల్లి పొడి|spices|vegan||0
+Mango powder (amchur)|ఆమ్‌చూర్|spices|vegan|amchur|0
+Pomegranate seeds (anardana)|అనార్‌దానా|spices|vegan|anardana|0
+Dried mango slices|మామిడి తాండ్ర|spices|vegan||0
+Kokum|కోకం|spices|vegan||0
+Dried mint|ఎండు పుదీనా|spices|vegan||0
+Oregano|ఒరేగానో|spices|vegan||0
+Italian seasoning|ఇటాలియన్ సీజనింగ్|spices|vegan||0
+Thyme|థైమ్|spices|vegan||0
+Rosemary|రోజ్‌మేరీ|spices|vegan||0
+Baking soda|బేకింగ్ సోడా|spices|vegan|soda bicarb|0
+Baking powder|బేకింగ్ పౌడర్|spices|vegan||0
+Eno or fruit salt|ఈనో|spices|vegan||0
+Yeast|ఈస్ట్|spices|vegan||0
+Vanilla essence|వెనిల్లా|spices|vegan||0
+Rose water|రోజ్ వాటర్|spices|vegan||0
+Kewra water|కేవ్రా|spices|vegan||0
+Food colour|ఫుడ్ కలర్|spices|vegan||0
+Edible camphor|పచ్చ కర్పూరం|spices|vegan||0
+# Sauces, condiments and packaged
+Tomato ketchup|టమాటా కెచప్|condiments|vegan|ketchup,sauce|0
+Tomato puree|టమాటా ప్యూరీ|condiments|vegan||0
+Tomato paste|టమాటా పేస్ట్|condiments|vegan||0
+Chilli sauce|చిల్లీ సాస్|condiments|vegan||0
+Schezwan sauce|షెజ్వాన్ సాస్|condiments|vegan||0
+Soy sauce|సోయా సాస్|condiments|vegan||0
+Vinegar|వెనిగర్|condiments|vegan|sirka|0
+Apple cider vinegar|యాపిల్ సైడర్ వెనిగర్|condiments|vegan||0
+Green chilli sauce|గ్రీన్ చిల్లీ సాస్|condiments|vegan||0
+Mustard sauce|మస్టర్డ్ సాస్|condiments|vegan||0
+Mayonnaise (egg)|మయోనైజ్|condiments|egg||0
+Mayonnaise (eggless)|ఎగ్‌లెస్ మయోనైజ్|condiments|veg||0
+Peanut butter (jar)|పీనట్ బటర్|condiments|vegan||0
+Jam|జామ్|condiments|vegan||0
+Honey (jar)|తేనె|condiments|veg||0
+Chocolate spread|చాక్లెట్ స్ప్రెడ్|condiments|veg||0
+Pickle (mango)|ఆవకాయ|condiments|vegan|avakaya,mango pickle|0
+Pickle (lemon)|నిమ్మకాయ ఊరగాయ|condiments|vegan||0
+Pickle (gongura)|గోంగూర పచ్చడి|condiments|vegan||0
+Pickle (mixed vegetable)|మిక్స్డ్ ఊరగాయ|condiments|vegan||0
+Pickle (tomato)|టమాటా ఊరగాయ|condiments|vegan||0
+Chutney powder (idli podi)|ఇడ్లీ పొడి|condiments|vegan|gunpowder,milagai podi,karam podi|0
+Kandi podi|కందిపొడి|condiments|vegan||0
+Coconut chutney (ready)|కొబ్బరి చట్నీ|condiments|vegan||0
+Instant sambar mix|సాంబార్ మిక్స్|condiments|vegan||0
+Ready tadka mix|తడ్కా మిక్స్|condiments|vegan||0
+Biscuits (glucose)|గ్లూకోజ్ బిస్కెట్లు|condiments|veg|parle g|0
+Biscuits (digestive)|డైజెస్టివ్ బిస్కెట్లు|condiments|veg||0
+Cream biscuits|క్రీమ్ బిస్కెట్లు|condiments|veg||0
+Cake rusk|కేక్ రస్క్|condiments|veg||0
+Chips (potato)|ఆలూ చిప్స్|condiments|vegan||0
+Namkeen mixture|మిక్చర్|condiments|vegan||0
+Murukku|మురుకులు|condiments|vegan||0
+Bhujia sev|భుజియా|condiments|vegan||0
+Popcorn kernels|పాప్‌కార్న్ గింజలు|condiments|vegan||0
+Instant soup mix|ఇన్‌స్టంట్ సూప్|condiments|vegan||0
+Stock cubes|స్టాక్ క్యూబ్స్|condiments|vegan||0
+Coconut milk powder|కొబ్బరి పాల పొడి|condiments|vegan||0
+Custard powder|కస్టర్డ్ పౌడర్|condiments|veg||0
+Gulab jamun mix|గులాబ్ జామూన్ మిక్స్|condiments|veg||0
+Ice cream (tub)|ఐస్ క్రీమ్|condiments|veg||0
+Frozen paratha|ఫ్రోజెన్ పరాటా|condiments|vegan||0
+Frozen peas|ఫ్రోజెన్ బఠానీ|condiments|vegan||0
+Frozen vegetables mix|ఫ్రోజెన్ వెజ్ మిక్స్|condiments|vegan||0
+Canned chickpeas|క్యాన్డ్ శనగలు|condiments|vegan||0
+Canned baked beans|బేక్డ్ బీన్స్|condiments|vegan||0
+Canned corn|టిన్డ్ కార్న్|condiments|vegan||0
+Canned tomatoes|టిన్డ్ టమాటా|condiments|vegan||0
+Canned coconut milk|క్యాన్డ్ కొబ్బరి పాలు|condiments|vegan||0
+Canned jackfruit|క్యాన్డ్ పనస|condiments|vegan||0
+Lemon juice (bottled)|నిమ్మరసం|condiments|vegan||0
+Tamarind paste|చింతపండు పేస్ట్|condiments|vegan||0
+Jaggery syrup|బెల్లం పాకం|condiments|vegan||0

@@ -53,6 +53,9 @@ def plan_json(context=None):
 NUTRITION = {"name": "Dal tadka with rice", "portion": "1 plate", "calories": 520, "protein_g": 18, "carbs_g": 80, "fat_g": 12, "confidence": "medium", "alternatives": ["Rajma chawal", "Khichdi"]}
 
 
+INGREDIENTS = {"ingredients": ["tomato", "onion", "toor dal", "curd", "chicken", "mystery sauce"]}
+
+
 def chat_reply(body):
     messages = body.get("messages", [])
     system = next((m.get("content", "") for m in messages if m.get("role") == "system"), "")
@@ -105,7 +108,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(429, {"error": {"message": "Rate limit reached"}}, {"Retry-After": "0"})
         if ":generateContent" in self.path:
             STATE["counts"]["vision"] += 1
-            return self.respond(200, {"candidates": [{"content": {"parts": [{"text": json.dumps(NUTRITION)}]}, "finishReason": "STOP"}]})
+            prompt = ((body.get("contents") or [{}])[0].get("parts") or [{}])[0].get("text", "")
+            reply = INGREDIENTS if '"ingredients"' in prompt else NUTRITION
+            return self.respond(200, {"candidates": [{"content": {"parts": [{"text": json.dumps(reply)}]}, "finishReason": "STOP"}]})
         if self.path.endswith("/chat/completions"):
             return self.respond(200, {"choices": [{"message": {"role": "assistant", "content": chat_reply(body)}, "finish_reason": "stop"}]})
         self.respond(404, {"error": "unknown path"})

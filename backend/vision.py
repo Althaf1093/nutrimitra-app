@@ -40,6 +40,14 @@ VISION_PROMPT = (
 )
 
 
+INGREDIENTS_PROMPT = (
+    "List the food ingredients, groceries and packaged foods you can clearly see in this photo of a kitchen, fridge, shelf or groceries, "
+    "for an Indian home-cooking app. Respond with ONLY compact JSON, no markdown: "
+    '{"ingredients": [str, ...]}. '
+    "Use short common English names (for example tomato, onion, toor dal, curd, paneer, rice). At most 40 items. Do not guess items you cannot see."
+)
+
+
 class VisionNotConfigured(Exception):
     """No selected provider has the settings (API key) it needs."""
 
@@ -106,7 +114,7 @@ class VisionProvider:
     def configured(self) -> bool:
         raise NotImplementedError
 
-    async def analyze(self, image_base64: str, mime_type: str) -> str:
+    async def analyze(self, image_base64: str, mime_type: str, prompt: str = VISION_PROMPT) -> str:
         """Raw model text for the image; raises ProviderError."""
         raise NotImplementedError
 
@@ -143,9 +151,9 @@ class GeminiProvider(VisionProvider):
     def configured(self) -> bool:
         return bool(self.api_key)
 
-    async def analyze(self, image_base64: str, mime_type: str) -> str:
+    async def analyze(self, image_base64: str, mime_type: str, prompt: str = VISION_PROMPT) -> str:
         body = {
-            "contents": [{"parts": [{"text": VISION_PROMPT}, {"inline_data": {"mime_type": mime_type, "data": image_base64}}]}],
+            "contents": [{"parts": [{"text": prompt}, {"inline_data": {"mime_type": mime_type, "data": image_base64}}]}],
             # Room for thinking tokens, which count against the output limit on Gemini 3 models.
             "generationConfig": {"response_mime_type": "application/json", "temperature": 0.2, "maxOutputTokens": 2048},
         }
@@ -172,12 +180,12 @@ class GroqVisionProvider(VisionProvider):
     def configured(self) -> bool:
         return bool(self.api_key and self.model)
 
-    async def analyze(self, image_base64: str, mime_type: str) -> str:
+    async def analyze(self, image_base64: str, mime_type: str, prompt: str = VISION_PROMPT) -> str:
         body = {
             "model": self.model,
             "temperature": 0.2,
             "max_tokens": 2000,
-            "messages": [{"role": "user", "content": [{"type": "text", "text": VISION_PROMPT}, {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{image_base64}"}}]}],
+            "messages": [{"role": "user", "content": [{"type": "text", "text": prompt}, {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{image_base64}"}}]}],
         }
         data = await self.post(f"{self.base_url}/chat/completions", {"Authorization": f"Bearer {self.api_key}"}, body)
         try:
@@ -211,15 +219,15 @@ def status() -> Dict[str, Any]:
     return {"setting": provider_setting(), "providers": [{"name": p.name, "model": p.model, "configured": p.configured()} for p in providers]}
 
 
-async def analyze_image(image_base64: str, user_id: str) -> VisionResult:
-    """Try each configured provider in order; the first reply that parses as nutrition JSON wins."""
+async def analyze_image(image_base64: str, user_id: str, prompt: str = VISION_PROMPT) -> VisionResult:
+    """Try each configured provider in order; the first reply that parses as JSON wins (nutrition JSON by default)."""
     providers = [p for p in build_providers() if p.configured()]
     if not providers:
         raise VisionNotConfigured("No vision provider is configured")
     mime_type = sniff_mime(image_base64)
     for provider in providers:
         try:
-            text = await provider.analyze(image_base64, mime_type)
+            text = await provider.analyze(image_base64, mime_type, prompt)
         except ProviderError as exc:
             logger.warning("Vision provider failed for %s: %s", user_id, exc)
             continue
@@ -228,3 +236,12 @@ async def analyze_image(image_base64: str, user_id: str) -> VisionResult:
             return VisionResult(parsed, provider.name, provider.model)
         logger.warning("Vision provider %s returned text that is not nutrition JSON for %s (%d chars)", provider.name, user_id, len(text))
     raise VisionUnavailable("No vision provider returned a usable answer")
+
+
+async def analyze_ingredients(image_base64: str, user_id: str) -> List[str]:
+    """Ingredient names a provider sees in a kitchen photo (unmatched, as written by the model)."""
+    result = await analyze_image(image_base64, user_id, INGREDIENTS_PROMPT)
+    names = result.data.get("ingredients")
+    if not isinstance(names, list):
+        raise VisionUnavailable("The provider's answer had no ingredient list")
+    return [str(name).strip()[:60] for name in names if str(name).strip()][:40]
