@@ -252,7 +252,7 @@ export default function TodayScreen() {
               <AppIcon name="chevron.right" color={colors.onSurface} size={18} />
             </Pressable>
           ) : null}
-          <TodayProgressCard dashboard={dashboard} t={t} styles={styles} />
+          <TodayProgressCard dashboard={dashboard} t={t} />
           <Pressable testID="eat-now-button" accessibilityRole="button" onPress={() => router.push("/eat-now")} style={({ pressed }) => [styles.eatBanner, pressed && styles.pressed]}>
             <View style={styles.bannerIcon}>
               <AppIcon name="sparkles" color={colors.onBrandPrimary} size={23} />

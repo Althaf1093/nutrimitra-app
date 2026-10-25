@@ -18,7 +18,6 @@ import ChevronRight from "lucide-react-native/icons/chevron-right";
 import ChevronUp from "lucide-react-native/icons/chevron-up";
 import CircleAlert from "lucide-react-native/icons/circle-alert";
 import Circle from "lucide-react-native/icons/circle";
-import Cookie from "lucide-react-native/icons/cookie";
 import CupSoda from "lucide-react-native/icons/cup-soda";
 import Download from "lucide-react-native/icons/download";
 import Droplet from "lucide-react-native/icons/droplet";
@@ -135,7 +134,7 @@ export const ICONS: Record<string, LucideIcon> = {
   // meals
   breakfast: Sunrise,
   lunch: Sun,
-  snack: Cookie,
+  snack: Apple,
   dinner: Moon,
   drinks: CupSoda,
   // food categories

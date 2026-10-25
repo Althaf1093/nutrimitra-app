@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import { MealEditForm, type MealChanges } from "@/src/components/meal-edit-form";
-import { Button, MealCard } from "@/src/components/ui";
+import { AppIcon, Button, MealCard } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
 import { mealTypeLabel } from "@/src/i18n";
 import { MEAL_SLOTS } from "@/src/lib/food";
 import { useStyles } from "@/src/styles";
+import { makeStyles, radius, useTheme } from "@/src/theme";
 import type { LoggedMeal, Meal } from "@/src/types";
 
 type Props = {
@@ -22,9 +23,32 @@ type Props = {
   onSwap: (meal: Meal) => void;
 };
 
+const useSlot = makeStyles((colors) => ({
+  tile: { width: 40, height: 40, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  title: { flex: 1, color: colors.onCard, fontSize: 16, fontWeight: "700" },
+  kcal: { color: colors.muted, fontSize: 14, fontWeight: "700", fontVariant: ["tabular-nums"] },
+  actions: { flexDirection: "row", gap: 10, marginTop: 4 },
+  primary: { flex: 1, minHeight: 46, borderRadius: radius.pill, backgroundColor: colors.brandPrimary, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, paddingHorizontal: 10 },
+  primaryText: { color: colors.onBrandPrimary, fontSize: 14, fontWeight: "700" },
+  outline: { flex: 1, minHeight: 46, borderRadius: radius.pill, borderWidth: 1.5, borderColor: colors.brandPrimary, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, paddingHorizontal: 10 },
+  outlineText: { color: colors.brandPrimary, fontSize: 14, fontWeight: "700" },
+  suggest: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 10, minHeight: 32 },
+  suggestText: { color: colors.accent, fontSize: 13, fontWeight: "700", flexShrink: 1 },
+}));
+
+// Each meal has its own icon and colour, as in the design: breakfast saffron, lunch green, snack coral, dinner violet.
+function slotTone(colors: ReturnType<typeof useTheme>["colors"], slot: string) {
+  if (slot === "breakfast") return { icon: "breakfast", bg: colors.accentSoft, fg: colors.accent };
+  if (slot === "lunch") return { icon: "lunch", bg: colors.brandSoft, fg: colors.brandPrimary };
+  if (slot === "snack") return { icon: "snack", bg: colors.macroFatSoft, fg: colors.macroFat };
+  return { icon: "dinner", bg: colors.macroFibreSoft, fg: colors.macroFibre };
+}
+
 // Today's food: only what the person logged, by meal slot. The plan's meal for a slot is a suggestion behind a small link.
 export function TodayMeals({ logged, suggestions, busy, editingId, setEditingId, onSave, onRemove, onAdd, onLogSuggestion, onSwap }: Props) {
   const styles = useStyles();
+  const slotStyles = useSlot();
+  const { colors } = useTheme();
   const { t } = useAuth();
   const [open, setOpen] = useState<Record<string, boolean>>({});
 
@@ -39,13 +63,19 @@ export function TodayMeals({ logged, suggestions, busy, editingId, setEditingId,
         const items = logged.filter((item) => item.meal_type === slot);
         const suggestion = suggestions.find((meal) => meal.type === slot);
         const label = mealTypeLabel(t, slot);
+        const tone = slotTone(colors, slot);
         const kcal = items.reduce((sum, item) => sum + item.calories, 0);
         return (
           <View key={slot} style={styles.reasonCard} testID={`slot-${slot}`}>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-              <Text style={styles.cardEyebrow}>{label.toUpperCase()}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+              <View style={[slotStyles.tile, { backgroundColor: tone.bg }]}>
+                <AppIcon name={tone.icon} color={tone.fg} size={22} />
+              </View>
+              <Text style={slotStyles.title} accessibilityRole="header">
+                {label}
+              </Text>
               {items.length ? (
-                <Text style={styles.mealMeta} testID={`slot-kcal-${slot}`}>
+                <Text style={slotStyles.kcal} testID={`slot-kcal-${slot}`}>
                   {kcal} kcal
                 </Text>
               ) : null}
@@ -73,21 +103,25 @@ export function TodayMeals({ logged, suggestions, busy, editingId, setEditingId,
                 </View>
               ),
             )}
-            <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", columnGap: 18, marginTop: 6 }}>
-              <Pressable testID={`add-food-${slot}`} accessibilityRole="button" accessibilityLabel={`${t.addFood} (${label})`} hitSlop={6} onPress={() => onAdd(slot)} style={styles.linkButton}>
-                <Text style={styles.linkText}>+ {t.addFood}</Text>
+            <View style={slotStyles.actions}>
+              <Pressable testID={`add-food-${slot}`} accessibilityRole="button" accessibilityLabel={`${t.addFood} (${label})`} onPress={() => onAdd(slot)} style={({ pressed }) => [slotStyles.primary, pressed && styles.pressed]}>
+                <AppIcon name="add" color={colors.onBrandPrimary} size={18} />
+                <Text style={slotStyles.primaryText}>{t.addFood}</Text>
               </Pressable>
-              <Pressable testID={`snap-meal-${slot}`} accessibilityRole="button" accessibilityLabel={`${t.snapMeal} (${label})`} hitSlop={6} onPress={() => onAdd(slot, "photo")} style={styles.linkButton}>
-                <Text style={styles.linkText}>{t.snapMeal}</Text>
+              <Pressable testID={`snap-meal-${slot}`} accessibilityRole="button" accessibilityLabel={`${t.snapMeal} (${label})`} onPress={() => onAdd(slot, "photo")} style={({ pressed }) => [slotStyles.outline, pressed && styles.pressed]}>
+                <AppIcon name="camera" color={colors.brandPrimary} size={18} />
+                <Text style={slotStyles.outlineText} numberOfLines={1}>
+                  {t.snapMealShort}
+                </Text>
               </Pressable>
-              {suggestion && !suggestion.logged ? (
-                <Pressable testID={`suggestion-toggle-${slot}`} accessibilityRole="button" accessibilityState={{ expanded: !!open[slot] }} hitSlop={6} onPress={() => setOpen((current) => ({ ...current, [slot]: !current[slot] }))} style={styles.linkButton}>
-                  <Text style={styles.mutedText}>
-                    {open[slot] ? "▾" : "▸"} {t.suggestionFor.replace("{slot}", label.toLowerCase())}
-                  </Text>
-                </Pressable>
-              ) : null}
             </View>
+            {suggestion && !suggestion.logged ? (
+              <Pressable testID={`suggestion-toggle-${slot}`} accessibilityRole="button" accessibilityState={{ expanded: !!open[slot] }} hitSlop={6} onPress={() => setOpen((current) => ({ ...current, [slot]: !current[slot] }))} style={slotStyles.suggest}>
+                <AppIcon name="sparkles" color={colors.accent} size={16} />
+                <Text style={slotStyles.suggestText}>{t.suggestionFor.replace("{slot}", label.toLowerCase())}</Text>
+                <AppIcon name={open[slot] ? "up" : "down"} color={colors.accent} size={16} />
+              </Pressable>
+            ) : null}
             {suggestion && !suggestion.logged && open[slot] ? (
               <View style={{ marginTop: 8 }} testID={`suggestion-${slot}`}>
                 <MealCard meal={suggestion} hideLog onSwap={() => onSwap(suggestion)} onAteOther={() => onAdd(slot)} />
