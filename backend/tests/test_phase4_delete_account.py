@@ -33,6 +33,7 @@ def fill_account(p4, p4db):
     assert requests.put(f"{p4.url}/api/kitchen", json={"items": ["rice", "tomato"], "meals_per_day": 2, "household_size": 3}, headers=auth(token), timeout=20).status_code == 200
     assert requests.post(f"{p4.url}/api/meals", json={"meal_type": "lunch", "name": "Dal", "portion": "1 bowl", "calories": 300, "protein_g": 12, "carbs_g": 40, "fat_g": 8}, headers=auth(token), timeout=20).status_code == 200
     assert requests.post(f"{p4.url}/api/activities", json={"activity_type": "Walk", "duration_min": 20}, headers=auth(token), timeout=20).status_code == 200
+    assert requests.post(f"{p4.url}/api/water", json={"delta_ml": 250}, headers=auth(token), timeout=20).status_code == 200
     assert requests.post(f"{p4.url}/api/weight", json={"weight_kg": 69.5}, headers=auth(token), timeout=20).status_code == 200
     assert requests.post(f"{p4.url}/api/permissions", json={"analytics": True}, headers=auth(token), timeout=20).status_code == 200
     assert requests.put(f"{p4.url}/api/reminders", json={"meals": True}, headers=auth(token), timeout=20).status_code == 200

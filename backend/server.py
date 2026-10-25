@@ -84,6 +84,7 @@ INDEXES = [
     ("meals", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
     ("activities", [("user_id", ASCENDING), ("date", ASCENDING)], {"name": "user_date"}),
     ("activities", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
+    ("water", [("user_id", ASCENDING), ("date", ASCENDING)], {"name": "user_date", "unique": True}),
     ("weights", [("user_id", ASCENDING), ("created_at", DESCENDING)], {"name": "user_created"}),
     ("coach_messages", [("user_id", ASCENDING), ("created_at", ASCENDING)], {"name": "user_created"}),
     ("plans", [("user_id", ASCENDING), ("updated_at", DESCENDING)], {"name": "user_updated"}),
@@ -102,7 +103,7 @@ INDEXES = [
 
 # Every collection that holds a person's data by user_id. Account deletion clears all of them (then the users row itself);
 # add new per-user collections here, and a test fails if one is missed.
-USER_DATA_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets", "email_verifications"]
+USER_DATA_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "water", "weights", "coach_messages", "plans", "health_records", "user_sessions", "password_resets", "email_verifications"]
 
 
 async def ensure_email_index() -> bool:
@@ -839,7 +840,7 @@ async def put_kitchen(payload: KitchenInput, user: Dict[str, Any] = Depends(curr
 
 
 # What "Export my data" returns: everything stored about the person except sign-in secrets, sessions and one-time codes.
-EXPORT_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "weights", "coach_messages", "plans", "health_records"]
+EXPORT_COLLECTIONS = ["profiles", "kitchens", "permissions", "reminders", "meals", "activities", "water", "weights", "coach_messages", "plans", "health_records"]
 
 
 @api_router.get("/account/export")
@@ -1420,6 +1421,21 @@ def protein_target(profile: Dict[str, Any]) -> int:
     return round(calorie_target(profile) * share / 4)
 
 
+def macro_targets(profile: Dict[str, Any]) -> Dict[str, int]:
+    """Daily macro targets that add up to the calorie target: protein as planned, fat at 28% of energy, carbohydrate the rest."""
+    kcal = calorie_target(profile)
+    protein = protein_target(profile)
+    fat = round(kcal * 0.28 / 9)
+    carbs = max(0, round((kcal - protein * 4 - fat * 9) / 4))
+    return {"target_protein_g": protein, "target_carbs_g": carbs, "target_fat_g": fat}
+
+
+def water_target_ml(profile: Dict[str, Any]) -> int:
+    """About 35 ml per kg of body weight, rounded to 250 ml, kept between 1.5 and 4 litres. A general guide, not advice."""
+    weight = float(profile.get("weight_kg") or 70)
+    return int(min(4000, max(1500, round(weight * 35 / 250) * 250)))
+
+
 CHECKIN_LOW_PROTEIN = 0.75
 CHECKIN_LOW_ENERGY = 0.6
 CHECKIN_ABOVE = 1.25
@@ -1523,8 +1539,15 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
     activities = await db.activities.find({"user_id": user["id"], "date": today}, {"_id": 0}).to_list(50)
     calories = sum(int(item.get("calories") or 0) for item in meals)
     active = sum(int(item.get("active_calories") or 0) for item in activities)
+    water = await db.water.find_one({"user_id": user["id"], "date": today}, {"_id": 0})
     # Plain counts of what was logged today against the estimated target; no made-up score.
     return {
+        **macro_targets(profile or {}),
+        "protein_g": round(sum(float(item.get("protein_g") or 0) for item in meals)),
+        "carbs_g": round(sum(float(item.get("carbs_g") or 0) for item in meals)),
+        "fat_g": round(sum(float(item.get("fat_g") or 0) for item in meals)),
+        "water_ml": int((water or {}).get("ml") or 0),
+        "target_water_ml": water_target_ml(profile or {}),
         "date": today,
         "meals": meals,
         "activities": activities,
@@ -1534,6 +1557,21 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
         "activity_minutes": sum(int(item.get("duration_min") or 0) for item in activities),
         "goal": (profile or {}).get("wellness_goal", "Healthier living"),
     }
+
+
+class WaterInput(BaseModel):
+    delta_ml: int = Field(ge=-2000, le=2000)
+
+
+@api_router.post("/water")
+async def log_water(payload: WaterInput, user: Dict[str, Any] = Depends(current_user)):
+    """Add (or, with a negative number, take back) water for today. The total never goes below zero or above 10 litres."""
+    _, _, today = await user_clock(user["id"])
+    key = {"user_id": user["id"], "date": today.isoformat()}
+    current = await db.water.find_one(key, {"_id": 0})
+    total = min(10000, max(0, int((current or {}).get("ml") or 0) + payload.delta_ml))
+    await db.water.update_one(key, {"$set": {"ml": total, "updated_at": now_iso()}, "$setOnInsert": {"id": str(uuid.uuid4()), "created_at": now_iso()}}, upsert=True)
+    return {"date": key["date"], "water_ml": total}
 
 
 @api_router.post("/meals")

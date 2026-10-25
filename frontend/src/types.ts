@@ -96,6 +96,14 @@ export type Dashboard = {
   target_calories: number;
   activity_minutes: number;
   goal: string;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  target_protein_g: number;
+  target_carbs_g: number;
+  target_fat_g: number;
+  water_ml: number;
+  target_water_ml: number;
 };
 
 export type EatNow = {

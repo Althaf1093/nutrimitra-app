@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 
-import { ProgressRing } from "@/src/components/kit";
+import { MacroBar, ProgressRing } from "@/src/components/kit";
+import { useBreakpoint } from "@/src/lib/use-breakpoint";
 import type { Copy } from "@/src/i18n";
 import { makeStyles, radius, space } from "@/src/theme";
 import type { Dashboard } from "@/src/types";
@@ -14,6 +15,7 @@ const useCard = makeStyles((colors) => ({
   label: { color: colors.onHero, opacity: 0.8, fontSize: 12, fontWeight: "600" },
   value: { color: colors.onHero, fontSize: 20, fontWeight: "800", fontVariant: ["tabular-nums"] },
   valueSub: { color: colors.onHero, opacity: 0.8, fontSize: 13, fontWeight: "600" },
+  macros: { flexDirection: "row", gap: 14 },
   note: { color: colors.onHero, opacity: 0.8, fontSize: 12, lineHeight: 17 },
 }));
 
@@ -21,6 +23,7 @@ const useCard = makeStyles((colors) => ({
 // Deliberately not a score: nothing here is measured health data.
 export function TodayProgressCard({ dashboard, t }: { dashboard: Dashboard | null; t: Copy }) {
   const styles = useCard();
+  const { isDesktop } = useBreakpoint();
   const eaten = Math.round(dashboard?.calories || 0);
   const target = Math.round(dashboard?.target_calories || 0);
   const left = Math.max(0, target - eaten);
@@ -29,7 +32,7 @@ export function TodayProgressCard({ dashboard, t }: { dashboard: Dashboard | nul
   return (
     <View style={styles.card} testID="today-progress-card">
       <View style={styles.top}>
-        <ProgressRing value={eaten} max={target} size={132} stroke={12}>
+        <ProgressRing value={eaten} max={target} size={isDesktop ? 168 : 132} stroke={12} testID="today-ring">
           <Text style={styles.ringValue} testID="today-progress-left">
             {left}
           </Text>
@@ -58,6 +61,11 @@ export function TodayProgressCard({ dashboard, t }: { dashboard: Dashboard | nul
             </Text>
           </View>
         </View>
+      </View>
+      <View style={styles.macros} testID="today-macros">
+        <MacroBar onHero label={t.macroProteinName} value={dashboard?.protein_g || 0} target={dashboard?.target_protein_g || 0} color="#8FD3C0" testID="macro-protein" />
+        <MacroBar onHero label={t.macroCarbsName} value={dashboard?.carbs_g || 0} target={dashboard?.target_carbs_g || 0} color="#F2C867" testID="macro-carbs" />
+        <MacroBar onHero label={t.macroFatName} value={dashboard?.fat_g || 0} target={dashboard?.target_fat_g || 0} color="#F2A08F" testID="macro-fat" />
       </View>
       <Text style={styles.note}>{t.todayProgressSub}</Text>
     </View>
