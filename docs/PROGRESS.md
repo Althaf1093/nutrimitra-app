@@ -6,7 +6,7 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 - [x] Logging 2: Snap your meal opens the camera at once (same PR)
 - [x] Logging 3: big food and drink catalogue, 2,688 foods, FOOD_DATA_SOURCES.md (Open Food Facts lookup not done)
 - [x] Logging 4: kitchen from a big list (656 ingredients, group tabs), Snap your kitchen
-- [ ] Design run (docs/DESIGN_PROMPT.md)
+- [ ] Design run (docs/DESIGN_PROMPT.md): [x] 1 tokens, dark mode, fonts, icons, kit, shell (PR #62); [ ] 2 auth and onboarding; [ ] 3 Today; [ ] 4 Log food; [ ] 5 Plan and Eat-now; [ ] 6 Coach; [ ] 7 Insights; [ ] 8 Settings, states
 - [ ] Insights run (docs/INSIGHTS_PROMPT.md)
 - [ ] Extras run (docs/EXTRAS_PROMPT.md)
 - [ ] Final pass and Master run summary

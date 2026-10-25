@@ -1,7 +1,7 @@
+import { ModalShell } from "@/src/components/modal-shell";
 import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, TextInput, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api, del, post } from "@/src/api";
 import { CustomFoodForm, type CustomFood } from "@/src/components/custom-food-form";
@@ -52,7 +52,6 @@ export default function LogFoodScreen() {
 function LogFood() {
   const styles = useStyles();
   const { colors } = useTheme();
-  const insets = useSafeAreaInsets();
   const router = useRouter();
   const toast = useToast();
   const params = useLocalSearchParams<{ mode?: string; slot?: string }>();
@@ -222,7 +221,7 @@ function LogFood() {
   const noMatch = typing && !loading && searched === query.trim() && results.length === 0;
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="log-food-screen">
+    <ModalShell testID="log-food-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>{t.logFoodEyebrow.toUpperCase()}</Text>
@@ -308,6 +307,6 @@ function LogFood() {
         ) : null}
       </ScrollView>
       <FoodSheet food={sheetFood} initialSlot={currentSlot()} busy={busy} onAdd={addFromSheet} onClose={() => setSheetFood(null)} />
-    </View>
+    </ModalShell>
   );
 }

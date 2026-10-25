@@ -1,7 +1,7 @@
+import { ModalShell } from "@/src/components/modal-shell";
 import { Redirect, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api } from "@/src/api";
 import { AppIcon } from "@/src/components/ui";
@@ -27,7 +27,6 @@ const GROUP_LABELS: Record<string, keyof Copy> = {
 export default function ShoppingListScreen() {
   const styles = useStyles();
   const { colors } = useTheme();
-  const insets = useSafeAreaInsets();
   const router = useRouter();
   const { lang, t, status } = useAuth();
   const [list, setList] = useState<ShoppingList | null>(null);
@@ -59,7 +58,7 @@ export default function ShoppingListScreen() {
   };
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="shopping-list-screen">
+    <ModalShell testID="shopping-list-screen">
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>{t.shoppingEyebrow.toUpperCase()}</Text>
@@ -117,6 +116,6 @@ export default function ShoppingListScreen() {
           </View>
         ) : null}
       </ScrollView>
-    </View>
+    </ModalShell>
   );
 }

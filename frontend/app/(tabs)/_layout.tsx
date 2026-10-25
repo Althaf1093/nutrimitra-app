@@ -2,8 +2,9 @@ import { Redirect, Tabs } from "expo-router";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { ActivityIndicator, Platform, View } from "react-native";
 
-import { AppIcon } from "@/src/components/ui";
+import { AppTabBar } from "@/src/components/app-tab-bar";
 import { useAuth } from "@/src/context/auth";
+import { useBreakpoint } from "@/src/lib/use-breakpoint";
 import { useTheme } from "@/src/theme";
 
 // iOS 26+ gets native liquid-glass tabs; older iOS, Android and web use the
@@ -13,6 +14,7 @@ const useNativeTabs = Platform.OS === "ios" && parseInt(String(Platform.Version)
 export default function TabsLayout() {
   const { t, status } = useAuth();
   const { colors } = useTheme();
+  const { isDesktop } = useBreakpoint();
 
   // Route guard: deep links must never render authenticated content.
   if (status === "loading") {
@@ -51,18 +53,17 @@ export default function TabsLayout() {
 
   return (
     <Tabs
+      tabBar={(props) => <AppTabBar {...props} />}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.brandPrimary,
-        tabBarInactiveTintColor: colors.muted,
-        tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.divider, ...(Platform.OS === "web" ? { height: 64 } : {}) },
-        tabBarItemStyle: { alignSelf: "center" },
+        tabBarPosition: isDesktop ? "left" : "bottom",
+        sceneStyle: { backgroundColor: colors.surface },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: t.today, tabBarIcon: ({ color }) => <AppIcon name="sun.max.fill" color={color} size={21} /> }} />
-      <Tabs.Screen name="plan" options={{ title: t.plan, tabBarIcon: ({ color }) => <AppIcon name="list.bullet.clipboard" color={color} size={21} /> }} />
-      <Tabs.Screen name="coach" options={{ title: t.coach, tabBarIcon: ({ color }) => <AppIcon name="bubble.left.and.bubble.right.fill" color={color} size={21} /> }} />
-      <Tabs.Screen name="progress" options={{ title: t.progress, tabBarIcon: ({ color }) => <AppIcon name="chart.line.uptrend.xyaxis" color={color} size={21} /> }} />
+      <Tabs.Screen name="index" options={{ title: t.today }} />
+      <Tabs.Screen name="plan" options={{ title: t.plan }} />
+      <Tabs.Screen name="coach" options={{ title: t.coach }} />
+      <Tabs.Screen name="progress" options={{ title: t.progress }} />
     </Tabs>
   );
 }
