@@ -51,7 +51,6 @@ const useWelcome = makeStyles((colors) => ({
     color: colors.onSurface,
     fontSize: 19,
     fontWeight: "800",
-    letterSpacing: -0.4,
   },
   title: {
     color: colors.onSurface,
@@ -285,7 +284,7 @@ export default function WelcomeScreen() {
               <Text
                 testID="forgot-password-link"
                 accessibilityRole="link"
-                style={styles.linkText}
+                style={[styles.linkText, { marginTop: 12 }]}
                 onPress={() => router.push("/forgot-password")}
               >
                 {t.forgotPassword}
