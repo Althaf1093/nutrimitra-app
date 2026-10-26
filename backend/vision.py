@@ -34,7 +34,7 @@ RETRY_DELAYS = (1.0, 2.0)  # at most 2 retries after the first attempt
 
 VISION_PROMPT = (
     "Identify the food in this photo for an Indian wellness app. Respond with ONLY compact JSON, no markdown: "
-    '{"name": str, "portion": str, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
+    '{"name": str, "portion": str, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, "fibre_g": number, '
     '"confidence": "low|medium|high", "alternatives": [str, str]}. '
     "Estimate for a typical home serving. Prefer Indian dish names when relevant."
 )

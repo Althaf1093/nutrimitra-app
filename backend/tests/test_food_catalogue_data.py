@@ -61,7 +61,7 @@ def test_compact_rows_are_exactly_consistent(catalogue):
         assert raw["calories"] == expected, food.id
 
 
-def test_compact_files_have_nine_fields_and_no_stray_lines():
+def test_compact_files_have_ten_fields_and_no_stray_lines():
     for path in COMPACT.glob("*.txt"):
         if path.name.lower() == "readme.txt":
             continue
@@ -69,8 +69,8 @@ def test_compact_files_have_nine_fields_and_no_stray_lines():
             if not line.strip() or line.startswith("#"):
                 continue
             parts = line.split("|")
-            assert len(parts) == 9, f"{path.name}:{number} has {len(parts)} fields: {line[:60]}"
-            for value in parts[4:8]:
+            assert len(parts) == 10, f"{path.name}:{number} has {len(parts)} fields: {line[:60]}"
+            for value in parts[4:9]:
                 float(value or 0)
 
 
@@ -104,3 +104,20 @@ def test_the_original_file_is_untouched_and_the_count_adds_up(catalogue):
 def test_telugu_names_for_most_new_rows(catalogue):
     new = [food for food in catalogue.foods if food.raw.get("estimate")]
     assert sum(1 for food in new if food.raw.get("te")) >= 0.8 * len(new)
+
+
+def test_every_row_has_an_estimated_fibre_that_fits_its_carbs(catalogue):
+    """Fibre PR: all rows carry fibre_g (0 is allowed for meat, fish, eggs, oil, plain drinks), never more than the carbs, never negative."""
+    for food in catalogue.foods:
+        raw = food.raw
+        assert "fibre_g" in raw, food.id
+        assert isinstance(raw["fibre_g"], (int, float)) and 0 <= raw["fibre_g"] <= raw["carbs_g"], (food.id, raw["fibre_g"], raw["carbs_g"])
+        assert food.public()["fibre_g"] == raw["fibre_g"]
+
+
+def test_fibre_is_higher_in_plants_than_in_meat_and_drinks(catalogue):
+    by_name = {food.name_norm: food.raw["fibre_g"] for food in catalogue.foods}
+    assert by_name["rajma masala"] >= 8
+    assert by_name["oats porridge milk"] >= 3
+    assert max(food.raw["fibre_g"] for food in catalogue.foods if food.raw["category"] in ("Chicken", "Mutton", "Eggs")) <= 3
+    assert all(food.raw["fibre_g"] == 0 for food in catalogue.foods if food.raw["category"] == "Alcohol")

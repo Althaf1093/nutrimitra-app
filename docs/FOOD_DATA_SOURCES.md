@@ -9,7 +9,7 @@ at startup by `backend/foods.py`, format described in `backend/data/foods/README
   for a typical home or restaurant serving, then rounded.
 - Every row loaded from `data/foods/*.txt` is marked `estimate: true`, and the app labels all food values as estimates.
 - Calories in those rows are calculated from the macros (4 kcal/g protein and carbs, 9 kcal/g fat, 7 kcal/g alcohol), so
-  calories and macros always agree. Fibre is not subtracted, so some high-fibre foods read a little high.
+  calories and macros always agree. Fibre is not subtracted, so some high-fibre foods read a little high. Every row also has an estimated fibre_g (tools/add_fibre.py: a share of the carbohydrate by food type, in half-gram steps, capped at 14 g per serving); it is informational and not part of the calories.
 - `generated_combos.txt` is produced from a main ingredient plus a cooking style (for example "Okra fry", "Chicken korma")
   using a base value for the ingredient and a fixed oil/sauce add-on per style. These are the roughest rows. Treat them as
   ballpark figures until a nutritionist reviews them.

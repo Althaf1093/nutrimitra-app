@@ -6,7 +6,7 @@ import type { useStyles } from "@/src/styles";
 import type { ThemeColors } from "@/src/theme";
 import type { VisionResult } from "@/src/types";
 
-export type VisionDraft = { name: string; calories: string; protein_g: string; carbs_g: string; fat_g: string; portion: string };
+export type VisionDraft = { name: string; calories: string; protein_g: string; carbs_g: string; fat_g: string; fibre_g: string; portion: string };
 
 const mealTypes = ["breakfast", "lunch", "snack", "dinner"];
 
@@ -61,6 +61,7 @@ export function VisionConfirmForm({
         <View style={styles.half}>{numericField("carbs_g", t.carbsLabel)}</View>
         <View style={styles.half}>{numericField("fat_g", t.fatLabel)}</View>
       </View>
+      {numericField("fibre_g", t.fibreLabel)}
       {numericField("portion", t.portionLabel)}
       <Text style={styles.fieldLabel}>{t.mealType}</Text>
       <View style={styles.chipWrap}>

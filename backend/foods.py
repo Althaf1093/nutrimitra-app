@@ -136,6 +136,7 @@ class Food:
             "protein_g": raw["protein_g"],
             "carbs_g": raw["carbs_g"],
             "fat_g": raw["fat_g"],
+            "fibre_g": raw.get("fibre_g", 0),
             "servings": self.serving_options(),
             "estimate": True,
             "recent": recent,
@@ -151,7 +152,7 @@ def number(text: str) -> float:
 
 
 def load_compact(folder: Path, taken_ids: Iterable[str], taken_names: Iterable[str]) -> List[Dict[str, Any]]:
-    """Rows of data/foods/*.txt: name|telugu|category|serving|protein|carbs|fat|alcohol|synonyms, one per line.
+    """Rows of data/foods/*.txt: name|telugu|category|serving|protein|carbs|fat|alcohol|fibre|synonyms, one per line.
     Calories are worked out from the macros (4/4/9, alcohol 7), so they always agree. A name already in the catalogue is skipped."""
     ids, names = set(taken_ids), set(taken_names)
     rows: List[Dict[str, Any]] = []
@@ -162,8 +163,8 @@ def load_compact(folder: Path, taken_ids: Iterable[str], taken_names: Iterable[s
             if not line.strip() or line.startswith("#"):
                 continue
             parts = [part.strip() for part in line.split("|")]
-            parts += [""] * (9 - len(parts))
-            name, te, category, serving, protein, carbs, fat, alcohol, synonyms = parts[:9]
+            parts += [""] * (10 - len(parts))
+            name, te, category, serving, protein, carbs, fat, alcohol, fibre, synonyms = parts[:10]
             if normalize(name) in names:
                 continue
             base, n = slugify(name), 2
@@ -185,6 +186,7 @@ def load_compact(folder: Path, taken_ids: Iterable[str], taken_names: Iterable[s
                 "protein_g": p,
                 "carbs_g": c,
                 "fat_g": f,
+                "fibre_g": number(fibre),
                 "servings": [{"label": "Half portion", "factor": 0.5}, {"label": "1.5 portions", "factor": 1.5}, {"label": "2 portions", "factor": 2.0}],
                 "popular": 0,
                 "estimate": True,

@@ -24,6 +24,7 @@ export function scaledNutrition(food: FoodItem, factor: number) {
     protein_g: oneDecimal(food.protein_g * factor),
     carbs_g: oneDecimal(food.carbs_g * factor),
     fat_g: oneDecimal(food.fat_g * factor),
+    fibre_g: oneDecimal((food.fibre_g ?? 0) * factor),
   };
 }
 

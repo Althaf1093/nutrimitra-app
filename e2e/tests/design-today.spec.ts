@@ -13,7 +13,7 @@ test("design: Today shows the ring, three macro bars, the Coach note and a water
   await expect(app.id("today-ring")).toBeVisible();
   for (const id of ["macro-protein", "macro-carbs", "macro-fat", "macro-fibre"]) await expect(app.id(id)).toBeVisible();
   await expect(app.id("coach-card-text")).toContainText("Add your first meal");
-  await expect(app.id("macro-fibre")).toContainText("—"); // no meal has a fibre figure, so no made-up number
+  await expect(app.id("macro-fibre")).toContainText("Add fibre to track"); // no meal has a fibre figure, so no made-up number
   // "What should I eat now?" lives in the Coach card, with three suggestion chips.
   await expect(app.id("coach-card").getByTestId("eat-now-button")).toBeVisible();
   await expect(app.id("coach-card").getByRole("button")).toHaveCount(4);
@@ -108,4 +108,35 @@ test("settings shows which build and server commit this is", async ({ app }) => 
   await app.newUserOnToday("buildver");
   await app.id("open-settings-button").click();
   await expect(app.id("build-version")).toContainText(/server [0-9a-f]{7,}/);
+});
+
+test("fibre: a meal logged without fibre can be given some in the edit form, and the Today bar then counts it", async ({ app }) => {
+  await app.newUserOnToday("fibreedit");
+  const saved = await app.api("/meals", { method: "POST", body: { meal_type: "lunch", name: "Dal rice", portion: "1 plate", calories: 450, protein_g: 15, carbs_g: 70, fat_g: 10 } });
+  await app.page.reload();
+  await expect(app.id("macro-fibre")).toContainText("Add fibre to track");
+  await app.id(`edit-meal-${saved.body.id}`).click();
+  await app.id(`edit-meal-form-${saved.body.id}`).getByTestId("field-fibre-(g)").fill("7");
+  await app.id(`edit-meal-save-${saved.body.id}`).click();
+  await expect(app.id("macro-fibre")).toContainText("7");
+  await expect(app.id("macro-fibre")).not.toContainText("Add fibre to track");
+});
+
+test("fibre: a food from the catalogue brings its fibre to Today, and the custom food form has the optional field", async ({ app }) => {
+  await app.newUserOnToday("fibrecat");
+  await app.id("add-food-lunch").click();
+  await app.id("food-search-input").fill("rajma masala");
+  await expect(app.id("food-row-rajma-masala")).toBeVisible();
+  // The food list has no button inside a button either.
+  expect(await app.page.evaluate(() => document.querySelectorAll("button button, [role=button] [role=button]").length)).toBe(0);
+  await app.id("food-add-rajma-masala").click();
+  await expect(app.id("toast-message")).toContainText("Meal logged");
+  await app.page.goBack();
+  await expect(app.id("today-screen")).toBeVisible();
+  await expect(app.id("macro-fibre")).toContainText("/");
+  await expect(app.id("macro-fibre")).not.toContainText("Add fibre to track");
+  await app.id("add-food-dinner").click();
+  await app.id("food-search-input").fill("zzzznotafood");
+  await app.id("food-add-custom-link").click();
+  await expect(app.id("custom-food-form").getByTestId("field-fibre-(g)")).toBeVisible();
 });

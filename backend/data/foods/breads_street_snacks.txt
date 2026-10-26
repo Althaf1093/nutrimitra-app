@@ -1,221 +1,221 @@
 # Breads
-Roti (phulka, no oil)|రోటీ|Roti & bread|1 piece (40 g)|3|18|0.5|0|chapati,phulka
-Roti (with ghee)|నెయ్యి రోటీ|Roti & bread|1 piece (45 g)|3|18|4|0|ghee roti,ghee chapati
-Chapati (with oil)|చపాతీ|Roti & bread|1 piece (50 g)|3|22|4|0|
-Chapati (large, 60 g)|పెద్ద చపాతీ|Roti & bread|1 piece (60 g)|4|27|5|0|
-Whole wheat roti (small)|గోధుమ రోటీ|Roti & bread|1 piece (30 g)|2.5|14|0.5|0|
-Multigrain roti|మల్టీగ్రెయిన్ రోటీ|Roti & bread|1 piece (45 g)|3.5|19|1|0|
-Jowar roti|జొన్న రోటీ|Roti & bread|1 piece (50 g)|3|20|0.8|0|
-Bajra roti|సజ్జ రోటీ|Roti & bread|1 piece (50 g)|3|20|2|0|
-Ragi roti|రాగి రోటీ|Roti & bread|1 piece (50 g)|3|19|1|0|
-Makki di roti|మక్కీ రోటీ|Roti & bread|1 piece (60 g)|3|26|3|0|
-Rice roti (akki roti)|బియ్యం రొట్టె|Roti & bread|1 piece (60 g)|2|22|3|0|
-Tandoori roti|తందూరీ రోటీ|Roti & bread|1 piece (60 g)|4|28|1|0|
-Butter tandoori roti|బటర్ తందూరీ రోటీ|Roti & bread|1 piece (65 g)|4|28|6|0|
-Plain naan|నాన్|Roti & bread|1 piece (90 g)|8|48|6|0|
-Butter naan|బటర్ నాన్|Roti & bread|1 piece (100 g)|8|48|12|0|
-Garlic naan|గార్లిక్ నాన్|Roti & bread|1 piece (100 g)|8|48|10|0|
-Cheese naan|చీజ్ నాన్|Roti & bread|1 piece (130 g)|14|50|16|0|
-Amritsari kulcha|అమృత్‌సరి కుల్చా|Roti & bread|1 piece (130 g)|9|52|14|0|
-Aloo kulcha|ఆలూ కుల్చా|Roti & bread|1 piece (130 g)|7|50|10|0|
-Rumali roti|రుమాలీ రోటీ|Roti & bread|1 piece (40 g)|4|22|1|0|
-Missi roti (tandoori)|మిస్సీ రోటీ|Roti & bread|1 piece (60 g)|5|26|4|0|
-Lachha paratha|లచ్ఛా పరాటా|Roti & bread|1 piece (80 g)|5|34|12|0|
-Plain paratha|పరాటా|Roti & bread|1 piece (70 g)|4|28|9|0|
-Aloo paratha|ఆలూ పరాటా|Roti & bread|1 piece (110 g)|6|38|10|0|
-Aloo paratha with butter and curd|ఆలూ పరాటా|Roti & bread|2 pieces + curd|14|80|28|0|
-Gobi paratha|గోబీ పరాటా|Roti & bread|1 piece (110 g)|6|34|10|0|
-Methi paratha|మేథీ పరాటా|Roti & bread|1 piece (80 g)|5|28|8|0|
-Mooli paratha|ముల్లంగి పరాటా|Roti & bread|1 piece (110 g)|5|34|10|0|
-Palak paratha|పాలక్ పరాటా|Roti & bread|1 piece (80 g)|5|28|8|0|
-Onion paratha|ఉల్లి పరాటా|Roti & bread|1 piece (100 g)|5|34|10|0|
-Dal paratha|దాల్ పరాటా|Roti & bread|1 piece (100 g)|7|34|9|0|
-Mix veg paratha|మిక్స్ వెజ్ పరాటా|Roti & bread|1 piece (100 g)|5|32|9|0|
-Chicken keema paratha|కీమా పరాటా|Roti & bread|1 piece (130 g)|14|34|14|0|
-Pudina paratha|పుదీనా పరాటా|Roti & bread|1 piece (80 g)|4|28|9|0|
-Puri|పూరీ|Roti & bread|2 pieces (50 g)|3|22|10|0|poori
-Puri (4 pieces)|పూరీ|Roti & bread|4 pieces (100 g)|6|44|20|0|
-Puri bhaji|పూరీ భాజీ|Tiffin|1 plate (4 puri + bhaji)|10|75|28|0|
-Bhatura|భటూరా|Roti & bread|1 piece (80 g)|5|38|14|0|
-Luchi (large)|లుచీ|Roti & bread|2 pieces (60 g)|3|28|11|0|
-Thepla (large)|థేప్లా|Roti & bread|1 piece (50 g)|4|20|6|0|
-Bread slice (white)|బ్రెడ్|Roti & bread|1 slice (30 g)|2.5|14|1|0|
-Bread slice (brown)|బ్రౌన్ బ్రెడ్|Roti & bread|1 slice (30 g)|3|13|1|0|
-Bread slice (multigrain)|మల్టీగ్రెయిన్ బ్రెడ్|Roti & bread|1 slice (30 g)|3|13|1.5|0|
-Sourdough bread|సోర్‌డో బ్రెడ్|Roti & bread|1 slice (50 g)|4|24|1|0|
-Toast with butter|బటర్ టోస్ట్|Roti & bread|2 slices|5|28|8|0|
-Toast with jam|జామ్ టోస్ట్|Roti & bread|2 slices|5|40|2|0|
-Toast with peanut butter|పీనట్ బటర్ టోస్ట్|Roti & bread|2 slices|12|32|14|0|
-Bun (plain)|బన్|Roti & bread|1 piece (60 g)|5|30|3|0|
-Burger bun|బర్గర్ బన్|Roti & bread|1 piece (60 g)|5|30|3|0|
-Dinner roll|డిన్నర్ రోల్|Roti & bread|1 piece (40 g)|3|20|3|0|
-Bagel (plain)|బేగెల్|Roti & bread|1 piece (95 g)|10|48|1.5|0|
-Croissant|క్రోసాంట్|Roti & bread|1 piece (60 g)|5|26|12|0|
-Pita bread|పిటా బ్రెడ్|Roti & bread|1 piece (60 g)|5|33|1|0|
-Tortilla (wheat, 8 inch)|టోర్టిల్లా|Roti & bread|1 piece (50 g)|4|26|3|0|
-Wrap (whole wheat)|వ్రాప్|Roti & bread|1 piece (70 g)|5|32|4|0|
-Garlic bread (2 slices)|గార్లిక్ బ్రెడ్|Roti & bread|2 slices (70 g)|5|28|10|0|
-Pav (large)|పావ్|Roti & bread|1 piece (50 g)|4|26|2|0|
-Khari biscuit|ఖారీ|Snacks|3 pieces (30 g)|3|16|6|0|
+Roti (phulka, no oil)|రోటీ|Roti & bread|1 piece (40 g)|3|18|0.5|0|2|chapati,phulka
+Roti (with ghee)|నెయ్యి రోటీ|Roti & bread|1 piece (45 g)|3|18|4|0|2|ghee roti,ghee chapati
+Chapati (with oil)|చపాతీ|Roti & bread|1 piece (50 g)|3|22|4|0|2.5|
+Chapati (large, 60 g)|పెద్ద చపాతీ|Roti & bread|1 piece (60 g)|4|27|5|0|3|
+Whole wheat roti (small)|గోధుమ రోటీ|Roti & bread|1 piece (30 g)|2.5|14|0.5|0|1.5|
+Multigrain roti|మల్టీగ్రెయిన్ రోటీ|Roti & bread|1 piece (45 g)|3.5|19|1|0|2.5|
+Jowar roti|జొన్న రోటీ|Roti & bread|1 piece (50 g)|3|20|0.8|0|2.5|
+Bajra roti|సజ్జ రోటీ|Roti & bread|1 piece (50 g)|3|20|2|0|2.5|
+Ragi roti|రాగి రోటీ|Roti & bread|1 piece (50 g)|3|19|1|0|2.5|
+Makki di roti|మక్కీ రోటీ|Roti & bread|1 piece (60 g)|3|26|3|0|3|
+Rice roti (akki roti)|బియ్యం రొట్టె|Roti & bread|1 piece (60 g)|2|22|3|0|2.5|
+Tandoori roti|తందూరీ రోటీ|Roti & bread|1 piece (60 g)|4|28|1|0|3.5|
+Butter tandoori roti|బటర్ తందూరీ రోటీ|Roti & bread|1 piece (65 g)|4|28|6|0|3.5|
+Plain naan|నాన్|Roti & bread|1 piece (90 g)|8|48|6|0|1.5|
+Butter naan|బటర్ నాన్|Roti & bread|1 piece (100 g)|8|48|12|0|1.5|
+Garlic naan|గార్లిక్ నాన్|Roti & bread|1 piece (100 g)|8|48|10|0|1.5|
+Cheese naan|చీజ్ నాన్|Roti & bread|1 piece (130 g)|14|50|16|0|1.5|
+Amritsari kulcha|అమృత్‌సరి కుల్చా|Roti & bread|1 piece (130 g)|9|52|14|0|1.5|
+Aloo kulcha|ఆలూ కుల్చా|Roti & bread|1 piece (130 g)|7|50|10|0|1.5|
+Rumali roti|రుమాలీ రోటీ|Roti & bread|1 piece (40 g)|4|22|1|0|2.5|
+Missi roti (tandoori)|మిస్సీ రోటీ|Roti & bread|1 piece (60 g)|5|26|4|0|3|
+Lachha paratha|లచ్ఛా పరాటా|Roti & bread|1 piece (80 g)|5|34|12|0|4|
+Plain paratha|పరాటా|Roti & bread|1 piece (70 g)|4|28|9|0|3.5|
+Aloo paratha|ఆలూ పరాటా|Roti & bread|1 piece (110 g)|6|38|10|0|4.5|
+Aloo paratha with butter and curd|ఆలూ పరాటా|Roti & bread|2 pieces + curd|14|80|28|0|9.5|
+Gobi paratha|గోబీ పరాటా|Roti & bread|1 piece (110 g)|6|34|10|0|7.5|
+Methi paratha|మేథీ పరాటా|Roti & bread|1 piece (80 g)|5|28|8|0|6|
+Mooli paratha|ముల్లంగి పరాటా|Roti & bread|1 piece (110 g)|5|34|10|0|4|
+Palak paratha|పాలక్ పరాటా|Roti & bread|1 piece (80 g)|5|28|8|0|6|
+Onion paratha|ఉల్లి పరాటా|Roti & bread|1 piece (100 g)|5|34|10|0|7.5|
+Dal paratha|దాల్ పరాటా|Roti & bread|1 piece (100 g)|7|34|9|0|10|
+Mix veg paratha|మిక్స్ వెజ్ పరాటా|Roti & bread|1 piece (100 g)|5|32|9|0|7|
+Chicken keema paratha|కీమా పరాటా|Roti & bread|1 piece (130 g)|14|34|14|0|4|
+Pudina paratha|పుదీనా పరాటా|Roti & bread|1 piece (80 g)|4|28|9|0|3.5|
+Puri|పూరీ|Roti & bread|2 pieces (50 g)|3|22|10|0|0.5|poori
+Puri (4 pieces)|పూరీ|Roti & bread|4 pieces (100 g)|6|44|20|0|1.5|
+Puri bhaji|పూరీ భాజీ|Tiffin|1 plate (4 puri + bhaji)|10|75|28|0|14|
+Bhatura|భటూరా|Roti & bread|1 piece (80 g)|5|38|14|0|1|
+Luchi (large)|లుచీ|Roti & bread|2 pieces (60 g)|3|28|11|0|1.5|
+Thepla (large)|థేప్లా|Roti & bread|1 piece (50 g)|4|20|6|0|2.5|
+Bread slice (white)|బ్రెడ్|Roti & bread|1 slice (30 g)|2.5|14|1|0|0.5|
+Bread slice (brown)|బ్రౌన్ బ్రెడ్|Roti & bread|1 slice (30 g)|3|13|1|0|0.5|
+Bread slice (multigrain)|మల్టీగ్రెయిన్ బ్రెడ్|Roti & bread|1 slice (30 g)|3|13|1.5|0|1.5|
+Sourdough bread|సోర్‌డో బ్రెడ్|Roti & bread|1 slice (50 g)|4|24|1|0|0.5|
+Toast with butter|బటర్ టోస్ట్|Roti & bread|2 slices|5|28|8|0|1.5|
+Toast with jam|జామ్ టోస్ట్|Roti & bread|2 slices|5|40|2|0|2.5|
+Toast with peanut butter|పీనట్ బటర్ టోస్ట్|Roti & bread|2 slices|12|32|14|0|14|
+Bun (plain)|బన్|Roti & bread|1 piece (60 g)|5|30|3|0|2|
+Burger bun|బర్గర్ బన్|Roti & bread|1 piece (60 g)|5|30|3|0|1|
+Dinner roll|డిన్నర్ రోల్|Roti & bread|1 piece (40 g)|3|20|3|0|1|
+Bagel (plain)|బేగెల్|Roti & bread|1 piece (95 g)|10|48|1.5|0|3|
+Croissant|క్రోసాంట్|Roti & bread|1 piece (60 g)|5|26|12|0|1.5|
+Pita bread|పిటా బ్రెడ్|Roti & bread|1 piece (60 g)|5|33|1|0|1|
+Tortilla (wheat, 8 inch)|టోర్టిల్లా|Roti & bread|1 piece (50 g)|4|26|3|0|1.5|
+Wrap (whole wheat)|వ్రాప్|Roti & bread|1 piece (70 g)|5|32|4|0|4|
+Garlic bread (2 slices)|గార్లిక్ బ్రెడ్|Roti & bread|2 slices (70 g)|5|28|10|0|1|
+Pav (large)|పావ్|Roti & bread|1 piece (50 g)|4|26|2|0|1.5|
+Khari biscuit|ఖారీ|Snacks|3 pieces (30 g)|3|16|6|0|0.5|
 # Street food and chaat
-Pani puri (6 pieces)|పానీ పూరీ|Snacks|6 pieces (120 g)|4|36|9|0|golgappa,puchka
-Pani puri (plate, 10)|పానీ పూరీ|Snacks|10 pieces (200 g)|6|60|15|0|
-Sev puri|సేవ్ పూరీ|Snacks|1 plate (120 g)|5|34|14|0|
-Dahi puri|దహీ పూరీ|Snacks|1 plate (140 g)|6|34|12|0|
-Bhel puri|భేల్ పూరీ|Snacks|1 plate (120 g)|5|38|9|0|
-Sukha bhel|సూఖా భేల్|Snacks|1 plate (100 g)|4|34|8|0|
-Masala puri|మసాలా పూరీ|Snacks|1 plate (200 g)|8|44|12|0|
-Ragda pattice|రాగ్డా పాటీస్|Snacks|1 plate (250 g)|12|56|14|0|
-Aloo tikki chaat|ఆలూ టిక్కీ చాట్|Snacks|1 plate (200 g)|6|44|16|0|
-Aloo tikki (2 pieces)|ఆలూ టిక్కీ|Snacks|2 pieces (120 g)|4|28|12|0|
-Papdi chaat|పాపడీ చాట్|Snacks|1 plate (180 g)|7|40|14|0|
-Dahi bhalla|దహీ భల్లా|Snacks|1 plate (200 g)|10|34|10|0|dahi vada
-Dahi vada (2 pieces)|దహీ వడ|Snacks|2 pieces (200 g)|10|32|10|0|
-Samosa chaat|సమోసా చాట్|Snacks|1 plate (250 g)|9|52|20|0|
-Chole samosa|ఛోలే సమోసా|Snacks|1 plate (250 g)|12|56|20|0|
-Kachori chaat|కచోరీ చాట్|Snacks|1 plate (220 g)|9|50|18|0|
-Raj kachori|రాజ్ కచోరీ|Snacks|1 piece (200 g)|9|50|18|0|
-Basket chaat|బాస్కెట్ చాట్|Snacks|1 plate (180 g)|6|40|14|0|
-Corn chaat|కార్న్ చాట్|Snacks|1 cup (150 g)|4|28|6|0|
-Fruit chaat|ఫ్రూట్ చాట్|Fruits|1 bowl (150 g)|1.5|28|0.5|0|
-Sprouts chaat|మొలకల చాట్|Snacks|1 bowl (150 g)|9|24|3|0|
-Chana chaat|శనగ చాట్|Snacks|1 bowl (150 g)|9|28|4|0|
-Boiled corn on the cob (masala)|మొక్కజొన్న కంకి|Snacks|1 cob (150 g)|4|28|4|0|bhutta
-Roasted corn on the cob|కాల్చిన మొక్కజొన్న|Snacks|1 cob (150 g)|4|28|2|0|
-Sweet corn cup (butter)|స్వీట్ కార్న్ కప్|Snacks|1 cup (150 g)|4|26|6|0|
-Samosa (potato)|సమోసా|Snacks|1 piece (80 g)|3|20|13|0|aloo samosa
-Samosa (2 pieces)|సమోసా|Snacks|2 pieces (160 g)|6|40|26|0|
-Mini samosa (4 pieces)|మినీ సమోసా|Snacks|4 pieces (80 g)|3|20|12|0|
-Samosa (baked)|బేక్డ్ సమోసా|Snacks|1 piece (80 g)|3|22|6|0|
-Samosa (keema)|కీమా సమోసా|Snacks|1 piece (90 g)|7|18|14|0|
-Cheese corn samosa|చీజ్ కార్న్ సమోసా|Snacks|1 piece (90 g)|5|22|14|0|
-Kachori (dal)|కచోరీ|Snacks|1 piece (80 g)|5|28|14|0|
-Kachori (khasta, moong dal)|ఖస్తా కచోరీ|Snacks|1 piece (70 g)|5|24|12|0|
-Pakora (onion, 5 pieces)|ఉల్లి పకోడీ|Snacks|5 pieces (80 g)|4|20|14|0|onion bhaji,ulli pakoda
-Pakora (mixed vegetable)|వెజిటబుల్ పకోడా|Snacks|5 pieces (80 g)|4|18|12|0|
-Pakora (paneer)|పనీర్ పకోడా|Snacks|4 pieces (100 g)|9|14|16|0|
-Pakora (palak)|పాలక్ పకోడా|Snacks|5 pieces (80 g)|4|16|12|0|
-Pakora (potato)|ఆలూ పకోడా|Snacks|5 pieces (100 g)|3|24|12|0|
-Pakoda (chicken)|చికెన్ పకోడా|Chicken|1 plate (120 g)|20|12|16|0|
-Bread pakora|బ్రెడ్ పకోడా|Snacks|1 piece (100 g)|5|28|14|0|
-Bajji (potato)|బంగాళాదుంప బజ్జీ|Snacks|4 pieces (100 g)|3|22|12|0|
-Bajji (brinjal)|వంకాయ బజ్జీ|Snacks|4 pieces (100 g)|3|18|12|0|
-Bajji (raw banana)|అరటికాయ బజ్జీ|Snacks|4 pieces (100 g)|3|24|12|0|
-Bajji (egg)|ఎగ్ బజ్జీ|Eggs|2 pieces (120 g)|10|12|16|0|
-Bonda (potato)|బంగాళాదుంప బోండా|Snacks|2 pieces (100 g)|4|28|12|0|aloo bonda,batata vada
-Bonda (egg)|ఎగ్ బోండా|Eggs|1 piece (110 g)|8|18|14|0|
-Vada (dal)|పప్పు వడ|Snacks|2 pieces (70 g)|8|20|12|0|
-Dal vada|పప్పు వడ|Snacks|2 pieces (70 g)|8|20|12|0|
-Cutlet (veg)|వెజ్ కట్‌లెట్|Snacks|2 pieces (100 g)|4|22|10|0|
-Cutlet (chicken)|చికెన్ కట్‌లెట్|Chicken|2 pieces (110 g)|14|16|12|0|
-Cutlet (fish)|ఫిష్ కట్‌లెట్|Fish & seafood|2 pieces (110 g)|12|16|12|0|
-Hara bhara kebab|హరా భరా కబాబ్|Snacks|4 pieces (120 g)|8|20|10|0|
-Veg seekh kebab|వెజ్ సీక్ కబాబ్|Snacks|3 pieces (120 g)|8|18|10|0|
-Dahi kebab|దహీ కబాబ్|Snacks|3 pieces (100 g)|9|14|10|0|
-Corn cheese balls|కార్న్ చీజ్ బాల్స్|Snacks|5 pieces (100 g)|6|20|14|0|
-Cheese balls|చీజ్ బాల్స్|Snacks|5 pieces (100 g)|8|18|16|0|
-Veg sandwich (grilled)|వెజ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|8|36|10|0|
-Veg sandwich (bombay masala)|బాంబే శాండ్‌విచ్|Snacks|1 sandwich (180 g)|8|40|14|0|
-Cheese sandwich (grilled)|చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|12|34|16|0|
-Paneer sandwich|పనీర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|14|36|16|0|
-Chicken sandwich|చికెన్ శాండ్‌విచ్|Snacks|1 sandwich (180 g)|20|36|12|0|
-Club sandwich|క్లబ్ శాండ్‌విచ్|Snacks|1 sandwich (250 g)|24|42|24|0|
-Peanut butter sandwich|పీనట్ బటర్ శాండ్‌విచ్|Snacks|1 sandwich (100 g)|11|30|14|0|
-Jam sandwich|జామ్ శాండ్‌విచ్|Snacks|1 sandwich (80 g)|4|32|1|0|
-Bread butter jam|బ్రెడ్ బటర్ జామ్|Snacks|2 slices|5|38|9|0|
-Egg sandwich (boiled)|ఎగ్ శాండ్‌విచ్|Eggs|1 sandwich (150 g)|13|28|12|0|
-Frankie or kathi roll (veg)|వెజ్ రోల్|Snacks|1 roll (180 g)|9|44|14|0|
-Chicken shawarma (roll)|చికెన్ షావర్మా|Snacks|1 roll (250 g)|26|46|22|0|
-Chicken shawarma (plate)|చికెన్ షావర్మా ప్లేట్|Snacks|1 plate (350 g)|32|55|28|0|
-Falafel wrap|ఫలాఫెల్ ర్యాప్|Snacks|1 wrap (250 g)|14|58|18|0|
-Falafel (4 pieces)|ఫలాఫెల్|Snacks|4 pieces (100 g)|7|24|12|0|
-Hummus with pita|హమ్మస్ పిటా|Snacks|1 plate (150 g)|10|36|14|0|
-Hummus (3 tbsp)|హమ్మస్|Snacks|3 tbsp (50 g)|3|8|6|0|
-Maggi noodles (masala, plain)|మ్యాగీ|Snacks|1 pack cooked (280 g)|8|56|14|0|instant noodles,maggi
-Maggi noodles (vegetable)|వెజ్ మ్యాగీ|Snacks|1 bowl (300 g)|9|58|15|0|
-Maggi noodles (egg)|ఎగ్ మ్యాగీ|Snacks|1 bowl (330 g)|15|58|18|0|
-Cup noodles|కప్ నూడిల్స్|Snacks|1 cup (70 g dry)|7|44|15|0|
-Pasta (white sauce)|వైట్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|14|62|22|0|
-Pasta (red sauce)|రెడ్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|12|64|10|0|
-Pasta (pink sauce)|పింక్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|13|62|18|0|
-Pasta (arrabiata)|అర్రబియాటా|Rice & mains|1 plate (300 g)|11|64|10|0|
-Pasta (pesto)|పెస్టో పాస్తా|Rice & mains|1 plate (280 g)|12|58|22|0|
-Pasta (aglio e olio)|పాస్తా|Rice & mains|1 plate (250 g)|10|60|18|0|
-Mac and cheese|మాక్ అండ్ చీజ్|Rice & mains|1 bowl (250 g)|16|44|22|0|
-Chicken alfredo pasta|చికెన్ అల్ఫ్రెడో|Rice & mains|1 plate (350 g)|30|62|32|0|
-Spaghetti bolognese|స్పగెట్టి బొలోగ్నీస్|Rice & mains|1 plate (350 g)|26|66|16|0|
-Lasagna (meat)|లాసాన్యా|Rice & mains|1 slice (250 g)|22|32|20|0|
-Lasagna (veg)|వెజ్ లాసాన్యా|Rice & mains|1 slice (250 g)|14|34|16|0|
+Pani puri (6 pieces)|పానీ పూరీ|Snacks|6 pieces (120 g)|4|36|9|0|1|golgappa,puchka
+Pani puri (plate, 10)|పానీ పూరీ|Snacks|10 pieces (200 g)|6|60|15|0|2|
+Sev puri|సేవ్ పూరీ|Snacks|1 plate (120 g)|5|34|14|0|1|
+Dahi puri|దహీ పూరీ|Snacks|1 plate (140 g)|6|34|12|0|1|
+Bhel puri|భేల్ పూరీ|Snacks|1 plate (120 g)|5|38|9|0|1|
+Sukha bhel|సూఖా భేల్|Snacks|1 plate (100 g)|4|34|8|0|2|
+Masala puri|మసాలా పూరీ|Snacks|1 plate (200 g)|8|44|12|0|1.5|
+Ragda pattice|రాగ్డా పాటీస్|Snacks|1 plate (250 g)|12|56|14|0|3.5|
+Aloo tikki chaat|ఆలూ టిక్కీ చాట్|Snacks|1 plate (200 g)|6|44|16|0|2.5|
+Aloo tikki (2 pieces)|ఆలూ టిక్కీ|Snacks|2 pieces (120 g)|4|28|12|0|1.5|
+Papdi chaat|పాపడీ చాట్|Snacks|1 plate (180 g)|7|40|14|0|2.5|
+Dahi bhalla|దహీ భల్లా|Snacks|1 plate (200 g)|10|34|10|0|2|dahi vada
+Dahi vada (2 pieces)|దహీ వడ|Snacks|2 pieces (200 g)|10|32|10|0|2|
+Samosa chaat|సమోసా చాట్|Snacks|1 plate (250 g)|9|52|20|0|1.5|
+Chole samosa|ఛోలే సమోసా|Snacks|1 plate (250 g)|12|56|20|0|14|
+Kachori chaat|కచోరీ చాట్|Snacks|1 plate (220 g)|9|50|18|0|1.5|
+Raj kachori|రాజ్ కచోరీ|Snacks|1 piece (200 g)|9|50|18|0|1.5|
+Basket chaat|బాస్కెట్ చాట్|Snacks|1 plate (180 g)|6|40|14|0|2.5|
+Corn chaat|కార్న్ చాట్|Snacks|1 cup (150 g)|4|28|6|0|1.5|
+Fruit chaat|ఫ్రూట్ చాట్|Fruits|1 bowl (150 g)|1.5|28|0.5|0|3|
+Sprouts chaat|మొలకల చాట్|Snacks|1 bowl (150 g)|9|24|3|0|7|
+Chana chaat|శనగ చాట్|Snacks|1 bowl (150 g)|9|28|4|0|8.5|
+Boiled corn on the cob (masala)|మొక్కజొన్న కంకి|Snacks|1 cob (150 g)|4|28|4|0|1.5|bhutta
+Roasted corn on the cob|కాల్చిన మొక్కజొన్న|Snacks|1 cob (150 g)|4|28|2|0|1.5|
+Sweet corn cup (butter)|స్వీట్ కార్న్ కప్|Snacks|1 cup (150 g)|4|26|6|0|1|
+Samosa (potato)|సమోసా|Snacks|1 piece (80 g)|3|20|13|0|0.5|aloo samosa
+Samosa (2 pieces)|సమోసా|Snacks|2 pieces (160 g)|6|40|26|0|1|
+Mini samosa (4 pieces)|మినీ సమోసా|Snacks|4 pieces (80 g)|3|20|12|0|0.5|
+Samosa (baked)|బేక్డ్ సమోసా|Snacks|1 piece (80 g)|3|22|6|0|0.5|
+Samosa (keema)|కీమా సమోసా|Snacks|1 piece (90 g)|7|18|14|0|0.5|
+Cheese corn samosa|చీజ్ కార్న్ సమోసా|Snacks|1 piece (90 g)|5|22|14|0|0.5|
+Kachori (dal)|కచోరీ|Snacks|1 piece (80 g)|5|28|14|0|8.5|
+Kachori (khasta, moong dal)|ఖస్తా కచోరీ|Snacks|1 piece (70 g)|5|24|12|0|7|
+Pakora (onion, 5 pieces)|ఉల్లి పకోడీ|Snacks|5 pieces (80 g)|4|20|14|0|4.5|onion bhaji,ulli pakoda
+Pakora (mixed vegetable)|వెజిటబుల్ పకోడా|Snacks|5 pieces (80 g)|4|18|12|0|4|
+Pakora (paneer)|పనీర్ పకోడా|Snacks|4 pieces (100 g)|9|14|16|0|1|
+Pakora (palak)|పాలక్ పకోడా|Snacks|5 pieces (80 g)|4|16|12|0|3.5|
+Pakora (potato)|ఆలూ పకోడా|Snacks|5 pieces (100 g)|3|24|12|0|1.5|
+Pakoda (chicken)|చికెన్ పకోడా|Chicken|1 plate (120 g)|20|12|16|0|0|
+Bread pakora|బ్రెడ్ పకోడా|Snacks|1 piece (100 g)|5|28|14|0|1|
+Bajji (potato)|బంగాళాదుంప బజ్జీ|Snacks|4 pieces (100 g)|3|22|12|0|1.5|
+Bajji (brinjal)|వంకాయ బజ్జీ|Snacks|4 pieces (100 g)|3|18|12|0|4|
+Bajji (raw banana)|అరటికాయ బజ్జీ|Snacks|4 pieces (100 g)|3|24|12|0|5.5|
+Bajji (egg)|ఎగ్ బజ్జీ|Eggs|2 pieces (120 g)|10|12|16|0|0|
+Bonda (potato)|బంగాళాదుంప బోండా|Snacks|2 pieces (100 g)|4|28|12|0|1.5|aloo bonda,batata vada
+Bonda (egg)|ఎగ్ బోండా|Eggs|1 piece (110 g)|8|18|14|0|0.5|
+Vada (dal)|పప్పు వడ|Snacks|2 pieces (70 g)|8|20|12|0|6|
+Dal vada|పప్పు వడ|Snacks|2 pieces (70 g)|8|20|12|0|6|
+Cutlet (veg)|వెజ్ కట్‌లెట్|Snacks|2 pieces (100 g)|4|22|10|0|5|
+Cutlet (chicken)|చికెన్ కట్‌లెట్|Chicken|2 pieces (110 g)|14|16|12|0|0.5|
+Cutlet (fish)|ఫిష్ కట్‌లెట్|Fish & seafood|2 pieces (110 g)|12|16|12|0|0.5|
+Hara bhara kebab|హరా భరా కబాబ్|Snacks|4 pieces (120 g)|8|20|10|0|1|
+Veg seekh kebab|వెజ్ సీక్ కబాబ్|Snacks|3 pieces (120 g)|8|18|10|0|4|
+Dahi kebab|దహీ కబాబ్|Snacks|3 pieces (100 g)|9|14|10|0|1|
+Corn cheese balls|కార్న్ చీజ్ బాల్స్|Snacks|5 pieces (100 g)|6|20|14|0|1|
+Cheese balls|చీజ్ బాల్స్|Snacks|5 pieces (100 g)|8|18|16|0|1|
+Veg sandwich (grilled)|వెజ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|8|36|10|0|8|
+Veg sandwich (bombay masala)|బాంబే శాండ్‌విచ్|Snacks|1 sandwich (180 g)|8|40|14|0|9|
+Cheese sandwich (grilled)|చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|12|34|16|0|1|
+Paneer sandwich|పనీర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|14|36|16|0|1|
+Chicken sandwich|చికెన్ శాండ్‌విచ్|Snacks|1 sandwich (180 g)|20|36|12|0|1|
+Club sandwich|క్లబ్ శాండ్‌విచ్|Snacks|1 sandwich (250 g)|24|42|24|0|1.5|
+Peanut butter sandwich|పీనట్ బటర్ శాండ్‌విచ్|Snacks|1 sandwich (100 g)|11|30|14|0|13.5|
+Jam sandwich|జామ్ శాండ్‌విచ్|Snacks|1 sandwich (80 g)|4|32|1|0|1|
+Bread butter jam|బ్రెడ్ బటర్ జామ్|Snacks|2 slices|5|38|9|0|1|
+Egg sandwich (boiled)|ఎగ్ శాండ్‌విచ్|Eggs|1 sandwich (150 g)|13|28|12|0|1|
+Frankie or kathi roll (veg)|వెజ్ రోల్|Snacks|1 roll (180 g)|9|44|14|0|9.5|
+Chicken shawarma (roll)|చికెన్ షావర్మా|Snacks|1 roll (250 g)|26|46|22|0|3|
+Chicken shawarma (plate)|చికెన్ షావర్మా ప్లేట్|Snacks|1 plate (350 g)|32|55|28|0|3.5|
+Falafel wrap|ఫలాఫెల్ ర్యాప్|Snacks|1 wrap (250 g)|14|58|18|0|3.5|
+Falafel (4 pieces)|ఫలాఫెల్|Snacks|4 pieces (100 g)|7|24|12|0|1.5|
+Hummus with pita|హమ్మస్ పిటా|Snacks|1 plate (150 g)|10|36|14|0|2|
+Hummus (3 tbsp)|హమ్మస్|Snacks|3 tbsp (50 g)|3|8|6|0|0.5|
+Maggi noodles (masala, plain)|మ్యాగీ|Snacks|1 pack cooked (280 g)|8|56|14|0|1.5|instant noodles,maggi
+Maggi noodles (vegetable)|వెజ్ మ్యాగీ|Snacks|1 bowl (300 g)|9|58|15|0|13|
+Maggi noodles (egg)|ఎగ్ మ్యాగీ|Snacks|1 bowl (330 g)|15|58|18|0|1.5|
+Cup noodles|కప్ నూడిల్స్|Snacks|1 cup (70 g dry)|7|44|15|0|1.5|
+Pasta (white sauce)|వైట్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|14|62|22|0|2|
+Pasta (red sauce)|రెడ్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|12|64|10|0|2|
+Pasta (pink sauce)|పింక్ సాస్ పాస్తా|Rice & mains|1 plate (300 g)|13|62|18|0|2|
+Pasta (arrabiata)|అర్రబియాటా|Rice & mains|1 plate (300 g)|11|64|10|0|2|
+Pasta (pesto)|పెస్టో పాస్తా|Rice & mains|1 plate (280 g)|12|58|22|0|1.5|
+Pasta (aglio e olio)|పాస్తా|Rice & mains|1 plate (250 g)|10|60|18|0|2|
+Mac and cheese|మాక్ అండ్ చీజ్|Rice & mains|1 bowl (250 g)|16|44|22|0|2.5|
+Chicken alfredo pasta|చికెన్ అల్ఫ్రెడో|Rice & mains|1 plate (350 g)|30|62|32|0|2|
+Spaghetti bolognese|స్పగెట్టి బొలోగ్నీస్|Rice & mains|1 plate (350 g)|26|66|16|0|4|
+Lasagna (meat)|లాసాన్యా|Rice & mains|1 slice (250 g)|22|32|20|0|2|
+Lasagna (veg)|వెజ్ లాసాన్యా|Rice & mains|1 slice (250 g)|14|34|16|0|7.5|
 # Dry snacks and namkeen
-Aloo bhujia|ఆలూ భుజియా|Snacks|1 handful (30 g)|3|14|13|0|
-Sev (plain)|సేవ్|Snacks|1 handful (30 g)|4|14|12|0|
-Bhujia sev|భుజియా సేవ్|Snacks|1 handful (30 g)|4|14|12|0|
-Mixture (Bombay mix)|మిక్చర్|Snacks|1 handful (30 g)|4|14|12|0|
-Boondi (salted)|బూందీ|Snacks|1 handful (30 g)|4|14|11|0|
-Chivda (poha)|చివ్డా|Snacks|1 bowl (40 g)|3|24|8|0|poha mixture
-Chana jor garam|చనా జోర్ గరమ్|Snacks|1 handful (30 g)|6|18|3|0|
-Roasted chana|వేయించిన శనగలు|Snacks|1 handful (30 g)|6|18|2|0|
-Roasted peanuts (salted)|వేయించిన వేరుశనగ|Snacks|1 handful (30 g)|8|5|15|0|
-Masala peanuts|మసాలా పల్లీలు|Snacks|1 handful (30 g)|6|10|14|0|
-Boiled peanuts|ఉడికించిన వేరుశనగ|Snacks|1 bowl (100 g)|9|10|12|0|
-Peanut chikki|పల్లీ చిక్కీ|Sweets|1 piece (30 g)|4|16|7|0|
-Sesame chikki|నువ్వుల చిక్కీ|Sweets|1 piece (30 g)|3|16|8|0|
-Dry fruit chikki|డ్రై ఫ్రూట్ చిక్కీ|Sweets|1 piece (30 g)|3|16|8|0|
-Makhana (roasted, plain)|మఖానా|Snacks|1 cup (30 g)|3|22|0.3|0|fox nut,lotus seeds
-Makhana (ghee roasted, salted)|మఖానా|Snacks|1 cup (30 g)|3|20|5|0|
-Puffed rice (murmura)|మరమరాలు|Snacks|1 cup (20 g)|1.5|17|0.2|0|murmura,borugulu
-Puffed rice mixture|మరమరాల మిక్చర్|Snacks|1 bowl (40 g)|3|22|6|0|
-Popcorn (plain, air popped)|పాప్‌కార్న్|Snacks|3 cups (24 g)|3|18|1|0|
-Popcorn (butter, cinema)|బటర్ పాప్‌కార్న్|Snacks|1 medium tub (60 g)|4|34|18|0|
-Popcorn (caramel)|కారామెల్ పాప్‌కార్న్|Snacks|1 cup (35 g)|2|28|6|0|
-Potato chips (plain)|ఆలూ చిప్స్|Snacks|1 small pack (28 g)|2|15|10|0|lays
-Potato chips (large pack)|ఆలూ చిప్స్|Snacks|1 pack (52 g)|3|28|18|0|
-Potato chips (baked)|బేక్డ్ చిప్స్|Snacks|1 pack (28 g)|2|22|4|0|
-Kurkure|కుర్కురే|Snacks|1 small pack (30 g)|2|18|10|0|
-Cheese puffs|చీజ్ పఫ్స్|Snacks|1 handful (30 g)|2|18|9|0|
-Nachos with salsa|నాచోస్ సల్సా|Snacks|1 plate (100 g)|4|36|14|0|
-Nachos with cheese|నాచోస్ చీజ్|Snacks|1 plate (150 g)|10|40|24|0|
-Tortilla chips|టోర్టిల్లా చిప్స్|Snacks|1 handful (30 g)|2|19|7|0|
-Banana chips|అరటి చిప్స్|Snacks|1 handful (30 g)|1|17|10|0|
-Tapioca chips|సగ్గుబియ్యం చిప్స్|Snacks|1 handful (30 g)|0.5|24|7|0|
-Sweet potato chips|చిలగడదుంప చిప్స్|Snacks|1 handful (30 g)|1|18|8|0|
-Papad (roasted)|అప్పడం|Snacks|1 piece (10 g)|2.5|5|0.4|0|appalam
-Papad (fried)|వేయించిన అప్పడం|Snacks|1 piece (12 g)|2.5|5|4|0|
-Masala papad|మసాలా పాపడ్|Snacks|1 piece (50 g)|3|9|5|0|
-Rice flour murukku|బియ్యం మురుకులు|Snacks|3 pieces (30 g)|2|18|8|0|
-Nippattu|నిప్పట్టు|Snacks|3 pieces (30 g)|2|16|9|0|
-Mathri|మఠ్రీ|Snacks|3 pieces (30 g)|2|16|9|0|
-Namak para|నమక్ పారే|Snacks|1 handful (30 g)|2|17|9|0|
-Shakarpara|శక్కర్ పారే|Snacks|1 handful (30 g)|1.5|20|8|0|
-Banana (jaggery) halwa|అరటి హల్వా|Sweets|1 bowl (100 g)|2|40|8|0|
-Energy bar (fruit and nut)|ఎనర్జీ బార్|Snacks|1 bar (40 g)|4|24|7|0|
-Protein bar|ప్రోటీన్ బార్|Snacks|1 bar (60 g)|20|22|8|0|
-Granola bar|గ్రానోలా బార్|Snacks|1 bar (35 g)|3|24|6|0|
-Chocolate bar (dairy milk, small)|చాక్లెట్|Snacks|1 bar (25 g)|2|14|8|0|cadbury
-Chocolate bar (dairy milk, large)|చాక్లెట్|Snacks|1 bar (50 g)|4|28|16|0|
-Dark chocolate (70%)|డార్క్ చాక్లెట్|Snacks|3 squares (30 g)|2|13|13|0|
-White chocolate|వైట్ చాక్లెట్|Snacks|3 squares (30 g)|2|17|9|0|
-Chocolate wafer bar (KitKat type)|కిట్ క్యాట్|Snacks|1 bar (4 fingers, 42 g)|3|26|11|0|
-Peanut chocolate bar (Snickers type)|స్నికర్స్|Snacks|1 bar (50 g)|4|31|12|0|
-Cream biscuits (sandwich)|క్రీమ్ బిస్కెట్|Snacks|3 biscuits (30 g)|1.5|20|6|0|oreo
-Glucose biscuits (Parle-G)|గ్లూకోజ్ బిస్కెట్|Snacks|5 biscuits (25 g)|2|19|3|0|parle g
-Marie biscuits|మేరీ బిస్కెట్|Snacks|4 biscuits (25 g)|2|19|3|0|
-Digestive biscuits|డైజెస్టివ్ బిస్కెట్|Snacks|2 biscuits (30 g)|2|20|6|0|
-Good Day butter cookies|బటర్ కుకీస్|Snacks|3 cookies (30 g)|2|20|8|0|
-Chocolate chip cookie|చాక్లెట్ చిప్ కుకీ|Snacks|1 cookie (30 g)|2|19|8|0|
-Rusk|రస్క్|Snacks|3 pieces (30 g)|3|22|2|0|
-Cake rusk|కేక్ రస్క్|Snacks|3 pieces (30 g)|3|21|3|0|
-Cake slice (plain)|కేక్|Sweets|1 slice (70 g)|4|34|12|0|
-Cake slice (chocolate)|చాక్లెట్ కేక్|Sweets|1 slice (90 g)|5|46|16|0|
-Cupcake (frosted)|కప్‌కేక్|Sweets|1 piece (70 g)|3|38|12|0|
-Pastry (cream)|పేస్ట్రీ|Sweets|1 piece (80 g)|4|38|16|0|
-Brownie|బ్రౌనీ|Sweets|1 piece (60 g)|4|32|16|0|
-Muffin (chocolate chip)|మఫిన్|Sweets|1 piece (100 g)|5|50|16|0|
-Doughnut (glazed)|డోనట్|Sweets|1 piece (60 g)|3|30|12|0|
-Cheesecake slice|చీజ్‌కేక్|Sweets|1 slice (110 g)|7|32|26|0|
-Puff pastry (veg puff)|వెజ్ పఫ్|Snacks|1 piece (80 g)|4|24|14|0|
-Egg puff|ఎగ్ పఫ్|Snacks|1 piece (100 g)|8|24|16|0|
-Chicken puff|చికెన్ పఫ్|Snacks|1 piece (100 g)|9|24|16|0|
-Paneer puff|పనీర్ పఫ్|Snacks|1 piece (100 g)|8|24|16|0|
-Veg roll (bakery)|వెజ్ రోల్|Snacks|1 piece (100 g)|4|28|12|0|
-Pizza slice (cheese, thin)|పిజ్జా స్లైస్|Snacks|1 slice (100 g)|10|28|10|0|
+Aloo bhujia|ఆలూ భుజియా|Snacks|1 handful (30 g)|3|14|13|0|1|
+Sev (plain)|సేవ్|Snacks|1 handful (30 g)|4|14|12|0|1|
+Bhujia sev|భుజియా సేవ్|Snacks|1 handful (30 g)|4|14|12|0|1|
+Mixture (Bombay mix)|మిక్చర్|Snacks|1 handful (30 g)|4|14|12|0|1|
+Boondi (salted)|బూందీ|Snacks|1 handful (30 g)|4|14|11|0|1|
+Chivda (poha)|చివ్డా|Snacks|1 bowl (40 g)|3|24|8|0|3|poha mixture
+Chana jor garam|చనా జోర్ గరమ్|Snacks|1 handful (30 g)|6|18|3|0|5.5|
+Roasted chana|వేయించిన శనగలు|Snacks|1 handful (30 g)|6|18|2|0|5.5|
+Roasted peanuts (salted)|వేయించిన వేరుశనగ|Snacks|1 handful (30 g)|8|5|15|0|2|
+Masala peanuts|మసాలా పల్లీలు|Snacks|1 handful (30 g)|6|10|14|0|4.5|
+Boiled peanuts|ఉడికించిన వేరుశనగ|Snacks|1 bowl (100 g)|9|10|12|0|4.5|
+Peanut chikki|పల్లీ చిక్కీ|Sweets|1 piece (30 g)|4|16|7|0|7|
+Sesame chikki|నువ్వుల చిక్కీ|Sweets|1 piece (30 g)|3|16|8|0|7|
+Dry fruit chikki|డ్రై ఫ్రూట్ చిక్కీ|Sweets|1 piece (30 g)|3|16|8|0|7|
+Makhana (roasted, plain)|మఖానా|Snacks|1 cup (30 g)|3|22|0.3|0|1.5|fox nut,lotus seeds
+Makhana (ghee roasted, salted)|మఖానా|Snacks|1 cup (30 g)|3|20|5|0|1|
+Puffed rice (murmura)|మరమరాలు|Snacks|1 cup (20 g)|1.5|17|0.2|0|0.5|murmura,borugulu
+Puffed rice mixture|మరమరాల మిక్చర్|Snacks|1 bowl (40 g)|3|22|6|0|0.5|
+Popcorn (plain, air popped)|పాప్‌కార్న్|Snacks|3 cups (24 g)|3|18|1|0|1|
+Popcorn (butter, cinema)|బటర్ పాప్‌కార్న్|Snacks|1 medium tub (60 g)|4|34|18|0|2|
+Popcorn (caramel)|కారామెల్ పాప్‌కార్న్|Snacks|1 cup (35 g)|2|28|6|0|1.5|
+Potato chips (plain)|ఆలూ చిప్స్|Snacks|1 small pack (28 g)|2|15|10|0|0.5|lays
+Potato chips (large pack)|ఆలూ చిప్స్|Snacks|1 pack (52 g)|3|28|18|0|1|
+Potato chips (baked)|బేక్డ్ చిప్స్|Snacks|1 pack (28 g)|2|22|4|0|0.5|
+Kurkure|కుర్కురే|Snacks|1 small pack (30 g)|2|18|10|0|1|
+Cheese puffs|చీజ్ పఫ్స్|Snacks|1 handful (30 g)|2|18|9|0|1|
+Nachos with salsa|నాచోస్ సల్సా|Snacks|1 plate (100 g)|4|36|14|0|2|
+Nachos with cheese|నాచోస్ చీజ్|Snacks|1 plate (150 g)|10|40|24|0|2.5|
+Tortilla chips|టోర్టిల్లా చిప్స్|Snacks|1 handful (30 g)|2|19|7|0|0.5|
+Banana chips|అరటి చిప్స్|Snacks|1 handful (30 g)|1|17|10|0|1.5|
+Tapioca chips|సగ్గుబియ్యం చిప్స్|Snacks|1 handful (30 g)|0.5|24|7|0|0.5|
+Sweet potato chips|చిలగడదుంప చిప్స్|Snacks|1 handful (30 g)|1|18|8|0|0.5|
+Papad (roasted)|అప్పడం|Snacks|1 piece (10 g)|2.5|5|0.4|0|0.5|appalam
+Papad (fried)|వేయించిన అప్పడం|Snacks|1 piece (12 g)|2.5|5|4|0|0.5|
+Masala papad|మసాలా పాపడ్|Snacks|1 piece (50 g)|3|9|5|0|0.5|
+Rice flour murukku|బియ్యం మురుకులు|Snacks|3 pieces (30 g)|2|18|8|0|0.5|
+Nippattu|నిప్పట్టు|Snacks|3 pieces (30 g)|2|16|9|0|1|
+Mathri|మఠ్రీ|Snacks|3 pieces (30 g)|2|16|9|0|1|
+Namak para|నమక్ పారే|Snacks|1 handful (30 g)|2|17|9|0|1|
+Shakarpara|శక్కర్ పారే|Snacks|1 handful (30 g)|1.5|20|8|0|1|
+Banana (jaggery) halwa|అరటి హల్వా|Sweets|1 bowl (100 g)|2|40|8|0|4|
+Energy bar (fruit and nut)|ఎనర్జీ బార్|Snacks|1 bar (40 g)|4|24|7|0|2.5|
+Protein bar|ప్రోటీన్ బార్|Snacks|1 bar (60 g)|20|22|8|0|1.5|
+Granola bar|గ్రానోలా బార్|Snacks|1 bar (35 g)|3|24|6|0|3|
+Chocolate bar (dairy milk, small)|చాక్లెట్|Snacks|1 bar (25 g)|2|14|8|0|1|cadbury
+Chocolate bar (dairy milk, large)|చాక్లెట్|Snacks|1 bar (50 g)|4|28|16|0|1.5|
+Dark chocolate (70%)|డార్క్ చాక్లెట్|Snacks|3 squares (30 g)|2|13|13|0|1|
+White chocolate|వైట్ చాక్లెట్|Snacks|3 squares (30 g)|2|17|9|0|1|
+Chocolate wafer bar (KitKat type)|కిట్ క్యాట్|Snacks|1 bar (4 fingers, 42 g)|3|26|11|0|1.5|
+Peanut chocolate bar (Snickers type)|స్నికర్స్|Snacks|1 bar (50 g)|4|31|12|0|14|
+Cream biscuits (sandwich)|క్రీమ్ బిస్కెట్|Snacks|3 biscuits (30 g)|1.5|20|6|0|0.5|oreo
+Glucose biscuits (Parle-G)|గ్లూకోజ్ బిస్కెట్|Snacks|5 biscuits (25 g)|2|19|3|0|0.5|parle g
+Marie biscuits|మేరీ బిస్కెట్|Snacks|4 biscuits (25 g)|2|19|3|0|0.5|
+Digestive biscuits|డైజెస్టివ్ బిస్కెట్|Snacks|2 biscuits (30 g)|2|20|6|0|0.5|
+Good Day butter cookies|బటర్ కుకీస్|Snacks|3 cookies (30 g)|2|20|8|0|0.5|
+Chocolate chip cookie|చాక్లెట్ చిప్ కుకీ|Snacks|1 cookie (30 g)|2|19|8|0|0.5|
+Rusk|రస్క్|Snacks|3 pieces (30 g)|3|22|2|0|1.5|
+Cake rusk|కేక్ రస్క్|Snacks|3 pieces (30 g)|3|21|3|0|0.5|
+Cake slice (plain)|కేక్|Sweets|1 slice (70 g)|4|34|12|0|1|
+Cake slice (chocolate)|చాక్లెట్ కేక్|Sweets|1 slice (90 g)|5|46|16|0|1.5|
+Cupcake (frosted)|కప్‌కేక్|Sweets|1 piece (70 g)|3|38|12|0|1|
+Pastry (cream)|పేస్ట్రీ|Sweets|1 piece (80 g)|4|38|16|0|1|
+Brownie|బ్రౌనీ|Sweets|1 piece (60 g)|4|32|16|0|1|
+Muffin (chocolate chip)|మఫిన్|Sweets|1 piece (100 g)|5|50|16|0|1.5|
+Doughnut (glazed)|డోనట్|Sweets|1 piece (60 g)|3|30|12|0|1|
+Cheesecake slice|చీజ్‌కేక్|Sweets|1 slice (110 g)|7|32|26|0|1|
+Puff pastry (veg puff)|వెజ్ పఫ్|Snacks|1 piece (80 g)|4|24|14|0|5.5|
+Egg puff|ఎగ్ పఫ్|Snacks|1 piece (100 g)|8|24|16|0|1.5|
+Chicken puff|చికెన్ పఫ్|Snacks|1 piece (100 g)|9|24|16|0|1.5|
+Paneer puff|పనీర్ పఫ్|Snacks|1 piece (100 g)|8|24|16|0|1.5|
+Veg roll (bakery)|వెజ్ రోల్|Snacks|1 piece (100 g)|4|28|12|0|6|
+Pizza slice (cheese, thin)|పిజ్జా స్లైస్|Snacks|1 slice (100 g)|10|28|10|0|1|

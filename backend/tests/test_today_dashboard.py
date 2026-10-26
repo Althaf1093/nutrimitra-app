@@ -70,3 +70,17 @@ def test_version_endpoint_returns_the_git_commit(stack):
     commit = response.json()["commit"]
     expected = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=Path(__file__).parent, capture_output=True, text=True).stdout.strip()
     assert commit == expected and len(commit) >= 7
+
+
+def test_fibre_flows_from_the_catalogue_to_the_dashboard_and_can_be_edited(stack):
+    _, url = stack
+    token = person(url, None)
+    found = requests.get(f"{url}/api/foods/search", params={"q": "rajma masala"}, headers=auth(token), timeout=20).json()
+    food = next(item for item in found["results"] if item["name"] == "Rajma masala") if isinstance(found, dict) else next(item for item in found if item["name"] == "Rajma masala")
+    assert food["fibre_g"] >= 8
+    body = {"meal_type": "lunch", "name": food["name"], "calories": food["calories"], "protein_g": food["protein_g"], "carbs_g": food["carbs_g"], "fat_g": food["fat_g"], "fibre_g": food["fibre_g"]}
+    saved = requests.post(f"{url}/api/meals", json=body, headers=auth(token), timeout=20).json()
+    assert dashboard(url, token)["fibre_g"] == round(food["fibre_g"])
+    edited = requests.patch(f"{url}/api/meals/{saved['id']}", json={"fibre_g": 3}, headers=auth(token), timeout=20)
+    assert edited.status_code == 200
+    assert dashboard(url, token)["fibre_g"] == 3

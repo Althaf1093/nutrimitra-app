@@ -41,6 +41,7 @@ export type Meal = {
   protein_g: number;
   carbs_g: number;
   fat_g: number;
+  fibre_g?: number | null;
   logged?: boolean;
 };
 
@@ -72,6 +73,7 @@ export type LoggedMeal = {
   protein_g: number;
   carbs_g: number;
   fat_g: number;
+  fibre_g?: number | null;
   source: string;
   date: string;
   portion?: string;
@@ -125,6 +127,7 @@ export type VisionResult = {
   protein_g: number;
   carbs_g: number;
   fat_g: number;
+  fibre_g?: number | null;
   confidence: "low" | "medium" | "high";
   alternatives: string[];
   meal_type: string;
@@ -152,6 +155,7 @@ export type FoodItem = {
   protein_g: number;
   carbs_g: number;
   fat_g: number;
+  fibre_g?: number;
   servings: ServingOption[];
   estimate: boolean;
   recent: boolean;
