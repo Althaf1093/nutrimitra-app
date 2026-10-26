@@ -34,7 +34,7 @@ test("food: type egg, one-tap add, the toast leaves by itself, the meal is on To
   const box = (await toast.boundingBox())!;
   const viewport = app.page.viewportSize()!;
   expect(box.width).toBeLessThan(viewport.width - 24);
-  const [red, green, blue] = (await toast.getByRole("button").first().evaluate((el) => getComputedStyle(el).backgroundColor)).match(/\d+/g)!.map(Number);
+  const [red, green, blue] = (await toast.locator(":scope > div").first().evaluate((el) => getComputedStyle(el).backgroundColor)).match(/\d+/g)!.map(Number);
   expect((red + green + blue) / 3).toBeGreaterThan(200);
   await expect(toast).toHaveCount(0, { timeout: 8_000 });
   const shown = Date.now() - started;
