@@ -15,7 +15,7 @@ const useCard = makeStyles((colors) => ({
   label: { color: colors.onHero, opacity: 0.8, fontSize: 12, fontWeight: "600" },
   value: { color: colors.onHero, fontSize: 20, fontWeight: "800", fontVariant: ["tabular-nums"] },
   valueSub: { color: colors.onHero, opacity: 0.8, fontSize: 13, fontWeight: "600" },
-  macros: { flexDirection: "row", gap: 14 },
+  macros: { flexDirection: "row", gap: 12 },
   note: { color: colors.onHero, opacity: 0.8, fontSize: 12, lineHeight: 17 },
 }));
 
@@ -66,6 +66,7 @@ export function TodayProgressCard({ dashboard, t }: { dashboard: Dashboard | nul
         <MacroBar onHero label={t.macroProteinName} value={dashboard?.protein_g || 0} target={dashboard?.target_protein_g || 0} color="#8FD3C0" testID="macro-protein" />
         <MacroBar onHero label={t.macroCarbsName} value={dashboard?.carbs_g || 0} target={dashboard?.target_carbs_g || 0} color="#F2C867" testID="macro-carbs" />
         <MacroBar onHero label={t.macroFatName} value={dashboard?.fat_g || 0} target={dashboard?.target_fat_g || 0} color="#F2A08F" testID="macro-fat" />
+        <MacroBar onHero label={t.macroFibreName} value={dashboard?.fibre_g || 0} target={dashboard?.target_fibre_g || 0} color="#BDB1EA" noData={!dashboard?.fibre_tracked} testID="macro-fibre" />
       </View>
       <Text style={styles.note}>{t.todayProgressSub}</Text>
     </View>

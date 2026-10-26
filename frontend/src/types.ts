@@ -102,6 +102,9 @@ export type Dashboard = {
   target_protein_g: number;
   target_carbs_g: number;
   target_fat_g: number;
+  target_fibre_g: number;
+  fibre_g: number;
+  fibre_tracked: boolean;
   water_ml: number;
   target_water_ml: number;
 };

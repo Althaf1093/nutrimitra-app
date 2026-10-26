@@ -118,6 +118,36 @@ const useToday = makeStyles((colors) => ({
     fontVariant: ["tabular-nums"],
   },
   moveUnit: { color: colors.muted, fontSize: 13, fontWeight: "600" },
+  verify: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.brandSoft,
+    borderRadius: radius.pill,
+    paddingLeft: 16,
+    paddingRight: 8,
+    minHeight: 44,
+  },
+  verifyMain: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    minHeight: 44,
+  },
+  verifyText: {
+    flex: 1,
+    color: colors.brandPrimary,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  verifyClose: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   movePills: { flexDirection: "row", gap: 8 },
   movePill: {
     flex: 1,
@@ -184,6 +214,7 @@ export default function TodayScreen() {
   const [swapping, setSwapping] = useState(false);
   const [checkin, setCheckin] = useState<CheckinResult | null>(null);
   const [checkingIn, setCheckingIn] = useState(false);
+  const [verifyHidden, setVerifyHidden] = useState(false);
 
   const couldNotLoad = t.couldNotLoad;
   const load = useCallback(async () => {
@@ -454,23 +485,6 @@ export default function TodayScreen() {
     : `${t.hello}, ${hello}`;
 
   const progress = <TodayProgressCard dashboard={dashboard} t={t} />;
-  const eatNow = (
-    <Pressable
-      testID="eat-now-button"
-      accessibilityRole="button"
-      onPress={() => router.push("/eat-now")}
-      style={({ pressed }) => [styles.eatBanner, pressed && styles.pressed]}
-    >
-      <View style={styles.bannerIcon}>
-        <AppIcon name="sparkles" color={colors.onBrandPrimary} size={23} />
-      </View>
-      <View style={styles.flex}>
-        <Text style={styles.bannerTitle}>{t.eatNow}</Text>
-        <Text style={styles.bannerSub}>{t.eatSub}</Text>
-      </View>
-      <AppIcon name="chevron.right" color={colors.onSurface} size={18} />
-    </Pressable>
-  );
   const mealsBlock = (
     <>
       <View style={styles.sectionHeader}>
@@ -607,6 +621,7 @@ export default function TodayScreen() {
     <CoachCard
       dashboard={dashboard}
       t={t}
+      onEatNow={() => router.push("/eat-now")}
       onOpen={(prompt) =>
         router.push({
           pathname: "/(tabs)/coach",
@@ -790,33 +805,41 @@ export default function TodayScreen() {
               <Text style={styles.reasonText}>{error}</Text>
             </View>
           ) : null}
-          {user && user.email_verified === false ? (
-            <Pressable
-              testID="verify-banner"
-              accessibilityRole="button"
-              onPress={() => router.push("/verify-email")}
-              style={({ pressed }) => [
-                styles.eatBanner,
-                { marginBottom: 12 },
-                pressed && styles.pressed,
-              ]}
-            >
-              <View style={styles.flex}>
-                <Text style={styles.bannerTitle}>{t.verifyBannerTitle}</Text>
-                <Text style={styles.bannerSub}>{t.verifyBannerSub}</Text>
-              </View>
-              <AppIcon
-                name="chevron.right"
-                color={colors.onSurface}
-                size={18}
-              />
-            </Pressable>
+          {user && user.email_verified === false && !verifyHidden ? (
+            <View style={w.verify} testID="verify-banner">
+              <Pressable
+                testID="verify-banner-open"
+                accessibilityRole="button"
+                accessibilityLabel={t.verifyBannerTitle}
+                onPress={() => router.push("/verify-email")}
+                style={w.verifyMain}
+              >
+                <AppIcon name="mail" color={colors.brandPrimary} size={18} />
+                <Text style={w.verifyText} numberOfLines={2}>
+                  {t.verifyBannerTitle}
+                </Text>
+                <AppIcon
+                  name="chevron.right"
+                  color={colors.brandPrimary}
+                  size={16}
+                />
+              </Pressable>
+              <Pressable
+                testID="verify-banner-dismiss"
+                accessibilityRole="button"
+                accessibilityLabel={t.verifyDismiss}
+                onPress={() => setVerifyHidden(true)}
+                hitSlop={8}
+                style={w.verifyClose}
+              >
+                <AppIcon name="close" color={colors.muted} size={16} />
+              </Pressable>
+            </View>
           ) : null}
           {isDesktop ? (
             <View style={w.columns}>
               <View style={w.mainColumn}>
                 {progress}
-                {eatNow}
                 {mealsBlock}
               </View>
               <View style={w.sideColumn}>
@@ -830,7 +853,6 @@ export default function TodayScreen() {
           ) : (
             <>
               {progress}
-              {eatNow}
               {mealsBlock}
               {water}
               {movement}

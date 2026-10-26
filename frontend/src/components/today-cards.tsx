@@ -62,6 +62,22 @@ const useCards = makeStyles((colors) => ({
     lineHeight: 22,
     marginTop: 12,
   },
+  eatNow: {
+    minHeight: 48,
+    marginTop: 14,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    backgroundColor: colors.brandPrimary,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  eatNowText: {
+    flex: 1,
+    color: colors.onBrandPrimary,
+    fontSize: 15,
+    fontWeight: "700",
+  },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 14 },
   chip: {
     minHeight: 36,
@@ -178,14 +194,16 @@ export function CoachCard({
   dashboard,
   t,
   onOpen,
+  onEatNow,
 }: {
   dashboard: Dashboard | null;
   t: Copy;
   onOpen: (prompt?: string) => void;
+  onEatNow: () => void;
 }) {
   const styles = useCards();
   const { colors } = useTheme();
-  const chips = [t.coachChipProtein, t.coachChipCook];
+  const chips = [t.coachChipProtein, t.coachChipCook, t.coachChipWalk];
   return (
     <View
       style={[styles.card, { padding: 20, borderRadius: 24 }]}
@@ -200,6 +218,16 @@ export function CoachCard({
       <Text style={styles.coachText} testID="coach-card-text">
         {coachNote(dashboard, t)}
       </Text>
+      <Pressable
+        testID="eat-now-button"
+        accessibilityRole="button"
+        onPress={onEatNow}
+        style={({ pressed }) => [styles.eatNow, pressed && { opacity: 0.85 }]}
+      >
+        <AppIcon name="sparkles" color={colors.onBrandPrimary} size={18} />
+        <Text style={styles.eatNowText}>{t.eatNow}</Text>
+        <AppIcon name="chevron.right" color={colors.onBrandPrimary} size={16} />
+      </Pressable>
       <View style={styles.chips}>
         {chips.map((chip) => (
           <Pressable

@@ -11,8 +11,12 @@ const DIR = path.join(__dirname, "..", "screenshots", "design");
 test("design: Today shows the ring, three macro bars, the Coach note and a water card that adds and takes back", async ({ app }) => {
   await app.newUserOnToday("todaycards");
   await expect(app.id("today-ring")).toBeVisible();
-  for (const id of ["macro-protein", "macro-carbs", "macro-fat"]) await expect(app.id(id)).toBeVisible();
+  for (const id of ["macro-protein", "macro-carbs", "macro-fat", "macro-fibre"]) await expect(app.id(id)).toBeVisible();
   await expect(app.id("coach-card-text")).toContainText("Add your first meal");
+  await expect(app.id("macro-fibre")).toContainText("—"); // no meal has a fibre figure, so no made-up number
+  // "What should I eat now?" lives in the Coach card, with three suggestion chips.
+  await expect(app.id("coach-card").getByTestId("eat-now-button")).toBeVisible();
+  await expect(app.id("coach-card").getByRole("button")).toHaveCount(4);
   // Water: each tap adds a glass and the card follows; minus appears once there is something to take back.
   await expect(app.id("water-minus")).toHaveCount(0);
   await app.id("water-plus").click();
@@ -57,4 +61,13 @@ test("design: Today screenshots at three sizes, light and dark, English and Telu
       }
     }
   }
+});
+
+test("design: the verify-email prompt is a small banner that can be dismissed", async ({ app }) => {
+  await app.newUserOnToday("verifybanner");
+  const banner = app.id("verify-banner");
+  await expect(banner).toBeVisible();
+  expect((await banner.boundingBox())!.height).toBeLessThan(64);
+  await app.id("verify-banner-dismiss").click();
+  await expect(banner).toHaveCount(0);
 });

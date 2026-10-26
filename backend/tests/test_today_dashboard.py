@@ -45,3 +45,16 @@ def test_water_rejects_absurd_amounts_and_needs_sign_in(stack):
     token = person(url, None)
     assert water(url, token, 5000).status_code == 422
     assert requests.post(f"{url}/api/water", json={"delta_ml": 250}, timeout=20).status_code in (401, 403)
+
+
+def test_fibre_shows_only_when_a_meal_has_it(stack):
+    _, url = stack
+    token = person(url, None)
+    empty = dashboard(url, token)
+    assert empty["fibre_tracked"] is False and empty["fibre_g"] == 0 and empty["target_fibre_g"] > 0
+    log(url, token, "Dal rice", calories=500, protein=20)
+    assert dashboard(url, token)["fibre_tracked"] is False
+    body = {"meal_type": "snack", "name": "Chana", "calories": 150, "protein_g": 8, "carbs_g": 20, "fat_g": 3, "fibre_g": 7}
+    assert requests.post(f"{url}/api/meals", json=body, headers=auth(token), timeout=20).status_code == 200
+    later = dashboard(url, token)
+    assert later["fibre_tracked"] is True and later["fibre_g"] == 7

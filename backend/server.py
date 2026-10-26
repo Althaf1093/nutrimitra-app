@@ -223,6 +223,8 @@ class MealLogInput(BaseModel):
     protein_g: float = Field(ge=0, le=300)
     carbs_g: float = Field(ge=0, le=400)
     fat_g: float = Field(ge=0, le=250)
+    # Most foods carry no fibre figure yet, so this is optional and the Today bar shows a dash until some is logged.
+    fibre_g: Optional[float] = Field(default=None, ge=0, le=100)
     source: str = "manual"
     # What one serving was, e.g. "2 pieces (100 g)"; shown next to the meal. Optional.
     portion: Optional[str] = Field(default=None, max_length=80)
@@ -1427,7 +1429,8 @@ def macro_targets(profile: Dict[str, Any]) -> Dict[str, int]:
     protein = protein_target(profile)
     fat = round(kcal * 0.28 / 9)
     carbs = max(0, round((kcal - protein * 4 - fat * 9) / 4))
-    return {"target_protein_g": protein, "target_carbs_g": carbs, "target_fat_g": fat}
+    fibre = round(kcal / 1000 * 14)  # the common guide of 14 g per 1,000 kcal
+    return {"target_protein_g": protein, "target_carbs_g": carbs, "target_fat_g": fat, "target_fibre_g": fibre}
 
 
 def water_target_ml(profile: Dict[str, Any]) -> int:
@@ -1546,6 +1549,8 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
         "protein_g": round(sum(float(item.get("protein_g") or 0) for item in meals)),
         "carbs_g": round(sum(float(item.get("carbs_g") or 0) for item in meals)),
         "fat_g": round(sum(float(item.get("fat_g") or 0) for item in meals)),
+        "fibre_g": round(sum(float(item.get("fibre_g") or 0) for item in meals)),
+        "fibre_tracked": any(item.get("fibre_g") is not None for item in meals),
         "water_ml": int((water or {}).get("ml") or 0),
         "target_water_ml": water_target_ml(profile or {}),
         "date": today,

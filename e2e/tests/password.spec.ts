@@ -82,7 +82,7 @@ test("16. verify email: banner on Today, wrong code, right code, banner gone", a
   await app.completeOnboarding();
   await expect(app.id("verify-banner")).toBeVisible();
   await app.shot("banner");
-  await app.id("verify-banner").click();
+  await app.id("verify-banner-open").click();
   await expect(app.id("verify-email-screen")).toBeVisible();
 
   await app.id("field-verification-code").fill("000000");

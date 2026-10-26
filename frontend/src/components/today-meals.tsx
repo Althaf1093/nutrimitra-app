@@ -42,9 +42,10 @@ const useSlot = makeStyles((colors) => ({
     fontWeight: "700",
     fontVariant: ["tabular-nums"],
   },
-  actions: { flexDirection: "row", gap: 10, marginTop: 4 },
+  actions: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 4 },
   primary: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: 140,
     minHeight: 46,
     borderRadius: radius.pill,
     backgroundColor: colors.brandPrimary,
@@ -60,7 +61,8 @@ const useSlot = makeStyles((colors) => ({
     fontWeight: "700",
   },
   outline: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: 140,
     minHeight: 46,
     borderRadius: radius.pill,
     borderWidth: 1.5,
