@@ -71,3 +71,35 @@ test("design: the verify-email prompt is a small banner that can be dismissed", 
   await app.id("verify-banner-dismiss").click();
   await expect(banner).toHaveCount(0);
 });
+
+for (const [name, viewport] of Object.entries({ phone: SIZES.phone, desktop: SIZES.desktop })) {
+  test(`design: Today slot cards have no nested buttons and no console errors (${name})`, async ({ app }) => {
+    await app.newUserOnToday(`nested${name}`);
+    await app.page.setViewportSize(viewport);
+    const meal = { meal_type: "lunch", name: "Dal rice", portion: "1 plate", calories: 450, protein_g: 15, carbs_g: 70, fat_g: 10 };
+    const saved = await app.api("/meals", { method: "POST", body: meal });
+    await app.page.reload();
+    await expect(app.id("slot-lunch")).toBeVisible();
+    // No <button> sits inside another <button> (or link) anywhere on the page.
+    const nested = await app.page.evaluate(() => document.querySelectorAll("button button, a button, button a, [role=button] [role=button], button [role=button], [role=button] button").length);
+    expect(nested).toBe(0);
+    const id = saved.body.id;
+    await app.id(`edit-meal-${id}`).click();
+    await expect(app.id(`logged-meal-${id}`)).toHaveCount(0);
+    expect(await app.page.evaluate(() => document.querySelectorAll("button button, [role=button] [role=button]").length)).toBe(0);
+    await app.page.getByRole("button", { name: /cancel|రద్దు/i }).first().click();
+    await expect(app.id(`logged-meal-${id}`)).toBeVisible();
+    for (const testId of ["add-food-lunch", "snap-meal-lunch"]) {
+      await expect(app.id(testId)).toBeEnabled();
+    }
+    await app.id(`remove-meal-${id}`).click();
+    await expect(app.id(`logged-meal-${id}`)).toHaveCount(0);
+    // The Undo toast has a button inside it; that must not be a button inside a button.
+    await expect(app.id("toast-action")).toBeVisible();
+    expect(await app.page.evaluate(() => document.querySelectorAll("button button, [role=button] [role=button]").length)).toBe(0);
+    await app.id("toast-action").click();
+    await expect(app.id(`logged-meal-${id}`).or(app.id("slot-lunch").getByText("Dal rice"))).toBeVisible();
+    await app.id("add-food-dinner").click();
+    await expect(app.id("log-food-screen")).toBeVisible();
+  });
+}

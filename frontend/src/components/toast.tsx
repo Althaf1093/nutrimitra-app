@@ -114,13 +114,16 @@ function ToastView({ toast, bottom, onClose }: { toast: ToastState; bottom: numb
         style={{ opacity: appear, maxWidth: "100%", transform: [{ translateY: slide }, { translateX: drag.x }, { translateY: drag.y }] }}
         {...pan.panHandlers}
       >
-        <Pressable accessibilityRole="button" accessibilityLabel={toast.message} onPress={onClose} style={styles.toast}>
-          <View style={[styles.toastIcon, { backgroundColor: fill }]} testID={`toast-icon-${type}`}>
-            <Text style={[styles.toastIconText, { color: onFill }]}>{GLYPH[type]}</Text>
-          </View>
-          <Text style={styles.toastText} testID="toast-message">
-            {toast.message}
-          </Text>
+        {/* A View, not a button: the dismiss area and the action are siblings, because a button cannot hold a button. */}
+        <View style={styles.toast}>
+          <Pressable accessibilityRole="button" accessibilityLabel={toast.message} onPress={onClose} style={{ flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 12 }}>
+            <View style={[styles.toastIcon, { backgroundColor: fill }]} testID={`toast-icon-${type}`}>
+              <Text style={[styles.toastIconText, { color: onFill }]}>{GLYPH[type]}</Text>
+            </View>
+            <Text style={[styles.toastText, { flex: 1 }]} testID="toast-message">
+              {toast.message}
+            </Text>
+          </Pressable>
           {toast.actionLabel && toast.onAction ? (
             <Pressable
               testID="toast-action"
@@ -136,7 +139,7 @@ function ToastView({ toast, bottom, onClose }: { toast: ToastState; bottom: numb
               <Text style={styles.toastActionText}>{toast.actionLabel}</Text>
             </Pressable>
           ) : null}
-        </Pressable>
+        </View>
       </Animated.View>
     </View>
   );
