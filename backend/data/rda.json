@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "source": "ICMR-NIN 2020, Recommended Dietary Allowances and Estimated Average Requirements for Indian adults (sedentary, 18+), table of nutrient requirements.",
+  "year": 2020,
+  "note": "Figures below were entered from memory of the 2020 table and must be checked against the printed table by the owner before launch (see checked=false). Pregnancy and lactation rows are left out: Wellstride is for general wellness in adults. For a person who is not recorded as Male or Female the lower of the two values is used, so the app does not call food 'low' more often than it must. Sodium is a limit to stay under, not a target to reach. Left blank where unsure: nothing is invented.",
+  "nutrients": {
+    "iron":        {"unit": "mg", "male": 19,   "female": 29,   "checked": false},
+    "calcium":     {"unit": "mg", "male": 1000, "female": 1000, "checked": false},
+    "zinc":        {"unit": "mg", "male": 17,   "female": 13.2, "checked": false},
+    "magnesium":   {"unit": "mg", "male": 440,  "female": 370,  "checked": false},
+    "potassium":   {"unit": "mg", "male": 3510, "female": 3510, "checked": false},
+    "sodium":      {"unit": "mg", "male": 2000, "female": 2000, "checked": false},
+    "vitamin_a":   {"unit": "µg RAE", "male": 1000, "female": 840, "checked": false},
+    "vitamin_b12": {"unit": "µg", "male": 2.2,  "female": 2.2,  "checked": false},
+    "folate":      {"unit": "µg", "male": 300,  "female": 300,  "checked": false},
+    "vitamin_c":   {"unit": "mg", "male": 80,   "female": 65,   "checked": false},
+    "vitamin_d":   {"unit": "µg", "male": 15,   "female": 15,   "checked": false},
+    "vitamin_e":   {"unit": "mg", "male": 8,    "female": 8,    "checked": false},
+    "vitamin_k":   {"unit": "µg", "male": 55,   "female": 55,   "checked": false}
+  }
+}

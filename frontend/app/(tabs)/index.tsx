@@ -24,6 +24,7 @@ import { type MealChanges } from "@/src/components/meal-edit-form";
 import { TodayMeals } from "@/src/components/today-meals";
 import { DeviceActivityCard } from "@/src/components/device-activity-card";
 import { TodayProgressCard } from "@/src/components/today-progress-card";
+import { TodayNutrientsCard } from "@/src/components/nutrients-card";
 import { useToast } from "@/src/components/toast";
 import { useAuth } from "@/src/context/auth";
 import {
@@ -484,7 +485,12 @@ export default function TodayScreen() {
         .replace("{name}", hello)
     : `${t.hello}, ${hello}`;
 
-  const progress = <TodayProgressCard dashboard={dashboard} t={t} />;
+  const progress = (
+    <>
+      <TodayProgressCard dashboard={dashboard} t={t} />
+      <TodayNutrientsCard nutrients={dashboard?.nutrients} />
+    </>
+  );
   const mealsBlock = (
     <>
       <View style={styles.sectionHeader}>

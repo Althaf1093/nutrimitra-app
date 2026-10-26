@@ -89,7 +89,16 @@ export type LoggedActivity = {
   date: string;
 };
 
+export type NutrientDay = { key: string; en: string; te: string; unit: string; total: number; reference: number | null; tracked: boolean; meals_counted: number; percent: number | null; limit: boolean };
+export type NutrientWeek = {
+  days_logged: number;
+  nutrients: { key: string; en: string; te: string; unit: string; average: number | null; reference: number | null; percent: number | null; limit: boolean }[];
+  often_low: string[];
+  suggestions: { nutrient: string; items: { name: string; te: string }[] }[];
+};
+
 export type Dashboard = {
+  nutrients?: NutrientDay[];
   date: string;
   meals: LoggedMeal[];
   activities: LoggedActivity[];
