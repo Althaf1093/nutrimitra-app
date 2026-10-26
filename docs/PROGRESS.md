@@ -10,7 +10,7 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 - [ ] Insights run (docs/INSIGHTS_PROMPT.md)
 - [ ] Extras run (docs/EXTRAS_PROMPT.md)
 - [ ] Final pass and Master run summary
-- [ ] Pending fixes: docs/WELCOME_FIXES.md (do right after the current Design item, before item 3)
+- [x] Pending fixes: docs/WELCOME_FIXES.md (done; branch fix/welcome-polish)
 
 # Logging run (docs/LOGGING_PROMPT.md)
 

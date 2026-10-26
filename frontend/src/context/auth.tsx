@@ -26,11 +26,25 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+/** Telugu or English if the phone or browser is set to one; any other language gets Telugu in India and English elsewhere. A saved choice or profile language replaces this. */
+export function deviceLang(): Lang {
+  let tag = "";
+  try {
+    // The browser's own preferred language on the web; Intl can substitute a nearby English locale for one it lacks.
+    tag = (typeof navigator !== "undefined" && navigator.language) || Intl.DateTimeFormat().resolvedOptions().locale || "";
+  } catch {
+    tag = "";
+  }
+  const [language, region] = tag.toLowerCase().split("-");
+  if (language === "te" || language === "en") return language;
+  return region === "in" ? "te" : "en";
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>("loading");
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>(deviceLang);
 
   useEffect(() => {
     setFontLanguage(lang);
@@ -41,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(result.user);
     setProfile(result.profile);
     const storedLang = await storage.getItem<Lang | "">("nutrimitra.lang", "");
-    const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || "en") as Lang);
+    const resolvedLang = storedLang === "te" || storedLang === "en" ? storedLang : (((result.profile?.language as Lang) || result.user.language || deviceLang()) as Lang);
     setLang(resolvedLang);
     // A saved profile under 18 (from before the age rule) goes back through onboarding to re-enter an adult age.
     // Accounts that have not agreed to the current Terms and Privacy Policy are asked once, before anything else.

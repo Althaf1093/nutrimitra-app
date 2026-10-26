@@ -10,6 +10,10 @@ const DIR = path.join(__dirname, "..", "screenshots", "design");
 test("design: welcome has the language picker, the hero, the three features and the form", async ({ app }) => {
   await app.open();
   await expect(app.id("language-toggle")).toBeVisible();
+  await expect(app.id("get-started-button")).toBeVisible();
+  await expect(app.id("have-account-button")).toBeVisible();
+  await expect(app.id("auth-submit-button")).toHaveCount(0);
+  await app.id("get-started-button").click();
   await expect(app.id("auth-submit-button")).toBeVisible();
   await expect(app.page.getByText("Your kitchen. Your goal.", { exact: true })).toBeVisible();
   await expect(app.page.getByText("Snap or speak your meal")).toBeVisible();
@@ -34,4 +38,32 @@ test("design: welcome screenshots at three sizes, light and dark, English and Te
       }
     }
   }
+});
+
+test("design: welcome headline and subtitle are different lines, with room above Forgot password", async ({ app }) => {
+  await app.open();
+  await expect(app.page.getByText("Your kitchen. Your goal.", { exact: true })).toHaveCount(1);
+  await app.openAuth("signin");
+  const forgot = await app.id("forgot-password-link").boundingBox();
+  const submit = await app.id("auth-submit-button").boundingBox();
+  expect(forgot!.y - (submit!.y + submit!.height)).toBeGreaterThanOrEqual(10);
+});
+
+test.describe("device language", () => {
+  test.use({ locale: "hi-IN" });
+  test("design: a phone not set to English starts in Telugu, with no letter spacing on any Telugu text", async ({ app }) => {
+    mkdirSync(DIR, { recursive: true });
+    await app.open();
+    await expect(app.page.getByText("మీ వంటగది. మీ లక్ష్యం.", { exact: true })).toBeVisible();
+    const spaced = await app.page.evaluate(() =>
+      Array.from(document.querySelectorAll<HTMLElement>("*")).filter((el) => el.children.length === 0 && /[ఀ-౿]/.test(el.textContent || "") && !["normal", "0px"].includes(getComputedStyle(el).letterSpacing)).length,
+    );
+    expect(spaced).toBe(0);
+    await app.page.screenshot({ path: path.join(DIR, "welcome-telugu-spacing.png") });
+  });
+});
+
+test("design: a phone set to English starts in English", async ({ app }) => {
+  await app.open();
+  await expect(app.page.getByText("Your kitchen. Your goal.", { exact: true })).toBeVisible();
 });

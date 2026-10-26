@@ -24,6 +24,7 @@ test("14. forgot password: request a code, type it, sign in with the new passwor
   app.allow(/http 401 POST .*\/auth\/login/, /http 400 POST .*\/auth\/reset-password/, /console\.error Failed to load resource.*(400|401)/);
   const email = await signUpAndOut(app, "forgot");
 
+  await app.openAuth("signin");
   await app.id("forgot-password-link").click();
   await expect(app.id("forgot-password-screen")).toBeVisible();
   await app.id("forgot-password-screen").getByTestId("field-email-address").fill(email);
@@ -53,6 +54,7 @@ test("14. forgot password: request a code, type it, sign in with the new passwor
 
 test("15. forgot password: the emailed link opens the reset screen with the code filled in", async ({ app }) => {
   const email = await signUpAndOut(app, "resetlink");
+  await app.openAuth("signin");
   await app.id("forgot-password-link").click();
   await app.id("forgot-password-screen").getByTestId("field-email-address").fill(email);
   await app.id("forgot-send-button").click();

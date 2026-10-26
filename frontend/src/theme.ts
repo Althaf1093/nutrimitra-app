@@ -250,12 +250,25 @@ export function useTheme(): { scheme: ColorScheme; colors: ThemeColors; fonts: F
   return { scheme, colors: themes[scheme], fonts };
 }
 
+/** Letter spacing pulls apart (or crushes) the joined letters of Telugu, so Telugu text never gets any. */
+export function withoutTeluguSpacing<T>(sheet: T, language: FontLanguage): T {
+  if (language !== "te") return sheet;
+  const out: Record<string, unknown> = {};
+  for (const [key, style] of Object.entries(sheet as Record<string, unknown>)) {
+    if (style && typeof style === "object" && "letterSpacing" in style) {
+      const { letterSpacing: _dropped, ...rest } = style as Record<string, unknown>;
+      out[key] = rest;
+    } else out[key] = style;
+  }
+  return out as T;
+}
+
 // Themed StyleSheet: returns a hook that builds the sheet from the active scheme's colours and fonts and memoizes it.
 export function makeStyles<T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>>(
   factory: (colors: ThemeColors, fonts: Fonts) => T & StyleSheet.NamedStyles<any>,
 ): () => T {
   return function useStyles(): T {
     const { colors, fonts } = useTheme();
-    return useMemo(() => StyleSheet.create(factory(colors, fonts)), [colors, fonts]);
+    return useMemo(() => StyleSheet.create(withoutTeluguSpacing(factory(colors, fonts), fonts.language)), [colors, fonts]);
   };
 }
