@@ -58,3 +58,15 @@ def test_fibre_shows_only_when_a_meal_has_it(stack):
     assert requests.post(f"{url}/api/meals", json=body, headers=auth(token), timeout=20).status_code == 200
     later = dashboard(url, token)
     assert later["fibre_tracked"] is True and later["fibre_g"] == 7
+
+
+def test_version_endpoint_returns_the_git_commit(stack):
+    import subprocess
+    from pathlib import Path
+
+    _, url = stack
+    response = requests.get(f"{url}/api/version", timeout=20)
+    assert response.status_code == 200
+    commit = response.json()["commit"]
+    expected = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=Path(__file__).parent, capture_output=True, text=True).stdout.strip()
+    assert commit == expected and len(commit) >= 7

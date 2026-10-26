@@ -8,6 +8,7 @@ import os
 import re
 import math
 import secrets
+import subprocess
 import time
 import uuid
 from collections import deque
@@ -402,6 +403,28 @@ async def current_user(credentials: Optional[HTTPAuthorizationCredentials] = Dep
     if user.get("password_changed_at") and issued_at < int(user["password_changed_at"]):
         raise HTTPException(status_code=401, detail="Session expired")
     return user
+
+
+_COMMIT = {"at": 0.0, "value": "unknown"}
+
+
+def git_commit() -> str:
+    """Short hash of the commit being run: GIT_COMMIT if set, else read from git (cached for a few seconds, so --reload and checkouts show up)."""
+    if os.environ.get("GIT_COMMIT") and os.environ["GIT_COMMIT"] != "unknown":
+        return os.environ["GIT_COMMIT"]
+    if time.monotonic() - _COMMIT["at"] > 5:
+        try:
+            out = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT_DIR, capture_output=True, text=True, timeout=3)
+            _COMMIT["value"] = out.stdout.strip() or "unknown"
+        except Exception:
+            _COMMIT["value"] = "unknown"
+        _COMMIT["at"] = time.monotonic()
+    return _COMMIT["value"]
+
+
+@api_router.get("/version")
+async def version():
+    return {"commit": git_commit()}
 
 
 @api_router.get("/")
