@@ -68,6 +68,13 @@ export default function SettingsScreen() {
   }, [status]);
 
   // The kitchen can change in its own screen on top of this one, so the summary reloads whenever Settings is shown again.
+  const [serverCommit, setServerCommit] = useState("");
+  useEffect(() => {
+    api<{ commit: string }>("/version")
+      .then((result) => setServerCommit(result.commit))
+      .catch(() => setServerCommit("?"));
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       if (status !== "ready") return;
@@ -204,6 +211,9 @@ export default function SettingsScreen() {
         <LegalLinks />
 
         <Text style={styles.disclaimer}>{t.disclaimer}</Text>
+        <Text style={[styles.disclaimer, { opacity: 0.7 }]} testID="build-version">
+          {t.buildLabel} {process.env.EXPO_PUBLIC_GIT_COMMIT || "dev"} · {t.serverLabel} {serverCommit || "…"}
+        </Text>
         <Button
           testID="sign-out-button"
           label={t.signOut}

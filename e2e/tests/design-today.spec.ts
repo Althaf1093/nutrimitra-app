@@ -103,3 +103,9 @@ for (const [name, viewport] of Object.entries({ phone: SIZES.phone, desktop: SIZ
     await expect(app.id("log-food-screen")).toBeVisible();
   });
 }
+
+test("settings shows which build and server commit this is", async ({ app }) => {
+  await app.newUserOnToday("buildver");
+  await app.id("open-settings-button").click();
+  await expect(app.id("build-version")).toContainText(/server [0-9a-f]{7,}/);
+});
