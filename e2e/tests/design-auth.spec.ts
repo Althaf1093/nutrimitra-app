@@ -10,6 +10,10 @@ const DIR = path.join(__dirname, "..", "screenshots", "design");
 test("design: welcome has the language picker, the hero, the three features and the form", async ({ app }) => {
   await app.open();
   await expect(app.id("language-toggle")).toBeVisible();
+  await expect(app.id("get-started-button")).toBeVisible();
+  await expect(app.id("have-account-button")).toBeVisible();
+  await expect(app.id("auth-submit-button")).toHaveCount(0);
+  await app.id("get-started-button").click();
   await expect(app.id("auth-submit-button")).toBeVisible();
   await expect(app.page.getByText("Your kitchen. Your goal.", { exact: true })).toBeVisible();
   await expect(app.page.getByText("Snap or speak your meal")).toBeVisible();
@@ -39,6 +43,7 @@ test("design: welcome screenshots at three sizes, light and dark, English and Te
 test("design: welcome headline and subtitle are different lines, with room above Forgot password", async ({ app }) => {
   await app.open();
   await expect(app.page.getByText("Your kitchen. Your goal.", { exact: true })).toHaveCount(1);
+  await app.openAuth("signin");
   const forgot = await app.id("forgot-password-link").boundingBox();
   const submit = await app.id("auth-submit-button").boundingBox();
   expect(forgot!.y - (submit!.y + submit!.height)).toBeGreaterThanOrEqual(10);

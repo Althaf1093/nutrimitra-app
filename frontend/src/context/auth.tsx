@@ -26,7 +26,7 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-/** English if the phone or browser is set to English, otherwise Telugu. A saved choice or profile language replaces this. */
+/** Telugu or English if the phone or browser is set to one; any other language gets Telugu in India and English elsewhere. A saved choice or profile language replaces this. */
 export function deviceLang(): Lang {
   let tag = "";
   try {
@@ -35,7 +35,9 @@ export function deviceLang(): Lang {
   } catch {
     tag = "";
   }
-  return tag.toLowerCase().startsWith("en") ? "en" : "te";
+  const [language, region] = tag.toLowerCase().split("-");
+  if (language === "te" || language === "en") return language;
+  return region === "in" ? "te" : "en";
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {

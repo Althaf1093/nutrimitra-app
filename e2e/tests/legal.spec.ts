@@ -6,7 +6,7 @@ import { expect, API, lastEmail, PASSWORD, test, uniqueEmail } from "../fixtures
 
 test("11. legal links: sign-up screen and Settings open the policy pages", async ({ app }) => {
   await app.open();
-  await app.id("auth-tab-signup").click();
+  await app.openAuth("signup");
   await expect(app.id("legal-privacy-link")).toBeVisible();
   await app.shot("legal-welcome");
 
@@ -32,7 +32,7 @@ test("11. legal links: sign-up screen and Settings open the policy pages", async
 
 test("12. consent: sign-up needs the box, and an account without consent is asked once", async ({ app }) => {
   await app.open();
-  await app.id("auth-tab-signup").click();
+  await app.openAuth("signup");
   const email = uniqueEmail("consent");
   await app.id("field-your-name").fill("Consent Tester");
   await app.id("field-email-address").fill(email);

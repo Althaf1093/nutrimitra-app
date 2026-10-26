@@ -82,9 +82,16 @@ export class App {
     await expect(this.id("welcome-screen")).toBeVisible();
   }
 
+  /** On a phone the welcome screen shows Get started / I have an account first; this opens the form in the wanted mode. */
+  async openAuth(mode: "signin" | "signup") {
+    const entry = this.id(mode === "signup" ? "get-started-button" : "have-account-button");
+    if (await entry.isVisible()) await entry.click();
+    await this.id(`auth-tab-${mode}`).click();
+  }
+
   async signUp(email: string, password = PASSWORD, name = "E2E Tester") {
     await paceSignups();
-    await this.id("auth-tab-signup").click();
+    await this.openAuth("signup");
     await this.id("field-your-name").fill(name);
     await this.id("field-email-address").fill(email);
     await this.id("field-password").fill(password);
@@ -93,7 +100,7 @@ export class App {
   }
 
   async signIn(email: string, password = PASSWORD) {
-    await this.id("auth-tab-signin").click();
+    await this.openAuth("signin");
     await this.id("field-email-address").fill(email);
     await this.id("field-password").fill(password);
     await this.id("auth-submit-button").click();

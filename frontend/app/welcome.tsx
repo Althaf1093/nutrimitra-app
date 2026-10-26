@@ -104,6 +104,13 @@ export default function WelcomeScreen() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [accepted, setAccepted] = useState(false);
+  // Phones first see two big buttons (as in the design); the form opens once one is chosen. Wide screens keep the form beside the hero.
+  const [showForm, setShowForm] = useState(false);
+  const formVisible = isDesktop || showForm;
+  const openForm = (next: "signin" | "signup") => {
+    setMode(next);
+    setShowForm(true);
+  };
 
   // Signed-in users never sit on the auth screen — send them straight into the app.
   if (status === "ready") return <Redirect href="/(tabs)" />;
@@ -212,103 +219,122 @@ export default function WelcomeScreen() {
           </View>
         </View>
         <View style={[w.column, isDesktop && w.columnWide]}>
-          <View style={w.card}>
-            <View style={styles.authTabs}>
-              <Pressable
-                testID="auth-tab-signin"
-                onPress={() => setMode("signin")}
-                style={[
-                  styles.authTab,
-                  mode === "signin" && styles.authTabActive,
-                ]}
-              >
-                <Text
-                  style={
-                    mode === "signin"
-                      ? styles.authTabActiveText
-                      : styles.authTabText
-                  }
-                >
-                  {t.signIn}
-                </Text>
-              </Pressable>
-              <Pressable
-                testID="auth-tab-signup"
-                onPress={() => setMode("signup")}
-                style={[
-                  styles.authTab,
-                  mode === "signup" && styles.authTabActive,
-                ]}
-              >
-                <Text
-                  style={
-                    mode === "signup"
-                      ? styles.authTabActiveText
-                      : styles.authTabText
-                  }
-                >
-                  {t.create}
-                </Text>
-              </Pressable>
-            </View>
-            {mode === "signup" && (
-              <Field label={t.name} value={name} onChangeText={setName} />
-            )}
-            <Field label={t.email} value={email} onChangeText={setEmail} />
-            <Field
-              label={t.password}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            {mode === "signup" ? (
-              <ConsentCheckbox checked={accepted} onChange={setAccepted} />
-            ) : null}
-            {error ? (
-              <Text style={styles.errorText} testID="auth-error">
-                {error}
-              </Text>
-            ) : null}
-            <Button
-              testID="auth-submit-button"
-              label={busy ? "..." : mode === "signin" ? t.signIn : t.create}
-              onPress={submit}
-              disabled={
-                busy ||
-                !email ||
-                password.length < 8 ||
-                (mode === "signup" && !accepted)
-              }
-            />
-            {mode === "signin" ? (
-              <Text
-                testID="forgot-password-link"
-                accessibilityRole="link"
-                style={[styles.linkText, { marginTop: 12 }]}
-                onPress={() => router.push("/forgot-password")}
-              >
-                {t.forgotPassword}
-              </Text>
-            ) : null}
-            {googleEnabled ? (
+          {!formVisible ? (
+            <View style={{ gap: 10 }}>
               <Button
-                testID="google-signin-button"
-                label={t.welcomeGoogle}
-                onPress={google}
-                secondary
-                disabled={busy}
+                testID="get-started-button"
+                label={t.getStarted}
+                onPress={() => openForm("signup")}
               />
-            ) : null}
-            <Text style={styles.authHint}>
-              {mode === "signin" ? t.noAccount : t.already}{" "}
-              <Text
-                style={styles.linkText}
-                onPress={() => setMode(mode === "signin" ? "signup" : "signin")}
-              >
-                {mode === "signin" ? t.create : t.signIn}
+              <Button
+                testID="have-account-button"
+                label={t.haveAccount}
+                onPress={() => openForm("signin")}
+                secondary
+              />
+            </View>
+          ) : null}
+          {formVisible ? (
+            <View style={w.card}>
+              <View style={styles.authTabs}>
+                <Pressable
+                  testID="auth-tab-signin"
+                  onPress={() => setMode("signin")}
+                  style={[
+                    styles.authTab,
+                    mode === "signin" && styles.authTabActive,
+                  ]}
+                >
+                  <Text
+                    style={
+                      mode === "signin"
+                        ? styles.authTabActiveText
+                        : styles.authTabText
+                    }
+                  >
+                    {t.signIn}
+                  </Text>
+                </Pressable>
+                <Pressable
+                  testID="auth-tab-signup"
+                  onPress={() => setMode("signup")}
+                  style={[
+                    styles.authTab,
+                    mode === "signup" && styles.authTabActive,
+                  ]}
+                >
+                  <Text
+                    style={
+                      mode === "signup"
+                        ? styles.authTabActiveText
+                        : styles.authTabText
+                    }
+                  >
+                    {t.create}
+                  </Text>
+                </Pressable>
+              </View>
+              {mode === "signup" && (
+                <Field label={t.name} value={name} onChangeText={setName} />
+              )}
+              <Field label={t.email} value={email} onChangeText={setEmail} />
+              <Field
+                label={t.password}
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+              />
+              {mode === "signup" ? (
+                <ConsentCheckbox checked={accepted} onChange={setAccepted} />
+              ) : null}
+              {error ? (
+                <Text style={styles.errorText} testID="auth-error">
+                  {error}
+                </Text>
+              ) : null}
+              <Button
+                testID="auth-submit-button"
+                label={busy ? "..." : mode === "signin" ? t.signIn : t.create}
+                onPress={submit}
+                disabled={
+                  busy ||
+                  !email ||
+                  password.length < 8 ||
+                  (mode === "signup" && !accepted)
+                }
+              />
+              {mode === "signin" ? (
+                <Text
+                  testID="forgot-password-link"
+                  accessibilityRole="link"
+                  style={[styles.linkText, { marginTop: 12 }]}
+                  onPress={() => router.push("/forgot-password")}
+                >
+                  {t.forgotPassword}
+                </Text>
+              ) : null}
+              {googleEnabled ? (
+                <Button
+                  testID="google-signin-button"
+                  label={t.welcomeGoogle}
+                  onPress={google}
+                  secondary
+                  disabled={busy}
+                />
+              ) : null}
+              <Text style={styles.authHint}>
+                {mode === "signin" ? t.noAccount : t.already}{" "}
+                <Text
+                  style={styles.linkText}
+                  onPress={() =>
+                    setMode(mode === "signin" ? "signup" : "signin")
+                  }
+                >
+                  {mode === "signin" ? t.create : t.signIn}
+                </Text>
               </Text>
-            </Text>
-          </View>
+            </View>
+          ) : null}
           <Text style={styles.safeNote}>{t.privacyLine}</Text>
           <LegalLinks />
           <Text style={w.age}>{t.welcomeAge}</Text>
