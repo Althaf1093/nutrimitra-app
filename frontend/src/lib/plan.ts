@@ -8,6 +8,7 @@ export const planMealBody = (meal: Meal) => ({
   protein_g: meal.protein_g,
   carbs_g: meal.carbs_g,
   fat_g: meal.fat_g,
+  ...(meal.fibre_g != null ? { fibre_g: meal.fibre_g } : {}),
   source: "plan",
 });
 

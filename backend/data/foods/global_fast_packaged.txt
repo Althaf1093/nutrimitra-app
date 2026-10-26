@@ -1,136 +1,136 @@
 # Fast food chains and common restaurant items
-Veg burger (regular)|వెజ్ బర్గర్|Snacks|1 burger (180 g)|10|45|16|0|aloo tikki burger,mcaloo
-Veg cheese burger|వెజ్ చీజ్ బర్గర్|Snacks|1 burger (200 g)|14|46|20|0|
-Paneer burger|పనీర్ బర్గర్|Snacks|1 burger (220 g)|16|48|24|0|
-Chicken burger (regular)|చికెన్ బర్గర్|Snacks|1 burger (200 g)|20|42|18|0|
-Chicken cheese burger|చికెన్ చీజ్ బర్గర్|Snacks|1 burger (220 g)|24|44|24|0|
-Double chicken burger|డబుల్ చికెన్ బర్గర్|Snacks|1 burger (280 g)|34|46|30|0|
-Crispy chicken burger|క్రిస్పీ చికెన్ బర్గర్|Snacks|1 burger (230 g)|24|50|28|0|
-Fish burger|ఫిష్ బర్గర్|Snacks|1 burger (180 g)|16|40|18|0|
-Beef burger|బీఫ్ బర్గర్|Snacks|1 burger (230 g)|28|40|26|0|
-Whopper type burger|పెద్ద బర్గర్|Snacks|1 burger (290 g)|28|50|34|0|
-French fries (small)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 small (70 g)|3|28|12|0|
-French fries (medium)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 medium (115 g)|4|44|18|0|
-French fries (large)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 large (150 g)|5|58|23|0|
-Peri peri fries|పెరీ పెరీ ఫ్రైస్|Snacks|1 medium (115 g)|4|44|18|0|
-Cheesy fries|చీజీ ఫ్రైస్|Snacks|1 portion (180 g)|8|50|28|0|
-Onion rings (6)|ఆనియన్ రింగ్స్|Snacks|6 pieces (90 g)|3|28|14|0|
-Potato wedges|పొటాటో వెడ్జెస్|Snacks|1 portion (120 g)|3|32|14|0|
-Hash brown (1)|హాష్ బ్రౌన్|Snacks|1 piece (70 g)|1.5|14|8|0|
-Pizza slice (margherita)|మార్గరీటా పిజ్జా|Snacks|1 slice (110 g)|10|30|9|0|
-Pizza slice (veg loaded)|వెజ్ పిజ్జా|Snacks|1 slice (120 g)|10|32|10|0|
-Pizza slice (paneer tikka)|పనీర్ పిజ్జా|Snacks|1 slice (130 g)|12|32|12|0|
-Pizza slice (chicken)|చికెన్ పిజ్జా|Snacks|1 slice (130 g)|14|31|11|0|
-Pizza slice (pepperoni)|పెప్పరోని పిజ్జా|Snacks|1 slice (120 g)|12|30|14|0|
-Pizza slice (cheese burst)|చీజ్ బర్స్ట్ పిజ్జా|Snacks|1 slice (140 g)|12|34|16|0|
-Pizza (personal, margherita)|పిజ్జా|Snacks|1 personal (250 g)|24|72|22|0|
-Pizza (medium, 1/4)|పిజ్జా|Snacks|1/4 pizza (200 g)|18|52|16|0|
-Garlic bread with cheese|చీజ్ గార్లిక్ బ్రెడ్|Snacks|4 pieces (120 g)|10|42|16|0|
-Stuffed garlic bread|స్టఫ్డ్ గార్లిక్ బ్రెడ్|Snacks|4 pieces (140 g)|11|44|18|0|
-Calzone|కాల్జోన్|Snacks|1 piece (250 g)|20|60|24|0|
-Subway veg sub (6 inch)|సబ్‌వే వెజ్ సబ్|Snacks|1 sub (230 g)|10|44|4|0|
-Subway chicken sub (6 inch)|సబ్‌వే చికెన్ సబ్|Snacks|1 sub (250 g)|22|46|6|0|
-Subway paneer sub (6 inch)|సబ్‌వే పనీర్ సబ్|Snacks|1 sub (250 g)|18|46|12|0|
-Taco (veg)|టాకో|Snacks|1 taco (100 g)|5|16|8|0|
-Taco (chicken)|చికెన్ టాకో|Snacks|1 taco (110 g)|10|16|8|0|
-Burrito (veg)|వెజ్ బురిటో|Snacks|1 burrito (300 g)|14|70|16|0|
-Burrito (chicken)|చికెన్ బురిటో|Snacks|1 burrito (320 g)|26|68|18|0|
-Burrito bowl (chicken)|బురిటో బౌల్|Rice & mains|1 bowl (400 g)|32|70|18|0|
-Quesadilla (cheese)|క్వెసడియా|Snacks|1 piece (180 g)|16|34|20|0|
-Fajita (chicken)|ఫజీటా|Snacks|1 plate (250 g)|26|28|14|0|
-Hot wings (6)|హాట్ వింగ్స్|Chicken|6 pieces (180 g)|36|10|32|0|
-Popcorn chicken bucket|పాప్‌కార్న్ చికెన్|Chicken|1 bucket (200 g)|28|28|32|0|
-Zinger burger|జింగర్ బర్గర్|Snacks|1 burger (210 g)|24|48|26|0|
-Rice bowl (chicken, restaurant)|చికెన్ రైస్ బౌల్|Rice & mains|1 bowl (400 g)|30|74|16|0|
-Chicken tikka wrap|చికెన్ టిక్కా ర్యాప్|Snacks|1 wrap (250 g)|26|44|16|0|
-Paneer tikka wrap|పనీర్ టిక్కా ర్యాప్|Snacks|1 wrap (250 g)|18|46|20|0|
-Veg wrap|వెజ్ ర్యాప్|Snacks|1 wrap (220 g)|9|44|12|0|
-Shawarma plate with hummus|షావర్మా ప్లేట్|Rice & mains|1 plate (400 g)|34|60|30|0|
-Mandi rice with chicken|మందీ చికెన్|Rice & mains|1 plate (450 g)|40|90|24|0|
-Mandi rice with mutton|మందీ మటన్|Rice & mains|1 plate (450 g)|40|88|32|0|
-Alfaham chicken (half)|అల్ఫహమ్ చికెన్|Chicken|1/2 chicken (350 g)|60|4|28|0|
-Grilled chicken with rice (Arabic)|గ్రిల్డ్ చికెన్ రైస్|Rice & mains|1 plate (450 g)|40|80|20|0|
-Kebab platter (mixed)|కబాబ్ ప్లాటర్|Chicken|1 plate (300 g)|50|12|32|0|
-Hyderabadi starters platter (veg)|వెజ్ స్టార్టర్స్|Snacks|1 plate (300 g)|20|50|34|0|
-Tandoori platter (non veg)|తందూరీ ప్లాటర్|Chicken|1 plate (350 g)|56|12|32|0|
-Thali (North Indian veg)|నార్త్ ఇండియన్ థాలీ|Rice & mains|1 thali (650 g)|22|120|28|0|
-Thali (South Indian meals)|సౌత్ ఇండియన్ మీల్స్|Rice & mains|1 plate (550 g)|18|115|18|0|
-Thali (non veg)|నాన్ వెజ్ థాలీ|Rice & mains|1 thali (700 g)|40|120|34|0|
-Unlimited meals (veg)|అన్‌లిమిటెడ్ మీల్స్|Rice & mains|1 plate (700 g)|20|140|26|0|
-Office canteen lunch (rice, dal, sabzi, curd)|క్యాంటీన్ లంచ్|Rice & mains|1 plate (500 g)|18|100|16|0|
-Dabba or tiffin lunch (2 roti, dal, sabzi)|డబ్బా లంచ్|Rice & mains|1 tiffin (400 g)|16|70|14|0|
-Hostel mess meal (rice, sambar, curry)|మెస్ మీల్|Rice & mains|1 plate (500 g)|14|100|12|0|
+Veg burger (regular)|వెజ్ బర్గర్|Snacks|1 burger (180 g)|10|45|16|0|10|aloo tikki burger,mcaloo
+Veg cheese burger|వెజ్ చీజ్ బర్గర్|Snacks|1 burger (200 g)|14|46|20|0|10|
+Paneer burger|పనీర్ బర్గర్|Snacks|1 burger (220 g)|16|48|24|0|1.5|
+Chicken burger (regular)|చికెన్ బర్గర్|Snacks|1 burger (200 g)|20|42|18|0|1.5|
+Chicken cheese burger|చికెన్ చీజ్ బర్గర్|Snacks|1 burger (220 g)|24|44|24|0|1.5|
+Double chicken burger|డబుల్ చికెన్ బర్గర్|Snacks|1 burger (280 g)|34|46|30|0|1.5|
+Crispy chicken burger|క్రిస్పీ చికెన్ బర్గర్|Snacks|1 burger (230 g)|24|50|28|0|1.5|
+Fish burger|ఫిష్ బర్గర్|Snacks|1 burger (180 g)|16|40|18|0|1|
+Beef burger|బీఫ్ బర్గర్|Snacks|1 burger (230 g)|28|40|26|0|1|
+Whopper type burger|పెద్ద బర్గర్|Snacks|1 burger (290 g)|28|50|34|0|1.5|
+French fries (small)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 small (70 g)|3|28|12|0|1|
+French fries (medium)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 medium (115 g)|4|44|18|0|1.5|
+French fries (large)|ఫ్రెంచ్ ఫ్రైస్|Snacks|1 large (150 g)|5|58|23|0|1.5|
+Peri peri fries|పెరీ పెరీ ఫ్రైస్|Snacks|1 medium (115 g)|4|44|18|0|1.5|
+Cheesy fries|చీజీ ఫ్రైస్|Snacks|1 portion (180 g)|8|50|28|0|1.5|
+Onion rings (6)|ఆనియన్ రింగ్స్|Snacks|6 pieces (90 g)|3|28|14|0|6|
+Potato wedges|పొటాటో వెడ్జెస్|Snacks|1 portion (120 g)|3|32|14|0|2|
+Hash brown (1)|హాష్ బ్రౌన్|Snacks|1 piece (70 g)|1.5|14|8|0|1|
+Pizza slice (margherita)|మార్గరీటా పిజ్జా|Snacks|1 slice (110 g)|10|30|9|0|1|
+Pizza slice (veg loaded)|వెజ్ పిజ్జా|Snacks|1 slice (120 g)|10|32|10|0|7|
+Pizza slice (paneer tikka)|పనీర్ పిజ్జా|Snacks|1 slice (130 g)|12|32|12|0|1|
+Pizza slice (chicken)|చికెన్ పిజ్జా|Snacks|1 slice (130 g)|14|31|11|0|1|
+Pizza slice (pepperoni)|పెప్పరోని పిజ్జా|Snacks|1 slice (120 g)|12|30|14|0|1|
+Pizza slice (cheese burst)|చీజ్ బర్స్ట్ పిజ్జా|Snacks|1 slice (140 g)|12|34|16|0|1|
+Pizza (personal, margherita)|పిజ్జా|Snacks|1 personal (250 g)|24|72|22|0|2|
+Pizza (medium, 1/4)|పిజ్జా|Snacks|1/4 pizza (200 g)|18|52|16|0|1.5|
+Garlic bread with cheese|చీజ్ గార్లిక్ బ్రెడ్|Snacks|4 pieces (120 g)|10|42|16|0|1.5|
+Stuffed garlic bread|స్టఫ్డ్ గార్లిక్ బ్రెడ్|Snacks|4 pieces (140 g)|11|44|18|0|1.5|
+Calzone|కాల్జోన్|Snacks|1 piece (250 g)|20|60|24|0|3.5|
+Subway veg sub (6 inch)|సబ్‌వే వెజ్ సబ్|Snacks|1 sub (230 g)|10|44|4|0|9.5|
+Subway chicken sub (6 inch)|సబ్‌వే చికెన్ సబ్|Snacks|1 sub (250 g)|22|46|6|0|3|
+Subway paneer sub (6 inch)|సబ్‌వే పనీర్ సబ్|Snacks|1 sub (250 g)|18|46|12|0|3|
+Taco (veg)|టాకో|Snacks|1 taco (100 g)|5|16|8|0|3.5|
+Taco (chicken)|చికెన్ టాకో|Snacks|1 taco (110 g)|10|16|8|0|1|
+Burrito (veg)|వెజ్ బురిటో|Snacks|1 burrito (300 g)|14|70|16|0|14|
+Burrito (chicken)|చికెన్ బురిటో|Snacks|1 burrito (320 g)|26|68|18|0|4|
+Burrito bowl (chicken)|బురిటో బౌల్|Rice & mains|1 bowl (400 g)|32|70|18|0|4|
+Quesadilla (cheese)|క్వెసడియా|Snacks|1 piece (180 g)|16|34|20|0|2|
+Fajita (chicken)|ఫజీటా|Snacks|1 plate (250 g)|26|28|14|0|1.5|
+Hot wings (6)|హాట్ వింగ్స్|Chicken|6 pieces (180 g)|36|10|32|0|0|
+Popcorn chicken bucket|పాప్‌కార్న్ చికెన్|Chicken|1 bucket (200 g)|28|28|32|0|1|
+Zinger burger|జింగర్ బర్గర్|Snacks|1 burger (210 g)|24|48|26|0|1.5|
+Rice bowl (chicken, restaurant)|చికెన్ రైస్ బౌల్|Rice & mains|1 bowl (400 g)|30|74|16|0|2|
+Chicken tikka wrap|చికెన్ టిక్కా ర్యాప్|Snacks|1 wrap (250 g)|26|44|16|0|2.5|
+Paneer tikka wrap|పనీర్ టిక్కా ర్యాప్|Snacks|1 wrap (250 g)|18|46|20|0|3|
+Veg wrap|వెజ్ ర్యాప్|Snacks|1 wrap (220 g)|9|44|12|0|9.5|
+Shawarma plate with hummus|షావర్మా ప్లేట్|Rice & mains|1 plate (400 g)|34|60|30|0|3.5|
+Mandi rice with chicken|మందీ చికెన్|Rice & mains|1 plate (450 g)|40|90|24|0|2.5|
+Mandi rice with mutton|మందీ మటన్|Rice & mains|1 plate (450 g)|40|88|32|0|2.5|
+Alfaham chicken (half)|అల్ఫహమ్ చికెన్|Chicken|1/2 chicken (350 g)|60|4|28|0|0|
+Grilled chicken with rice (Arabic)|గ్రిల్డ్ చికెన్ రైస్|Rice & mains|1 plate (450 g)|40|80|20|0|2.5|
+Kebab platter (mixed)|కబాబ్ ప్లాటర్|Chicken|1 plate (300 g)|50|12|32|0|0|
+Hyderabadi starters platter (veg)|వెజ్ స్టార్టర్స్|Snacks|1 plate (300 g)|20|50|34|0|11|
+Tandoori platter (non veg)|తందూరీ ప్లాటర్|Chicken|1 plate (350 g)|56|12|32|0|0|
+Thali (North Indian veg)|నార్త్ ఇండియన్ థాలీ|Rice & mains|1 thali (650 g)|22|120|28|0|14|
+Thali (South Indian meals)|సౌత్ ఇండియన్ మీల్స్|Rice & mains|1 plate (550 g)|18|115|18|0|7|
+Thali (non veg)|నాన్ వెజ్ థాలీ|Rice & mains|1 thali (700 g)|40|120|34|0|14|
+Unlimited meals (veg)|అన్‌లిమిటెడ్ మీల్స్|Rice & mains|1 plate (700 g)|20|140|26|0|14|
+Office canteen lunch (rice, dal, sabzi, curd)|క్యాంటీన్ లంచ్|Rice & mains|1 plate (500 g)|18|100|16|0|14|
+Dabba or tiffin lunch (2 roti, dal, sabzi)|డబ్బా లంచ్|Rice & mains|1 tiffin (400 g)|16|70|14|0|14|
+Hostel mess meal (rice, sambar, curry)|మెస్ మీల్|Rice & mains|1 plate (500 g)|14|100|12|0|14|
 # Global dishes
-Sushi (nigiri, 2 pieces)|సుషి నిగిరి|Fish & seafood|2 pieces (60 g)|8|14|1|0|
-Ramen (chicken)|రామెన్|Rice & mains|1 bowl (500 g)|24|60|16|0|
-Ramen (veg)|వెజ్ రామెన్|Rice & mains|1 bowl (500 g)|12|62|12|0|
-Pho (chicken)|ఫో|Rice & mains|1 bowl (500 g)|22|52|6|0|
-Pad thai (chicken)|పాడ్ థాయ్|Rice & mains|1 plate (350 g)|24|72|20|0|
-Thai green curry with rice (chicken)|థాయ్ గ్రీన్ కర్రీ|Rice & mains|1 plate (400 g)|26|66|24|0|
-Thai red curry with rice (veg)|థాయ్ రెడ్ కర్రీ|Rice & mains|1 plate (400 g)|10|70|22|0|
-Tom yum soup|టామ్ యమ్|Drinks|1 bowl (300 ml)|10|8|4|0|
-Dim sum (veg, 4)|డిమ్ సమ్|Snacks|4 pieces (120 g)|6|28|5|0|
-Dim sum (chicken, 4)|చికెన్ డిమ్ సమ్|Snacks|4 pieces (120 g)|12|26|6|0|
-Bibimbap|బిబింబాప్|Rice & mains|1 bowl (450 g)|22|80|14|0|
-Kimchi (1/2 cup)|కిమ్చి|Salads & light meals|1/2 cup (75 g)|1|3|0.3|0|
-Teriyaki chicken with rice|టెరియాకీ చికెన్|Rice & mains|1 plate (400 g)|30|78|10|0|
-Burger steak plate|బర్గర్ స్టీక్ ప్లేట్|Rice & mains|1 plate (400 g)|32|60|28|0|
-Steak with mashed potato|స్టీక్|Rice & mains|1 plate (400 g)|42|36|34|0|
-Grilled fish with vegetables|గ్రిల్డ్ ఫిష్|Fish & seafood|1 plate (350 g)|34|18|14|0|
-Grilled chicken with vegetables|గ్రిల్డ్ చికెన్ వెజ్|Chicken|1 plate (350 g)|40|18|14|0|
-Chicken curry with rice (plate)|చికెన్ కర్రీ రైస్|Rice & mains|1 plate (450 g)|34|80|20|0|
-Shakshuka|షక్షుకా|Eggs|1 plate (250 g)|16|14|18|0|
-Hummus bowl|హమ్మస్ బౌల్|Salads & light meals|1 bowl (250 g)|14|40|18|0|
-Mediterranean bowl|మెడిటరేనియన్ బౌల్|Salads & light meals|1 bowl (350 g)|20|50|20|0|
-Buddha bowl|బుద్ధ బౌల్|Salads & light meals|1 bowl (350 g)|16|60|16|0|
-Poke bowl (salmon)|పోక్ బౌల్|Rice & mains|1 bowl (400 g)|28|66|16|0|
-Avocado toast|అవకాడో టోస్ట్|Snacks|2 slices (150 g)|8|32|18|0|
-Eggs benedict|ఎగ్స్ బెనెడిక్ట్|Eggs|1 plate (200 g)|14|24|28|0|
-Pancakes with maple syrup|పాన్‌కేక్స్|Sweets|3 pancakes (200 g)|8|72|12|0|
-French toast (2 slices)|ఫ్రెంచ్ టోస్ట్|Sweets|2 slices (140 g)|10|34|14|0|
-Full English breakfast|ఇంగ్లీష్ బ్రేక్‌ఫాస్ట్|Eggs|1 plate (400 g)|32|40|44|0|
-Continental breakfast (bread, egg, juice)|కాంటినెంటల్|Eggs|1 plate|18|60|18|0|
-Lasagna (restaurant)|లాసాన్యా|Rice & mains|1 piece (300 g)|26|40|26|0|
-Risotto (mushroom)|రిసొట్టో|Rice & mains|1 plate (300 g)|10|58|18|0|
-Gnocchi (pesto)|న్యోక్కీ|Rice & mains|1 plate (250 g)|10|54|14|0|
-Caesar wrap|సీజర్ ర్యాప్|Snacks|1 wrap (250 g)|22|40|18|0|
-Falafel plate with hummus|ఫలాఫెల్ ప్లేట్|Rice & mains|1 plate (350 g)|18|64|26|0|
-Baba ganoush with pita|బాబా గనూష్|Snacks|1 plate (200 g)|6|34|14|0|
-Tabbouleh|తబ్బూలే|Salads & light meals|1 bowl (150 g)|3|16|8|0|
-Kofta kebab with rice|కోఫ్తా కబాబ్ రైస్|Rice & mains|1 plate (400 g)|30|70|24|0|
-Gyro or doner wrap|డోనర్ ర్యాప్|Snacks|1 wrap (300 g)|28|46|24|0|
-Burger combo (burger, fries, cola)|బర్గర్ కాంబో|Snacks|1 combo|24|120|40|0|
-Pizza combo (2 slices, cola)|పిజ్జా కాంబో|Snacks|1 combo|20|100|22|0|
+Sushi (nigiri, 2 pieces)|సుషి నిగిరి|Fish & seafood|2 pieces (60 g)|8|14|1|0|0|
+Ramen (chicken)|రామెన్|Rice & mains|1 bowl (500 g)|24|60|16|0|3.5|
+Ramen (veg)|వెజ్ రామెన్|Rice & mains|1 bowl (500 g)|12|62|12|0|13.5|
+Pho (chicken)|ఫో|Rice & mains|1 bowl (500 g)|22|52|6|0|3|
+Pad thai (chicken)|పాడ్ థాయ్|Rice & mains|1 plate (350 g)|24|72|20|0|4.5|
+Thai green curry with rice (chicken)|థాయ్ గ్రీన్ కర్రీ|Rice & mains|1 plate (400 g)|26|66|24|0|2|
+Thai red curry with rice (veg)|థాయ్ రెడ్ కర్రీ|Rice & mains|1 plate (400 g)|10|70|22|0|14|
+Tom yum soup|టామ్ యమ్|Drinks|1 bowl (300 ml)|10|8|4|0|0|
+Dim sum (veg, 4)|డిమ్ సమ్|Snacks|4 pieces (120 g)|6|28|5|0|6|
+Dim sum (chicken, 4)|చికెన్ డిమ్ సమ్|Snacks|4 pieces (120 g)|12|26|6|0|1.5|
+Bibimbap|బిబింబాప్|Rice & mains|1 bowl (450 g)|22|80|14|0|5|
+Kimchi (1/2 cup)|కిమ్చి|Salads & light meals|1/2 cup (75 g)|1|3|0.3|0|0|
+Teriyaki chicken with rice|టెరియాకీ చికెన్|Rice & mains|1 plate (400 g)|30|78|10|0|2.5|
+Burger steak plate|బర్గర్ స్టీక్ ప్లేట్|Rice & mains|1 plate (400 g)|32|60|28|0|2|
+Steak with mashed potato|స్టీక్|Rice & mains|1 plate (400 g)|42|36|34|0|2|
+Grilled fish with vegetables|గ్రిల్డ్ ఫిష్|Fish & seafood|1 plate (350 g)|34|18|14|0|0.5|
+Grilled chicken with vegetables|గ్రిల్డ్ చికెన్ వెజ్|Chicken|1 plate (350 g)|40|18|14|0|0.5|
+Chicken curry with rice (plate)|చికెన్ కర్రీ రైస్|Rice & mains|1 plate (450 g)|34|80|20|0|2.5|
+Shakshuka|షక్షుకా|Eggs|1 plate (250 g)|16|14|18|0|0|
+Hummus bowl|హమ్మస్ బౌల్|Salads & light meals|1 bowl (250 g)|14|40|18|0|2.5|
+Mediterranean bowl|మెడిటరేనియన్ బౌల్|Salads & light meals|1 bowl (350 g)|20|50|20|0|3|
+Buddha bowl|బుద్ధ బౌల్|Salads & light meals|1 bowl (350 g)|16|60|16|0|3.5|
+Poke bowl (salmon)|పోక్ బౌల్|Rice & mains|1 bowl (400 g)|28|66|16|0|4|
+Avocado toast|అవకాడో టోస్ట్|Snacks|2 slices (150 g)|8|32|18|0|6|
+Eggs benedict|ఎగ్స్ బెనెడిక్ట్|Eggs|1 plate (200 g)|14|24|28|0|0.5|
+Pancakes with maple syrup|పాన్‌కేక్స్|Sweets|3 pancakes (200 g)|8|72|12|0|2|
+French toast (2 slices)|ఫ్రెంచ్ టోస్ట్|Sweets|2 slices (140 g)|10|34|14|0|1|
+Full English breakfast|ఇంగ్లీష్ బ్రేక్‌ఫాస్ట్|Eggs|1 plate (400 g)|32|40|44|0|1|
+Continental breakfast (bread, egg, juice)|కాంటినెంటల్|Eggs|1 plate|18|60|18|0|2|
+Lasagna (restaurant)|లాసాన్యా|Rice & mains|1 piece (300 g)|26|40|26|0|2.5|
+Risotto (mushroom)|రిసొట్టో|Rice & mains|1 plate (300 g)|10|58|18|0|13|
+Gnocchi (pesto)|న్యోక్కీ|Rice & mains|1 plate (250 g)|10|54|14|0|3|
+Caesar wrap|సీజర్ ర్యాప్|Snacks|1 wrap (250 g)|22|40|18|0|2.5|
+Falafel plate with hummus|ఫలాఫెల్ ప్లేట్|Rice & mains|1 plate (350 g)|18|64|26|0|4|
+Baba ganoush with pita|బాబా గనూష్|Snacks|1 plate (200 g)|6|34|14|0|2|
+Tabbouleh|తబ్బూలే|Salads & light meals|1 bowl (150 g)|3|16|8|0|1|
+Kofta kebab with rice|కోఫ్తా కబాబ్ రైస్|Rice & mains|1 plate (400 g)|30|70|24|0|2|
+Gyro or doner wrap|డోనర్ ర్యాప్|Snacks|1 wrap (300 g)|28|46|24|0|3|
+Burger combo (burger, fries, cola)|బర్గర్ కాంబో|Snacks|1 combo|24|120|40|0|3.5|
+Pizza combo (2 slices, cola)|పిజ్జా కాంబో|Snacks|1 combo|20|100|22|0|3|
 # Packaged and ready foods
-Instant oats packet (flavoured)|ఇన్‌స్టంట్ ఓట్స్|Millets & grains|1 sachet (40 g)|4|26|3|0|
-Instant poha packet|ఇన్‌స్టంట్ పోహా|Tiffin|1 pack cooked (200 g)|4|38|7|0|
-Instant upma packet|ఇన్‌స్టంట్ ఉప్మా|Tiffin|1 pack cooked (200 g)|5|36|8|0|
-Instant idli mix (3 idlis)|ఇన్‌స్టంట్ ఇడ్లీ|Tiffin|3 idlis (150 g)|6|30|1|0|
-Dosa batter dosa (packaged batter)|ఇన్‌స్టంట్ దోశ|Tiffin|1 dosa (90 g)|3|22|4|0|
-Ready-to-eat dal makhani (pouch)|రెడీ దాల్ మఖనీ|Dal & sambar|1 pouch (150 g)|7|18|10|0|
-Ready-to-eat paneer butter masala (pouch)|రెడీ పనీర్|Dairy & paneer|1 pouch (150 g)|8|12|16|0|
-Ready-to-eat rice (pouch)|రెడీ రైస్|Rice & mains|1 pouch (200 g)|5|56|3|0|
-Frozen paratha (1)|ఫ్రోజెన్ పరాటా|Roti & bread|1 piece (80 g)|4|30|7|0|
-Frozen samosa (2)|ఫ్రోజెన్ సమోసా|Snacks|2 pieces (80 g)|3|20|10|0|
-Frozen nuggets (6, fried)|ఫ్రోజెన్ నగ్గెట్స్|Chicken|6 pieces (100 g)|14|16|17|0|
-Frozen french fries (air fried)|ఎయిర్ ఫ్రైడ్ ఫ్రైస్|Snacks|100 g|3|28|6|0|
-Frozen peas (cooked)|ఫ్రోజెన్ బఠానీ|Vegetable curries|1 cup (160 g)|8|21|0.6|0|
-Protein cereal (with milk)|ప్రోటీన్ సీరియల్|Millets & grains|1 bowl (200 g)|18|36|6|0|
-Peanut butter jar serving|పీనట్ బటర్|Nuts & seeds|2 tbsp (32 g)|8|6|16|0|
-Soup (instant packet, tomato)|ఇన్‌స్టంట్ సూప్|Drinks|1 sachet in 200 ml|1|12|2|0|
-Soup (instant packet, chicken)|ఇన్‌స్టంట్ చికెన్ సూప్|Drinks|1 sachet in 200 ml|2|10|2|0|
-Cup of instant pasta|ఇన్‌స్టంట్ పాస్తా|Snacks|1 cup cooked (250 g)|8|48|10|0|
-Canned baked beans (1/2 can)|బేక్డ్ బీన్స్|Dal & sambar|1/2 can (200 g)|9|30|1|0|
-Canned corn (1/2 cup)|టిన్డ్ కార్న్|Vegetable curries|1/2 cup (80 g)|2|14|1|0|
-Pickle (mixed, 1 tbsp)|ఊరగాయ|Salads & light meals|1 tbsp (15 g)|0.3|1|4|0|
-Jam sandwich biscuit pack|బిస్కెట్ ప్యాక్|Snacks|1 pack (60 g)|3|40|10|0|
-Wafer biscuit pack|వేఫర్|Snacks|1 pack (45 g)|3|27|10|0|
-Cream roll|క్రీమ్ రోల్|Snacks|1 piece (45 g)|3|22|10|0|
-Choco pie|చోకో పై|Snacks|1 piece (28 g)|1.5|17|5|0|
-Swiss roll slice|స్విస్ రోల్|Sweets|1 slice (40 g)|2|22|7|0|
-Fruit yogurt cup|ఫ్రూట్ యోగర్ట్|Dairy & paneer|1 cup (100 g)|3.5|17|2|0|
-Ice cream tub serving (100 ml)|ఐస్ క్రీమ్|Sweets|100 ml (55 g)|1.5|13|6|0|
-Chocolate (Dairy milk Silk)|సిల్క్ చాక్లెట్|Snacks|1 bar (60 g)|4|33|20|0|
-Chewing gum|చూయింగ్ గమ్|Snacks|1 stick|0|1.5|0|0|
-Mint candy|మింట్|Snacks|1 piece (4 g)|0|3.5|0|0|
-Toffee or hard candy (1)|టాఫీ|Snacks|1 piece (6 g)|0|5|0.5|0|
+Instant oats packet (flavoured)|ఇన్‌స్టంట్ ఓట్స్|Millets & grains|1 sachet (40 g)|4|26|3|0|3|
+Instant poha packet|ఇన్‌స్టంట్ పోహా|Tiffin|1 pack cooked (200 g)|4|38|7|0|4.5|
+Instant upma packet|ఇన్‌స్టంట్ ఉప్మా|Tiffin|1 pack cooked (200 g)|5|36|8|0|4.5|
+Instant idli mix (3 idlis)|ఇన్‌స్టంట్ ఇడ్లీ|Tiffin|3 idlis (150 g)|6|30|1|0|3.5|
+Dosa batter dosa (packaged batter)|ఇన్‌స్టంట్ దోశ|Tiffin|1 dosa (90 g)|3|22|4|0|2.5|
+Ready-to-eat dal makhani (pouch)|రెడీ దాల్ మఖనీ|Dal & sambar|1 pouch (150 g)|7|18|10|0|5.5|
+Ready-to-eat paneer butter masala (pouch)|రెడీ పనీర్|Dairy & paneer|1 pouch (150 g)|8|12|16|0|0|
+Ready-to-eat rice (pouch)|రెడీ రైస్|Rice & mains|1 pouch (200 g)|5|56|3|0|1.5|
+Frozen paratha (1)|ఫ్రోజెన్ పరాటా|Roti & bread|1 piece (80 g)|4|30|7|0|3.5|
+Frozen samosa (2)|ఫ్రోజెన్ సమోసా|Snacks|2 pieces (80 g)|3|20|10|0|0.5|
+Frozen nuggets (6, fried)|ఫ్రోజెన్ నగ్గెట్స్|Chicken|6 pieces (100 g)|14|16|17|0|0.5|
+Frozen french fries (air fried)|ఎయిర్ ఫ్రైడ్ ఫ్రైస్|Snacks|100 g|3|28|6|0|1|
+Frozen peas (cooked)|ఫ్రోజెన్ బఠానీ|Vegetable curries|1 cup (160 g)|8|21|0.6|0|6.5|
+Protein cereal (with milk)|ప్రోటీన్ సీరియల్|Millets & grains|1 bowl (200 g)|18|36|6|0|2|
+Peanut butter jar serving|పీనట్ బటర్|Nuts & seeds|2 tbsp (32 g)|8|6|16|0|2.5|
+Soup (instant packet, tomato)|ఇన్‌స్టంట్ సూప్|Drinks|1 sachet in 200 ml|1|12|2|0|2.5|
+Soup (instant packet, chicken)|ఇన్‌స్టంట్ చికెన్ సూప్|Drinks|1 sachet in 200 ml|2|10|2|0|0|
+Cup of instant pasta|ఇన్‌స్టంట్ పాస్తా|Snacks|1 cup cooked (250 g)|8|48|10|0|1.5|
+Canned baked beans (1/2 can)|బేక్డ్ బీన్స్|Dal & sambar|1/2 can (200 g)|9|30|1|0|9|
+Canned corn (1/2 cup)|టిన్డ్ కార్న్|Vegetable curries|1/2 cup (80 g)|2|14|1|0|1|
+Pickle (mixed, 1 tbsp)|ఊరగాయ|Salads & light meals|1 tbsp (15 g)|0.3|1|4|0|0|
+Jam sandwich biscuit pack|బిస్కెట్ ప్యాక్|Snacks|1 pack (60 g)|3|40|10|0|1|
+Wafer biscuit pack|వేఫర్|Snacks|1 pack (45 g)|3|27|10|0|1|
+Cream roll|క్రీమ్ రోల్|Snacks|1 piece (45 g)|3|22|10|0|1.5|
+Choco pie|చోకో పై|Snacks|1 piece (28 g)|1.5|17|5|0|1|
+Swiss roll slice|స్విస్ రోల్|Sweets|1 slice (40 g)|2|22|7|0|0.5|
+Fruit yogurt cup|ఫ్రూట్ యోగర్ట్|Dairy & paneer|1 cup (100 g)|3.5|17|2|0|1.5|
+Ice cream tub serving (100 ml)|ఐస్ క్రీమ్|Sweets|100 ml (55 g)|1.5|13|6|0|0.5|
+Chocolate (Dairy milk Silk)|సిల్క్ చాక్లెట్|Snacks|1 bar (60 g)|4|33|20|0|2|
+Chewing gum|చూయింగ్ గమ్|Snacks|1 stick|0|1.5|0|0|0|
+Mint candy|మింట్|Snacks|1 piece (4 g)|0|3.5|0|0|0|
+Toffee or hard candy (1)|టాఫీ|Snacks|1 piece (6 g)|0|5|0.5|0|0.5|

@@ -136,7 +136,7 @@ function LogFood() {
   );
 
   // One request for every way of adding: a catalogue food, a sheet choice or a custom food.
-  const logMeal = async (body: { meal_type: string; name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number; source: string; portion?: string }) => {
+  const logMeal = async (body: { meal_type: string; name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number; fibre_g?: number; source: string; portion?: string }) => {
     try {
       const saved = await post<LoggedMeal>("/meals", body);
       toast.show(`${t.addMeal} · ${mealTypeLabel(t, body.meal_type)}`, { actionLabel: t.undo, onAction: () => undo(saved.id) });
@@ -194,18 +194,19 @@ function LogFood() {
     const done = added[food.id];
     const primary = lang === "te" && food.te ? food.te : food.name;
     return (
-      <Pressable key={food.id} testID={`food-row-${food.id}`} accessibilityRole="button" accessibilityLabel={primary} onPress={() => setSheetFood(food)} style={({ pressed }) => [styles.foodRow, pressed && styles.pressed]}>
-        <View style={styles.flex}>
+      // A View with two sibling buttons (open the sheet, quick add): a button cannot contain a button.
+      <View key={food.id} testID={`food-row-${food.id}`} style={styles.foodRow}>
+        <Pressable accessibilityRole="button" accessibilityLabel={primary} onPress={() => setSheetFood(food)} style={({ pressed }) => [styles.flex, pressed && styles.pressed]}>
           <Text style={styles.foodName}>{primary}</Text>
           <Text style={styles.foodMeta}>
             {lang === "te" && food.te ? `${food.name} · ` : ""}
             {food.serving} · {food.calories} kcal
           </Text>
-        </View>
+        </Pressable>
         <Pressable testID={`food-add-${food.id}`} accessibilityRole="button" accessibilityLabel={`${t.addWord} ${primary}`} onPress={() => quickAdd(food)} style={[styles.foodAdd, done && styles.foodAddDone]}>
           <Text style={done ? styles.foodAddDoneText : styles.foodAddText}>{done ? "✓" : "+"}</Text>
         </Pressable>
-      </Pressable>
+      </View>
     );
   };
 

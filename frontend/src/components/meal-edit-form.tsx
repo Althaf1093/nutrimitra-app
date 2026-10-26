@@ -6,7 +6,7 @@ import type { Copy } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 import type { LoggedMeal } from "@/src/types";
 
-export type MealChanges = { name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number };
+export type MealChanges = { name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number; fibre_g?: number };
 
 // Inline editor for one logged meal; Save sends only a PATCH /meals/{id} body, the parent does the request.
 export function MealEditForm({ meal, t, busy, onSave, onCancel }: { meal: LoggedMeal; t: Copy; busy: boolean; onSave: (changes: MealChanges) => void; onCancel: () => void }) {
@@ -16,11 +16,12 @@ export function MealEditForm({ meal, t, busy, onSave, onCancel }: { meal: Logged
   const [protein, setProtein] = useState(String(meal.protein_g));
   const [carbs, setCarbs] = useState(String(meal.carbs_g));
   const [fat, setFat] = useState(String(meal.fat_g));
+  const [fibre, setFibre] = useState(meal.fibre_g == null ? "" : String(meal.fibre_g));
   const [error, setError] = useState("");
 
   const save = () => {
-    const changes = { name: name.trim(), calories: Math.round(Number(calories)), protein_g: Number(protein), carbs_g: Number(carbs), fat_g: Number(fat) };
-    const numbers = [changes.calories, changes.protein_g, changes.carbs_g, changes.fat_g];
+    const changes = { name: name.trim(), calories: Math.round(Number(calories)), protein_g: Number(protein), carbs_g: Number(carbs), fat_g: Number(fat), ...(fibre.trim() ? { fibre_g: Number(fibre) } : {}) };
+    const numbers = [changes.calories, changes.protein_g, changes.carbs_g, changes.fat_g, changes.fibre_g ?? 0];
     if (!changes.name || numbers.some((value) => !Number.isFinite(value) || value < 0)) {
       setError(t.checkNumbers);
       return;
@@ -36,6 +37,7 @@ export function MealEditForm({ meal, t, busy, onSave, onCancel }: { meal: Logged
       <Field label={t.proteinLabel} value={protein} onChangeText={setProtein} keyboardType="numeric" />
       <Field label={t.carbsLabel} value={carbs} onChangeText={setCarbs} keyboardType="numeric" />
       <Field label={t.fatLabel} value={fat} onChangeText={setFat} keyboardType="numeric" />
+      <Field label={t.fibreLabel} value={fibre} onChangeText={setFibre} keyboardType="numeric" />
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <View style={styles.row}>
         <View style={styles.half}>

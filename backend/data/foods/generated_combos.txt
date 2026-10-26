@@ -1,798 +1,798 @@
 # Generated: main ingredient plus cooking style. Macros = ingredient base + style add-on (estimates).
 
-Chicken curry|చికెన్ కూర|Chicken|1 bowl (200 g)|28.0|8.0|16.0|0|
-Chicken masala|చికెన్ మసాలా|Chicken|1 bowl (200 g)|28.0|9.0|18.0|0|
-Chicken fry|చికెన్ వేపుడు|Chicken|1 bowl (200 g)|28.0|4.0|17.0|0|
-Chicken korma|చికెన్ కుర్మా|Chicken|1 bowl (200 g)|28.0|10.0|23.0|0|
-Chicken kadai||Chicken|1 bowl (200 g)|28.0|8.0|18.0|0|
-Chicken tomato curry||Chicken|1 bowl (200 g)|28.0|9.0|15.0|0|
-Chicken coconut curry||Chicken|1 bowl (200 g)|28.0|7.0|21.0|0|
-Chicken pepper fry||Chicken|1 bowl (200 g)|28.0|4.0|16.0|0|
-Chicken butter masala||Chicken|1 bowl (200 g)|28.0|10.0|24.0|0|
-Chicken tikka masala||Chicken|1 bowl (200 g)|28.0|10.0|21.0|0|
-Chicken chilli (dry)||Chicken|1 bowl (200 g)|28.0|14.0|19.0|0|
-Chicken 65||Chicken|1 bowl (200 g)|28.0|13.0|22.0|0|
-Chicken do pyaza||Chicken|1 bowl (200 g)|28.0|10.0|18.0|0|
-Chicken stir fry (light oil)||Chicken|1 bowl (200 g)|28.0|4.0|11.0|0|
-Chicken grilled (little oil)||Chicken|1 bowl (200 g)|28.0|2.0|10.0|0|
-Chicken with spinach gravy||Chicken|1 bowl (200 g)|28.0|8.0|16.0|0|
-Chicken peanut gravy||Chicken|1 bowl (200 g)|28.0|8.0|20.0|0|
-Chicken pulusu (tamarind gravy)|చికెన్ పులుసు|Chicken|1 bowl (200 g)|28.0|9.0|12.0|0|
-Mutton curry|మటన్ కూర|Mutton|1 bowl (200 g)|26.0|8.0|22.0|0|
-Mutton masala|మటన్ మసాలా|Mutton|1 bowl (200 g)|26.0|9.0|24.0|0|
-Mutton fry|మటన్ వేపుడు|Mutton|1 bowl (200 g)|26.0|4.0|23.0|0|
-Mutton korma|మటన్ కుర్మా|Mutton|1 bowl (200 g)|26.0|10.0|29.0|0|
-Mutton kadai||Mutton|1 bowl (200 g)|26.0|8.0|24.0|0|
-Mutton tomato curry||Mutton|1 bowl (200 g)|26.0|9.0|21.0|0|
-Mutton coconut curry||Mutton|1 bowl (200 g)|26.0|7.0|27.0|0|
-Mutton pepper fry||Mutton|1 bowl (200 g)|26.0|4.0|22.0|0|
-Mutton butter masala||Mutton|1 bowl (200 g)|26.0|10.0|30.0|0|
-Mutton tikka masala||Mutton|1 bowl (200 g)|26.0|10.0|27.0|0|
-Mutton chilli (dry)||Mutton|1 bowl (200 g)|26.0|14.0|25.0|0|
-Mutton 65||Mutton|1 bowl (200 g)|26.0|13.0|28.0|0|
-Mutton do pyaza||Mutton|1 bowl (200 g)|26.0|10.0|24.0|0|
-Mutton stir fry (light oil)||Mutton|1 bowl (200 g)|26.0|4.0|17.0|0|
-Mutton grilled (little oil)||Mutton|1 bowl (200 g)|26.0|2.0|16.0|0|
-Mutton with spinach gravy||Mutton|1 bowl (200 g)|26.0|8.0|22.0|0|
-Mutton peanut gravy||Mutton|1 bowl (200 g)|26.0|8.0|26.0|0|
-Mutton pulusu (tamarind gravy)|మటన్ పులుసు|Mutton|1 bowl (200 g)|26.0|9.0|18.0|0|
-Fish curry|చేప కూర|Fish & seafood|1 bowl (200 g)|22.0|8.0|15.0|0|
-Fish masala|చేప మసాలా|Fish & seafood|1 bowl (200 g)|22.0|9.0|17.0|0|
-Fish fry|చేప వేపుడు|Fish & seafood|1 bowl (200 g)|22.0|4.0|16.0|0|
-Fish korma|చేప కుర్మా|Fish & seafood|1 bowl (200 g)|22.0|10.0|22.0|0|
-Fish kadai||Fish & seafood|1 bowl (200 g)|22.0|8.0|17.0|0|
-Fish tomato curry||Fish & seafood|1 bowl (200 g)|22.0|9.0|14.0|0|
-Fish coconut curry||Fish & seafood|1 bowl (200 g)|22.0|7.0|20.0|0|
-Fish pepper fry||Fish & seafood|1 bowl (200 g)|22.0|4.0|15.0|0|
-Fish butter masala||Fish & seafood|1 bowl (200 g)|22.0|10.0|23.0|0|
-Fish tikka masala||Fish & seafood|1 bowl (200 g)|22.0|10.0|20.0|0|
-Fish chilli (dry)||Fish & seafood|1 bowl (200 g)|22.0|14.0|18.0|0|
-Fish 65||Fish & seafood|1 bowl (200 g)|22.0|13.0|21.0|0|
-Fish do pyaza||Fish & seafood|1 bowl (200 g)|22.0|10.0|17.0|0|
-Fish stir fry (light oil)||Fish & seafood|1 bowl (200 g)|22.0|4.0|10.0|0|
-Fish grilled (little oil)||Fish & seafood|1 bowl (200 g)|22.0|2.0|9.0|0|
-Fish with spinach gravy||Fish & seafood|1 bowl (200 g)|22.0|8.0|15.0|0|
-Fish peanut gravy||Fish & seafood|1 bowl (200 g)|22.0|8.0|19.0|0|
-Fish pulusu (tamarind gravy)|చేప పులుసు|Fish & seafood|1 bowl (200 g)|22.0|9.0|11.0|0|
-Prawn curry|రొయ్యల కూర|Fish & seafood|1 bowl (200 g)|22.0|9.0|12.0|0|
-Prawn masala|రొయ్యల మసాలా|Fish & seafood|1 bowl (200 g)|22.0|10.0|14.0|0|
-Prawn fry|రొయ్యల వేపుడు|Fish & seafood|1 bowl (200 g)|22.0|5.0|13.0|0|
-Prawn korma|రొయ్యల కుర్మా|Fish & seafood|1 bowl (200 g)|22.0|11.0|19.0|0|
-Prawn kadai||Fish & seafood|1 bowl (200 g)|22.0|9.0|14.0|0|
-Prawn tomato curry||Fish & seafood|1 bowl (200 g)|22.0|10.0|11.0|0|
-Prawn coconut curry||Fish & seafood|1 bowl (200 g)|22.0|8.0|17.0|0|
-Prawn pepper fry||Fish & seafood|1 bowl (200 g)|22.0|5.0|12.0|0|
-Prawn butter masala||Fish & seafood|1 bowl (200 g)|22.0|11.0|20.0|0|
-Prawn tikka masala||Fish & seafood|1 bowl (200 g)|22.0|11.0|17.0|0|
-Prawn chilli (dry)||Fish & seafood|1 bowl (200 g)|22.0|15.0|15.0|0|
-Prawn 65||Fish & seafood|1 bowl (200 g)|22.0|14.0|18.0|0|
-Prawn do pyaza||Fish & seafood|1 bowl (200 g)|22.0|11.0|14.0|0|
-Prawn stir fry (light oil)||Fish & seafood|1 bowl (200 g)|22.0|5.0|7.0|0|
-Prawn grilled (little oil)||Fish & seafood|1 bowl (200 g)|22.0|3.0|6.0|0|
-Prawn with spinach gravy||Fish & seafood|1 bowl (200 g)|22.0|9.0|12.0|0|
-Prawn peanut gravy||Fish & seafood|1 bowl (200 g)|22.0|9.0|16.0|0|
-Prawn pulusu (tamarind gravy)|రొయ్యల పులుసు|Fish & seafood|1 bowl (200 g)|22.0|10.0|8.0|0|
-Egg curry|గుడ్డు కూర|Eggs|2 eggs + gravy|13.0|9.0|20.0|0|
-Egg masala|గుడ్డు మసాలా|Eggs|2 eggs + gravy|13.0|10.0|22.0|0|
-Egg fry|గుడ్డు వేపుడు|Eggs|2 eggs + gravy|13.0|5.0|21.0|0|
-Egg korma|గుడ్డు కుర్మా|Eggs|2 eggs + gravy|13.0|11.0|27.0|0|
-Egg kadai||Eggs|2 eggs + gravy|13.0|9.0|22.0|0|
-Egg tomato curry||Eggs|2 eggs + gravy|13.0|10.0|19.0|0|
-Egg coconut curry||Eggs|2 eggs + gravy|13.0|8.0|25.0|0|
-Egg butter masala||Eggs|2 eggs + gravy|13.0|11.0|28.0|0|
-Egg tikka masala||Eggs|2 eggs + gravy|13.0|11.0|25.0|0|
-Egg chilli (dry)||Eggs|2 eggs + gravy|13.0|15.0|23.0|0|
-Egg do pyaza||Eggs|2 eggs + gravy|13.0|11.0|22.0|0|
-Egg stir fry (light oil)||Eggs|2 eggs + gravy|13.0|5.0|15.0|0|
-Egg with spinach gravy||Eggs|2 eggs + gravy|13.0|9.0|20.0|0|
-Egg peanut gravy||Eggs|2 eggs + gravy|13.0|9.0|24.0|0|
-Egg pulusu (tamarind gravy)|గుడ్డు పులుసు|Eggs|2 eggs + gravy|13.0|10.0|16.0|0|
-Paneer curry|పనీర్ కూర|Dairy & paneer|1 bowl (200 g)|16.0|11.0|28.0|0|
-Paneer masala|పనీర్ మసాలా|Dairy & paneer|1 bowl (200 g)|16.0|12.0|30.0|0|
-Paneer fry|పనీర్ వేపుడు|Dairy & paneer|1 bowl (200 g)|16.0|7.0|29.0|0|
-Paneer korma|పనీర్ కుర్మా|Dairy & paneer|1 bowl (200 g)|16.0|13.0|35.0|0|
-Paneer kadai||Dairy & paneer|1 bowl (200 g)|16.0|11.0|30.0|0|
-Paneer tomato curry||Dairy & paneer|1 bowl (200 g)|16.0|12.0|27.0|0|
-Paneer coconut curry||Dairy & paneer|1 bowl (200 g)|16.0|10.0|33.0|0|
-Paneer pepper fry||Dairy & paneer|1 bowl (200 g)|16.0|7.0|28.0|0|
-Paneer butter masala||Dairy & paneer|1 bowl (200 g)|16.0|13.0|36.0|0|
-Paneer tikka masala||Dairy & paneer|1 bowl (200 g)|16.0|13.0|33.0|0|
-Paneer chilli (dry)||Dairy & paneer|1 bowl (200 g)|16.0|17.0|31.0|0|
-Paneer 65||Dairy & paneer|1 bowl (200 g)|16.0|16.0|34.0|0|
-Paneer do pyaza||Dairy & paneer|1 bowl (200 g)|16.0|13.0|30.0|0|
-Paneer stir fry (light oil)||Dairy & paneer|1 bowl (200 g)|16.0|7.0|23.0|0|
-Paneer grilled (little oil)||Dairy & paneer|1 bowl (200 g)|16.0|5.0|22.0|0|
-Paneer with spinach gravy||Dairy & paneer|1 bowl (200 g)|16.0|11.0|28.0|0|
-Paneer peanut gravy||Dairy & paneer|1 bowl (200 g)|16.0|11.0|32.0|0|
-Soya chunks curry|సోయా కూర|Vegetable curries|1 bowl (200 g)|24.0|24.0|11.0|0|
-Soya chunks masala|సోయా మసాలా|Vegetable curries|1 bowl (200 g)|24.0|25.0|13.0|0|
-Soya chunks fry|సోయా వేపుడు|Vegetable curries|1 bowl (200 g)|24.0|20.0|12.0|0|
-Soya chunks korma|సోయా కుర్మా|Vegetable curries|1 bowl (200 g)|24.0|26.0|18.0|0|
-Soya chunks kadai||Vegetable curries|1 bowl (200 g)|24.0|24.0|13.0|0|
-Soya chunks tomato curry||Vegetable curries|1 bowl (200 g)|24.0|25.0|10.0|0|
-Soya chunks coconut curry||Vegetable curries|1 bowl (200 g)|24.0|23.0|16.0|0|
-Soya chunks chilli (dry)||Vegetable curries|1 bowl (200 g)|24.0|30.0|14.0|0|
-Soya chunks do pyaza||Vegetable curries|1 bowl (200 g)|24.0|26.0|13.0|0|
-Soya chunks stir fry (light oil)||Vegetable curries|1 bowl (200 g)|24.0|20.0|6.0|0|
-Soya chunks with spinach gravy||Vegetable curries|1 bowl (200 g)|24.0|24.0|11.0|0|
-Soya chunks peanut gravy||Vegetable curries|1 bowl (200 g)|24.0|24.0|15.0|0|
-Soya chunks dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|24.0|19.0|7.0|0|
-Soya chunks sambar style||Vegetable curries|1 bowl (200 g)|24.0|26.0|7.0|0|
-Soya chunks pulusu (tamarind gravy)|సోయా పులుసు|Vegetable curries|1 bowl (200 g)|24.0|25.0|7.0|0|
-Tofu curry|టోఫు కూర|Vegetable curries|1 bowl (200 g)|10.0|11.0|16.0|0|
-Tofu masala|టోఫు మసాలా|Vegetable curries|1 bowl (200 g)|10.0|12.0|18.0|0|
-Tofu fry|టోఫు వేపుడు|Vegetable curries|1 bowl (200 g)|10.0|7.0|17.0|0|
-Tofu korma|టోఫు కుర్మా|Vegetable curries|1 bowl (200 g)|10.0|13.0|23.0|0|
-Tofu kadai||Vegetable curries|1 bowl (200 g)|10.0|11.0|18.0|0|
-Tofu tomato curry||Vegetable curries|1 bowl (200 g)|10.0|12.0|15.0|0|
-Tofu coconut curry||Vegetable curries|1 bowl (200 g)|10.0|10.0|21.0|0|
-Tofu chilli (dry)||Vegetable curries|1 bowl (200 g)|10.0|17.0|19.0|0|
-Tofu do pyaza||Vegetable curries|1 bowl (200 g)|10.0|13.0|18.0|0|
-Tofu stir fry (light oil)||Vegetable curries|1 bowl (200 g)|10.0|7.0|11.0|0|
-Tofu with spinach gravy||Vegetable curries|1 bowl (200 g)|10.0|11.0|16.0|0|
-Tofu peanut gravy||Vegetable curries|1 bowl (200 g)|10.0|11.0|20.0|0|
-Tofu dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|10.0|6.0|12.0|0|
-Tofu sambar style||Vegetable curries|1 bowl (200 g)|10.0|13.0|12.0|0|
-Tofu pulusu (tamarind gravy)|టోఫు పులుసు|Vegetable curries|1 bowl (200 g)|10.0|12.0|12.0|0|
-Chickpea curry|శనగల కూర|Dal & sambar|1 bowl (200 g)|12.0|38.0|13.0|0|
-Chickpea masala|శనగల మసాలా|Dal & sambar|1 bowl (200 g)|12.0|39.0|15.0|0|
-Chickpea fry|శనగల వేపుడు|Dal & sambar|1 bowl (200 g)|12.0|34.0|14.0|0|
-Chickpea korma|శనగల కుర్మా|Dal & sambar|1 bowl (200 g)|12.0|40.0|20.0|0|
-Chickpea kadai||Dal & sambar|1 bowl (200 g)|12.0|38.0|15.0|0|
-Chickpea tomato curry||Dal & sambar|1 bowl (200 g)|12.0|39.0|12.0|0|
-Chickpea coconut curry||Dal & sambar|1 bowl (200 g)|12.0|37.0|18.0|0|
-Chickpea chilli (dry)||Dal & sambar|1 bowl (200 g)|12.0|44.0|16.0|0|
-Chickpea do pyaza||Dal & sambar|1 bowl (200 g)|12.0|40.0|15.0|0|
-Chickpea stir fry (light oil)||Dal & sambar|1 bowl (200 g)|12.0|34.0|8.0|0|
-Chickpea with spinach gravy||Dal & sambar|1 bowl (200 g)|12.0|38.0|13.0|0|
-Chickpea peanut gravy||Dal & sambar|1 bowl (200 g)|12.0|38.0|17.0|0|
-Chickpea dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|12.0|33.0|9.0|0|
-Chickpea sambar style||Dal & sambar|1 bowl (200 g)|12.0|40.0|9.0|0|
-Chickpea pulusu (tamarind gravy)|శనగల పులుసు|Dal & sambar|1 bowl (200 g)|12.0|39.0|9.0|0|
-Green peas curry|బఠానీ కూర|Vegetable curries|1 bowl (200 g)|8.0|29.0|10.5|0|
-Green peas masala|బఠానీ మసాలా|Vegetable curries|1 bowl (200 g)|8.0|30.0|12.5|0|
-Green peas fry|బఠానీ వేపుడు|Vegetable curries|1 bowl (200 g)|8.0|25.0|11.5|0|
-Green peas korma|బఠానీ కుర్మా|Vegetable curries|1 bowl (200 g)|8.0|31.0|17.5|0|
-Green peas kadai||Vegetable curries|1 bowl (200 g)|8.0|29.0|12.5|0|
-Green peas tomato curry||Vegetable curries|1 bowl (200 g)|8.0|30.0|9.5|0|
-Green peas coconut curry||Vegetable curries|1 bowl (200 g)|8.0|28.0|15.5|0|
-Green peas chilli (dry)||Vegetable curries|1 bowl (200 g)|8.0|35.0|13.5|0|
-Green peas do pyaza||Vegetable curries|1 bowl (200 g)|8.0|31.0|12.5|0|
-Green peas stir fry (light oil)||Vegetable curries|1 bowl (200 g)|8.0|25.0|5.5|0|
-Green peas with spinach gravy||Vegetable curries|1 bowl (200 g)|8.0|29.0|10.5|0|
-Green peas peanut gravy||Vegetable curries|1 bowl (200 g)|8.0|29.0|14.5|0|
-Green peas dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|8.0|24.0|6.5|0|
-Green peas sambar style||Vegetable curries|1 bowl (200 g)|8.0|31.0|6.5|0|
-Green peas pulusu (tamarind gravy)|బఠానీ పులుసు|Vegetable curries|1 bowl (200 g)|8.0|30.0|6.5|0|
-Potato curry|బంగాళాదుంప కూర|Vegetable curries|1 bowl (200 g)|3.0|34.0|10.0|0|
-Potato masala|బంగాళాదుంప మసాలా|Vegetable curries|1 bowl (200 g)|3.0|35.0|12.0|0|
-Potato fry|బంగాళాదుంప వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|30.0|11.0|0|
-Potato korma|బంగాళాదుంప కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|36.0|17.0|0|
-Potato kadai||Vegetable curries|1 bowl (200 g)|3.0|34.0|12.0|0|
-Potato tomato curry||Vegetable curries|1 bowl (200 g)|3.0|35.0|9.0|0|
-Potato coconut curry||Vegetable curries|1 bowl (200 g)|3.0|33.0|15.0|0|
-Potato chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|40.0|13.0|0|
-Potato do pyaza||Vegetable curries|1 bowl (200 g)|3.0|36.0|12.0|0|
-Potato stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|30.0|5.0|0|
-Potato with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|34.0|10.0|0|
-Potato peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|34.0|14.0|0|
-Potato dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|29.0|6.0|0|
-Potato sambar style||Vegetable curries|1 bowl (200 g)|3.0|36.0|6.0|0|
-Potato pulusu (tamarind gravy)|బంగాళాదుంప పులుసు|Vegetable curries|1 bowl (200 g)|3.0|35.0|6.0|0|
-Cauliflower curry|కాలీఫ్లవర్ కూర|Vegetable curries|1 bowl (200 g)|3.0|15.0|10.5|0|
-Cauliflower masala|కాలీఫ్లవర్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|16.0|12.5|0|
-Cauliflower fry|కాలీఫ్లవర్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|11.0|11.5|0|
-Cauliflower korma|కాలీఫ్లవర్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|17.0|17.5|0|
-Cauliflower kadai||Vegetable curries|1 bowl (200 g)|3.0|15.0|12.5|0|
-Cauliflower tomato curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|9.5|0|
-Cauliflower coconut curry||Vegetable curries|1 bowl (200 g)|3.0|14.0|15.5|0|
-Cauliflower chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|21.0|13.5|0|
-Cauliflower do pyaza||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|
-Cauliflower stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|11.0|5.5|0|
-Cauliflower with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|15.0|10.5|0|
-Cauliflower peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|15.0|14.5|0|
-Cauliflower dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|10.0|6.5|0|
-Cauliflower sambar style||Vegetable curries|1 bowl (200 g)|3.0|17.0|6.5|0|
-Cauliflower pulusu (tamarind gravy)|కాలీఫ్లవర్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|16.0|6.5|0|
-Cabbage curry|క్యాబేజీ కూర|Vegetable curries|1 bowl (200 g)|2.0|16.0|10.0|0|
-Cabbage masala|క్యాబేజీ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|17.0|12.0|0|
-Cabbage fry|క్యాబేజీ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|12.0|11.0|0|
-Cabbage korma|క్యాబేజీ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|18.0|17.0|0|
-Cabbage kadai||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.0|0|
-Cabbage tomato curry||Vegetable curries|1 bowl (200 g)|2.0|17.0|9.0|0|
-Cabbage coconut curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|15.0|0|
-Cabbage chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|22.0|13.0|0|
-Cabbage do pyaza||Vegetable curries|1 bowl (200 g)|2.0|18.0|12.0|0|
-Cabbage stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|5.0|0|
-Cabbage with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|10.0|0|
-Cabbage peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|14.0|0|
-Cabbage dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|6.0|0|
-Cabbage sambar style||Vegetable curries|1 bowl (200 g)|2.0|18.0|6.0|0|
-Cabbage pulusu (tamarind gravy)|క్యాబేజీ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|17.0|6.0|0|
-Brinjal curry|వంకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|17.0|10.5|0|
-Brinjal masala|వంకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|18.0|12.5|0|
-Brinjal fry|వంకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|13.0|11.5|0|
-Brinjal korma|వంకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|19.0|17.5|0|
-Brinjal kadai||Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|
-Brinjal tomato curry||Vegetable curries|1 bowl (200 g)|2.0|18.0|9.5|0|
-Brinjal coconut curry||Vegetable curries|1 bowl (200 g)|2.0|16.0|15.5|0|
-Brinjal chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|23.0|13.5|0|
-Brinjal do pyaza||Vegetable curries|1 bowl (200 g)|2.0|19.0|12.5|0|
-Brinjal stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|13.0|5.5|0|
-Brinjal with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|17.0|10.5|0|
-Brinjal peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|17.0|14.5|0|
-Brinjal dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|6.5|0|
-Brinjal sambar style||Vegetable curries|1 bowl (200 g)|2.0|19.0|6.5|0|
-Brinjal pulusu (tamarind gravy)|వంకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|18.0|6.5|0|
-Okra curry|బెండకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Okra masala|బెండకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|
-Okra fry|బెండకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|
-Okra korma|బెండకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|
-Okra kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|
-Okra tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|
-Okra coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|
-Okra chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|
-Okra do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|
-Okra stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|
-Okra with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Okra peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|
-Okra dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|
-Okra sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|
-Okra pulusu (tamarind gravy)|బెండకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|
-Spinach curry|పాలకూర కూర|Vegetable curries|1 bowl (200 g)|5.0|15.0|10.5|0|
-Spinach masala|పాలకూర మసాలా|Vegetable curries|1 bowl (200 g)|5.0|16.0|12.5|0|
-Spinach fry|పాలకూర వేపుడు|Vegetable curries|1 bowl (200 g)|5.0|11.0|11.5|0|
-Spinach korma|పాలకూర కుర్మా|Vegetable curries|1 bowl (200 g)|5.0|17.0|17.5|0|
-Spinach kadai||Vegetable curries|1 bowl (200 g)|5.0|15.0|12.5|0|
-Spinach tomato curry||Vegetable curries|1 bowl (200 g)|5.0|16.0|9.5|0|
-Spinach coconut curry||Vegetable curries|1 bowl (200 g)|5.0|14.0|15.5|0|
-Spinach chilli (dry)||Vegetable curries|1 bowl (200 g)|5.0|21.0|13.5|0|
-Spinach do pyaza||Vegetable curries|1 bowl (200 g)|5.0|17.0|12.5|0|
-Spinach stir fry (light oil)||Vegetable curries|1 bowl (200 g)|5.0|11.0|5.5|0|
-Spinach with spinach gravy||Vegetable curries|1 bowl (200 g)|5.0|15.0|10.5|0|
-Spinach peanut gravy||Vegetable curries|1 bowl (200 g)|5.0|15.0|14.5|0|
-Spinach dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|5.0|10.0|6.5|0|
-Spinach sambar style||Vegetable curries|1 bowl (200 g)|5.0|17.0|6.5|0|
-Spinach pulusu (tamarind gravy)|పాలకూర పులుసు|Vegetable curries|1 bowl (200 g)|5.0|16.0|6.5|0|
-Mushroom curry|పుట్టగొడుగుల కూర|Vegetable curries|1 bowl (200 g)|6.0|14.0|10.5|0|
-Mushroom masala|పుట్టగొడుగుల మసాలా|Vegetable curries|1 bowl (200 g)|6.0|15.0|12.5|0|
-Mushroom fry|పుట్టగొడుగుల వేపుడు|Vegetable curries|1 bowl (200 g)|6.0|10.0|11.5|0|
-Mushroom korma|పుట్టగొడుగుల కుర్మా|Vegetable curries|1 bowl (200 g)|6.0|16.0|17.5|0|
-Mushroom kadai||Vegetable curries|1 bowl (200 g)|6.0|14.0|12.5|0|
-Mushroom tomato curry||Vegetable curries|1 bowl (200 g)|6.0|15.0|9.5|0|
-Mushroom coconut curry||Vegetable curries|1 bowl (200 g)|6.0|13.0|15.5|0|
-Mushroom chilli (dry)||Vegetable curries|1 bowl (200 g)|6.0|20.0|13.5|0|
-Mushroom do pyaza||Vegetable curries|1 bowl (200 g)|6.0|16.0|12.5|0|
-Mushroom stir fry (light oil)||Vegetable curries|1 bowl (200 g)|6.0|10.0|5.5|0|
-Mushroom with spinach gravy||Vegetable curries|1 bowl (200 g)|6.0|14.0|10.5|0|
-Mushroom peanut gravy||Vegetable curries|1 bowl (200 g)|6.0|14.0|14.5|0|
-Mushroom dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|6.0|9.0|6.5|0|
-Mushroom sambar style||Vegetable curries|1 bowl (200 g)|6.0|16.0|6.5|0|
-Mushroom pulusu (tamarind gravy)|పుట్టగొడుగుల పులుసు|Vegetable curries|1 bowl (200 g)|6.0|15.0|6.5|0|
-Capsicum curry|క్యాప్సికం కూర|Vegetable curries|1 bowl (200 g)|2.0|16.0|10.5|0|
-Capsicum masala|క్యాప్సికం మసాలా|Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|
-Capsicum fry|క్యాప్సికం వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|12.0|11.5|0|
-Capsicum korma|క్యాప్సికం కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|18.0|17.5|0|
-Capsicum kadai||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|
-Capsicum tomato curry||Vegetable curries|1 bowl (200 g)|2.0|17.0|9.5|0|
-Capsicum coconut curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|15.5|0|
-Capsicum chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|22.0|13.5|0|
-Capsicum do pyaza||Vegetable curries|1 bowl (200 g)|2.0|18.0|12.5|0|
-Capsicum stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|5.5|0|
-Capsicum with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|10.5|0|
-Capsicum peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|14.5|0|
-Capsicum dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|6.5|0|
-Capsicum sambar style||Vegetable curries|1 bowl (200 g)|2.0|18.0|6.5|0|
-Capsicum pulusu (tamarind gravy)|క్యాప్సికం పులుసు|Vegetable curries|1 bowl (200 g)|2.0|17.0|6.5|0|
-Baby corn curry|బేబీ కార్న్ కూర|Vegetable curries|1 bowl (200 g)|3.0|18.0|10.5|0|
-Baby corn masala|బేబీ కార్న్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|
-Baby corn fry|బేబీ కార్న్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|14.0|11.5|0|
-Baby corn korma|బేబీ కార్న్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|20.0|17.5|0|
-Baby corn kadai||Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|
-Baby corn tomato curry||Vegetable curries|1 bowl (200 g)|3.0|19.0|9.5|0|
-Baby corn coconut curry||Vegetable curries|1 bowl (200 g)|3.0|17.0|15.5|0|
-Baby corn chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|24.0|13.5|0|
-Baby corn do pyaza||Vegetable curries|1 bowl (200 g)|3.0|20.0|12.5|0|
-Baby corn stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|14.0|5.5|0|
-Baby corn with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|18.0|10.5|0|
-Baby corn peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|18.0|14.5|0|
-Baby corn dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|6.5|0|
-Baby corn sambar style||Vegetable curries|1 bowl (200 g)|3.0|20.0|6.5|0|
-Baby corn pulusu (tamarind gravy)|బేబీ కార్న్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|
-Beans curry|బీన్స్ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Beans masala|బీన్స్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|
-Beans fry|బీన్స్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|
-Beans korma|బీన్స్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|
-Beans kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|
-Beans tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|
-Beans coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|
-Beans chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|
-Beans do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|
-Beans stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|
-Beans with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Beans peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|
-Beans dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|
-Beans sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|
-Beans pulusu (tamarind gravy)|బీన్స్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|
-Carrot curry|క్యారెట్ కూర|Vegetable curries|1 bowl (200 g)|1.5|20.0|10.5|0|
-Carrot masala|క్యారెట్ మసాలా|Vegetable curries|1 bowl (200 g)|1.5|21.0|12.5|0|
-Carrot fry|క్యారెట్ వేపుడు|Vegetable curries|1 bowl (200 g)|1.5|16.0|11.5|0|
-Carrot korma|క్యారెట్ కుర్మా|Vegetable curries|1 bowl (200 g)|1.5|22.0|17.5|0|
-Carrot kadai||Vegetable curries|1 bowl (200 g)|1.5|20.0|12.5|0|
-Carrot tomato curry||Vegetable curries|1 bowl (200 g)|1.5|21.0|9.5|0|
-Carrot coconut curry||Vegetable curries|1 bowl (200 g)|1.5|19.0|15.5|0|
-Carrot chilli (dry)||Vegetable curries|1 bowl (200 g)|1.5|26.0|13.5|0|
-Carrot do pyaza||Vegetable curries|1 bowl (200 g)|1.5|22.0|12.5|0|
-Carrot stir fry (light oil)||Vegetable curries|1 bowl (200 g)|1.5|16.0|5.5|0|
-Carrot with spinach gravy||Vegetable curries|1 bowl (200 g)|1.5|20.0|10.5|0|
-Carrot peanut gravy||Vegetable curries|1 bowl (200 g)|1.5|20.0|14.5|0|
-Carrot dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|1.5|15.0|6.5|0|
-Carrot sambar style||Vegetable curries|1 bowl (200 g)|1.5|22.0|6.5|0|
-Carrot pulusu (tamarind gravy)|క్యారెట్ పులుసు|Vegetable curries|1 bowl (200 g)|1.5|21.0|6.5|0|
-Bottle gourd curry|సొరకాయ కూర|Vegetable curries|1 bowl (200 g)|1.5|15.0|10.0|0|
-Bottle gourd masala|సొరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|1.5|16.0|12.0|0|
-Bottle gourd fry|సొరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|1.5|11.0|11.0|0|
-Bottle gourd korma|సొరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|1.5|17.0|17.0|0|
-Bottle gourd kadai||Vegetable curries|1 bowl (200 g)|1.5|15.0|12.0|0|
-Bottle gourd tomato curry||Vegetable curries|1 bowl (200 g)|1.5|16.0|9.0|0|
-Bottle gourd coconut curry||Vegetable curries|1 bowl (200 g)|1.5|14.0|15.0|0|
-Bottle gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|1.5|21.0|13.0|0|
-Bottle gourd do pyaza||Vegetable curries|1 bowl (200 g)|1.5|17.0|12.0|0|
-Bottle gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|1.5|11.0|5.0|0|
-Bottle gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|1.5|15.0|10.0|0|
-Bottle gourd peanut gravy||Vegetable curries|1 bowl (200 g)|1.5|15.0|14.0|0|
-Bottle gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|1.5|10.0|6.0|0|
-Bottle gourd sambar style||Vegetable curries|1 bowl (200 g)|1.5|17.0|6.0|0|
-Bottle gourd pulusu (tamarind gravy)|సొరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|1.5|16.0|6.0|0|
-Ridge gourd curry|బీరకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|15.0|10.5|0|
-Ridge gourd masala|బీరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|
-Ridge gourd fry|బీరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|11.0|11.5|0|
-Ridge gourd korma|బీరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|17.0|17.5|0|
-Ridge gourd kadai||Vegetable curries|1 bowl (200 g)|2.0|15.0|12.5|0|
-Ridge gourd tomato curry||Vegetable curries|1 bowl (200 g)|2.0|16.0|9.5|0|
-Ridge gourd coconut curry||Vegetable curries|1 bowl (200 g)|2.0|14.0|15.5|0|
-Ridge gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|21.0|13.5|0|
-Ridge gourd do pyaza||Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|
-Ridge gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|5.5|0|
-Ridge gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|15.0|10.5|0|
-Ridge gourd peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|15.0|14.5|0|
-Ridge gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|10.0|6.5|0|
-Ridge gourd sambar style||Vegetable curries|1 bowl (200 g)|2.0|17.0|6.5|0|
-Ridge gourd pulusu (tamarind gravy)|బీరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|16.0|6.5|0|
-Pumpkin curry|గుమ్మడికాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|22.0|10.0|0|
-Pumpkin masala|గుమ్మడికాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|23.0|12.0|0|
-Pumpkin fry|గుమ్మడికాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|18.0|11.0|0|
-Pumpkin korma|గుమ్మడికాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|24.0|17.0|0|
-Pumpkin kadai||Vegetable curries|1 bowl (200 g)|2.0|22.0|12.0|0|
-Pumpkin tomato curry||Vegetable curries|1 bowl (200 g)|2.0|23.0|9.0|0|
-Pumpkin coconut curry||Vegetable curries|1 bowl (200 g)|2.0|21.0|15.0|0|
-Pumpkin chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|28.0|13.0|0|
-Pumpkin do pyaza||Vegetable curries|1 bowl (200 g)|2.0|24.0|12.0|0|
-Pumpkin stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|18.0|5.0|0|
-Pumpkin with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|22.0|10.0|0|
-Pumpkin peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|22.0|14.0|0|
-Pumpkin dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|17.0|6.0|0|
-Pumpkin sambar style||Vegetable curries|1 bowl (200 g)|2.0|24.0|6.0|0|
-Pumpkin pulusu (tamarind gravy)|గుమ్మడికాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|23.0|6.0|0|
-Raw banana curry|అరటికాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|38.0|10.5|0|
-Raw banana masala|అరటికాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|39.0|12.5|0|
-Raw banana fry|అరటికాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|34.0|11.5|0|
-Raw banana korma|అరటికాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|40.0|17.5|0|
-Raw banana kadai||Vegetable curries|1 bowl (200 g)|2.0|38.0|12.5|0|
-Raw banana tomato curry||Vegetable curries|1 bowl (200 g)|2.0|39.0|9.5|0|
-Raw banana coconut curry||Vegetable curries|1 bowl (200 g)|2.0|37.0|15.5|0|
-Raw banana chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|44.0|13.5|0|
-Raw banana do pyaza||Vegetable curries|1 bowl (200 g)|2.0|40.0|12.5|0|
-Raw banana stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|34.0|5.5|0|
-Raw banana with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|38.0|10.5|0|
-Raw banana peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|38.0|14.5|0|
-Raw banana dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|33.0|6.5|0|
-Raw banana sambar style||Vegetable curries|1 bowl (200 g)|2.0|40.0|6.5|0|
-Raw banana pulusu (tamarind gravy)|అరటికాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|39.0|6.5|0|
-Drumstick curry|మునగకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Drumstick masala|మునగకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|
-Drumstick fry|మునగకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|
-Drumstick korma|మునగకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|
-Drumstick kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|
-Drumstick tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|
-Drumstick coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|
-Drumstick chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|
-Drumstick do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|
-Drumstick stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|
-Drumstick with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Drumstick peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|
-Drumstick dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|
-Drumstick sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|
-Drumstick pulusu (tamarind gravy)|మునగకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|
-Jackfruit curry|పనసకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|28.0|10.5|0|
-Jackfruit masala|పనసకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|29.0|12.5|0|
-Jackfruit fry|పనసకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|24.0|11.5|0|
-Jackfruit korma|పనసకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|30.0|17.5|0|
-Jackfruit kadai||Vegetable curries|1 bowl (200 g)|3.0|28.0|12.5|0|
-Jackfruit tomato curry||Vegetable curries|1 bowl (200 g)|3.0|29.0|9.5|0|
-Jackfruit coconut curry||Vegetable curries|1 bowl (200 g)|3.0|27.0|15.5|0|
-Jackfruit chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|34.0|13.5|0|
-Jackfruit do pyaza||Vegetable curries|1 bowl (200 g)|3.0|30.0|12.5|0|
-Jackfruit stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|24.0|5.5|0|
-Jackfruit with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|28.0|10.5|0|
-Jackfruit peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|28.0|14.5|0|
-Jackfruit dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|23.0|6.5|0|
-Jackfruit sambar style||Vegetable curries|1 bowl (200 g)|3.0|30.0|6.5|0|
-Jackfruit pulusu (tamarind gravy)|పనసకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|29.0|6.5|0|
-Sweet potato curry|చిలగడదుంప కూర|Vegetable curries|1 bowl (200 g)|3.0|40.0|10.0|0|
-Sweet potato masala|చిలగడదుంప మసాలా|Vegetable curries|1 bowl (200 g)|3.0|41.0|12.0|0|
-Sweet potato fry|చిలగడదుంప వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|36.0|11.0|0|
-Sweet potato korma|చిలగడదుంప కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|42.0|17.0|0|
-Sweet potato kadai||Vegetable curries|1 bowl (200 g)|3.0|40.0|12.0|0|
-Sweet potato tomato curry||Vegetable curries|1 bowl (200 g)|3.0|41.0|9.0|0|
-Sweet potato coconut curry||Vegetable curries|1 bowl (200 g)|3.0|39.0|15.0|0|
-Sweet potato chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|46.0|13.0|0|
-Sweet potato do pyaza||Vegetable curries|1 bowl (200 g)|3.0|42.0|12.0|0|
-Sweet potato stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|36.0|5.0|0|
-Sweet potato with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|40.0|10.0|0|
-Sweet potato peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|40.0|14.0|0|
-Sweet potato dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|35.0|6.0|0|
-Sweet potato sambar style||Vegetable curries|1 bowl (200 g)|3.0|42.0|6.0|0|
-Sweet potato pulusu (tamarind gravy)|చిలగడదుంప పులుసు|Vegetable curries|1 bowl (200 g)|3.0|41.0|6.0|0|
-Mixed vegetable curry|మిక్స్డ్ వెజిటబుల్ కూర|Vegetable curries|1 bowl (200 g)|3.0|22.0|10.5|0|
-Mixed vegetable masala|మిక్స్డ్ వెజిటబుల్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|23.0|12.5|0|
-Mixed vegetable fry|మిక్స్డ్ వెజిటబుల్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|18.0|11.5|0|
-Mixed vegetable korma|మిక్స్డ్ వెజిటబుల్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|24.0|17.5|0|
-Mixed vegetable kadai||Vegetable curries|1 bowl (200 g)|3.0|22.0|12.5|0|
-Mixed vegetable tomato curry||Vegetable curries|1 bowl (200 g)|3.0|23.0|9.5|0|
-Mixed vegetable coconut curry||Vegetable curries|1 bowl (200 g)|3.0|21.0|15.5|0|
-Mixed vegetable chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|28.0|13.5|0|
-Mixed vegetable do pyaza||Vegetable curries|1 bowl (200 g)|3.0|24.0|12.5|0|
-Mixed vegetable stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|18.0|5.5|0|
-Mixed vegetable with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|22.0|10.5|0|
-Mixed vegetable peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|22.0|14.5|0|
-Mixed vegetable dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|17.0|6.5|0|
-Mixed vegetable sambar style||Vegetable curries|1 bowl (200 g)|3.0|24.0|6.5|0|
-Mixed vegetable pulusu (tamarind gravy)|మిక్స్డ్ వెజిటబుల్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|23.0|6.5|0|
-Rajma curry|రాజ్మా కూర|Dal & sambar|1 bowl (200 g)|14.0|42.0|11.0|0|
-Rajma masala|రాజ్మా మసాలా|Dal & sambar|1 bowl (200 g)|14.0|43.0|13.0|0|
-Rajma fry|రాజ్మా వేపుడు|Dal & sambar|1 bowl (200 g)|14.0|38.0|12.0|0|
-Rajma korma|రాజ్మా కుర్మా|Dal & sambar|1 bowl (200 g)|14.0|44.0|18.0|0|
-Rajma kadai||Dal & sambar|1 bowl (200 g)|14.0|42.0|13.0|0|
-Rajma tomato curry||Dal & sambar|1 bowl (200 g)|14.0|43.0|10.0|0|
-Rajma coconut curry||Dal & sambar|1 bowl (200 g)|14.0|41.0|16.0|0|
-Rajma chilli (dry)||Dal & sambar|1 bowl (200 g)|14.0|48.0|14.0|0|
-Rajma do pyaza||Dal & sambar|1 bowl (200 g)|14.0|44.0|13.0|0|
-Rajma stir fry (light oil)||Dal & sambar|1 bowl (200 g)|14.0|38.0|6.0|0|
-Rajma with spinach gravy||Dal & sambar|1 bowl (200 g)|14.0|42.0|11.0|0|
-Rajma peanut gravy||Dal & sambar|1 bowl (200 g)|14.0|42.0|15.0|0|
-Rajma dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|14.0|37.0|7.0|0|
-Rajma sambar style||Dal & sambar|1 bowl (200 g)|14.0|44.0|7.0|0|
-Rajma pulusu (tamarind gravy)|రాజ్మా పులుసు|Dal & sambar|1 bowl (200 g)|14.0|43.0|7.0|0|
-Lobia curry|బొబ్బర్ల కూర|Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|
-Lobia masala|బొబ్బర్ల మసాలా|Dal & sambar|1 bowl (200 g)|13.0|41.0|13.0|0|
-Lobia fry|బొబ్బర్ల వేపుడు|Dal & sambar|1 bowl (200 g)|13.0|36.0|12.0|0|
-Lobia korma|బొబ్బర్ల కుర్మా|Dal & sambar|1 bowl (200 g)|13.0|42.0|18.0|0|
-Lobia kadai||Dal & sambar|1 bowl (200 g)|13.0|40.0|13.0|0|
-Lobia tomato curry||Dal & sambar|1 bowl (200 g)|13.0|41.0|10.0|0|
-Lobia coconut curry||Dal & sambar|1 bowl (200 g)|13.0|39.0|16.0|0|
-Lobia chilli (dry)||Dal & sambar|1 bowl (200 g)|13.0|46.0|14.0|0|
-Lobia do pyaza||Dal & sambar|1 bowl (200 g)|13.0|42.0|13.0|0|
-Lobia stir fry (light oil)||Dal & sambar|1 bowl (200 g)|13.0|36.0|6.0|0|
-Lobia with spinach gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|
-Lobia peanut gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|15.0|0|
-Lobia dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|13.0|35.0|7.0|0|
-Lobia sambar style||Dal & sambar|1 bowl (200 g)|13.0|42.0|7.0|0|
-Lobia pulusu (tamarind gravy)|బొబ్బర్ల పులుసు|Dal & sambar|1 bowl (200 g)|13.0|41.0|7.0|0|
-Green moong curry|పెసల కూర|Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|
-Green moong masala|పెసల మసాలా|Dal & sambar|1 bowl (200 g)|13.0|41.0|13.0|0|
-Green moong fry|పెసల వేపుడు|Dal & sambar|1 bowl (200 g)|13.0|36.0|12.0|0|
-Green moong korma|పెసల కుర్మా|Dal & sambar|1 bowl (200 g)|13.0|42.0|18.0|0|
-Green moong kadai||Dal & sambar|1 bowl (200 g)|13.0|40.0|13.0|0|
-Green moong tomato curry||Dal & sambar|1 bowl (200 g)|13.0|41.0|10.0|0|
-Green moong coconut curry||Dal & sambar|1 bowl (200 g)|13.0|39.0|16.0|0|
-Green moong chilli (dry)||Dal & sambar|1 bowl (200 g)|13.0|46.0|14.0|0|
-Green moong do pyaza||Dal & sambar|1 bowl (200 g)|13.0|42.0|13.0|0|
-Green moong stir fry (light oil)||Dal & sambar|1 bowl (200 g)|13.0|36.0|6.0|0|
-Green moong with spinach gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|
-Green moong peanut gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|15.0|0|
-Green moong dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|13.0|35.0|7.0|0|
-Green moong sambar style||Dal & sambar|1 bowl (200 g)|13.0|42.0|7.0|0|
-Green moong pulusu (tamarind gravy)|పెసల పులుసు|Dal & sambar|1 bowl (200 g)|13.0|41.0|7.0|0|
-Cluster beans curry|గోరు చిక్కుడు కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Cluster beans masala|గోరు చిక్కుడు మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|
-Cluster beans fry|గోరు చిక్కుడు వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|
-Cluster beans korma|గోరు చిక్కుడు కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|
-Cluster beans kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|
-Cluster beans tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|
-Cluster beans coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|
-Cluster beans chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|
-Cluster beans do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|
-Cluster beans stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|
-Cluster beans with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|
-Cluster beans peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|
-Cluster beans dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|
-Cluster beans sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|
-Cluster beans pulusu (tamarind gravy)|గోరు చిక్కుడు పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|
-Bitter gourd curry|కాకరకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|14.0|10.5|0|
-Bitter gourd masala|కాకరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|15.0|12.5|0|
-Bitter gourd fry|కాకరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|10.0|11.5|0|
-Bitter gourd korma|కాకరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|16.0|17.5|0|
-Bitter gourd kadai||Vegetable curries|1 bowl (200 g)|2.0|14.0|12.5|0|
-Bitter gourd tomato curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|9.5|0|
-Bitter gourd coconut curry||Vegetable curries|1 bowl (200 g)|2.0|13.0|15.5|0|
-Bitter gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|20.0|13.5|0|
-Bitter gourd do pyaza||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|
-Bitter gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|10.0|5.5|0|
-Bitter gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|14.0|10.5|0|
-Bitter gourd peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|14.0|14.5|0|
-Bitter gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|9.0|6.5|0|
-Bitter gourd sambar style||Vegetable curries|1 bowl (200 g)|2.0|16.0|6.5|0|
-Bitter gourd pulusu (tamarind gravy)|కాకరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|15.0|6.5|0|
-Leafy greens curry|ఆకుకూర కూర|Vegetable curries|1 bowl (200 g)|4.0|15.0|10.5|0|
-Leafy greens masala|ఆకుకూర మసాలా|Vegetable curries|1 bowl (200 g)|4.0|16.0|12.5|0|
-Leafy greens fry|ఆకుకూర వేపుడు|Vegetable curries|1 bowl (200 g)|4.0|11.0|11.5|0|
-Leafy greens korma|ఆకుకూర కుర్మా|Vegetable curries|1 bowl (200 g)|4.0|17.0|17.5|0|
-Leafy greens kadai||Vegetable curries|1 bowl (200 g)|4.0|15.0|12.5|0|
-Leafy greens tomato curry||Vegetable curries|1 bowl (200 g)|4.0|16.0|9.5|0|
-Leafy greens coconut curry||Vegetable curries|1 bowl (200 g)|4.0|14.0|15.5|0|
-Leafy greens chilli (dry)||Vegetable curries|1 bowl (200 g)|4.0|21.0|13.5|0|
-Leafy greens do pyaza||Vegetable curries|1 bowl (200 g)|4.0|17.0|12.5|0|
-Leafy greens stir fry (light oil)||Vegetable curries|1 bowl (200 g)|4.0|11.0|5.5|0|
-Leafy greens with spinach gravy||Vegetable curries|1 bowl (200 g)|4.0|15.0|10.5|0|
-Leafy greens peanut gravy||Vegetable curries|1 bowl (200 g)|4.0|15.0|14.5|0|
-Leafy greens dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|4.0|10.0|6.5|0|
-Leafy greens sambar style||Vegetable curries|1 bowl (200 g)|4.0|17.0|6.5|0|
-Leafy greens pulusu (tamarind gravy)|ఆకుకూర పులుసు|Vegetable curries|1 bowl (200 g)|4.0|16.0|6.5|0|
-Chicken biryani|చికెన్ బిర్యానీ|Rice & mains|1 plate (300 g)|31.0|70.0|22.0|0|
-Chicken pulao|చికెన్ పులావ్|Rice & mains|1 plate (300 g)|31.0|60.0|16.0|0|
-Chicken fried rice|చికెన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|31.0|66.0|17.0|0|
-Chicken rice bowl (curry rice)|చికెన్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|31.0|62.0|15.0|0|
-Chicken fried rice (schezwan)|చికెన్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|31.0|68.0|20.0|0|
-Chicken lemon rice|చికెన్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|31.0|56.0|15.0|0|
-Mutton biryani|మటన్ బిర్యానీ|Rice & mains|1 plate (300 g)|29.0|70.0|27.0|0|
-Mutton pulao|మటన్ పులావ్|Rice & mains|1 plate (300 g)|29.0|60.0|21.0|0|
-Mutton fried rice|మటన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|29.0|66.0|22.0|0|
-Mutton rice bowl (curry rice)|మటన్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|29.0|62.0|20.0|0|
-Mutton fried rice (schezwan)|మటన్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|29.0|68.0|25.0|0|
-Egg biryani|ఎగ్ బిర్యానీ|Rice & mains|1 plate (300 g)|18.0|71.0|26.0|0|
-Egg pulao|ఎగ్ పులావ్|Rice & mains|1 plate (300 g)|18.0|61.0|20.0|0|
-Egg fried rice|ఎగ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|18.0|67.0|21.0|0|
-Egg rice bowl (curry rice)|ఎగ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|18.0|63.0|19.0|0|
-Egg fried rice (schezwan)|ఎగ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|18.0|69.0|24.0|0|
-Egg lemon rice|ఎగ్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|18.0|57.0|19.0|0|
-Prawn biryani|రొయ్యల బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|71.0|18.0|0|
-Prawn pulao|రొయ్యల పులావ్|Rice & mains|1 plate (300 g)|27.0|61.0|12.0|0|
-Prawn fried rice|రొయ్యల ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|67.0|13.0|0|
-Prawn rice bowl (curry rice)|రొయ్యల రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|63.0|11.0|0|
-Prawn fried rice (schezwan)|రొయ్యల షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|69.0|16.0|0|
-Fish biryani|ఫిష్ బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|70.0|21.0|0|
-Fish pulao|ఫిష్ పులావ్|Rice & mains|1 plate (300 g)|27.0|60.0|15.0|0|
-Fish fried rice|ఫిష్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|66.0|16.0|0|
-Fish rice bowl (curry rice)|ఫిష్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|62.0|14.0|0|
-Fish fried rice (schezwan)|ఫిష్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|68.0|19.0|0|
-Paneer biryani|పనీర్ బిర్యానీ|Rice & mains|1 plate (300 g)|21.0|73.0|34.0|0|
-Paneer pulao|పనీర్ పులావ్|Rice & mains|1 plate (300 g)|21.0|63.0|28.0|0|
-Paneer fried rice|పనీర్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|21.0|69.0|29.0|0|
-Paneer rice bowl (curry rice)|పనీర్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|21.0|65.0|27.0|0|
-Paneer fried rice (schezwan)|పనీర్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|21.0|71.0|32.0|0|
-Vegetable biryani|వెజ్ బిర్యానీ|Rice & mains|1 plate (300 g)|9.0|82.0|17.0|0|
-Vegetable pulao|వెజ్ పులావ్|Rice & mains|1 plate (300 g)|9.0|72.0|11.0|0|
-Vegetable fried rice|వెజ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|9.0|78.0|12.0|0|
-Vegetable rice bowl (curry rice)|వెజ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|9.0|74.0|10.0|0|
-Vegetable fried rice (schezwan)|వెజ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|9.0|80.0|15.0|0|
-Vegetable lemon rice|వెజ్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|9.0|68.0|10.0|0|
-Mushroom biryani|మష్రూమ్ బిర్యానీ|Rice & mains|1 plate (300 g)|11.0|76.0|16.5|0|
-Mushroom pulao|మష్రూమ్ పులావ్|Rice & mains|1 plate (300 g)|11.0|66.0|10.5|0|
-Mushroom fried rice|మష్రూమ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|11.0|72.0|11.5|0|
-Mushroom rice bowl (curry rice)|మష్రూమ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|11.0|68.0|9.5|0|
-Mushroom fried rice (schezwan)|మష్రూమ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|11.0|74.0|14.5|0|
-Soya biryani|సోయా బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|84.0|17.0|0|
-Soya pulao|సోయా పులావ్|Rice & mains|1 plate (300 g)|27.0|74.0|11.0|0|
-Soya fried rice|సోయా ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|80.0|12.0|0|
-Soya rice bowl (curry rice)|సోయా రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|76.0|10.0|0|
-Soya fried rice (schezwan)|సోయా షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|82.0|15.0|0|
-Chickpea biryani|శనగల బిర్యానీ|Rice & mains|1 plate (300 g)|17.0|98.0|19.0|0|
-Chickpea pulao|శనగల పులావ్|Rice & mains|1 plate (300 g)|17.0|88.0|13.0|0|
-Chickpea fried rice|శనగల ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|17.0|94.0|14.0|0|
-Chickpea rice bowl (curry rice)|శనగల రైస్ బౌల్|Rice & mains|1 plate (300 g)|17.0|90.0|12.0|0|
-Chickpea fried rice (schezwan)|శనగల షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|17.0|96.0|17.0|0|
-Paneer sandwich (grilled)|పనీర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|20.0|36.0|18.0|0|
-Paneer roll|పనీర్ రోల్|Snacks|1 roll (180 g)|21.0|42.0|20.0|0|
-Paneer wrap|పనీర్ ర్యాప్|Snacks|1 wrap (220 g)|20.0|40.0|19.0|0|
-Paneer paratha (stuffed)|పనీర్ పరాటా|Snacks|1 piece (130 g)|18.0|32.0|20.0|0|
-Paneer dosa (filled)|పనీర్ దోశ|Snacks|1 dosa (180 g)|17.0|32.0|18.0|0|
-Paneer burger|పనీర్ బర్గర్|Snacks|1 burger (200 g)|20.0|40.0|21.0|0|
-Paneer toast (open)|పనీర్ టోస్ట్|Snacks|2 slices (120 g)|19.0|30.0|16.0|0|
-Paneer pizza (personal)|పనీర్ పిజ్జా|Snacks|1 personal (240 g)|26.0|70.0|24.0|0|
-Paneer quesadilla|పనీర్ క్వెసడియా|Snacks|1 piece (180 g)|20.0|30.0|24.0|0|
-Paneer pasta|పనీర్ పాస్తా|Snacks|1 plate (300 g)|22.0|60.0|22.0|0|
-Chicken sandwich (grilled)|చికెన్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|26.0|35.0|14.0|0|
-Chicken roll|చికెన్ రోల్|Snacks|1 roll (180 g)|27.0|41.0|16.0|0|
-Chicken wrap|చికెన్ ర్యాప్|Snacks|1 wrap (220 g)|26.0|39.0|15.0|0|
-Chicken paratha (stuffed)|చికెన్ పరాటా|Snacks|1 piece (130 g)|24.0|31.0|16.0|0|
-Chicken dosa (filled)|చికెన్ దోశ|Snacks|1 dosa (180 g)|23.0|31.0|14.0|0|
-Chicken burger|చికెన్ బర్గర్|Snacks|1 burger (200 g)|26.0|39.0|17.0|0|
-Chicken toast (open)|చికెన్ టోస్ట్|Snacks|2 slices (120 g)|25.0|29.0|12.0|0|
-Chicken pizza (personal)|చికెన్ పిజ్జా|Snacks|1 personal (240 g)|32.0|69.0|20.0|0|
-Chicken quesadilla|చికెన్ క్వెసడియా|Snacks|1 piece (180 g)|26.0|29.0|20.0|0|
-Chicken pasta|చికెన్ పాస్తా|Snacks|1 plate (300 g)|28.0|59.0|18.0|0|
-Egg sandwich (grilled)|ఎగ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|18.0|34.0|15.0|0|
-Egg roll|ఎగ్ రోల్|Snacks|1 roll (180 g)|19.0|40.0|17.0|0|
-Egg wrap|ఎగ్ ర్యాప్|Snacks|1 wrap (220 g)|18.0|38.0|16.0|0|
-Egg paratha (stuffed)|ఎగ్ పరాటా|Snacks|1 piece (130 g)|16.0|30.0|17.0|0|
-Egg dosa (filled)|ఎగ్ దోశ|Snacks|1 dosa (180 g)|15.0|30.0|15.0|0|
-Egg burger|ఎగ్ బర్గర్|Snacks|1 burger (200 g)|18.0|38.0|18.0|0|
-Egg toast (open)|ఎగ్ టోస్ట్|Snacks|2 slices (120 g)|17.0|28.0|13.0|0|
-Egg pizza (personal)|ఎగ్ పిజ్జా|Snacks|1 personal (240 g)|24.0|68.0|21.0|0|
-Egg quesadilla|ఎగ్ క్వెసడియా|Snacks|1 piece (180 g)|18.0|28.0|21.0|0|
-Egg pasta|ఎగ్ పాస్తా|Snacks|1 plate (300 g)|20.0|58.0|19.0|0|
-Potato sandwich (grilled)|ఆలూ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|9.0|54.0|12.0|0|
-Potato roll|ఆలూ రోల్|Snacks|1 roll (180 g)|10.0|60.0|14.0|0|
-Potato wrap|ఆలూ ర్యాప్|Snacks|1 wrap (220 g)|9.0|58.0|13.0|0|
-Potato paratha (stuffed)|ఆలూ పరాటా|Snacks|1 piece (130 g)|7.0|50.0|14.0|0|
-Potato dosa (filled)|ఆలూ దోశ|Snacks|1 dosa (180 g)|6.0|50.0|12.0|0|
-Potato burger|ఆలూ బర్గర్|Snacks|1 burger (200 g)|9.0|58.0|15.0|0|
-Potato toast (open)|ఆలూ టోస్ట్|Snacks|2 slices (120 g)|8.0|48.0|10.0|0|
-Potato pizza (personal)|ఆలూ పిజ్జా|Snacks|1 personal (240 g)|15.0|88.0|18.0|0|
-Potato quesadilla|ఆలూ క్వెసడియా|Snacks|1 piece (180 g)|9.0|48.0|18.0|0|
-Potato pasta|ఆలూ పాస్తా|Snacks|1 plate (300 g)|11.0|78.0|16.0|0|
-Mixed vegetable sandwich (grilled)|వెజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|10.0|42.0|12.0|0|
-Mixed vegetable roll|వెజ్ రోల్|Snacks|1 roll (180 g)|11.0|48.0|14.0|0|
-Mixed vegetable wrap|వెజ్ ర్యాప్|Snacks|1 wrap (220 g)|10.0|46.0|13.0|0|
-Mixed vegetable paratha (stuffed)|వెజ్ పరాటా|Snacks|1 piece (130 g)|8.0|38.0|14.0|0|
-Mixed vegetable dosa (filled)|వెజ్ దోశ|Snacks|1 dosa (180 g)|7.0|38.0|12.0|0|
-Mixed vegetable burger|వెజ్ బర్గర్|Snacks|1 burger (200 g)|10.0|46.0|15.0|0|
-Mixed vegetable toast (open)|వెజ్ టోస్ట్|Snacks|2 slices (120 g)|9.0|36.0|10.0|0|
-Mixed vegetable pizza (personal)|వెజ్ పిజ్జా|Snacks|1 personal (240 g)|16.0|76.0|18.0|0|
-Mixed vegetable quesadilla|వెజ్ క్వెసడియా|Snacks|1 piece (180 g)|10.0|36.0|18.0|0|
-Mixed vegetable pasta|వెజ్ పాస్తా|Snacks|1 plate (300 g)|12.0|66.0|16.0|0|
-Cheese sandwich (grilled)|చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|34.0|18.0|0|
-Cheese roll|చీజ్ రోల్|Snacks|1 roll (180 g)|17.0|40.0|20.0|0|
-Cheese wrap|చీజ్ ర్యాప్|Snacks|1 wrap (220 g)|16.0|38.0|19.0|0|
-Cheese paratha (stuffed)|చీజ్ పరాటా|Snacks|1 piece (130 g)|14.0|30.0|20.0|0|
-Cheese dosa (filled)|చీజ్ దోశ|Snacks|1 dosa (180 g)|13.0|30.0|18.0|0|
-Cheese burger|చీజ్ బర్గర్|Snacks|1 burger (200 g)|16.0|38.0|21.0|0|
-Cheese toast (open)|చీజ్ టోస్ట్|Snacks|2 slices (120 g)|15.0|28.0|16.0|0|
-Cheese pizza (personal)|చీజ్ పిజ్జా|Snacks|1 personal (240 g)|22.0|68.0|24.0|0|
-Cheese quesadilla|చీజ్ క్వెసడియా|Snacks|1 piece (180 g)|16.0|28.0|24.0|0|
-Cheese pasta|చీజ్ పాస్తా|Snacks|1 plate (300 g)|18.0|58.0|22.0|0|
-Mushroom sandwich (grilled)|మష్రూమ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|12.0|38.0|12.0|0|
-Mushroom roll|మష్రూమ్ రోల్|Snacks|1 roll (180 g)|13.0|44.0|14.0|0|
-Mushroom wrap|మష్రూమ్ ర్యాప్|Snacks|1 wrap (220 g)|12.0|42.0|13.0|0|
-Mushroom paratha (stuffed)|మష్రూమ్ పరాటా|Snacks|1 piece (130 g)|10.0|34.0|14.0|0|
-Mushroom dosa (filled)|మష్రూమ్ దోశ|Snacks|1 dosa (180 g)|9.0|34.0|12.0|0|
-Mushroom burger|మష్రూమ్ బర్గర్|Snacks|1 burger (200 g)|12.0|42.0|15.0|0|
-Mushroom toast (open)|మష్రూమ్ టోస్ట్|Snacks|2 slices (120 g)|11.0|32.0|10.0|0|
-Mushroom pizza (personal)|మష్రూమ్ పిజ్జా|Snacks|1 personal (240 g)|18.0|72.0|18.0|0|
-Mushroom quesadilla|మష్రూమ్ క్వెసడియా|Snacks|1 piece (180 g)|12.0|32.0|18.0|0|
-Mushroom pasta|మష్రూమ్ పాస్తా|Snacks|1 plate (300 g)|14.0|62.0|16.0|0|
-Corn and cheese sandwich (grilled)|కార్న్ చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|14.0|48.0|16.0|0|
-Corn and cheese roll|కార్న్ చీజ్ రోల్|Snacks|1 roll (180 g)|15.0|54.0|18.0|0|
-Corn and cheese wrap|కార్న్ చీజ్ ర్యాప్|Snacks|1 wrap (220 g)|14.0|52.0|17.0|0|
-Corn and cheese paratha (stuffed)|కార్న్ చీజ్ పరాటా|Snacks|1 piece (130 g)|12.0|44.0|18.0|0|
-Corn and cheese dosa (filled)|కార్న్ చీజ్ దోశ|Snacks|1 dosa (180 g)|11.0|44.0|16.0|0|
-Corn and cheese burger|కార్న్ చీజ్ బర్గర్|Snacks|1 burger (200 g)|14.0|52.0|19.0|0|
-Corn and cheese toast (open)|కార్న్ చీజ్ టోస్ట్|Snacks|2 slices (120 g)|13.0|42.0|14.0|0|
-Corn and cheese pizza (personal)|కార్న్ చీజ్ పిజ్జా|Snacks|1 personal (240 g)|20.0|82.0|22.0|0|
-Corn and cheese quesadilla|కార్న్ చీజ్ క్వెసడియా|Snacks|1 piece (180 g)|14.0|42.0|22.0|0|
-Corn and cheese pasta|కార్న్ చీజ్ పాస్తా|Snacks|1 plate (300 g)|16.0|72.0|20.0|0|
-Soya sandwich (grilled)|సోయా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|42.0|11.0|0|
-Soya roll|సోయా రోల్|Snacks|1 roll (180 g)|25.0|48.0|13.0|0|
-Soya wrap|సోయా ర్యాప్|Snacks|1 wrap (220 g)|24.0|46.0|12.0|0|
-Soya paratha (stuffed)|సోయా పరాటా|Snacks|1 piece (130 g)|22.0|38.0|13.0|0|
-Soya dosa (filled)|సోయా దోశ|Snacks|1 dosa (180 g)|21.0|38.0|11.0|0|
-Soya burger|సోయా బర్గర్|Snacks|1 burger (200 g)|24.0|46.0|14.0|0|
-Soya toast (open)|సోయా టోస్ట్|Snacks|2 slices (120 g)|23.0|36.0|9.0|0|
-Soya pizza (personal)|సోయా పిజ్జా|Snacks|1 personal (240 g)|30.0|76.0|17.0|0|
-Soya quesadilla|సోయా క్వెసడియా|Snacks|1 piece (180 g)|24.0|36.0|17.0|0|
-Soya pasta|సోయా పాస్తా|Snacks|1 plate (300 g)|26.0|66.0|15.0|0|
-Tofu sandwich (grilled)|టోఫు శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|36.0|12.0|0|
-Tofu roll|టోఫు రోల్|Snacks|1 roll (180 g)|17.0|42.0|14.0|0|
-Tofu wrap|టోఫు ర్యాప్|Snacks|1 wrap (220 g)|16.0|40.0|13.0|0|
-Tofu paratha (stuffed)|టోఫు పరాటా|Snacks|1 piece (130 g)|14.0|32.0|14.0|0|
-Tofu dosa (filled)|టోఫు దోశ|Snacks|1 dosa (180 g)|13.0|32.0|12.0|0|
-Tofu burger|టోఫు బర్గర్|Snacks|1 burger (200 g)|16.0|40.0|15.0|0|
-Tofu toast (open)|టోఫు టోస్ట్|Snacks|2 slices (120 g)|15.0|30.0|10.0|0|
-Tofu pizza (personal)|టోఫు పిజ్జా|Snacks|1 personal (240 g)|22.0|70.0|18.0|0|
-Tofu quesadilla|టోఫు క్వెసడియా|Snacks|1 piece (180 g)|16.0|30.0|18.0|0|
-Tofu pasta|టోఫు పాస్తా|Snacks|1 plate (300 g)|18.0|60.0|16.0|0|
-Mutton keema sandwich (grilled)|మటన్ కీమా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|35.0|22.0|0|
-Mutton keema roll|మటన్ కీమా రోల్|Snacks|1 roll (180 g)|25.0|41.0|24.0|0|
-Mutton keema wrap|మటన్ కీమా ర్యాప్|Snacks|1 wrap (220 g)|24.0|39.0|23.0|0|
-Mutton keema paratha (stuffed)|మటన్ కీమా పరాటా|Snacks|1 piece (130 g)|22.0|31.0|24.0|0|
-Mutton keema dosa (filled)|మటన్ కీమా దోశ|Snacks|1 dosa (180 g)|21.0|31.0|22.0|0|
-Mutton keema burger|మటన్ కీమా బర్గర్|Snacks|1 burger (200 g)|24.0|39.0|25.0|0|
-Mutton keema toast (open)|మటన్ కీమా టోస్ట్|Snacks|2 slices (120 g)|23.0|29.0|20.0|0|
-Mutton keema pizza (personal)|మటన్ కీమా పిజ్జా|Snacks|1 personal (240 g)|30.0|69.0|28.0|0|
-Mutton keema quesadilla|మటన్ కీమా క్వెసడియా|Snacks|1 piece (180 g)|24.0|29.0|28.0|0|
-Mutton keema pasta|మటన్ కీమా పాస్తా|Snacks|1 plate (300 g)|26.0|59.0|26.0|0|
-Fish sandwich (grilled)|ఫిష్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|22.0|38.0|15.0|0|
-Fish roll|ఫిష్ రోల్|Snacks|1 roll (180 g)|23.0|44.0|17.0|0|
-Fish wrap|ఫిష్ ర్యాప్|Snacks|1 wrap (220 g)|22.0|42.0|16.0|0|
-Fish burger|ఫిష్ బర్గర్|Snacks|1 burger (200 g)|22.0|42.0|18.0|0|
-Fish toast (open)|ఫిష్ టోస్ట్|Snacks|2 slices (120 g)|21.0|32.0|13.0|0|
-Fish pizza (personal)|ఫిష్ పిజ్జా|Snacks|1 personal (240 g)|28.0|72.0|21.0|0|
-Fish pasta|ఫిష్ పాస్తా|Snacks|1 plate (300 g)|24.0|62.0|19.0|0|
-Tuna sandwich (grilled)|ట్యూనా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|36.0|14.0|0|
-Tuna roll|ట్యూనా రోల్|Snacks|1 roll (180 g)|25.0|42.0|16.0|0|
-Tuna wrap|ట్యూనా ర్యాప్|Snacks|1 wrap (220 g)|24.0|40.0|15.0|0|
-Tuna burger|ట్యూనా బర్గర్|Snacks|1 burger (200 g)|24.0|40.0|17.0|0|
-Tuna toast (open)|ట్యూనా టోస్ట్|Snacks|2 slices (120 g)|23.0|30.0|12.0|0|
-Tuna pizza (personal)|ట్యూనా పిజ్జా|Snacks|1 personal (240 g)|30.0|70.0|20.0|0|
-Tuna pasta|ట్యూనా పాస్తా|Snacks|1 plate (300 g)|26.0|60.0|18.0|0|
-Peanut butter sandwich (grilled)|పీనట్ బటర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|40.0|20.0|0|
-Peanut butter wrap|పీనట్ బటర్ ర్యాప్|Snacks|1 wrap (220 g)|16.0|44.0|21.0|0|
-Peanut butter toast (open)|పీనట్ బటర్ టోస్ట్|Snacks|2 slices (120 g)|15.0|34.0|18.0|0|
-Tomato soup (home made)|టమాటా సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Pumpkin soup (home made)|గుమ్మడి సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Spinach soup (home made)|పాలకూర సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Mushroom soup (home made)|పుట్టగొడుగు సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Carrot soup (home made)|క్యారెట్ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Broccoli soup (home made)|బ్రోకలీ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Sweet corn soup (home made)|స్వీట్ కార్న్ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|
-Lentil soup (home made)|పప్పు సూప్|Drinks|1 bowl (250 ml)|8|18|3|0|
-Chicken soup (home made)|చికెన్ సూప్|Drinks|1 bowl (250 ml)|10|6|4|0|
-Minestrone soup (home made)|మినిస్ట్రోన్ సూప్|Drinks|1 bowl (250 ml)|4|18|3|0|
-Chicken salad bowl|చికెన్ సలాడ్|Salads & light meals|1 bowl (300 g)|26|6|8|0|
-Paneer salad bowl|పనీర్ సలాడ్|Salads & light meals|1 bowl (300 g)|14|6|14|0|
-Egg salad bowl|ఎగ్ సలాడ్|Salads & light meals|1 bowl (300 g)|12|4|10|0|
-Chickpea salad bowl|శనగల సలాడ్|Salads & light meals|1 bowl (300 g)|11|28|5|0|
-Sprouts salad bowl|మొలకల సలాడ్|Salads & light meals|1 bowl (300 g)|9|22|2|0|
-Quinoa salad bowl|క్వినోవా సలాడ్|Salads & light meals|1 bowl (300 g)|8|32|8|0|
-Tuna salad bowl|ట్యూనా సలాడ్|Salads & light meals|1 bowl (300 g)|22|8|10|0|
-Corn salad bowl|కార్న్ సలాడ్|Salads & light meals|1 bowl (300 g)|4|24|4|0|
-Fruit and nut salad bowl|ఫ్రూట్ నట్ సలాడ్|Salads & light meals|1 bowl (300 g)|5|30|10|0|
-Pasta salad bowl|పాస్తా సలాడ్|Salads & light meals|1 bowl (300 g)|10|42|10|0|
-Tofu salad bowl|టోఫు సలాడ్|Salads & light meals|1 bowl (300 g)|12|8|8|0|
-Prawn salad bowl|రొయ్యల సలాడ్|Salads & light meals|1 bowl (300 g)|20|8|8|0|
-Roti (phulka), 2 pieces|రోటీ|Roti & bread|2 pieces|6.0|36.0|1.0|0|
-Roti (phulka), 3 pieces|రోటీ|Roti & bread|3 pieces|9.0|54.0|1.5|0|
-Roti (phulka), 4 pieces|రోటీ|Roti & bread|4 pieces|12.0|72.0|2.0|0|
-Roti (phulka), 5 pieces|రోటీ|Roti & bread|5 pieces|15.0|90.0|2.5|0|
-Chapati, 2 pieces|చపాతీ|Roti & bread|2 pieces|6.0|44.0|8.0|0|
-Chapati, 3 pieces|చపాతీ|Roti & bread|3 pieces|9.0|66.0|12.0|0|
-Chapati, 4 pieces|చపాతీ|Roti & bread|4 pieces|12.0|88.0|16.0|0|
-Idli, 1 piece|ఇడ్లీ|Tiffin|1 piece|2.0|10.0|0.5|0|
-Idli, 3 pieces|ఇడ్లీ|Tiffin|3 pieces|6.0|30.0|1.0|0|
-Idli, 5 pieces|ఇడ్లీ|Tiffin|5 pieces|10.0|50.0|1.5|0|
-Idli, 6 pieces|ఇడ్లీ|Tiffin|6 pieces|12.0|60.0|2.0|0|
-Dosa (plain), 2 pieces|దోశ|Tiffin|2 pieces|6.0|44.0|8.0|0|
-Dosa (plain), 3 pieces|దోశ|Tiffin|3 pieces|9.0|66.0|12.0|0|
-Puri, 3 pieces|పూరీ|Roti & bread|3 pieces|4.5|33.0|15.0|0|
-Puri, 5 pieces|పూరీ|Roti & bread|5 pieces|7.5|55.0|25.0|0|
-Puri, 6 pieces|పూరీ|Roti & bread|6 pieces|9.0|66.0|30.0|0|
-Egg (boiled), 2 eggs|ఉడికించిన గుడ్డు|Eggs|2 eggs|12.5|1.0|10.5|0|
-Egg (boiled), 3 eggs|ఉడికించిన గుడ్డు|Eggs|3 eggs|19.0|2.0|16.0|0|
-Egg (boiled), 4 eggs|ఉడికించిన గుడ్డు|Eggs|4 eggs|25.0|2.5|21.0|0|
-Egg (boiled), 5 eggs|ఉడికించిన గుడ్డు|Eggs|5 eggs|31.5|3.0|26.5|0|
-Egg (boiled), 6 eggs|ఉడికించిన గుడ్డు|Eggs|6 eggs|38.0|3.5|32.0|0|
-Banana, 2 medium bananas|అరటిపండు|Fruits|2 medium bananas|2.5|54.0|1.0|0|
-Banana, 3 medium bananas|అరటిపండు|Fruits|3 medium bananas|4.0|81.0|1.0|0|
-Apple, 2 medium apples|యాపిల్|Fruits|2 medium apples|1.0|42.0|0.5|0|
-Samosa, 3 pieces|సమోసా|Snacks|3 pieces|9.0|60.0|39.0|0|
-Samosa, 4 pieces|సమోసా|Snacks|4 pieces|12.0|80.0|52.0|0|
-Vada, 1 piece|వడ|Tiffin|1 piece|4.0|10.0|6.0|0|
-Vada, 3 pieces|వడ|Tiffin|3 pieces|12.0|30.0|18.0|0|
-Vada, 4 pieces|వడ|Tiffin|4 pieces|16.0|40.0|24.0|0|
-Gulab jamun, 3 pieces|గులాబ్ జామూన్|Sweets|3 pieces|6.0|78.0|21.0|0|
-Gulab jamun, 4 pieces|గులాబ్ జామూన్|Sweets|4 pieces|8.0|104.0|28.0|0|
-Jalebi, 1 piece|జిలేబీ|Sweets|1 piece|1.0|21.0|4.5|0|
-Jalebi, 4 pieces|జిలేబీ|Sweets|4 pieces|3.0|84.0|18.0|0|
-Laddu, 2 pieces|లడ్డు|Sweets|2 pieces|4.0|48.0|16.0|0|
-Laddu, 3 pieces|లడ్డు|Sweets|3 pieces|6.0|72.0|24.0|0|
-Biscuits (plain), 2 biscuits|బిస్కెట్లు|Snacks|2 biscuits|1.0|8.0|1.5|0|
-Biscuits (plain), 4 biscuits|బిస్కెట్లు|Snacks|4 biscuits|1.5|16.0|3.0|0|
-Biscuits (plain), 6 biscuits|బిస్కెట్లు|Snacks|6 biscuits|2.5|24.0|5.0|0|
-Biscuits (plain), 8 biscuits|బిస్కెట్లు|Snacks|8 biscuits|3.0|32.0|6.5|0|
-Biscuits (plain), 10 biscuits|బిస్కెట్లు|Snacks|10 biscuits|4.0|40.0|8.0|0|
-Almonds, 5 almonds|బాదం|Nuts & seeds|5 almonds|1.0|1.0|3.0|0|
-Almonds, 15 almonds|బాదం|Nuts & seeds|15 almonds|4.0|4.0|9.0|0|
-Almonds, 20 almonds|బాదం|Nuts & seeds|20 almonds|5.0|5.0|12.0|0|
-Almonds, 25 almonds|బాదం|Nuts & seeds|25 almonds|6.0|6.0|15.0|0|
-Cashews, 5 cashews|జీడిపప్పు|Nuts & seeds|5 cashews|1.5|2.0|3.5|0|
-Cashews, 15 cashews|జీడిపప్పు|Nuts & seeds|15 cashews|4.0|7.0|10.5|0|
-Cashews, 20 cashews|జీడిపప్పు|Nuts & seeds|20 cashews|5.5|9.0|14.0|0|
-Dates, 1 date|ఖర్జూరం|Fruits|1 date|0.0|7.0|0.0|0|
-Dates, 2 dates|ఖర్జూరం|Fruits|2 dates|0.5|14.0|0.0|0|
-Dates, 4 dates|ఖర్జూరం|Fruits|4 dates|1.0|28.0|0.0|0|
-Dates, 5 dates|ఖర్జూరం|Fruits|5 dates|1.0|35.0|0.0|0|
-Cooked rice, 1 cup|అన్నం|Rice & mains|1 cup (150 g)|3.0|40.0|0.5|0|
-Cooked rice, 1.5 cups|అన్నం|Rice & mains|1.5 cup (225 g)|4.5|60.0|0.5|0|
-Cooked rice, 2 cups|అన్నం|Rice & mains|2 cup (300 g)|6.0|80.0|1.0|0|
-Cooked rice, 3 cups|అన్నం|Rice & mains|3 cup (450 g)|9.0|120.0|1.0|0|
+Chicken curry|చికెన్ కూర|Chicken|1 bowl (200 g)|28.0|8.0|16.0|0|0|
+Chicken masala|చికెన్ మసాలా|Chicken|1 bowl (200 g)|28.0|9.0|18.0|0|0|
+Chicken fry|చికెన్ వేపుడు|Chicken|1 bowl (200 g)|28.0|4.0|17.0|0|0|
+Chicken korma|చికెన్ కుర్మా|Chicken|1 bowl (200 g)|28.0|10.0|23.0|0|0|
+Chicken kadai||Chicken|1 bowl (200 g)|28.0|8.0|18.0|0|0|
+Chicken tomato curry||Chicken|1 bowl (200 g)|28.0|9.0|15.0|0|0|
+Chicken coconut curry||Chicken|1 bowl (200 g)|28.0|7.0|21.0|0|0|
+Chicken pepper fry||Chicken|1 bowl (200 g)|28.0|4.0|16.0|0|0|
+Chicken butter masala||Chicken|1 bowl (200 g)|28.0|10.0|24.0|0|0|
+Chicken tikka masala||Chicken|1 bowl (200 g)|28.0|10.0|21.0|0|0|
+Chicken chilli (dry)||Chicken|1 bowl (200 g)|28.0|14.0|19.0|0|0|
+Chicken 65||Chicken|1 bowl (200 g)|28.0|13.0|22.0|0|0|
+Chicken do pyaza||Chicken|1 bowl (200 g)|28.0|10.0|18.0|0|0|
+Chicken stir fry (light oil)||Chicken|1 bowl (200 g)|28.0|4.0|11.0|0|0|
+Chicken grilled (little oil)||Chicken|1 bowl (200 g)|28.0|2.0|10.0|0|0|
+Chicken with spinach gravy||Chicken|1 bowl (200 g)|28.0|8.0|16.0|0|0|
+Chicken peanut gravy||Chicken|1 bowl (200 g)|28.0|8.0|20.0|0|0|
+Chicken pulusu (tamarind gravy)|చికెన్ పులుసు|Chicken|1 bowl (200 g)|28.0|9.0|12.0|0|0|
+Mutton curry|మటన్ కూర|Mutton|1 bowl (200 g)|26.0|8.0|22.0|0|0|
+Mutton masala|మటన్ మసాలా|Mutton|1 bowl (200 g)|26.0|9.0|24.0|0|0|
+Mutton fry|మటన్ వేపుడు|Mutton|1 bowl (200 g)|26.0|4.0|23.0|0|0|
+Mutton korma|మటన్ కుర్మా|Mutton|1 bowl (200 g)|26.0|10.0|29.0|0|0|
+Mutton kadai||Mutton|1 bowl (200 g)|26.0|8.0|24.0|0|0|
+Mutton tomato curry||Mutton|1 bowl (200 g)|26.0|9.0|21.0|0|0|
+Mutton coconut curry||Mutton|1 bowl (200 g)|26.0|7.0|27.0|0|0|
+Mutton pepper fry||Mutton|1 bowl (200 g)|26.0|4.0|22.0|0|0|
+Mutton butter masala||Mutton|1 bowl (200 g)|26.0|10.0|30.0|0|0|
+Mutton tikka masala||Mutton|1 bowl (200 g)|26.0|10.0|27.0|0|0|
+Mutton chilli (dry)||Mutton|1 bowl (200 g)|26.0|14.0|25.0|0|0|
+Mutton 65||Mutton|1 bowl (200 g)|26.0|13.0|28.0|0|0|
+Mutton do pyaza||Mutton|1 bowl (200 g)|26.0|10.0|24.0|0|0|
+Mutton stir fry (light oil)||Mutton|1 bowl (200 g)|26.0|4.0|17.0|0|0|
+Mutton grilled (little oil)||Mutton|1 bowl (200 g)|26.0|2.0|16.0|0|0|
+Mutton with spinach gravy||Mutton|1 bowl (200 g)|26.0|8.0|22.0|0|0|
+Mutton peanut gravy||Mutton|1 bowl (200 g)|26.0|8.0|26.0|0|0|
+Mutton pulusu (tamarind gravy)|మటన్ పులుసు|Mutton|1 bowl (200 g)|26.0|9.0|18.0|0|0|
+Fish curry|చేప కూర|Fish & seafood|1 bowl (200 g)|22.0|8.0|15.0|0|0|
+Fish masala|చేప మసాలా|Fish & seafood|1 bowl (200 g)|22.0|9.0|17.0|0|0|
+Fish fry|చేప వేపుడు|Fish & seafood|1 bowl (200 g)|22.0|4.0|16.0|0|0|
+Fish korma|చేప కుర్మా|Fish & seafood|1 bowl (200 g)|22.0|10.0|22.0|0|0|
+Fish kadai||Fish & seafood|1 bowl (200 g)|22.0|8.0|17.0|0|0|
+Fish tomato curry||Fish & seafood|1 bowl (200 g)|22.0|9.0|14.0|0|0|
+Fish coconut curry||Fish & seafood|1 bowl (200 g)|22.0|7.0|20.0|0|0|
+Fish pepper fry||Fish & seafood|1 bowl (200 g)|22.0|4.0|15.0|0|0|
+Fish butter masala||Fish & seafood|1 bowl (200 g)|22.0|10.0|23.0|0|0|
+Fish tikka masala||Fish & seafood|1 bowl (200 g)|22.0|10.0|20.0|0|0|
+Fish chilli (dry)||Fish & seafood|1 bowl (200 g)|22.0|14.0|18.0|0|0|
+Fish 65||Fish & seafood|1 bowl (200 g)|22.0|13.0|21.0|0|0|
+Fish do pyaza||Fish & seafood|1 bowl (200 g)|22.0|10.0|17.0|0|0|
+Fish stir fry (light oil)||Fish & seafood|1 bowl (200 g)|22.0|4.0|10.0|0|0|
+Fish grilled (little oil)||Fish & seafood|1 bowl (200 g)|22.0|2.0|9.0|0|0|
+Fish with spinach gravy||Fish & seafood|1 bowl (200 g)|22.0|8.0|15.0|0|0|
+Fish peanut gravy||Fish & seafood|1 bowl (200 g)|22.0|8.0|19.0|0|0|
+Fish pulusu (tamarind gravy)|చేప పులుసు|Fish & seafood|1 bowl (200 g)|22.0|9.0|11.0|0|0|
+Prawn curry|రొయ్యల కూర|Fish & seafood|1 bowl (200 g)|22.0|9.0|12.0|0|0|
+Prawn masala|రొయ్యల మసాలా|Fish & seafood|1 bowl (200 g)|22.0|10.0|14.0|0|0|
+Prawn fry|రొయ్యల వేపుడు|Fish & seafood|1 bowl (200 g)|22.0|5.0|13.0|0|0|
+Prawn korma|రొయ్యల కుర్మా|Fish & seafood|1 bowl (200 g)|22.0|11.0|19.0|0|0|
+Prawn kadai||Fish & seafood|1 bowl (200 g)|22.0|9.0|14.0|0|0|
+Prawn tomato curry||Fish & seafood|1 bowl (200 g)|22.0|10.0|11.0|0|0|
+Prawn coconut curry||Fish & seafood|1 bowl (200 g)|22.0|8.0|17.0|0|0|
+Prawn pepper fry||Fish & seafood|1 bowl (200 g)|22.0|5.0|12.0|0|0|
+Prawn butter masala||Fish & seafood|1 bowl (200 g)|22.0|11.0|20.0|0|0|
+Prawn tikka masala||Fish & seafood|1 bowl (200 g)|22.0|11.0|17.0|0|0|
+Prawn chilli (dry)||Fish & seafood|1 bowl (200 g)|22.0|15.0|15.0|0|0.5|
+Prawn 65||Fish & seafood|1 bowl (200 g)|22.0|14.0|18.0|0|0|
+Prawn do pyaza||Fish & seafood|1 bowl (200 g)|22.0|11.0|14.0|0|0|
+Prawn stir fry (light oil)||Fish & seafood|1 bowl (200 g)|22.0|5.0|7.0|0|0|
+Prawn grilled (little oil)||Fish & seafood|1 bowl (200 g)|22.0|3.0|6.0|0|0|
+Prawn with spinach gravy||Fish & seafood|1 bowl (200 g)|22.0|9.0|12.0|0|0|
+Prawn peanut gravy||Fish & seafood|1 bowl (200 g)|22.0|9.0|16.0|0|0|
+Prawn pulusu (tamarind gravy)|రొయ్యల పులుసు|Fish & seafood|1 bowl (200 g)|22.0|10.0|8.0|0|0|
+Egg curry|గుడ్డు కూర|Eggs|2 eggs + gravy|13.0|9.0|20.0|0|0|
+Egg masala|గుడ్డు మసాలా|Eggs|2 eggs + gravy|13.0|10.0|22.0|0|0|
+Egg fry|గుడ్డు వేపుడు|Eggs|2 eggs + gravy|13.0|5.0|21.0|0|0|
+Egg korma|గుడ్డు కుర్మా|Eggs|2 eggs + gravy|13.0|11.0|27.0|0|0|
+Egg kadai||Eggs|2 eggs + gravy|13.0|9.0|22.0|0|0|
+Egg tomato curry||Eggs|2 eggs + gravy|13.0|10.0|19.0|0|0|
+Egg coconut curry||Eggs|2 eggs + gravy|13.0|8.0|25.0|0|0|
+Egg butter masala||Eggs|2 eggs + gravy|13.0|11.0|28.0|0|0|
+Egg tikka masala||Eggs|2 eggs + gravy|13.0|11.0|25.0|0|0|
+Egg chilli (dry)||Eggs|2 eggs + gravy|13.0|15.0|23.0|0|0.5|
+Egg do pyaza||Eggs|2 eggs + gravy|13.0|11.0|22.0|0|0|
+Egg stir fry (light oil)||Eggs|2 eggs + gravy|13.0|5.0|15.0|0|0|
+Egg with spinach gravy||Eggs|2 eggs + gravy|13.0|9.0|20.0|0|0|
+Egg peanut gravy||Eggs|2 eggs + gravy|13.0|9.0|24.0|0|0|
+Egg pulusu (tamarind gravy)|గుడ్డు పులుసు|Eggs|2 eggs + gravy|13.0|10.0|16.0|0|0|
+Paneer curry|పనీర్ కూర|Dairy & paneer|1 bowl (200 g)|16.0|11.0|28.0|0|0|
+Paneer masala|పనీర్ మసాలా|Dairy & paneer|1 bowl (200 g)|16.0|12.0|30.0|0|0|
+Paneer fry|పనీర్ వేపుడు|Dairy & paneer|1 bowl (200 g)|16.0|7.0|29.0|0|0|
+Paneer korma|పనీర్ కుర్మా|Dairy & paneer|1 bowl (200 g)|16.0|13.0|35.0|0|0|
+Paneer kadai||Dairy & paneer|1 bowl (200 g)|16.0|11.0|30.0|0|0|
+Paneer tomato curry||Dairy & paneer|1 bowl (200 g)|16.0|12.0|27.0|0|2.5|
+Paneer coconut curry||Dairy & paneer|1 bowl (200 g)|16.0|10.0|33.0|0|2|
+Paneer pepper fry||Dairy & paneer|1 bowl (200 g)|16.0|7.0|28.0|0|0|
+Paneer butter masala||Dairy & paneer|1 bowl (200 g)|16.0|13.0|36.0|0|0|
+Paneer tikka masala||Dairy & paneer|1 bowl (200 g)|16.0|13.0|33.0|0|0|
+Paneer chilli (dry)||Dairy & paneer|1 bowl (200 g)|16.0|17.0|31.0|0|0|
+Paneer 65||Dairy & paneer|1 bowl (200 g)|16.0|16.0|34.0|0|0|
+Paneer do pyaza||Dairy & paneer|1 bowl (200 g)|16.0|13.0|30.0|0|0|
+Paneer stir fry (light oil)||Dairy & paneer|1 bowl (200 g)|16.0|7.0|23.0|0|1.5|
+Paneer grilled (little oil)||Dairy & paneer|1 bowl (200 g)|16.0|5.0|22.0|0|0|
+Paneer with spinach gravy||Dairy & paneer|1 bowl (200 g)|16.0|11.0|28.0|0|2.5|
+Paneer peanut gravy||Dairy & paneer|1 bowl (200 g)|16.0|11.0|32.0|0|5|
+Soya chunks curry|సోయా కూర|Vegetable curries|1 bowl (200 g)|24.0|24.0|11.0|0|7|
+Soya chunks masala|సోయా మసాలా|Vegetable curries|1 bowl (200 g)|24.0|25.0|13.0|0|7.5|
+Soya chunks fry|సోయా వేపుడు|Vegetable curries|1 bowl (200 g)|24.0|20.0|12.0|0|6|
+Soya chunks korma|సోయా కుర్మా|Vegetable curries|1 bowl (200 g)|24.0|26.0|18.0|0|8|
+Soya chunks kadai||Vegetable curries|1 bowl (200 g)|24.0|24.0|13.0|0|7|
+Soya chunks tomato curry||Vegetable curries|1 bowl (200 g)|24.0|25.0|10.0|0|7.5|
+Soya chunks coconut curry||Vegetable curries|1 bowl (200 g)|24.0|23.0|16.0|0|7|
+Soya chunks chilli (dry)||Vegetable curries|1 bowl (200 g)|24.0|30.0|14.0|0|9|
+Soya chunks do pyaza||Vegetable curries|1 bowl (200 g)|24.0|26.0|13.0|0|8|
+Soya chunks stir fry (light oil)||Vegetable curries|1 bowl (200 g)|24.0|20.0|6.0|0|6|
+Soya chunks with spinach gravy||Vegetable curries|1 bowl (200 g)|24.0|24.0|11.0|0|7|
+Soya chunks peanut gravy||Vegetable curries|1 bowl (200 g)|24.0|24.0|15.0|0|11|
+Soya chunks dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|24.0|19.0|7.0|0|5.5|
+Soya chunks sambar style||Vegetable curries|1 bowl (200 g)|24.0|26.0|7.0|0|8|
+Soya chunks pulusu (tamarind gravy)|సోయా పులుసు|Vegetable curries|1 bowl (200 g)|24.0|25.0|7.0|0|7.5|
+Tofu curry|టోఫు కూర|Vegetable curries|1 bowl (200 g)|10.0|11.0|16.0|0|0.5|
+Tofu masala|టోఫు మసాలా|Vegetable curries|1 bowl (200 g)|10.0|12.0|18.0|0|0.5|
+Tofu fry|టోఫు వేపుడు|Vegetable curries|1 bowl (200 g)|10.0|7.0|17.0|0|0.5|
+Tofu korma|టోఫు కుర్మా|Vegetable curries|1 bowl (200 g)|10.0|13.0|23.0|0|1|
+Tofu kadai||Vegetable curries|1 bowl (200 g)|10.0|11.0|18.0|0|0.5|
+Tofu tomato curry||Vegetable curries|1 bowl (200 g)|10.0|12.0|15.0|0|2.5|
+Tofu coconut curry||Vegetable curries|1 bowl (200 g)|10.0|10.0|21.0|0|2|
+Tofu chilli (dry)||Vegetable curries|1 bowl (200 g)|10.0|17.0|19.0|0|1|
+Tofu do pyaza||Vegetable curries|1 bowl (200 g)|10.0|13.0|18.0|0|1|
+Tofu stir fry (light oil)||Vegetable curries|1 bowl (200 g)|10.0|7.0|11.0|0|1.5|
+Tofu with spinach gravy||Vegetable curries|1 bowl (200 g)|10.0|11.0|16.0|0|2.5|
+Tofu peanut gravy||Vegetable curries|1 bowl (200 g)|10.0|11.0|20.0|0|5|
+Tofu dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|10.0|6.0|12.0|0|1.5|
+Tofu sambar style||Vegetable curries|1 bowl (200 g)|10.0|13.0|12.0|0|4|
+Tofu pulusu (tamarind gravy)|టోఫు పులుసు|Vegetable curries|1 bowl (200 g)|10.0|12.0|12.0|0|0.5|
+Chickpea curry|శనగల కూర|Dal & sambar|1 bowl (200 g)|12.0|38.0|13.0|0|11.5|
+Chickpea masala|శనగల మసాలా|Dal & sambar|1 bowl (200 g)|12.0|39.0|15.0|0|11.5|
+Chickpea fry|శనగల వేపుడు|Dal & sambar|1 bowl (200 g)|12.0|34.0|14.0|0|10|
+Chickpea korma|శనగల కుర్మా|Dal & sambar|1 bowl (200 g)|12.0|40.0|20.0|0|12|
+Chickpea kadai||Dal & sambar|1 bowl (200 g)|12.0|38.0|15.0|0|11.5|
+Chickpea tomato curry||Dal & sambar|1 bowl (200 g)|12.0|39.0|12.0|0|11.5|
+Chickpea coconut curry||Dal & sambar|1 bowl (200 g)|12.0|37.0|18.0|0|11|
+Chickpea chilli (dry)||Dal & sambar|1 bowl (200 g)|12.0|44.0|16.0|0|13|
+Chickpea do pyaza||Dal & sambar|1 bowl (200 g)|12.0|40.0|15.0|0|12|
+Chickpea stir fry (light oil)||Dal & sambar|1 bowl (200 g)|12.0|34.0|8.0|0|10|
+Chickpea with spinach gravy||Dal & sambar|1 bowl (200 g)|12.0|38.0|13.0|0|11.5|
+Chickpea peanut gravy||Dal & sambar|1 bowl (200 g)|12.0|38.0|17.0|0|14|
+Chickpea dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|12.0|33.0|9.0|0|10|
+Chickpea sambar style||Dal & sambar|1 bowl (200 g)|12.0|40.0|9.0|0|12|
+Chickpea pulusu (tamarind gravy)|శనగల పులుసు|Dal & sambar|1 bowl (200 g)|12.0|39.0|9.0|0|11.5|
+Green peas curry|బఠానీ కూర|Vegetable curries|1 bowl (200 g)|8.0|29.0|10.5|0|8.5|
+Green peas masala|బఠానీ మసాలా|Vegetable curries|1 bowl (200 g)|8.0|30.0|12.5|0|9|
+Green peas fry|బఠానీ వేపుడు|Vegetable curries|1 bowl (200 g)|8.0|25.0|11.5|0|7.5|
+Green peas korma|బఠానీ కుర్మా|Vegetable curries|1 bowl (200 g)|8.0|31.0|17.5|0|9.5|
+Green peas kadai||Vegetable curries|1 bowl (200 g)|8.0|29.0|12.5|0|8.5|
+Green peas tomato curry||Vegetable curries|1 bowl (200 g)|8.0|30.0|9.5|0|9|
+Green peas coconut curry||Vegetable curries|1 bowl (200 g)|8.0|28.0|15.5|0|8.5|
+Green peas chilli (dry)||Vegetable curries|1 bowl (200 g)|8.0|35.0|13.5|0|10.5|
+Green peas do pyaza||Vegetable curries|1 bowl (200 g)|8.0|31.0|12.5|0|9.5|
+Green peas stir fry (light oil)||Vegetable curries|1 bowl (200 g)|8.0|25.0|5.5|0|7.5|
+Green peas with spinach gravy||Vegetable curries|1 bowl (200 g)|8.0|29.0|10.5|0|8.5|
+Green peas peanut gravy||Vegetable curries|1 bowl (200 g)|8.0|29.0|14.5|0|13|
+Green peas dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|8.0|24.0|6.5|0|7|
+Green peas sambar style||Vegetable curries|1 bowl (200 g)|8.0|31.0|6.5|0|9.5|
+Green peas pulusu (tamarind gravy)|బఠానీ పులుసు|Vegetable curries|1 bowl (200 g)|8.0|30.0|6.5|0|9|
+Potato curry|బంగాళాదుంప కూర|Vegetable curries|1 bowl (200 g)|3.0|34.0|10.0|0|2|
+Potato masala|బంగాళాదుంప మసాలా|Vegetable curries|1 bowl (200 g)|3.0|35.0|12.0|0|2|
+Potato fry|బంగాళాదుంప వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|30.0|11.0|0|2|
+Potato korma|బంగాళాదుంప కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|36.0|17.0|0|2|
+Potato kadai||Vegetable curries|1 bowl (200 g)|3.0|34.0|12.0|0|2|
+Potato tomato curry||Vegetable curries|1 bowl (200 g)|3.0|35.0|9.0|0|7.5|
+Potato coconut curry||Vegetable curries|1 bowl (200 g)|3.0|33.0|15.0|0|6|
+Potato chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|40.0|13.0|0|2.5|
+Potato do pyaza||Vegetable curries|1 bowl (200 g)|3.0|36.0|12.0|0|2|
+Potato stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|30.0|5.0|0|6.5|
+Potato with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|34.0|10.0|0|7.5|
+Potato peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|34.0|14.0|0|14|
+Potato dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|29.0|6.0|0|6.5|
+Potato sambar style||Vegetable curries|1 bowl (200 g)|3.0|36.0|6.0|0|11|
+Potato pulusu (tamarind gravy)|బంగాళాదుంప పులుసు|Vegetable curries|1 bowl (200 g)|3.0|35.0|6.0|0|2|
+Cauliflower curry|కాలీఫ్లవర్ కూర|Vegetable curries|1 bowl (200 g)|3.0|15.0|10.5|0|3.5|
+Cauliflower masala|కాలీఫ్లవర్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|16.0|12.5|0|3.5|
+Cauliflower fry|కాలీఫ్లవర్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|11.0|11.5|0|2.5|
+Cauliflower korma|కాలీఫ్లవర్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|17.0|17.5|0|3.5|
+Cauliflower kadai||Vegetable curries|1 bowl (200 g)|3.0|15.0|12.5|0|3.5|
+Cauliflower tomato curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|9.5|0|3.5|
+Cauliflower coconut curry||Vegetable curries|1 bowl (200 g)|3.0|14.0|15.5|0|3|
+Cauliflower chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|21.0|13.5|0|4.5|
+Cauliflower do pyaza||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|3.5|
+Cauliflower stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|11.0|5.5|0|2.5|
+Cauliflower with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|15.0|10.5|0|3.5|
+Cauliflower peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|15.0|14.5|0|7|
+Cauliflower dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|10.0|6.5|0|2|
+Cauliflower sambar style||Vegetable curries|1 bowl (200 g)|3.0|17.0|6.5|0|5|
+Cauliflower pulusu (tamarind gravy)|కాలీఫ్లవర్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|16.0|6.5|0|3.5|
+Cabbage curry|క్యాబేజీ కూర|Vegetable curries|1 bowl (200 g)|2.0|16.0|10.0|0|3.5|
+Cabbage masala|క్యాబేజీ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|17.0|12.0|0|3.5|
+Cabbage fry|క్యాబేజీ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|12.0|11.0|0|2.5|
+Cabbage korma|క్యాబేజీ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|18.0|17.0|0|4|
+Cabbage kadai||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.0|0|3.5|
+Cabbage tomato curry||Vegetable curries|1 bowl (200 g)|2.0|17.0|9.0|0|3.5|
+Cabbage coconut curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|15.0|0|3.5|
+Cabbage chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|22.0|13.0|0|5|
+Cabbage do pyaza||Vegetable curries|1 bowl (200 g)|2.0|18.0|12.0|0|4|
+Cabbage stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|5.0|0|2.5|
+Cabbage with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|10.0|0|3.5|
+Cabbage peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|14.0|0|7|
+Cabbage dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|6.0|0|2.5|
+Cabbage sambar style||Vegetable curries|1 bowl (200 g)|2.0|18.0|6.0|0|5.5|
+Cabbage pulusu (tamarind gravy)|క్యాబేజీ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|17.0|6.0|0|3.5|
+Brinjal curry|వంకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|17.0|10.5|0|3.5|
+Brinjal masala|వంకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|18.0|12.5|0|4|
+Brinjal fry|వంకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|13.0|11.5|0|3|
+Brinjal korma|వంకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|19.0|17.5|0|4|
+Brinjal kadai||Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|3.5|
+Brinjal tomato curry||Vegetable curries|1 bowl (200 g)|2.0|18.0|9.5|0|4|
+Brinjal coconut curry||Vegetable curries|1 bowl (200 g)|2.0|16.0|15.5|0|3.5|
+Brinjal chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|23.0|13.5|0|5|
+Brinjal do pyaza||Vegetable curries|1 bowl (200 g)|2.0|19.0|12.5|0|4|
+Brinjal stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|13.0|5.5|0|3|
+Brinjal with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|17.0|10.5|0|3.5|
+Brinjal peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|17.0|14.5|0|7.5|
+Brinjal dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|6.5|0|2.5|
+Brinjal sambar style||Vegetable curries|1 bowl (200 g)|2.0|19.0|6.5|0|5.5|
+Brinjal pulusu (tamarind gravy)|వంకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|18.0|6.5|0|4|
+Okra curry|బెండకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|3.5|
+Okra masala|బెండకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|4|
+Okra fry|బెండకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|3|
+Okra korma|బెండకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|4|
+Okra kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|3.5|
+Okra tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|4|
+Okra coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|3.5|
+Okra chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|5|
+Okra do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|4|
+Okra stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|3|
+Okra with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|3.5|
+Okra peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|7.5|
+Okra dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|2.5|
+Okra sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|5.5|
+Okra pulusu (tamarind gravy)|బెండకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|4|
+Spinach curry|పాలకూర కూర|Vegetable curries|1 bowl (200 g)|5.0|15.0|10.5|0|3.5|
+Spinach masala|పాలకూర మసాలా|Vegetable curries|1 bowl (200 g)|5.0|16.0|12.5|0|3.5|
+Spinach fry|పాలకూర వేపుడు|Vegetable curries|1 bowl (200 g)|5.0|11.0|11.5|0|2.5|
+Spinach korma|పాలకూర కుర్మా|Vegetable curries|1 bowl (200 g)|5.0|17.0|17.5|0|3.5|
+Spinach kadai||Vegetable curries|1 bowl (200 g)|5.0|15.0|12.5|0|3.5|
+Spinach tomato curry||Vegetable curries|1 bowl (200 g)|5.0|16.0|9.5|0|3.5|
+Spinach coconut curry||Vegetable curries|1 bowl (200 g)|5.0|14.0|15.5|0|3|
+Spinach chilli (dry)||Vegetable curries|1 bowl (200 g)|5.0|21.0|13.5|0|4.5|
+Spinach do pyaza||Vegetable curries|1 bowl (200 g)|5.0|17.0|12.5|0|3.5|
+Spinach stir fry (light oil)||Vegetable curries|1 bowl (200 g)|5.0|11.0|5.5|0|2.5|
+Spinach with spinach gravy||Vegetable curries|1 bowl (200 g)|5.0|15.0|10.5|0|3.5|
+Spinach peanut gravy||Vegetable curries|1 bowl (200 g)|5.0|15.0|14.5|0|7|
+Spinach dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|5.0|10.0|6.5|0|2|
+Spinach sambar style||Vegetable curries|1 bowl (200 g)|5.0|17.0|6.5|0|5|
+Spinach pulusu (tamarind gravy)|పాలకూర పులుసు|Vegetable curries|1 bowl (200 g)|5.0|16.0|6.5|0|3.5|
+Mushroom curry|పుట్టగొడుగుల కూర|Vegetable curries|1 bowl (200 g)|6.0|14.0|10.5|0|3|
+Mushroom masala|పుట్టగొడుగుల మసాలా|Vegetable curries|1 bowl (200 g)|6.0|15.0|12.5|0|3.5|
+Mushroom fry|పుట్టగొడుగుల వేపుడు|Vegetable curries|1 bowl (200 g)|6.0|10.0|11.5|0|2|
+Mushroom korma|పుట్టగొడుగుల కుర్మా|Vegetable curries|1 bowl (200 g)|6.0|16.0|17.5|0|3.5|
+Mushroom kadai||Vegetable curries|1 bowl (200 g)|6.0|14.0|12.5|0|3|
+Mushroom tomato curry||Vegetable curries|1 bowl (200 g)|6.0|15.0|9.5|0|3.5|
+Mushroom coconut curry||Vegetable curries|1 bowl (200 g)|6.0|13.0|15.5|0|3|
+Mushroom chilli (dry)||Vegetable curries|1 bowl (200 g)|6.0|20.0|13.5|0|4.5|
+Mushroom do pyaza||Vegetable curries|1 bowl (200 g)|6.0|16.0|12.5|0|3.5|
+Mushroom stir fry (light oil)||Vegetable curries|1 bowl (200 g)|6.0|10.0|5.5|0|2|
+Mushroom with spinach gravy||Vegetable curries|1 bowl (200 g)|6.0|14.0|10.5|0|3|
+Mushroom peanut gravy||Vegetable curries|1 bowl (200 g)|6.0|14.0|14.5|0|6.5|
+Mushroom dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|6.0|9.0|6.5|0|2|
+Mushroom sambar style||Vegetable curries|1 bowl (200 g)|6.0|16.0|6.5|0|5|
+Mushroom pulusu (tamarind gravy)|పుట్టగొడుగుల పులుసు|Vegetable curries|1 bowl (200 g)|6.0|15.0|6.5|0|3.5|
+Capsicum curry|క్యాప్సికం కూర|Vegetable curries|1 bowl (200 g)|2.0|16.0|10.5|0|3.5|
+Capsicum masala|క్యాప్సికం మసాలా|Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|3.5|
+Capsicum fry|క్యాప్సికం వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|12.0|11.5|0|2.5|
+Capsicum korma|క్యాప్సికం కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|18.0|17.5|0|4|
+Capsicum kadai||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|3.5|
+Capsicum tomato curry||Vegetable curries|1 bowl (200 g)|2.0|17.0|9.5|0|3.5|
+Capsicum coconut curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|15.5|0|3.5|
+Capsicum chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|22.0|13.5|0|5|
+Capsicum do pyaza||Vegetable curries|1 bowl (200 g)|2.0|18.0|12.5|0|4|
+Capsicum stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|12.0|5.5|0|2.5|
+Capsicum with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|10.5|0|3.5|
+Capsicum peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|16.0|14.5|0|7|
+Capsicum dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|6.5|0|2.5|
+Capsicum sambar style||Vegetable curries|1 bowl (200 g)|2.0|18.0|6.5|0|5.5|
+Capsicum pulusu (tamarind gravy)|క్యాప్సికం పులుసు|Vegetable curries|1 bowl (200 g)|2.0|17.0|6.5|0|3.5|
+Baby corn curry|బేబీ కార్న్ కూర|Vegetable curries|1 bowl (200 g)|3.0|18.0|10.5|0|1|
+Baby corn masala|బేబీ కార్న్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|1|
+Baby corn fry|బేబీ కార్న్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|14.0|11.5|0|1|
+Baby corn korma|బేబీ కార్న్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|20.0|17.5|0|1|
+Baby corn kadai||Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|1|
+Baby corn tomato curry||Vegetable curries|1 bowl (200 g)|3.0|19.0|9.5|0|4|
+Baby corn coconut curry||Vegetable curries|1 bowl (200 g)|3.0|17.0|15.5|0|3|
+Baby corn chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|24.0|13.5|0|1.5|
+Baby corn do pyaza||Vegetable curries|1 bowl (200 g)|3.0|20.0|12.5|0|1|
+Baby corn stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|14.0|5.5|0|3|
+Baby corn with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|18.0|10.5|0|4|
+Baby corn peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|18.0|14.5|0|8|
+Baby corn dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|6.5|0|3|
+Baby corn sambar style||Vegetable curries|1 bowl (200 g)|3.0|20.0|6.5|0|6|
+Baby corn pulusu (tamarind gravy)|బేబీ కార్న్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|1|
+Beans curry|బీన్స్ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|5|
+Beans masala|బీన్స్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|5.5|
+Beans fry|బీన్స్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|4|
+Beans korma|బీన్స్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|5.5|
+Beans kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|5|
+Beans tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|5.5|
+Beans coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|5|
+Beans chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|7|
+Beans do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|5.5|
+Beans stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|4|
+Beans with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|5|
+Beans peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|7.5|
+Beans dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|3.5|
+Beans sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|5.5|
+Beans pulusu (tamarind gravy)|బీన్స్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|5.5|
+Carrot curry|క్యారెట్ కూర|Vegetable curries|1 bowl (200 g)|1.5|20.0|10.5|0|4.5|
+Carrot masala|క్యారెట్ మసాలా|Vegetable curries|1 bowl (200 g)|1.5|21.0|12.5|0|4.5|
+Carrot fry|క్యారెట్ వేపుడు|Vegetable curries|1 bowl (200 g)|1.5|16.0|11.5|0|3.5|
+Carrot korma|క్యారెట్ కుర్మా|Vegetable curries|1 bowl (200 g)|1.5|22.0|17.5|0|5|
+Carrot kadai||Vegetable curries|1 bowl (200 g)|1.5|20.0|12.5|0|4.5|
+Carrot tomato curry||Vegetable curries|1 bowl (200 g)|1.5|21.0|9.5|0|4.5|
+Carrot coconut curry||Vegetable curries|1 bowl (200 g)|1.5|19.0|15.5|0|4|
+Carrot chilli (dry)||Vegetable curries|1 bowl (200 g)|1.5|26.0|13.5|0|5.5|
+Carrot do pyaza||Vegetable curries|1 bowl (200 g)|1.5|22.0|12.5|0|5|
+Carrot stir fry (light oil)||Vegetable curries|1 bowl (200 g)|1.5|16.0|5.5|0|3.5|
+Carrot with spinach gravy||Vegetable curries|1 bowl (200 g)|1.5|20.0|10.5|0|4.5|
+Carrot peanut gravy||Vegetable curries|1 bowl (200 g)|1.5|20.0|14.5|0|9|
+Carrot dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|1.5|15.0|6.5|0|3.5|
+Carrot sambar style||Vegetable curries|1 bowl (200 g)|1.5|22.0|6.5|0|6.5|
+Carrot pulusu (tamarind gravy)|క్యారెట్ పులుసు|Vegetable curries|1 bowl (200 g)|1.5|21.0|6.5|0|4.5|
+Bottle gourd curry|సొరకాయ కూర|Vegetable curries|1 bowl (200 g)|1.5|15.0|10.0|0|3.5|
+Bottle gourd masala|సొరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|1.5|16.0|12.0|0|3.5|
+Bottle gourd fry|సొరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|1.5|11.0|11.0|0|2.5|
+Bottle gourd korma|సొరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|1.5|17.0|17.0|0|3.5|
+Bottle gourd kadai||Vegetable curries|1 bowl (200 g)|1.5|15.0|12.0|0|3.5|
+Bottle gourd tomato curry||Vegetable curries|1 bowl (200 g)|1.5|16.0|9.0|0|3.5|
+Bottle gourd coconut curry||Vegetable curries|1 bowl (200 g)|1.5|14.0|15.0|0|3|
+Bottle gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|1.5|21.0|13.0|0|4.5|
+Bottle gourd do pyaza||Vegetable curries|1 bowl (200 g)|1.5|17.0|12.0|0|3.5|
+Bottle gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|1.5|11.0|5.0|0|2.5|
+Bottle gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|1.5|15.0|10.0|0|3.5|
+Bottle gourd peanut gravy||Vegetable curries|1 bowl (200 g)|1.5|15.0|14.0|0|7|
+Bottle gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|1.5|10.0|6.0|0|2|
+Bottle gourd sambar style||Vegetable curries|1 bowl (200 g)|1.5|17.0|6.0|0|5|
+Bottle gourd pulusu (tamarind gravy)|సొరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|1.5|16.0|6.0|0|3.5|
+Ridge gourd curry|బీరకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|15.0|10.5|0|3.5|
+Ridge gourd masala|బీరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|3.5|
+Ridge gourd fry|బీరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|11.0|11.5|0|2.5|
+Ridge gourd korma|బీరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|17.0|17.5|0|3.5|
+Ridge gourd kadai||Vegetable curries|1 bowl (200 g)|2.0|15.0|12.5|0|3.5|
+Ridge gourd tomato curry||Vegetable curries|1 bowl (200 g)|2.0|16.0|9.5|0|3.5|
+Ridge gourd coconut curry||Vegetable curries|1 bowl (200 g)|2.0|14.0|15.5|0|3|
+Ridge gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|21.0|13.5|0|4.5|
+Ridge gourd do pyaza||Vegetable curries|1 bowl (200 g)|2.0|17.0|12.5|0|3.5|
+Ridge gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|11.0|5.5|0|2.5|
+Ridge gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|15.0|10.5|0|3.5|
+Ridge gourd peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|15.0|14.5|0|7|
+Ridge gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|10.0|6.5|0|2|
+Ridge gourd sambar style||Vegetable curries|1 bowl (200 g)|2.0|17.0|6.5|0|5|
+Ridge gourd pulusu (tamarind gravy)|బీరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|16.0|6.5|0|3.5|
+Pumpkin curry|గుమ్మడికాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|22.0|10.0|0|5|
+Pumpkin masala|గుమ్మడికాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|23.0|12.0|0|5|
+Pumpkin fry|గుమ్మడికాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|18.0|11.0|0|4|
+Pumpkin korma|గుమ్మడికాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|24.0|17.0|0|5.5|
+Pumpkin kadai||Vegetable curries|1 bowl (200 g)|2.0|22.0|12.0|0|5|
+Pumpkin tomato curry||Vegetable curries|1 bowl (200 g)|2.0|23.0|9.0|0|5|
+Pumpkin coconut curry||Vegetable curries|1 bowl (200 g)|2.0|21.0|15.0|0|4.5|
+Pumpkin chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|28.0|13.0|0|6|
+Pumpkin do pyaza||Vegetable curries|1 bowl (200 g)|2.0|24.0|12.0|0|5.5|
+Pumpkin stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|18.0|5.0|0|4|
+Pumpkin with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|22.0|10.0|0|5|
+Pumpkin peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|22.0|14.0|0|10|
+Pumpkin dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|17.0|6.0|0|3.5|
+Pumpkin sambar style||Vegetable curries|1 bowl (200 g)|2.0|24.0|6.0|0|7|
+Pumpkin pulusu (tamarind gravy)|గుమ్మడికాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|23.0|6.0|0|5|
+Raw banana curry|అరటికాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|38.0|10.5|0|8.5|
+Raw banana masala|అరటికాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|39.0|12.5|0|8.5|
+Raw banana fry|అరటికాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|34.0|11.5|0|7.5|
+Raw banana korma|అరటికాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|40.0|17.5|0|9|
+Raw banana kadai||Vegetable curries|1 bowl (200 g)|2.0|38.0|12.5|0|8.5|
+Raw banana tomato curry||Vegetable curries|1 bowl (200 g)|2.0|39.0|9.5|0|8.5|
+Raw banana coconut curry||Vegetable curries|1 bowl (200 g)|2.0|37.0|15.5|0|8|
+Raw banana chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|44.0|13.5|0|9.5|
+Raw banana do pyaza||Vegetable curries|1 bowl (200 g)|2.0|40.0|12.5|0|9|
+Raw banana stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|34.0|5.5|0|7.5|
+Raw banana with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|38.0|10.5|0|8.5|
+Raw banana peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|38.0|14.5|0|14|
+Raw banana dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|33.0|6.5|0|7.5|
+Raw banana sambar style||Vegetable curries|1 bowl (200 g)|2.0|40.0|6.5|0|12|
+Raw banana pulusu (tamarind gravy)|అరటికాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|39.0|6.5|0|8.5|
+Drumstick curry|మునగకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|3.5|
+Drumstick masala|మునగకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|4|
+Drumstick fry|మునగకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|3|
+Drumstick korma|మునగకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|4|
+Drumstick kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|3.5|
+Drumstick tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|4|
+Drumstick coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|3.5|
+Drumstick chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|5|
+Drumstick do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|4|
+Drumstick stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|3|
+Drumstick with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|3.5|
+Drumstick peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|7.5|
+Drumstick dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|2.5|
+Drumstick sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|5.5|
+Drumstick pulusu (tamarind gravy)|మునగకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|4|
+Jackfruit curry|పనసకాయ కూర|Vegetable curries|1 bowl (200 g)|3.0|28.0|10.5|0|3|
+Jackfruit masala|పనసకాయ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|29.0|12.5|0|3|
+Jackfruit fry|పనసకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|24.0|11.5|0|2.5|
+Jackfruit korma|పనసకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|30.0|17.5|0|3|
+Jackfruit kadai||Vegetable curries|1 bowl (200 g)|3.0|28.0|12.5|0|3|
+Jackfruit tomato curry||Vegetable curries|1 bowl (200 g)|3.0|29.0|9.5|0|6.5|
+Jackfruit coconut curry||Vegetable curries|1 bowl (200 g)|3.0|27.0|15.5|0|5|
+Jackfruit chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|34.0|13.5|0|3.5|
+Jackfruit do pyaza||Vegetable curries|1 bowl (200 g)|3.0|30.0|12.5|0|3|
+Jackfruit stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|24.0|5.5|0|5.5|
+Jackfruit with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|28.0|10.5|0|6|
+Jackfruit peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|28.0|14.5|0|12.5|
+Jackfruit dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|23.0|6.5|0|5|
+Jackfruit sambar style||Vegetable curries|1 bowl (200 g)|3.0|30.0|6.5|0|9|
+Jackfruit pulusu (tamarind gravy)|పనసకాయ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|29.0|6.5|0|3|
+Sweet potato curry|చిలగడదుంప కూర|Vegetable curries|1 bowl (200 g)|3.0|40.0|10.0|0|1|
+Sweet potato masala|చిలగడదుంప మసాలా|Vegetable curries|1 bowl (200 g)|3.0|41.0|12.0|0|1|
+Sweet potato fry|చిలగడదుంప వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|36.0|11.0|0|1|
+Sweet potato korma|చిలగడదుంప కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|42.0|17.0|0|1.5|
+Sweet potato kadai||Vegetable curries|1 bowl (200 g)|3.0|40.0|12.0|0|1|
+Sweet potato tomato curry||Vegetable curries|1 bowl (200 g)|3.0|41.0|9.0|0|9|
+Sweet potato coconut curry||Vegetable curries|1 bowl (200 g)|3.0|39.0|15.0|0|7|
+Sweet potato chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|46.0|13.0|0|1.5|
+Sweet potato do pyaza||Vegetable curries|1 bowl (200 g)|3.0|42.0|12.0|0|1.5|
+Sweet potato stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|36.0|5.0|0|8|
+Sweet potato with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|40.0|10.0|0|9|
+Sweet potato peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|40.0|14.0|0|14|
+Sweet potato dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|35.0|6.0|0|7.5|
+Sweet potato sambar style||Vegetable curries|1 bowl (200 g)|3.0|42.0|6.0|0|12.5|
+Sweet potato pulusu (tamarind gravy)|చిలగడదుంప పులుసు|Vegetable curries|1 bowl (200 g)|3.0|41.0|6.0|0|1|
+Mixed vegetable curry|మిక్స్డ్ వెజిటబుల్ కూర|Vegetable curries|1 bowl (200 g)|3.0|22.0|10.5|0|5|
+Mixed vegetable masala|మిక్స్డ్ వెజిటబుల్ మసాలా|Vegetable curries|1 bowl (200 g)|3.0|23.0|12.5|0|5|
+Mixed vegetable fry|మిక్స్డ్ వెజిటబుల్ వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|18.0|11.5|0|4|
+Mixed vegetable korma|మిక్స్డ్ వెజిటబుల్ కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|24.0|17.5|0|5.5|
+Mixed vegetable kadai||Vegetable curries|1 bowl (200 g)|3.0|22.0|12.5|0|5|
+Mixed vegetable tomato curry||Vegetable curries|1 bowl (200 g)|3.0|23.0|9.5|0|5|
+Mixed vegetable coconut curry||Vegetable curries|1 bowl (200 g)|3.0|21.0|15.5|0|4.5|
+Mixed vegetable chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|28.0|13.5|0|6|
+Mixed vegetable do pyaza||Vegetable curries|1 bowl (200 g)|3.0|24.0|12.5|0|5.5|
+Mixed vegetable stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|18.0|5.5|0|4|
+Mixed vegetable with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|22.0|10.5|0|5|
+Mixed vegetable peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|22.0|14.5|0|10|
+Mixed vegetable dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|17.0|6.5|0|3.5|
+Mixed vegetable sambar style||Vegetable curries|1 bowl (200 g)|3.0|24.0|6.5|0|7|
+Mixed vegetable pulusu (tamarind gravy)|మిక్స్డ్ వెజిటబుల్ పులుసు|Vegetable curries|1 bowl (200 g)|3.0|23.0|6.5|0|5|
+Rajma curry|రాజ్మా కూర|Dal & sambar|1 bowl (200 g)|14.0|42.0|11.0|0|12.5|
+Rajma masala|రాజ్మా మసాలా|Dal & sambar|1 bowl (200 g)|14.0|43.0|13.0|0|13|
+Rajma fry|రాజ్మా వేపుడు|Dal & sambar|1 bowl (200 g)|14.0|38.0|12.0|0|11.5|
+Rajma korma|రాజ్మా కుర్మా|Dal & sambar|1 bowl (200 g)|14.0|44.0|18.0|0|13|
+Rajma kadai||Dal & sambar|1 bowl (200 g)|14.0|42.0|13.0|0|12.5|
+Rajma tomato curry||Dal & sambar|1 bowl (200 g)|14.0|43.0|10.0|0|13|
+Rajma coconut curry||Dal & sambar|1 bowl (200 g)|14.0|41.0|16.0|0|12.5|
+Rajma chilli (dry)||Dal & sambar|1 bowl (200 g)|14.0|48.0|14.0|0|14|
+Rajma do pyaza||Dal & sambar|1 bowl (200 g)|14.0|44.0|13.0|0|13|
+Rajma stir fry (light oil)||Dal & sambar|1 bowl (200 g)|14.0|38.0|6.0|0|11.5|
+Rajma with spinach gravy||Dal & sambar|1 bowl (200 g)|14.0|42.0|11.0|0|12.5|
+Rajma peanut gravy||Dal & sambar|1 bowl (200 g)|14.0|42.0|15.0|0|14|
+Rajma dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|14.0|37.0|7.0|0|11|
+Rajma sambar style||Dal & sambar|1 bowl (200 g)|14.0|44.0|7.0|0|13|
+Rajma pulusu (tamarind gravy)|రాజ్మా పులుసు|Dal & sambar|1 bowl (200 g)|14.0|43.0|7.0|0|13|
+Lobia curry|బొబ్బర్ల కూర|Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|2.5|
+Lobia masala|బొబ్బర్ల మసాలా|Dal & sambar|1 bowl (200 g)|13.0|41.0|13.0|0|2.5|
+Lobia fry|బొబ్బర్ల వేపుడు|Dal & sambar|1 bowl (200 g)|13.0|36.0|12.0|0|2|
+Lobia korma|బొబ్బర్ల కుర్మా|Dal & sambar|1 bowl (200 g)|13.0|42.0|18.0|0|2.5|
+Lobia kadai||Dal & sambar|1 bowl (200 g)|13.0|40.0|13.0|0|2.5|
+Lobia tomato curry||Dal & sambar|1 bowl (200 g)|13.0|41.0|10.0|0|9|
+Lobia coconut curry||Dal & sambar|1 bowl (200 g)|13.0|39.0|16.0|0|7|
+Lobia chilli (dry)||Dal & sambar|1 bowl (200 g)|13.0|46.0|14.0|0|3|
+Lobia do pyaza||Dal & sambar|1 bowl (200 g)|13.0|42.0|13.0|0|2.5|
+Lobia stir fry (light oil)||Dal & sambar|1 bowl (200 g)|13.0|36.0|6.0|0|8|
+Lobia with spinach gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|9|
+Lobia peanut gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|15.0|0|14|
+Lobia dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|13.0|35.0|7.0|0|7.5|
+Lobia sambar style||Dal & sambar|1 bowl (200 g)|13.0|42.0|7.0|0|12.5|
+Lobia pulusu (tamarind gravy)|బొబ్బర్ల పులుసు|Dal & sambar|1 bowl (200 g)|13.0|41.0|7.0|0|2.5|
+Green moong curry|పెసల కూర|Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|12|
+Green moong masala|పెసల మసాలా|Dal & sambar|1 bowl (200 g)|13.0|41.0|13.0|0|12.5|
+Green moong fry|పెసల వేపుడు|Dal & sambar|1 bowl (200 g)|13.0|36.0|12.0|0|11|
+Green moong korma|పెసల కుర్మా|Dal & sambar|1 bowl (200 g)|13.0|42.0|18.0|0|12.5|
+Green moong kadai||Dal & sambar|1 bowl (200 g)|13.0|40.0|13.0|0|12|
+Green moong tomato curry||Dal & sambar|1 bowl (200 g)|13.0|41.0|10.0|0|12.5|
+Green moong coconut curry||Dal & sambar|1 bowl (200 g)|13.0|39.0|16.0|0|11.5|
+Green moong chilli (dry)||Dal & sambar|1 bowl (200 g)|13.0|46.0|14.0|0|14|
+Green moong do pyaza||Dal & sambar|1 bowl (200 g)|13.0|42.0|13.0|0|12.5|
+Green moong stir fry (light oil)||Dal & sambar|1 bowl (200 g)|13.0|36.0|6.0|0|11|
+Green moong with spinach gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|11.0|0|12|
+Green moong peanut gravy||Dal & sambar|1 bowl (200 g)|13.0|40.0|15.0|0|14|
+Green moong dry sabzi (little oil)||Dal & sambar|1 bowl (200 g)|13.0|35.0|7.0|0|10.5|
+Green moong sambar style||Dal & sambar|1 bowl (200 g)|13.0|42.0|7.0|0|12.5|
+Green moong pulusu (tamarind gravy)|పెసల పులుసు|Dal & sambar|1 bowl (200 g)|13.0|41.0|7.0|0|12.5|
+Cluster beans curry|గోరు చిక్కుడు కూర|Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|5|
+Cluster beans masala|గోరు చిక్కుడు మసాలా|Vegetable curries|1 bowl (200 g)|3.0|18.0|12.5|0|5.5|
+Cluster beans fry|గోరు చిక్కుడు వేపుడు|Vegetable curries|1 bowl (200 g)|3.0|13.0|11.5|0|4|
+Cluster beans korma|గోరు చిక్కుడు కుర్మా|Vegetable curries|1 bowl (200 g)|3.0|19.0|17.5|0|5.5|
+Cluster beans kadai||Vegetable curries|1 bowl (200 g)|3.0|17.0|12.5|0|5|
+Cluster beans tomato curry||Vegetable curries|1 bowl (200 g)|3.0|18.0|9.5|0|5.5|
+Cluster beans coconut curry||Vegetable curries|1 bowl (200 g)|3.0|16.0|15.5|0|5|
+Cluster beans chilli (dry)||Vegetable curries|1 bowl (200 g)|3.0|23.0|13.5|0|7|
+Cluster beans do pyaza||Vegetable curries|1 bowl (200 g)|3.0|19.0|12.5|0|5.5|
+Cluster beans stir fry (light oil)||Vegetable curries|1 bowl (200 g)|3.0|13.0|5.5|0|4|
+Cluster beans with spinach gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|10.5|0|5|
+Cluster beans peanut gravy||Vegetable curries|1 bowl (200 g)|3.0|17.0|14.5|0|7.5|
+Cluster beans dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|3.0|12.0|6.5|0|3.5|
+Cluster beans sambar style||Vegetable curries|1 bowl (200 g)|3.0|19.0|6.5|0|5.5|
+Cluster beans pulusu (tamarind gravy)|గోరు చిక్కుడు పులుసు|Vegetable curries|1 bowl (200 g)|3.0|18.0|6.5|0|5.5|
+Bitter gourd curry|కాకరకాయ కూర|Vegetable curries|1 bowl (200 g)|2.0|14.0|10.5|0|3|
+Bitter gourd masala|కాకరకాయ మసాలా|Vegetable curries|1 bowl (200 g)|2.0|15.0|12.5|0|3.5|
+Bitter gourd fry|కాకరకాయ వేపుడు|Vegetable curries|1 bowl (200 g)|2.0|10.0|11.5|0|2|
+Bitter gourd korma|కాకరకాయ కుర్మా|Vegetable curries|1 bowl (200 g)|2.0|16.0|17.5|0|3.5|
+Bitter gourd kadai||Vegetable curries|1 bowl (200 g)|2.0|14.0|12.5|0|3|
+Bitter gourd tomato curry||Vegetable curries|1 bowl (200 g)|2.0|15.0|9.5|0|3.5|
+Bitter gourd coconut curry||Vegetable curries|1 bowl (200 g)|2.0|13.0|15.5|0|3|
+Bitter gourd chilli (dry)||Vegetable curries|1 bowl (200 g)|2.0|20.0|13.5|0|4.5|
+Bitter gourd do pyaza||Vegetable curries|1 bowl (200 g)|2.0|16.0|12.5|0|3.5|
+Bitter gourd stir fry (light oil)||Vegetable curries|1 bowl (200 g)|2.0|10.0|5.5|0|2|
+Bitter gourd with spinach gravy||Vegetable curries|1 bowl (200 g)|2.0|14.0|10.5|0|3|
+Bitter gourd peanut gravy||Vegetable curries|1 bowl (200 g)|2.0|14.0|14.5|0|6.5|
+Bitter gourd dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|2.0|9.0|6.5|0|2|
+Bitter gourd sambar style||Vegetable curries|1 bowl (200 g)|2.0|16.0|6.5|0|5|
+Bitter gourd pulusu (tamarind gravy)|కాకరకాయ పులుసు|Vegetable curries|1 bowl (200 g)|2.0|15.0|6.5|0|3.5|
+Leafy greens curry|ఆకుకూర కూర|Vegetable curries|1 bowl (200 g)|4.0|15.0|10.5|0|1|
+Leafy greens masala|ఆకుకూర మసాలా|Vegetable curries|1 bowl (200 g)|4.0|16.0|12.5|0|1|
+Leafy greens fry|ఆకుకూర వేపుడు|Vegetable curries|1 bowl (200 g)|4.0|11.0|11.5|0|0.5|
+Leafy greens korma|ఆకుకూర కుర్మా|Vegetable curries|1 bowl (200 g)|4.0|17.0|17.5|0|1|
+Leafy greens kadai||Vegetable curries|1 bowl (200 g)|4.0|15.0|12.5|0|1|
+Leafy greens tomato curry||Vegetable curries|1 bowl (200 g)|4.0|16.0|9.5|0|3.5|
+Leafy greens coconut curry||Vegetable curries|1 bowl (200 g)|4.0|14.0|15.5|0|2.5|
+Leafy greens chilli (dry)||Vegetable curries|1 bowl (200 g)|4.0|21.0|13.5|0|1.5|
+Leafy greens do pyaza||Vegetable curries|1 bowl (200 g)|4.0|17.0|12.5|0|1|
+Leafy greens stir fry (light oil)||Vegetable curries|1 bowl (200 g)|4.0|11.0|5.5|0|2.5|
+Leafy greens with spinach gravy||Vegetable curries|1 bowl (200 g)|4.0|15.0|10.5|0|3.5|
+Leafy greens peanut gravy||Vegetable curries|1 bowl (200 g)|4.0|15.0|14.5|0|7|
+Leafy greens dry sabzi (little oil)||Vegetable curries|1 bowl (200 g)|4.0|10.0|6.5|0|2|
+Leafy greens sambar style||Vegetable curries|1 bowl (200 g)|4.0|17.0|6.5|0|5|
+Leafy greens pulusu (tamarind gravy)|ఆకుకూర పులుసు|Vegetable curries|1 bowl (200 g)|4.0|16.0|6.5|0|1|
+Chicken biryani|చికెన్ బిర్యానీ|Rice & mains|1 plate (300 g)|31.0|70.0|22.0|0|2|
+Chicken pulao|చికెన్ పులావ్|Rice & mains|1 plate (300 g)|31.0|60.0|16.0|0|2|
+Chicken fried rice|చికెన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|31.0|66.0|17.0|0|2|
+Chicken rice bowl (curry rice)|చికెన్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|31.0|62.0|15.0|0|2|
+Chicken fried rice (schezwan)|చికెన్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|31.0|68.0|20.0|0|2|
+Chicken lemon rice|చికెన్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|31.0|56.0|15.0|0|1.5|
+Mutton biryani|మటన్ బిర్యానీ|Rice & mains|1 plate (300 g)|29.0|70.0|27.0|0|2|
+Mutton pulao|మటన్ పులావ్|Rice & mains|1 plate (300 g)|29.0|60.0|21.0|0|2|
+Mutton fried rice|మటన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|29.0|66.0|22.0|0|2|
+Mutton rice bowl (curry rice)|మటన్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|29.0|62.0|20.0|0|2|
+Mutton fried rice (schezwan)|మటన్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|29.0|68.0|25.0|0|2|
+Egg biryani|ఎగ్ బిర్యానీ|Rice & mains|1 plate (300 g)|18.0|71.0|26.0|0|2|
+Egg pulao|ఎగ్ పులావ్|Rice & mains|1 plate (300 g)|18.0|61.0|20.0|0|2|
+Egg fried rice|ఎగ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|18.0|67.0|21.0|0|2|
+Egg rice bowl (curry rice)|ఎగ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|18.0|63.0|19.0|0|2|
+Egg fried rice (schezwan)|ఎగ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|18.0|69.0|24.0|0|2|
+Egg lemon rice|ఎగ్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|18.0|57.0|19.0|0|1.5|
+Prawn biryani|రొయ్యల బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|71.0|18.0|0|2|
+Prawn pulao|రొయ్యల పులావ్|Rice & mains|1 plate (300 g)|27.0|61.0|12.0|0|2|
+Prawn fried rice|రొయ్యల ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|67.0|13.0|0|2|
+Prawn rice bowl (curry rice)|రొయ్యల రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|63.0|11.0|0|2|
+Prawn fried rice (schezwan)|రొయ్యల షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|69.0|16.0|0|2|
+Fish biryani|ఫిష్ బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|70.0|21.0|0|2|
+Fish pulao|ఫిష్ పులావ్|Rice & mains|1 plate (300 g)|27.0|60.0|15.0|0|2|
+Fish fried rice|ఫిష్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|66.0|16.0|0|2|
+Fish rice bowl (curry rice)|ఫిష్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|62.0|14.0|0|2|
+Fish fried rice (schezwan)|ఫిష్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|68.0|19.0|0|2|
+Paneer biryani|పనీర్ బిర్యానీ|Rice & mains|1 plate (300 g)|21.0|73.0|34.0|0|2|
+Paneer pulao|పనీర్ పులావ్|Rice & mains|1 plate (300 g)|21.0|63.0|28.0|0|2|
+Paneer fried rice|పనీర్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|21.0|69.0|29.0|0|2|
+Paneer rice bowl (curry rice)|పనీర్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|21.0|65.0|27.0|0|2|
+Paneer fried rice (schezwan)|పనీర్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|21.0|71.0|32.0|0|2|
+Vegetable biryani|వెజ్ బిర్యానీ|Rice & mains|1 plate (300 g)|9.0|82.0|17.0|0|14|
+Vegetable pulao|వెజ్ పులావ్|Rice & mains|1 plate (300 g)|9.0|72.0|11.0|0|14|
+Vegetable fried rice|వెజ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|9.0|78.0|12.0|0|14|
+Vegetable rice bowl (curry rice)|వెజ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|9.0|74.0|10.0|0|14|
+Vegetable fried rice (schezwan)|వెజ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|9.0|80.0|15.0|0|14|
+Vegetable lemon rice|వెజ్ నిమ్మకాయ అన్నం|Rice & mains|1 plate (300 g)|9.0|68.0|10.0|0|14|
+Mushroom biryani|మష్రూమ్ బిర్యానీ|Rice & mains|1 plate (300 g)|11.0|76.0|16.5|0|14|
+Mushroom pulao|మష్రూమ్ పులావ్|Rice & mains|1 plate (300 g)|11.0|66.0|10.5|0|14|
+Mushroom fried rice|మష్రూమ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|11.0|72.0|11.5|0|14|
+Mushroom rice bowl (curry rice)|మష్రూమ్ రైస్ బౌల్|Rice & mains|1 plate (300 g)|11.0|68.0|9.5|0|14|
+Mushroom fried rice (schezwan)|మష్రూమ్ షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|11.0|74.0|14.5|0|14|
+Soya biryani|సోయా బిర్యానీ|Rice & mains|1 plate (300 g)|27.0|84.0|17.0|0|14|
+Soya pulao|సోయా పులావ్|Rice & mains|1 plate (300 g)|27.0|74.0|11.0|0|14|
+Soya fried rice|సోయా ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|27.0|80.0|12.0|0|14|
+Soya rice bowl (curry rice)|సోయా రైస్ బౌల్|Rice & mains|1 plate (300 g)|27.0|76.0|10.0|0|14|
+Soya fried rice (schezwan)|సోయా షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|27.0|82.0|15.0|0|14|
+Chickpea biryani|శనగల బిర్యానీ|Rice & mains|1 plate (300 g)|17.0|98.0|19.0|0|14|
+Chickpea pulao|శనగల పులావ్|Rice & mains|1 plate (300 g)|17.0|88.0|13.0|0|14|
+Chickpea fried rice|శనగల ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|17.0|94.0|14.0|0|14|
+Chickpea rice bowl (curry rice)|శనగల రైస్ బౌల్|Rice & mains|1 plate (300 g)|17.0|90.0|12.0|0|14|
+Chickpea fried rice (schezwan)|శనగల షెజ్వాన్ రైస్|Rice & mains|1 plate (300 g)|17.0|96.0|17.0|0|14|
+Paneer sandwich (grilled)|పనీర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|20.0|36.0|18.0|0|1|
+Paneer roll|పనీర్ రోల్|Snacks|1 roll (180 g)|21.0|42.0|20.0|0|2.5|
+Paneer wrap|పనీర్ ర్యాప్|Snacks|1 wrap (220 g)|20.0|40.0|19.0|0|2.5|
+Paneer paratha (stuffed)|పనీర్ పరాటా|Snacks|1 piece (130 g)|18.0|32.0|20.0|0|4|
+Paneer dosa (filled)|పనీర్ దోశ|Snacks|1 dosa (180 g)|17.0|32.0|18.0|0|4|
+Paneer burger|పనీర్ బర్గర్|Snacks|1 burger (200 g)|20.0|40.0|21.0|0|1|
+Paneer toast (open)|పనీర్ టోస్ట్|Snacks|2 slices (120 g)|19.0|30.0|16.0|0|2|
+Paneer pizza (personal)|పనీర్ పిజ్జా|Snacks|1 personal (240 g)|26.0|70.0|24.0|0|2|
+Paneer quesadilla|పనీర్ క్వెసడియా|Snacks|1 piece (180 g)|20.0|30.0|24.0|0|2|
+Paneer pasta|పనీర్ పాస్తా|Snacks|1 plate (300 g)|22.0|60.0|22.0|0|2|
+Chicken sandwich (grilled)|చికెన్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|26.0|35.0|14.0|0|1|
+Chicken roll|చికెన్ రోల్|Snacks|1 roll (180 g)|27.0|41.0|16.0|0|2.5|
+Chicken wrap|చికెన్ ర్యాప్|Snacks|1 wrap (220 g)|26.0|39.0|15.0|0|2.5|
+Chicken paratha (stuffed)|చికెన్ పరాటా|Snacks|1 piece (130 g)|24.0|31.0|16.0|0|3.5|
+Chicken dosa (filled)|చికెన్ దోశ|Snacks|1 dosa (180 g)|23.0|31.0|14.0|0|3.5|
+Chicken burger|చికెన్ బర్గర్|Snacks|1 burger (200 g)|26.0|39.0|17.0|0|1|
+Chicken toast (open)|చికెన్ టోస్ట్|Snacks|2 slices (120 g)|25.0|29.0|12.0|0|1.5|
+Chicken pizza (personal)|చికెన్ పిజ్జా|Snacks|1 personal (240 g)|32.0|69.0|20.0|0|2|
+Chicken quesadilla|చికెన్ క్వెసడియా|Snacks|1 piece (180 g)|26.0|29.0|20.0|0|1.5|
+Chicken pasta|చికెన్ పాస్తా|Snacks|1 plate (300 g)|28.0|59.0|18.0|0|2|
+Egg sandwich (grilled)|ఎగ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|18.0|34.0|15.0|0|1|
+Egg roll|ఎగ్ రోల్|Snacks|1 roll (180 g)|19.0|40.0|17.0|0|2.5|
+Egg wrap|ఎగ్ ర్యాప్|Snacks|1 wrap (220 g)|18.0|38.0|16.0|0|2.5|
+Egg paratha (stuffed)|ఎగ్ పరాటా|Snacks|1 piece (130 g)|16.0|30.0|17.0|0|3.5|
+Egg dosa (filled)|ఎగ్ దోశ|Snacks|1 dosa (180 g)|15.0|30.0|15.0|0|3.5|
+Egg burger|ఎగ్ బర్గర్|Snacks|1 burger (200 g)|18.0|38.0|18.0|0|1|
+Egg toast (open)|ఎగ్ టోస్ట్|Snacks|2 slices (120 g)|17.0|28.0|13.0|0|1.5|
+Egg pizza (personal)|ఎగ్ పిజ్జా|Snacks|1 personal (240 g)|24.0|68.0|21.0|0|2|
+Egg quesadilla|ఎగ్ క్వెసడియా|Snacks|1 piece (180 g)|18.0|28.0|21.0|0|1.5|
+Egg pasta|ఎగ్ పాస్తా|Snacks|1 plate (300 g)|20.0|58.0|19.0|0|1.5|
+Potato sandwich (grilled)|ఆలూ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|9.0|54.0|12.0|0|1.5|
+Potato roll|ఆలూ రోల్|Snacks|1 roll (180 g)|10.0|60.0|14.0|0|3.5|
+Potato wrap|ఆలూ ర్యాప్|Snacks|1 wrap (220 g)|9.0|58.0|13.0|0|3.5|
+Potato paratha (stuffed)|ఆలూ పరాటా|Snacks|1 piece (130 g)|7.0|50.0|14.0|0|6|
+Potato dosa (filled)|ఆలూ దోశ|Snacks|1 dosa (180 g)|6.0|50.0|12.0|0|6|
+Potato burger|ఆలూ బర్గర్|Snacks|1 burger (200 g)|9.0|58.0|15.0|0|1.5|
+Potato toast (open)|ఆలూ టోస్ట్|Snacks|2 slices (120 g)|8.0|48.0|10.0|0|3|
+Potato pizza (personal)|ఆలూ పిజ్జా|Snacks|1 personal (240 g)|15.0|88.0|18.0|0|2.5|
+Potato quesadilla|ఆలూ క్వెసడియా|Snacks|1 piece (180 g)|9.0|48.0|18.0|0|3|
+Potato pasta|ఆలూ పాస్తా|Snacks|1 plate (300 g)|11.0|78.0|16.0|0|2.5|
+Mixed vegetable sandwich (grilled)|వెజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|10.0|42.0|12.0|0|9|
+Mixed vegetable roll|వెజ్ రోల్|Snacks|1 roll (180 g)|11.0|48.0|14.0|0|10.5|
+Mixed vegetable wrap|వెజ్ ర్యాప్|Snacks|1 wrap (220 g)|10.0|46.0|13.0|0|10|
+Mixed vegetable paratha (stuffed)|వెజ్ పరాటా|Snacks|1 piece (130 g)|8.0|38.0|14.0|0|8.5|
+Mixed vegetable dosa (filled)|వెజ్ దోశ|Snacks|1 dosa (180 g)|7.0|38.0|12.0|0|8.5|
+Mixed vegetable burger|వెజ్ బర్గర్|Snacks|1 burger (200 g)|10.0|46.0|15.0|0|10|
+Mixed vegetable toast (open)|వెజ్ టోస్ట్|Snacks|2 slices (120 g)|9.0|36.0|10.0|0|8|
+Mixed vegetable pizza (personal)|వెజ్ పిజ్జా|Snacks|1 personal (240 g)|16.0|76.0|18.0|0|14|
+Mixed vegetable quesadilla|వెజ్ క్వెసడియా|Snacks|1 piece (180 g)|10.0|36.0|18.0|0|8|
+Mixed vegetable pasta|వెజ్ పాస్తా|Snacks|1 plate (300 g)|12.0|66.0|16.0|0|14|
+Cheese sandwich (grilled)|చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|34.0|18.0|0|1|
+Cheese roll|చీజ్ రోల్|Snacks|1 roll (180 g)|17.0|40.0|20.0|0|2.5|
+Cheese wrap|చీజ్ ర్యాప్|Snacks|1 wrap (220 g)|16.0|38.0|19.0|0|2.5|
+Cheese paratha (stuffed)|చీజ్ పరాటా|Snacks|1 piece (130 g)|14.0|30.0|20.0|0|3.5|
+Cheese dosa (filled)|చీజ్ దోశ|Snacks|1 dosa (180 g)|13.0|30.0|18.0|0|3.5|
+Cheese burger|చీజ్ బర్గర్|Snacks|1 burger (200 g)|16.0|38.0|21.0|0|1|
+Cheese toast (open)|చీజ్ టోస్ట్|Snacks|2 slices (120 g)|15.0|28.0|16.0|0|1.5|
+Cheese pizza (personal)|చీజ్ పిజ్జా|Snacks|1 personal (240 g)|22.0|68.0|24.0|0|2|
+Cheese quesadilla|చీజ్ క్వెసడియా|Snacks|1 piece (180 g)|16.0|28.0|24.0|0|1.5|
+Cheese pasta|చీజ్ పాస్తా|Snacks|1 plate (300 g)|18.0|58.0|22.0|0|1.5|
+Mushroom sandwich (grilled)|మష్రూమ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|12.0|38.0|12.0|0|8.5|
+Mushroom roll|మష్రూమ్ రోల్|Snacks|1 roll (180 g)|13.0|44.0|14.0|0|9.5|
+Mushroom wrap|మష్రూమ్ ర్యాప్|Snacks|1 wrap (220 g)|12.0|42.0|13.0|0|9|
+Mushroom paratha (stuffed)|మష్రూమ్ పరాటా|Snacks|1 piece (130 g)|10.0|34.0|14.0|0|7.5|
+Mushroom dosa (filled)|మష్రూమ్ దోశ|Snacks|1 dosa (180 g)|9.0|34.0|12.0|0|7.5|
+Mushroom burger|మష్రూమ్ బర్గర్|Snacks|1 burger (200 g)|12.0|42.0|15.0|0|9|
+Mushroom toast (open)|మష్రూమ్ టోస్ట్|Snacks|2 slices (120 g)|11.0|32.0|10.0|0|7|
+Mushroom pizza (personal)|మష్రూమ్ పిజ్జా|Snacks|1 personal (240 g)|18.0|72.0|18.0|0|14|
+Mushroom quesadilla|మష్రూమ్ క్వెసడియా|Snacks|1 piece (180 g)|12.0|32.0|18.0|0|7|
+Mushroom pasta|మష్రూమ్ పాస్తా|Snacks|1 plate (300 g)|14.0|62.0|16.0|0|13.5|
+Corn and cheese sandwich (grilled)|కార్న్ చీజ్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|14.0|48.0|16.0|0|1.5|
+Corn and cheese roll|కార్న్ చీజ్ రోల్|Snacks|1 roll (180 g)|15.0|54.0|18.0|0|3|
+Corn and cheese wrap|కార్న్ చీజ్ ర్యాప్|Snacks|1 wrap (220 g)|14.0|52.0|17.0|0|3|
+Corn and cheese paratha (stuffed)|కార్న్ చీజ్ పరాటా|Snacks|1 piece (130 g)|12.0|44.0|18.0|0|5.5|
+Corn and cheese dosa (filled)|కార్న్ చీజ్ దోశ|Snacks|1 dosa (180 g)|11.0|44.0|16.0|0|5.5|
+Corn and cheese burger|కార్న్ చీజ్ బర్గర్|Snacks|1 burger (200 g)|14.0|52.0|19.0|0|1.5|
+Corn and cheese toast (open)|కార్న్ చీజ్ టోస్ట్|Snacks|2 slices (120 g)|13.0|42.0|14.0|0|2.5|
+Corn and cheese pizza (personal)|కార్న్ చీజ్ పిజ్జా|Snacks|1 personal (240 g)|20.0|82.0|22.0|0|2.5|
+Corn and cheese quesadilla|కార్న్ చీజ్ క్వెసడియా|Snacks|1 piece (180 g)|14.0|42.0|22.0|0|2.5|
+Corn and cheese pasta|కార్న్ చీజ్ పాస్తా|Snacks|1 plate (300 g)|16.0|72.0|20.0|0|2|
+Soya sandwich (grilled)|సోయా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|42.0|11.0|0|12.5|
+Soya roll|సోయా రోల్|Snacks|1 roll (180 g)|25.0|48.0|13.0|0|14|
+Soya wrap|సోయా ర్యాప్|Snacks|1 wrap (220 g)|24.0|46.0|12.0|0|14|
+Soya paratha (stuffed)|సోయా పరాటా|Snacks|1 piece (130 g)|22.0|38.0|13.0|0|11.5|
+Soya dosa (filled)|సోయా దోశ|Snacks|1 dosa (180 g)|21.0|38.0|11.0|0|11.5|
+Soya burger|సోయా బర్గర్|Snacks|1 burger (200 g)|24.0|46.0|14.0|0|14|
+Soya toast (open)|సోయా టోస్ట్|Snacks|2 slices (120 g)|23.0|36.0|9.0|0|11|
+Soya pizza (personal)|సోయా పిజ్జా|Snacks|1 personal (240 g)|30.0|76.0|17.0|0|14|
+Soya quesadilla|సోయా క్వెసడియా|Snacks|1 piece (180 g)|24.0|36.0|17.0|0|11|
+Soya pasta|సోయా పాస్తా|Snacks|1 plate (300 g)|26.0|66.0|15.0|0|14|
+Tofu sandwich (grilled)|టోఫు శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|36.0|12.0|0|1|
+Tofu roll|టోఫు రోల్|Snacks|1 roll (180 g)|17.0|42.0|14.0|0|2.5|
+Tofu wrap|టోఫు ర్యాప్|Snacks|1 wrap (220 g)|16.0|40.0|13.0|0|2.5|
+Tofu paratha (stuffed)|టోఫు పరాటా|Snacks|1 piece (130 g)|14.0|32.0|14.0|0|4|
+Tofu dosa (filled)|టోఫు దోశ|Snacks|1 dosa (180 g)|13.0|32.0|12.0|0|4|
+Tofu burger|టోఫు బర్గర్|Snacks|1 burger (200 g)|16.0|40.0|15.0|0|1|
+Tofu toast (open)|టోఫు టోస్ట్|Snacks|2 slices (120 g)|15.0|30.0|10.0|0|2|
+Tofu pizza (personal)|టోఫు పిజ్జా|Snacks|1 personal (240 g)|22.0|70.0|18.0|0|2|
+Tofu quesadilla|టోఫు క్వెసడియా|Snacks|1 piece (180 g)|16.0|30.0|18.0|0|2|
+Tofu pasta|టోఫు పాస్తా|Snacks|1 plate (300 g)|18.0|60.0|16.0|0|2|
+Mutton keema sandwich (grilled)|మటన్ కీమా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|35.0|22.0|0|1|
+Mutton keema roll|మటన్ కీమా రోల్|Snacks|1 roll (180 g)|25.0|41.0|24.0|0|2.5|
+Mutton keema wrap|మటన్ కీమా ర్యాప్|Snacks|1 wrap (220 g)|24.0|39.0|23.0|0|2.5|
+Mutton keema paratha (stuffed)|మటన్ కీమా పరాటా|Snacks|1 piece (130 g)|22.0|31.0|24.0|0|3.5|
+Mutton keema dosa (filled)|మటన్ కీమా దోశ|Snacks|1 dosa (180 g)|21.0|31.0|22.0|0|3.5|
+Mutton keema burger|మటన్ కీమా బర్గర్|Snacks|1 burger (200 g)|24.0|39.0|25.0|0|1|
+Mutton keema toast (open)|మటన్ కీమా టోస్ట్|Snacks|2 slices (120 g)|23.0|29.0|20.0|0|1.5|
+Mutton keema pizza (personal)|మటన్ కీమా పిజ్జా|Snacks|1 personal (240 g)|30.0|69.0|28.0|0|2|
+Mutton keema quesadilla|మటన్ కీమా క్వెసడియా|Snacks|1 piece (180 g)|24.0|29.0|28.0|0|1.5|
+Mutton keema pasta|మటన్ కీమా పాస్తా|Snacks|1 plate (300 g)|26.0|59.0|26.0|0|2|
+Fish sandwich (grilled)|ఫిష్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|22.0|38.0|15.0|0|1|
+Fish roll|ఫిష్ రోల్|Snacks|1 roll (180 g)|23.0|44.0|17.0|0|2.5|
+Fish wrap|ఫిష్ ర్యాప్|Snacks|1 wrap (220 g)|22.0|42.0|16.0|0|2.5|
+Fish burger|ఫిష్ బర్గర్|Snacks|1 burger (200 g)|22.0|42.0|18.0|0|1.5|
+Fish toast (open)|ఫిష్ టోస్ట్|Snacks|2 slices (120 g)|21.0|32.0|13.0|0|2|
+Fish pizza (personal)|ఫిష్ పిజ్జా|Snacks|1 personal (240 g)|28.0|72.0|21.0|0|2|
+Fish pasta|ఫిష్ పాస్తా|Snacks|1 plate (300 g)|24.0|62.0|19.0|0|2|
+Tuna sandwich (grilled)|ట్యూనా శాండ్‌విచ్|Snacks|1 sandwich (170 g)|24.0|36.0|14.0|0|1|
+Tuna roll|ట్యూనా రోల్|Snacks|1 roll (180 g)|25.0|42.0|16.0|0|2.5|
+Tuna wrap|ట్యూనా ర్యాప్|Snacks|1 wrap (220 g)|24.0|40.0|15.0|0|2.5|
+Tuna burger|ట్యూనా బర్గర్|Snacks|1 burger (200 g)|24.0|40.0|17.0|0|1|
+Tuna toast (open)|ట్యూనా టోస్ట్|Snacks|2 slices (120 g)|23.0|30.0|12.0|0|2|
+Tuna pizza (personal)|ట్యూనా పిజ్జా|Snacks|1 personal (240 g)|30.0|70.0|20.0|0|2|
+Tuna pasta|ట్యూనా పాస్తా|Snacks|1 plate (300 g)|26.0|60.0|18.0|0|2|
+Peanut butter sandwich (grilled)|పీనట్ బటర్ శాండ్‌విచ్|Snacks|1 sandwich (170 g)|16.0|40.0|20.0|0|14|
+Peanut butter wrap|పీనట్ బటర్ ర్యాప్|Snacks|1 wrap (220 g)|16.0|44.0|21.0|0|14|
+Peanut butter toast (open)|పీనట్ బటర్ టోస్ట్|Snacks|2 slices (120 g)|15.0|34.0|18.0|0|14|
+Tomato soup (home made)|టమాటా సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Pumpkin soup (home made)|గుమ్మడి సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Spinach soup (home made)|పాలకూర సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Mushroom soup (home made)|పుట్టగొడుగు సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Carrot soup (home made)|క్యారెట్ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Broccoli soup (home made)|బ్రోకలీ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|2.5|
+Sweet corn soup (home made)|స్వీట్ కార్న్ సూప్|Drinks|1 bowl (250 ml)|2|12|3|0|0.5|
+Lentil soup (home made)|పప్పు సూప్|Drinks|1 bowl (250 ml)|8|18|3|0|5.5|
+Chicken soup (home made)|చికెన్ సూప్|Drinks|1 bowl (250 ml)|10|6|4|0|0|
+Minestrone soup (home made)|మినిస్ట్రోన్ సూప్|Drinks|1 bowl (250 ml)|4|18|3|0|0|
+Chicken salad bowl|చికెన్ సలాడ్|Salads & light meals|1 bowl (300 g)|26|6|8|0|1.5|
+Paneer salad bowl|పనీర్ సలాడ్|Salads & light meals|1 bowl (300 g)|14|6|14|0|1.5|
+Egg salad bowl|ఎగ్ సలాడ్|Salads & light meals|1 bowl (300 g)|12|4|10|0|1|
+Chickpea salad bowl|శనగల సలాడ్|Salads & light meals|1 bowl (300 g)|11|28|5|0|8.5|
+Sprouts salad bowl|మొలకల సలాడ్|Salads & light meals|1 bowl (300 g)|9|22|2|0|6.5|
+Quinoa salad bowl|క్వినోవా సలాడ్|Salads & light meals|1 bowl (300 g)|8|32|8|0|7|
+Tuna salad bowl|ట్యూనా సలాడ్|Salads & light meals|1 bowl (300 g)|22|8|10|0|2|
+Corn salad bowl|కార్న్ సలాడ్|Salads & light meals|1 bowl (300 g)|4|24|4|0|5.5|
+Fruit and nut salad bowl|ఫ్రూట్ నట్ సలాడ్|Salads & light meals|1 bowl (300 g)|5|30|10|0|6.5|
+Pasta salad bowl|పాస్తా సలాడ్|Salads & light meals|1 bowl (300 g)|10|42|10|0|9|
+Tofu salad bowl|టోఫు సలాడ్|Salads & light meals|1 bowl (300 g)|12|8|8|0|2|
+Prawn salad bowl|రొయ్యల సలాడ్|Salads & light meals|1 bowl (300 g)|20|8|8|0|2|
+Roti (phulka), 2 pieces|రోటీ|Roti & bread|2 pieces|6.0|36.0|1.0|0|4.5|
+Roti (phulka), 3 pieces|రోటీ|Roti & bread|3 pieces|9.0|54.0|1.5|0|6.5|
+Roti (phulka), 4 pieces|రోటీ|Roti & bread|4 pieces|12.0|72.0|2.0|0|8.5|
+Roti (phulka), 5 pieces|రోటీ|Roti & bread|5 pieces|15.0|90.0|2.5|0|11|
+Chapati, 2 pieces|చపాతీ|Roti & bread|2 pieces|6.0|44.0|8.0|0|5.5|
+Chapati, 3 pieces|చపాతీ|Roti & bread|3 pieces|9.0|66.0|12.0|0|8|
+Chapati, 4 pieces|చపాతీ|Roti & bread|4 pieces|12.0|88.0|16.0|0|10.5|
+Idli, 1 piece|ఇడ్లీ|Tiffin|1 piece|2.0|10.0|0.5|0|1|
+Idli, 3 pieces|ఇడ్లీ|Tiffin|3 pieces|6.0|30.0|1.0|0|3.5|
+Idli, 5 pieces|ఇడ్లీ|Tiffin|5 pieces|10.0|50.0|1.5|0|6|
+Idli, 6 pieces|ఇడ్లీ|Tiffin|6 pieces|12.0|60.0|2.0|0|7|
+Dosa (plain), 2 pieces|దోశ|Tiffin|2 pieces|6.0|44.0|8.0|0|5.5|
+Dosa (plain), 3 pieces|దోశ|Tiffin|3 pieces|9.0|66.0|12.0|0|8|
+Puri, 3 pieces|పూరీ|Roti & bread|3 pieces|4.5|33.0|15.0|0|1|
+Puri, 5 pieces|పూరీ|Roti & bread|5 pieces|7.5|55.0|25.0|0|1.5|
+Puri, 6 pieces|పూరీ|Roti & bread|6 pieces|9.0|66.0|30.0|0|2|
+Egg (boiled), 2 eggs|ఉడికించిన గుడ్డు|Eggs|2 eggs|12.5|1.0|10.5|0|0|
+Egg (boiled), 3 eggs|ఉడికించిన గుడ్డు|Eggs|3 eggs|19.0|2.0|16.0|0|0|
+Egg (boiled), 4 eggs|ఉడికించిన గుడ్డు|Eggs|4 eggs|25.0|2.5|21.0|0|0|
+Egg (boiled), 5 eggs|ఉడికించిన గుడ్డు|Eggs|5 eggs|31.5|3.0|26.5|0|0|
+Egg (boiled), 6 eggs|ఉడికించిన గుడ్డు|Eggs|6 eggs|38.0|3.5|32.0|0|0|
+Banana, 2 medium bananas|అరటిపండు|Fruits|2 medium bananas|2.5|54.0|1.0|0|5.5|
+Banana, 3 medium bananas|అరటిపండు|Fruits|3 medium bananas|4.0|81.0|1.0|0|8|
+Apple, 2 medium apples|యాపిల్|Fruits|2 medium apples|1.0|42.0|0.5|0|7.5|
+Samosa, 3 pieces|సమోసా|Snacks|3 pieces|9.0|60.0|39.0|0|2|
+Samosa, 4 pieces|సమోసా|Snacks|4 pieces|12.0|80.0|52.0|0|2.5|
+Vada, 1 piece|వడ|Tiffin|1 piece|4.0|10.0|6.0|0|0.5|
+Vada, 3 pieces|వడ|Tiffin|3 pieces|12.0|30.0|18.0|0|2|
+Vada, 4 pieces|వడ|Tiffin|4 pieces|16.0|40.0|24.0|0|2.5|
+Gulab jamun, 3 pieces|గులాబ్ జామూన్|Sweets|3 pieces|6.0|78.0|21.0|0|14|
+Gulab jamun, 4 pieces|గులాబ్ జామూన్|Sweets|4 pieces|8.0|104.0|28.0|0|14|
+Jalebi, 1 piece|జిలేబీ|Sweets|1 piece|1.0|21.0|4.5|0|0.5|
+Jalebi, 4 pieces|జిలేబీ|Sweets|4 pieces|3.0|84.0|18.0|0|2.5|
+Laddu, 2 pieces|లడ్డు|Sweets|2 pieces|4.0|48.0|16.0|0|1.5|
+Laddu, 3 pieces|లడ్డు|Sweets|3 pieces|6.0|72.0|24.0|0|2|
+Biscuits (plain), 2 biscuits|బిస్కెట్లు|Snacks|2 biscuits|1.0|8.0|1.5|0|0|
+Biscuits (plain), 4 biscuits|బిస్కెట్లు|Snacks|4 biscuits|1.5|16.0|3.0|0|0.5|
+Biscuits (plain), 6 biscuits|బిస్కెట్లు|Snacks|6 biscuits|2.5|24.0|5.0|0|0.5|
+Biscuits (plain), 8 biscuits|బిస్కెట్లు|Snacks|8 biscuits|3.0|32.0|6.5|0|1|
+Biscuits (plain), 10 biscuits|బిస్కెట్లు|Snacks|10 biscuits|4.0|40.0|8.0|0|1|
+Almonds, 5 almonds|బాదం|Nuts & seeds|5 almonds|1.0|1.0|3.0|0|0.5|
+Almonds, 15 almonds|బాదం|Nuts & seeds|15 almonds|4.0|4.0|9.0|0|2|
+Almonds, 20 almonds|బాదం|Nuts & seeds|20 almonds|5.0|5.0|12.0|0|2|
+Almonds, 25 almonds|బాదం|Nuts & seeds|25 almonds|6.0|6.0|15.0|0|2.5|
+Cashews, 5 cashews|జీడిపప్పు|Nuts & seeds|5 cashews|1.5|2.0|3.5|0|1|
+Cashews, 15 cashews|జీడిపప్పు|Nuts & seeds|15 cashews|4.0|7.0|10.5|0|3|
+Cashews, 20 cashews|జీడిపప్పు|Nuts & seeds|20 cashews|5.5|9.0|14.0|0|4|
+Dates, 1 date|ఖర్జూరం|Fruits|1 date|0.0|7.0|0.0|0|1.5|
+Dates, 2 dates|ఖర్జూరం|Fruits|2 dates|0.5|14.0|0.0|0|2.5|
+Dates, 4 dates|ఖర్జూరం|Fruits|4 dates|1.0|28.0|0.0|0|5|
+Dates, 5 dates|ఖర్జూరం|Fruits|5 dates|1.0|35.0|0.0|0|6.5|
+Cooked rice, 1 cup|అన్నం|Rice & mains|1 cup (150 g)|3.0|40.0|0.5|0|1|
+Cooked rice, 1.5 cups|అన్నం|Rice & mains|1.5 cup (225 g)|4.5|60.0|0.5|0|2|
+Cooked rice, 2 cups|అన్నం|Rice & mains|2 cup (300 g)|6.0|80.0|1.0|0|2.5|
+Cooked rice, 3 cups|అన్నం|Rice & mains|3 cup (450 g)|9.0|120.0|1.0|0|3.5|

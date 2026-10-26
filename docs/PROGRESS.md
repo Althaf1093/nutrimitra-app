@@ -10,7 +10,9 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 - [ ] Insights run (docs/INSIGHTS_PROMPT.md)
 - [ ] Extras run (docs/EXTRAS_PROMPT.md)
 - [ ] Final pass and Master run summary
-- [ ] Pending: docs/NUTRIENTS_PROMPT.md (PR 1 fibre, then PR 2 vitamins and minerals), plus the nested-button bug on Today and the stop/start script fix (do these right after the current item)
+- [x] Pending: nested-button bug (PR #66, toast; Log food rows fixed in the fibre PR) and the stop/start script fix (PR #67)
+- [x] Pending 1: fibre (docs/NUTRIENTS_PROMPT.md PR 1): fibre_g on all 2,972 catalogue rows, estimated by tools/add_fibre.py; passes through every logging path
+- [ ] Pending 2: vitamins and minerals (docs/NUTRIENTS_PROMPT.md PR 2)
 - [x] Pending fixes: docs/WELCOME_FIXES.md (done; branch fix/welcome-polish)
 
 # Logging run (docs/LOGGING_PROMPT.md)

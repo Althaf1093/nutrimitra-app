@@ -1,278 +1,278 @@
 # Punjabi and North Indian
-Dal makhani|దాల్ మఖనీ|Dal & sambar|1 bowl (200 g)|9|22|14|0|
-Dal tadka|దాల్ తడ్కా|Dal & sambar|1 bowl (200 g)|9|22|7|0|
-Dal fry|దాల్ ఫ్రై|Dal & sambar|1 bowl (200 g)|9|22|8|0|
-Dhaba dal|ధాబా దాల్|Dal & sambar|1 bowl (200 g)|9|22|9|0|
-Moong dal tadka|పెసర పప్పు తడ్కా|Dal & sambar|1 bowl (200 g)|9|20|6|0|
-Chana dal tadka|శనగ పప్పు తడ్కా|Dal & sambar|1 bowl (200 g)|10|26|7|0|
-Masoor dal|మసూర్ దాల్|Dal & sambar|1 bowl (200 g)|9|22|5|0|
-Urad dal (black gram dal)|మినప పప్పు|Dal & sambar|1 bowl (200 g)|10|22|6|0|
-Panchmel dal|పంచమేల్ దాల్|Dal & sambar|1 bowl (200 g)|10|24|7|0|
-Dal palak|దాల్ పాలక్|Dal & sambar|1 bowl (200 g)|10|20|6|0|
-Rajma masala|రాజ్మా మసాలా|Dal & sambar|1 bowl (200 g)|10|30|8|0|rajma
-Rajma chawal|రాజ్మా చావల్|Rice & mains|1 plate (350 g)|14|80|9|0|
-Chole masala|ఛోలే మసాలా|Dal & sambar|1 bowl (200 g)|11|34|11|0|chana masala
-Chole bhature|ఛోలే భటూరే|Rice & mains|1 plate (2 bhature + chole)|22|100|34|0|
-Chole kulche|ఛోలే కుల్చే|Rice & mains|1 plate (2 kulche + chole)|20|85|18|0|
-Amritsari chole|అమృత్‌సరి ఛోలే|Dal & sambar|1 bowl (200 g)|11|32|12|0|
-Kadhi pakora|కడి పకోడా|Dal & sambar|1 bowl (250 g)|9|26|14|0|punjabi kadhi
-Kadhi chawal|కడి చావల్|Rice & mains|1 plate (350 g)|10|70|10|0|
-Paneer butter masala|పనీర్ బటర్ మసాలా|Dairy & paneer|1 bowl (200 g)|14|14|26|0|
-Paneer tikka masala|పనీర్ టిక్కా మసాలా|Dairy & paneer|1 bowl (200 g)|15|14|24|0|
-Kadai paneer|కడాయి పనీర్|Dairy & paneer|1 bowl (200 g)|15|12|22|0|
-Palak paneer|పాలక్ పనీర్|Dairy & paneer|1 bowl (200 g)|14|12|20|0|
-Matar paneer|మటర్ పనీర్|Dairy & paneer|1 bowl (200 g)|14|16|20|0|
-Shahi paneer|షాహీ పనీర్|Dairy & paneer|1 bowl (200 g)|14|14|26|0|
-Paneer lababdar|పనీర్ లబాబ్దార్|Dairy & paneer|1 bowl (200 g)|14|15|24|0|
-Paneer bhurji|పనీర్ భుర్జి|Dairy & paneer|1 bowl (150 g)|15|8|18|0|
-Paneer tikka (6 pieces)|పనీర్ టిక్కా|Dairy & paneer|6 pieces (150 g)|18|8|18|0|
-Paneer 65|పనీర్ 65|Dairy & paneer|1 plate (150 g)|14|14|20|0|
-Chilli paneer (dry)|చిల్లీ పనీర్|Dairy & paneer|1 plate (180 g)|15|16|22|0|
-Chilli paneer (gravy)|చిల్లీ పనీర్ గ్రేవీ|Dairy & paneer|1 bowl (250 g)|15|20|22|0|
-Paneer paratha|పనీర్ పరాటా|Roti & bread|1 piece (130 g)|10|34|14|0|
-Paneer kathi roll|పనీర్ కాఠీ రోల్|Snacks|1 roll (200 g)|15|45|18|0|
-Malai kofta|మలై కోఫ్తా|Dairy & paneer|1 bowl (200 g)|10|20|28|0|
-Navratan korma|నవరత్న కుర్మా|Vegetable curries|1 bowl (200 g)|7|20|20|0|
-Veg korma|వెజ్ కుర్మా|Vegetable curries|1 bowl (200 g)|6|18|16|0|
-Mixed veg curry|మిక్స్డ్ వెజ్ కర్రీ|Vegetable curries|1 bowl (200 g)|4|16|10|0|
-Veg kolhapuri|వెజ్ కొల్హాపురి|Vegetable curries|1 bowl (200 g)|5|16|14|0|
-Veg jalfrezi|వెజ్ జల్ఫ్రెజీ|Vegetable curries|1 bowl (200 g)|4|14|10|0|
-Veg handi|వెజ్ హండీ|Vegetable curries|1 bowl (200 g)|5|16|14|0|
-Aloo gobi|ఆలూ గోబీ|Vegetable curries|1 bowl (150 g)|3|16|8|0|
-Aloo matar|ఆలూ మటర్|Vegetable curries|1 bowl (150 g)|4|20|8|0|
-Aloo jeera|ఆలూ జీరా|Vegetable curries|1 bowl (150 g)|2.5|24|8|0|
-Aloo baingan|ఆలూ బైంగన్|Vegetable curries|1 bowl (150 g)|3|18|9|0|
-Aloo methi|ఆలూ మేథీ|Vegetable curries|1 bowl (150 g)|3.5|20|8|0|
-Aloo palak|ఆలూ పాలక్|Vegetable curries|1 bowl (150 g)|4|18|8|0|
-Aloo capsicum|ఆలూ క్యాప్సికం|Vegetable curries|1 bowl (150 g)|3|18|8|0|
-Gobi masala|గోబీ మసాలా|Vegetable curries|1 bowl (150 g)|3.5|12|9|0|
-Gobi musallam|గోబీ ముసల్లం|Vegetable curries|1 bowl (200 g)|6|16|16|0|
-Baingan bharta|బైంగన్ భర్తా|Vegetable curries|1 bowl (150 g)|3|12|9|0|
-Bhindi masala|భిండీ మసాలా|Vegetable curries|1 bowl (150 g)|3|11|10|0|
-Bhindi do pyaza|భిండీ దో ప్యాజా|Vegetable curries|1 bowl (150 g)|3|13|9|0|
-Lauki sabzi|సొరకాయ సబ్జీ|Vegetable curries|1 bowl (150 g)|2|8|5|0|
-Tinda masala|టిండా మసాలా|Vegetable curries|1 bowl (150 g)|2|9|8|0|
-Karela fry|కాకరకాయ ఫ్రై|Vegetable curries|1 bowl (100 g)|2|8|8|0|
-Methi malai matar|మేథీ మలై మటర్|Vegetable curries|1 bowl (200 g)|7|18|20|0|
-Mushroom masala|మష్రూమ్ మసాలా|Vegetable curries|1 bowl (200 g)|6|12|14|0|
-Mushroom matar|మష్రూమ్ మటర్|Vegetable curries|1 bowl (200 g)|6|16|13|0|
-Sarson ka saag|సర్సో కా సాగ్|Vegetable curries|1 bowl (200 g)|6|14|12|0|
-Soya chunks curry|సోయా చంక్స్ కర్రీ|Vegetable curries|1 bowl (200 g)|20|18|10|0|meal maker curry
-Soya keema|సోయా కీమా|Vegetable curries|1 bowl (150 g)|18|14|8|0|
-Tofu bhurji|టోఫు భుర్జి|Vegetable curries|1 bowl (150 g)|14|6|10|0|
-Butter chicken|బటర్ చికెన్|Chicken|1 bowl (250 g)|28|14|28|0|murgh makhani
-Chicken tikka masala|చికెన్ టిక్కా మసాలా|Chicken|1 bowl (250 g)|30|14|22|0|
-Kadai chicken|కడాయి చికెన్|Chicken|1 bowl (250 g)|30|10|20|0|
-Chicken korma|చికెన్ కుర్మా|Chicken|1 bowl (250 g)|28|12|26|0|
-Chicken curry (North Indian)|చికెన్ కర్రీ|Chicken|1 bowl (250 g)|28|10|18|0|
-Chicken do pyaza|చికెన్ దో ప్యాజా|Chicken|1 bowl (250 g)|28|12|18|0|
-Chicken handi|చికెన్ హండీ|Chicken|1 bowl (250 g)|28|10|22|0|
-Chicken kolhapuri|చికెన్ కొల్హాపురి|Chicken|1 bowl (250 g)|28|10|22|0|
-Chicken saagwala|చికెన్ సాగ్‌వాలా|Chicken|1 bowl (250 g)|28|10|18|0|
-Chicken lababdar|చికెన్ లబాబ్దార్|Chicken|1 bowl (250 g)|28|14|26|0|
-Chicken changezi|చికెన్ చంగేజీ|Chicken|1 bowl (250 g)|28|12|26|0|
-Chicken afghani|చికెన్ అఫ్ఘానీ|Chicken|6 pieces (200 g)|30|6|22|0|
-Chicken reshmi tikka|చికెన్ రేష్మీ టిక్కా|Chicken|6 pieces (180 g)|32|4|18|0|
-Chicken malai tikka|చికెన్ మలై టిక్కా|Chicken|6 pieces (180 g)|32|5|20|0|
-Chicken tikka|చికెన్ టిక్కా|Chicken|6 pieces (180 g)|34|4|12|0|
-Tandoori chicken (half)|తందూరీ చికెన్|Chicken|half chicken (250 g)|45|5|18|0|
-Tandoori chicken (leg piece)|తందూరీ చికెన్|Chicken|1 leg piece (150 g)|28|3|11|0|
-Chicken seekh kebab|చికెన్ సీక్ కబాబ్|Chicken|3 pieces (120 g)|24|4|14|0|
-Hariyali chicken tikka|హరియాలీ చికెన్ టిక్కా|Chicken|6 pieces (180 g)|32|5|14|0|
-Chicken keema|చికెన్ కీమా|Chicken|1 bowl (200 g)|28|8|16|0|
-Chicken keema matar|చికెన్ కీమా మటర్|Chicken|1 bowl (200 g)|28|12|16|0|
-Mutton rogan josh|మటన్ రోగన్ జోష్|Mutton|1 bowl (250 g)|28|8|28|0|
-Mutton keema|మటన్ కీమా|Mutton|1 bowl (200 g)|26|8|26|0|
-Mutton keema matar|మటన్ కీమా మటర్|Mutton|1 bowl (200 g)|26|12|26|0|
-Mutton korma|మటన్ కుర్మా|Mutton|1 bowl (250 g)|28|10|32|0|
-Mutton handi|మటన్ హండీ|Mutton|1 bowl (250 g)|28|8|28|0|
-Mutton nihari|మటన్ నిహారీ|Mutton|1 bowl (250 g)|28|8|28|0|
-Mutton seekh kebab|మటన్ సీక్ కబాబ్|Mutton|3 pieces (120 g)|22|4|22|0|
-Mutton galouti kebab|మటన్ గలౌటీ కబాబ్|Mutton|3 pieces (100 g)|18|8|22|0|
-Shami kebab|షామీ కబాబ్|Mutton|3 pieces (100 g)|16|10|16|0|
-Mutton chops (grilled)|మటన్ చాప్స్|Mutton|3 pieces (150 g)|32|3|24|0|
-Lamb curry|లాంబ్ కర్రీ|Mutton|1 bowl (250 g)|28|8|28|0|
-Keema naan|కీమా నాన్|Roti & bread|1 piece (130 g)|14|44|12|0|
-Keema pav|కీమా పావ్|Mutton|1 plate (250 g)|22|48|20|0|
-Fish tikka|ఫిష్ టిక్కా|Fish & seafood|6 pieces (150 g)|28|4|12|0|
-Amritsari fish fry|అమృత్‌సరి ఫిష్|Fish & seafood|1 plate (150 g)|26|12|18|0|
-Tandoori prawns|తందూరీ రొయ్యలు|Fish & seafood|6 pieces (150 g)|28|4|10|0|
-Fish curry (North Indian)|ఫిష్ కర్రీ|Fish & seafood|1 bowl (250 g)|26|8|14|0|
-Egg curry (North Indian)|ఎగ్ కర్రీ|Eggs|2 eggs + gravy|14|10|16|0|
-Egg bhurji (Punjabi, 3 eggs)|ఎగ్ భుర్జి|Eggs|3 eggs|19|6|20|0|
-Anda masala|అండా మసాలా|Eggs|2 eggs + gravy|14|10|16|0|
-Egg kathi roll|ఎగ్ కాఠీ రోల్|Snacks|1 roll (200 g)|16|42|18|0|
-Egg paratha|ఎగ్ పరాటా|Roti & bread|1 piece (130 g)|11|32|14|0|
-Egg fried rice|ఎగ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|14|64|14|0|
-Omelette with 2 bread slices|ఆమ్లెట్ బ్రెడ్|Eggs|1 plate|16|30|16|0|
-Bread omelette|బ్రెడ్ ఆమ్లెట్|Eggs|1 plate (150 g)|14|28|14|0|
-Masala omelette (2 eggs)|మసాలా ఆమ్లెట్|Eggs|2 eggs (130 g)|14|4|16|0|
-Cheese omelette (2 eggs)|చీజ్ ఆమ్లెట్|Eggs|2 eggs + cheese|19|3|23|0|
-Spanish omelette|స్పానిష్ ఆమ్లెట్|Eggs|1 slice (150 g)|10|14|14|0|
-Poached egg (2)|పోచ్డ్ ఎగ్|Eggs|2 eggs|13|1|10|0|
-Egg sandwich|ఎగ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|14|28|12|0|
-Egg roll|ఎగ్ రోల్|Snacks|1 roll (180 g)|14|40|16|0|
-Deviled eggs (2 halves)|డెవిల్డ్ ఎగ్స్|Eggs|2 halves|7|1|9|0|
-Hyderabadi haleem|హైదరాబాదీ హలీమ్|Mutton|1 bowl (250 g)|24|30|24|0|haleem
-Chicken haleem|చికెన్ హలీమ్|Chicken|1 bowl (250 g)|26|32|16|0|
-Veg haleem|వెజ్ హలీమ్|Vegetable curries|1 bowl (250 g)|14|40|10|0|
-Lucknowi mutton biryani|లక్నో బిర్యానీ|Rice & mains|1 plate (350 g)|28|76|26|0|awadhi biryani
-Kolkata chicken biryani with egg and potato|కోల్‌కతా బిర్యానీ|Rice & mains|1 plate (400 g)|30|85|22|0|
-Mutton pulao|మటన్ పులావ్|Rice & mains|1 plate (300 g)|24|66|20|0|
-Chicken pulao|చికెన్ పులావ్|Rice & mains|1 plate (300 g)|24|66|14|0|
-Peas pulao|మటర్ పులావ్|Rice & mains|1 plate (250 g)|6|58|10|0|matar pulao
-Jeera rice|జీరా రైస్|Rice & mains|1 plate (200 g)|4|48|7|0|
-Veg pulao|వెజ్ పులావ్|Rice & mains|1 plate (250 g)|6|58|10|0|
-Kashmiri pulao|కాశ్మీరీ పులావ్|Rice & mains|1 plate (250 g)|6|60|14|0|
-Veg biryani (North)|వెజ్ బిర్యానీ|Rice & mains|1 plate (320 g)|9|78|14|0|
-Paneer pulao|పనీర్ పులావ్|Rice & mains|1 plate (280 g)|14|62|18|0|
-Khichdi (moong dal)|ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|7|0|
-Masala khichdi|మసాలా ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|9|0|
-Dal khichdi with ghee|దాల్ ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|12|0|
-Bajra khichdi|బాజ్రా ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|46|8|0|
-Sabudana khichdi|సబుదానా ఖిచిడీ|Rice & mains|1 plate (200 g)|4|52|12|0|
-Dahi chawal|దహీ చావల్|Rice & mains|1 plate (250 g)|7|45|8|0|
+Dal makhani|దాల్ మఖనీ|Dal & sambar|1 bowl (200 g)|9|22|14|0|6.5|
+Dal tadka|దాల్ తడ్కా|Dal & sambar|1 bowl (200 g)|9|22|7|0|6.5|
+Dal fry|దాల్ ఫ్రై|Dal & sambar|1 bowl (200 g)|9|22|8|0|6.5|
+Dhaba dal|ధాబా దాల్|Dal & sambar|1 bowl (200 g)|9|22|9|0|6.5|
+Moong dal tadka|పెసర పప్పు తడ్కా|Dal & sambar|1 bowl (200 g)|9|20|6|0|6|
+Chana dal tadka|శనగ పప్పు తడ్కా|Dal & sambar|1 bowl (200 g)|10|26|7|0|8|
+Masoor dal|మసూర్ దాల్|Dal & sambar|1 bowl (200 g)|9|22|5|0|6.5|
+Urad dal (black gram dal)|మినప పప్పు|Dal & sambar|1 bowl (200 g)|10|22|6|0|6.5|
+Panchmel dal|పంచమేల్ దాల్|Dal & sambar|1 bowl (200 g)|10|24|7|0|7|
+Dal palak|దాల్ పాలక్|Dal & sambar|1 bowl (200 g)|10|20|6|0|6|
+Rajma masala|రాజ్మా మసాలా|Dal & sambar|1 bowl (200 g)|10|30|8|0|9|rajma
+Rajma chawal|రాజ్మా చావల్|Rice & mains|1 plate (350 g)|14|80|9|0|14|
+Chole masala|ఛోలే మసాలా|Dal & sambar|1 bowl (200 g)|11|34|11|0|10|chana masala
+Chole bhature|ఛోలే భటూరే|Rice & mains|1 plate (2 bhature + chole)|22|100|34|0|14|
+Chole kulche|ఛోలే కుల్చే|Rice & mains|1 plate (2 kulche + chole)|20|85|18|0|14|
+Amritsari chole|అమృత్‌సరి ఛోలే|Dal & sambar|1 bowl (200 g)|11|32|12|0|9.5|
+Kadhi pakora|కడి పకోడా|Dal & sambar|1 bowl (250 g)|9|26|14|0|1.5|punjabi kadhi
+Kadhi chawal|కడి చావల్|Rice & mains|1 plate (350 g)|10|70|10|0|4|
+Paneer butter masala|పనీర్ బటర్ మసాలా|Dairy & paneer|1 bowl (200 g)|14|14|26|0|0|
+Paneer tikka masala|పనీర్ టిక్కా మసాలా|Dairy & paneer|1 bowl (200 g)|15|14|24|0|0|
+Kadai paneer|కడాయి పనీర్|Dairy & paneer|1 bowl (200 g)|15|12|22|0|0|
+Palak paneer|పాలక్ పనీర్|Dairy & paneer|1 bowl (200 g)|14|12|20|0|2.5|
+Matar paneer|మటర్ పనీర్|Dairy & paneer|1 bowl (200 g)|14|16|20|0|0|
+Shahi paneer|షాహీ పనీర్|Dairy & paneer|1 bowl (200 g)|14|14|26|0|0|
+Paneer lababdar|పనీర్ లబాబ్దార్|Dairy & paneer|1 bowl (200 g)|14|15|24|0|0|
+Paneer bhurji|పనీర్ భుర్జి|Dairy & paneer|1 bowl (150 g)|15|8|18|0|0|
+Paneer tikka (6 pieces)|పనీర్ టిక్కా|Dairy & paneer|6 pieces (150 g)|18|8|18|0|0|
+Paneer 65|పనీర్ 65|Dairy & paneer|1 plate (150 g)|14|14|20|0|0|
+Chilli paneer (dry)|చిల్లీ పనీర్|Dairy & paneer|1 plate (180 g)|15|16|22|0|0|
+Chilli paneer (gravy)|చిల్లీ పనీర్ గ్రేవీ|Dairy & paneer|1 bowl (250 g)|15|20|22|0|0|
+Paneer paratha|పనీర్ పరాటా|Roti & bread|1 piece (130 g)|10|34|14|0|4|
+Paneer kathi roll|పనీర్ కాఠీ రోల్|Snacks|1 roll (200 g)|15|45|18|0|2.5|
+Malai kofta|మలై కోఫ్తా|Dairy & paneer|1 bowl (200 g)|10|20|28|0|0|
+Navratan korma|నవరత్న కుర్మా|Vegetable curries|1 bowl (200 g)|7|20|20|0|1|
+Veg korma|వెజ్ కుర్మా|Vegetable curries|1 bowl (200 g)|6|18|16|0|4|
+Mixed veg curry|మిక్స్డ్ వెజ్ కర్రీ|Vegetable curries|1 bowl (200 g)|4|16|10|0|3.5|
+Veg kolhapuri|వెజ్ కొల్హాపురి|Vegetable curries|1 bowl (200 g)|5|16|14|0|3.5|
+Veg jalfrezi|వెజ్ జల్ఫ్రెజీ|Vegetable curries|1 bowl (200 g)|4|14|10|0|3|
+Veg handi|వెజ్ హండీ|Vegetable curries|1 bowl (200 g)|5|16|14|0|3.5|
+Aloo gobi|ఆలూ గోబీ|Vegetable curries|1 bowl (150 g)|3|16|8|0|3.5|
+Aloo matar|ఆలూ మటర్|Vegetable curries|1 bowl (150 g)|4|20|8|0|1|
+Aloo jeera|ఆలూ జీరా|Vegetable curries|1 bowl (150 g)|2.5|24|8|0|1.5|
+Aloo baingan|ఆలూ బైంగన్|Vegetable curries|1 bowl (150 g)|3|18|9|0|4|
+Aloo methi|ఆలూ మేథీ|Vegetable curries|1 bowl (150 g)|3.5|20|8|0|4.5|
+Aloo palak|ఆలూ పాలక్|Vegetable curries|1 bowl (150 g)|4|18|8|0|4|
+Aloo capsicum|ఆలూ క్యాప్సికం|Vegetable curries|1 bowl (150 g)|3|18|8|0|4|
+Gobi masala|గోబీ మసాలా|Vegetable curries|1 bowl (150 g)|3.5|12|9|0|2.5|
+Gobi musallam|గోబీ ముసల్లం|Vegetable curries|1 bowl (200 g)|6|16|16|0|3.5|
+Baingan bharta|బైంగన్ భర్తా|Vegetable curries|1 bowl (150 g)|3|12|9|0|2.5|
+Bhindi masala|భిండీ మసాలా|Vegetable curries|1 bowl (150 g)|3|11|10|0|2.5|
+Bhindi do pyaza|భిండీ దో ప్యాజా|Vegetable curries|1 bowl (150 g)|3|13|9|0|3|
+Lauki sabzi|సొరకాయ సబ్జీ|Vegetable curries|1 bowl (150 g)|2|8|5|0|2|
+Tinda masala|టిండా మసాలా|Vegetable curries|1 bowl (150 g)|2|9|8|0|0.5|
+Karela fry|కాకరకాయ ఫ్రై|Vegetable curries|1 bowl (100 g)|2|8|8|0|2|
+Methi malai matar|మేథీ మలై మటర్|Vegetable curries|1 bowl (200 g)|7|18|20|0|4|
+Mushroom masala|మష్రూమ్ మసాలా|Vegetable curries|1 bowl (200 g)|6|12|14|0|2.5|
+Mushroom matar|మష్రూమ్ మటర్|Vegetable curries|1 bowl (200 g)|6|16|13|0|3.5|
+Sarson ka saag|సర్సో కా సాగ్|Vegetable curries|1 bowl (200 g)|6|14|12|0|3|
+Soya chunks curry|సోయా చంక్స్ కర్రీ|Vegetable curries|1 bowl (200 g)|20|18|10|0|5.5|meal maker curry
+Soya keema|సోయా కీమా|Vegetable curries|1 bowl (150 g)|18|14|8|0|4|
+Tofu bhurji|టోఫు భుర్జి|Vegetable curries|1 bowl (150 g)|14|6|10|0|0.5|
+Butter chicken|బటర్ చికెన్|Chicken|1 bowl (250 g)|28|14|28|0|0|murgh makhani
+Chicken tikka masala|చికెన్ టిక్కా మసాలా|Chicken|1 bowl (250 g)|30|14|22|0|0|
+Kadai chicken|కడాయి చికెన్|Chicken|1 bowl (250 g)|30|10|20|0|0|
+Chicken korma|చికెన్ కుర్మా|Chicken|1 bowl (250 g)|28|12|26|0|0|
+Chicken curry (North Indian)|చికెన్ కర్రీ|Chicken|1 bowl (250 g)|28|10|18|0|0|
+Chicken do pyaza|చికెన్ దో ప్యాజా|Chicken|1 bowl (250 g)|28|12|18|0|0|
+Chicken handi|చికెన్ హండీ|Chicken|1 bowl (250 g)|28|10|22|0|0|
+Chicken kolhapuri|చికెన్ కొల్హాపురి|Chicken|1 bowl (250 g)|28|10|22|0|0|
+Chicken saagwala|చికెన్ సాగ్‌వాలా|Chicken|1 bowl (250 g)|28|10|18|0|0|
+Chicken lababdar|చికెన్ లబాబ్దార్|Chicken|1 bowl (250 g)|28|14|26|0|0|
+Chicken changezi|చికెన్ చంగేజీ|Chicken|1 bowl (250 g)|28|12|26|0|0|
+Chicken afghani|చికెన్ అఫ్ఘానీ|Chicken|6 pieces (200 g)|30|6|22|0|0|
+Chicken reshmi tikka|చికెన్ రేష్మీ టిక్కా|Chicken|6 pieces (180 g)|32|4|18|0|0|
+Chicken malai tikka|చికెన్ మలై టిక్కా|Chicken|6 pieces (180 g)|32|5|20|0|0|
+Chicken tikka|చికెన్ టిక్కా|Chicken|6 pieces (180 g)|34|4|12|0|0|
+Tandoori chicken (half)|తందూరీ చికెన్|Chicken|half chicken (250 g)|45|5|18|0|0|
+Tandoori chicken (leg piece)|తందూరీ చికెన్|Chicken|1 leg piece (150 g)|28|3|11|0|0|
+Chicken seekh kebab|చికెన్ సీక్ కబాబ్|Chicken|3 pieces (120 g)|24|4|14|0|0|
+Hariyali chicken tikka|హరియాలీ చికెన్ టిక్కా|Chicken|6 pieces (180 g)|32|5|14|0|0|
+Chicken keema|చికెన్ కీమా|Chicken|1 bowl (200 g)|28|8|16|0|0|
+Chicken keema matar|చికెన్ కీమా మటర్|Chicken|1 bowl (200 g)|28|12|16|0|0|
+Mutton rogan josh|మటన్ రోగన్ జోష్|Mutton|1 bowl (250 g)|28|8|28|0|0|
+Mutton keema|మటన్ కీమా|Mutton|1 bowl (200 g)|26|8|26|0|0|
+Mutton keema matar|మటన్ కీమా మటర్|Mutton|1 bowl (200 g)|26|12|26|0|0|
+Mutton korma|మటన్ కుర్మా|Mutton|1 bowl (250 g)|28|10|32|0|0|
+Mutton handi|మటన్ హండీ|Mutton|1 bowl (250 g)|28|8|28|0|0|
+Mutton nihari|మటన్ నిహారీ|Mutton|1 bowl (250 g)|28|8|28|0|0|
+Mutton seekh kebab|మటన్ సీక్ కబాబ్|Mutton|3 pieces (120 g)|22|4|22|0|0|
+Mutton galouti kebab|మటన్ గలౌటీ కబాబ్|Mutton|3 pieces (100 g)|18|8|22|0|0|
+Shami kebab|షామీ కబాబ్|Mutton|3 pieces (100 g)|16|10|16|0|0|
+Mutton chops (grilled)|మటన్ చాప్స్|Mutton|3 pieces (150 g)|32|3|24|0|0|
+Lamb curry|లాంబ్ కర్రీ|Mutton|1 bowl (250 g)|28|8|28|0|0|
+Keema naan|కీమా నాన్|Roti & bread|1 piece (130 g)|14|44|12|0|1.5|
+Keema pav|కీమా పావ్|Mutton|1 plate (250 g)|22|48|20|0|1.5|
+Fish tikka|ఫిష్ టిక్కా|Fish & seafood|6 pieces (150 g)|28|4|12|0|0|
+Amritsari fish fry|అమృత్‌సరి ఫిష్|Fish & seafood|1 plate (150 g)|26|12|18|0|0|
+Tandoori prawns|తందూరీ రొయ్యలు|Fish & seafood|6 pieces (150 g)|28|4|10|0|0|
+Fish curry (North Indian)|ఫిష్ కర్రీ|Fish & seafood|1 bowl (250 g)|26|8|14|0|0|
+Egg curry (North Indian)|ఎగ్ కర్రీ|Eggs|2 eggs + gravy|14|10|16|0|0|
+Egg bhurji (Punjabi, 3 eggs)|ఎగ్ భుర్జి|Eggs|3 eggs|19|6|20|0|0|
+Anda masala|అండా మసాలా|Eggs|2 eggs + gravy|14|10|16|0|0|
+Egg kathi roll|ఎగ్ కాఠీ రోల్|Snacks|1 roll (200 g)|16|42|18|0|2.5|
+Egg paratha|ఎగ్ పరాటా|Roti & bread|1 piece (130 g)|11|32|14|0|4|
+Egg fried rice|ఎగ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|14|64|14|0|2|
+Omelette with 2 bread slices|ఆమ్లెట్ బ్రెడ్|Eggs|1 plate|16|30|16|0|1|
+Bread omelette|బ్రెడ్ ఆమ్లెట్|Eggs|1 plate (150 g)|14|28|14|0|1|
+Masala omelette (2 eggs)|మసాలా ఆమ్లెట్|Eggs|2 eggs (130 g)|14|4|16|0|0|
+Cheese omelette (2 eggs)|చీజ్ ఆమ్లెట్|Eggs|2 eggs + cheese|19|3|23|0|0|
+Spanish omelette|స్పానిష్ ఆమ్లెట్|Eggs|1 slice (150 g)|10|14|14|0|0|
+Poached egg (2)|పోచ్డ్ ఎగ్|Eggs|2 eggs|13|1|10|0|0|
+Egg sandwich|ఎగ్ శాండ్‌విచ్|Snacks|1 sandwich (150 g)|14|28|12|0|1|
+Egg roll|ఎగ్ రోల్|Snacks|1 roll (180 g)|14|40|16|0|2.5|
+Deviled eggs (2 halves)|డెవిల్డ్ ఎగ్స్|Eggs|2 halves|7|1|9|0|0|
+Hyderabadi haleem|హైదరాబాదీ హలీమ్|Mutton|1 bowl (250 g)|24|30|24|0|1|haleem
+Chicken haleem|చికెన్ హలీమ్|Chicken|1 bowl (250 g)|26|32|16|0|1|
+Veg haleem|వెజ్ హలీమ్|Vegetable curries|1 bowl (250 g)|14|40|10|0|9|
+Lucknowi mutton biryani|లక్నో బిర్యానీ|Rice & mains|1 plate (350 g)|28|76|26|0|2.5|awadhi biryani
+Kolkata chicken biryani with egg and potato|కోల్‌కతా బిర్యానీ|Rice & mains|1 plate (400 g)|30|85|22|0|2.5|
+Mutton pulao|మటన్ పులావ్|Rice & mains|1 plate (300 g)|24|66|20|0|2|
+Chicken pulao|చికెన్ పులావ్|Rice & mains|1 plate (300 g)|24|66|14|0|2|
+Peas pulao|మటర్ పులావ్|Rice & mains|1 plate (250 g)|6|58|10|0|14|matar pulao
+Jeera rice|జీరా రైస్|Rice & mains|1 plate (200 g)|4|48|7|0|1.5|
+Veg pulao|వెజ్ పులావ్|Rice & mains|1 plate (250 g)|6|58|10|0|13|
+Kashmiri pulao|కాశ్మీరీ పులావ్|Rice & mains|1 plate (250 g)|6|60|14|0|2|
+Veg biryani (North)|వెజ్ బిర్యానీ|Rice & mains|1 plate (320 g)|9|78|14|0|14|
+Paneer pulao|పనీర్ పులావ్|Rice & mains|1 plate (280 g)|14|62|18|0|2|
+Khichdi (moong dal)|ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|7|0|14|
+Masala khichdi|మసాలా ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|9|0|3|
+Dal khichdi with ghee|దాల్ ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|50|12|0|14|
+Bajra khichdi|బాజ్రా ఖిచిడీ|Rice & mains|1 bowl (250 g)|10|46|8|0|5.5|
+Sabudana khichdi|సబుదానా ఖిచిడీ|Rice & mains|1 plate (200 g)|4|52|12|0|3|
+Dahi chawal|దహీ చావల్|Rice & mains|1 plate (250 g)|7|45|8|0|2.5|
 # Gujarati
-Dhokla|ధోక్లా|Snacks|4 pieces (120 g)|6|24|4|0|khaman dhokla
-Khaman|ఖమణ్|Snacks|4 pieces (120 g)|6|24|4|0|
-Rasia dhokla|రసియా ధోక్లా|Snacks|1 plate (150 g)|6|28|6|0|
-Handvo|హండ్వో|Snacks|1 piece (120 g)|8|28|9|0|
-Muthia (steamed)|ముథియా|Snacks|4 pieces (100 g)|6|24|5|0|
-Fried muthia|ఫ్రైడ్ ముథియా|Snacks|4 pieces (100 g)|6|24|12|0|
-Thepla|థేప్లా|Roti & bread|2 pieces (70 g)|5|26|7|0|methi thepla
-Thepla with curd|థేప్లా పెరుగు|Roti & bread|2 pieces + curd|9|32|9|0|
-Khakhra (plain)|ఖాఖ్రా|Snacks|2 pieces (30 g)|3|20|2|0|
-Masala khakhra|మసాలా ఖాఖ్రా|Snacks|2 pieces (30 g)|3|19|4|0|
-Fafda|ఫాఫ్డా|Snacks|5 pieces (50 g)|5|22|11|0|
-Jalebi with fafda|జిలేబీ ఫాఫ్డా|Snacks|1 plate (150 g)|7|65|22|0|
-Gathiya|గాఠియా|Snacks|1 handful (30 g)|3|14|10|0|
-Sev khamani|సేవ్ ఖమణి|Snacks|1 plate (100 g)|7|28|9|0|
-Patra|పాత్రా|Snacks|4 pieces (100 g)|4|22|7|0|
-Locho|లోచో|Snacks|1 plate (150 g)|6|26|6|0|
-Undhiyu|ఉంధియు|Vegetable curries|1 bowl (200 g)|6|28|18|0|
-Gujarati dal|గుజరాతీ దాల్|Dal & sambar|1 bowl (200 g)|7|24|4|0|
-Gujarati kadhi|గుజరాతీ కడి|Dal & sambar|1 bowl (200 g)|4|14|5|0|
-Sev tamatar sabzi|సేవ్ టమాటర్ సబ్జీ|Vegetable curries|1 bowl (200 g)|6|22|16|0|
-Ringan no olo|రింగణ్ నో ఓళో|Vegetable curries|1 bowl (150 g)|3|12|9|0|
-Bhakri (Gujarati)|భాక్రీ|Roti & bread|1 piece (60 g)|3|26|4|0|
-Gujarati thali (full)|గుజరాతీ థాలీ|Rice & mains|1 thali (700 g)|22|135|28|0|
-Basundi|బాసుందీ|Sweets|1 bowl (100 g)|5|24|9|0|
-Shrikhand|శ్రీఖండ్|Sweets|1 bowl (100 g)|5|28|7|0|
-Mohanthal|మోహన్‌థాల్|Sweets|1 piece (40 g)|3|20|11|0|
-Sukhdi|సుఖడి|Sweets|1 piece (30 g)|2|18|7|0|
+Dhokla|ధోక్లా|Snacks|4 pieces (120 g)|6|24|4|0|1.5|khaman dhokla
+Khaman|ఖమణ్|Snacks|4 pieces (120 g)|6|24|4|0|1.5|
+Rasia dhokla|రసియా ధోక్లా|Snacks|1 plate (150 g)|6|28|6|0|1.5|
+Handvo|హండ్వో|Snacks|1 piece (120 g)|8|28|9|0|1.5|
+Muthia (steamed)|ముథియా|Snacks|4 pieces (100 g)|6|24|5|0|1.5|
+Fried muthia|ఫ్రైడ్ ముథియా|Snacks|4 pieces (100 g)|6|24|12|0|1.5|
+Thepla|థేప్లా|Roti & bread|2 pieces (70 g)|5|26|7|0|3|methi thepla
+Thepla with curd|థేప్లా పెరుగు|Roti & bread|2 pieces + curd|9|32|9|0|4|
+Khakhra (plain)|ఖాఖ్రా|Snacks|2 pieces (30 g)|3|20|2|0|1|
+Masala khakhra|మసాలా ఖాఖ్రా|Snacks|2 pieces (30 g)|3|19|4|0|1|
+Fafda|ఫాఫ్డా|Snacks|5 pieces (50 g)|5|22|11|0|1.5|
+Jalebi with fafda|జిలేబీ ఫాఫ్డా|Snacks|1 plate (150 g)|7|65|22|0|2|
+Gathiya|గాఠియా|Snacks|1 handful (30 g)|3|14|10|0|1|
+Sev khamani|సేవ్ ఖమణి|Snacks|1 plate (100 g)|7|28|9|0|1.5|
+Patra|పాత్రా|Snacks|4 pieces (100 g)|4|22|7|0|1.5|
+Locho|లోచో|Snacks|1 plate (150 g)|6|26|6|0|1.5|
+Undhiyu|ఉంధియు|Vegetable curries|1 bowl (200 g)|6|28|18|0|1.5|
+Gujarati dal|గుజరాతీ దాల్|Dal & sambar|1 bowl (200 g)|7|24|4|0|7|
+Gujarati kadhi|గుజరాతీ కడి|Dal & sambar|1 bowl (200 g)|4|14|5|0|1|
+Sev tamatar sabzi|సేవ్ టమాటర్ సబ్జీ|Vegetable curries|1 bowl (200 g)|6|22|16|0|5|
+Ringan no olo|రింగణ్ నో ఓళో|Vegetable curries|1 bowl (150 g)|3|12|9|0|0.5|
+Bhakri (Gujarati)|భాక్రీ|Roti & bread|1 piece (60 g)|3|26|4|0|3|
+Gujarati thali (full)|గుజరాతీ థాలీ|Rice & mains|1 thali (700 g)|22|135|28|0|8|
+Basundi|బాసుందీ|Sweets|1 bowl (100 g)|5|24|9|0|0.5|
+Shrikhand|శ్రీఖండ్|Sweets|1 bowl (100 g)|5|28|7|0|1|
+Mohanthal|మోహన్‌థాల్|Sweets|1 piece (40 g)|3|20|11|0|0.5|
+Sukhdi|సుఖడి|Sweets|1 piece (30 g)|2|18|7|0|0.5|
 # Maharashtrian
-Misal pav|మిసల్ పావ్|Snacks|1 plate (300 g)|16|62|20|0|
-Usal pav|ఉసల్ పావ్|Snacks|1 plate (250 g)|14|58|14|0|
-Vada pav|వడా పావ్|Snacks|1 piece (130 g)|6|40|12|0|
-Pav bhaji (2 pav)|పావ్ భాజీ|Snacks|1 plate (350 g)|10|74|22|0|
-Pav bhaji (extra butter)|పావ్ భాజీ|Snacks|1 plate (380 g)|10|76|32|0|
-Pav (1 piece)|పావ్|Roti & bread|1 piece (40 g)|3|20|1.5|0|ladi pav
-Poha (Maharashtrian)|కాందా పోహా|Tiffin|1 plate (180 g)|4|38|7|0|kanda poha
-Sabudana vada|సబుదానా వడ|Snacks|2 pieces (80 g)|3|32|12|0|
-Thalipeeth|థాలీపీఠ్|Roti & bread|1 piece (80 g)|5|24|7|0|
-Zunka bhakar|ఝుంకా భాకర్|Rice & mains|1 plate (250 g)|10|44|12|0|
-Pithla|పిట్లా|Dal & sambar|1 bowl (150 g)|7|20|8|0|
-Varan bhaat|వరణ్ భాత్|Rice & mains|1 plate (300 g)|11|64|8|0|
-Amti|అమ్టీ|Dal & sambar|1 bowl (200 g)|6|16|4|0|
-Bharli vangi|భర్లీ వాంగీ|Vegetable curries|1 bowl (150 g)|3|12|12|0|
-Kolhapuri chicken|కొల్హాపురి చికెన్|Chicken|1 bowl (250 g)|28|10|24|0|
-Tambda rassa|తాంబ్డా రస్సా|Mutton|1 bowl (250 g)|24|6|22|0|
-Pandhra rassa|పాండ్రా రస్సా|Mutton|1 bowl (250 g)|24|8|20|0|
-Bombil fry (Bombay duck)|బొంబిల్ ఫ్రై|Fish & seafood|1 plate (120 g)|18|10|14|0|
-Surmai fry|సుర్మై ఫ్రై|Fish & seafood|1 piece (120 g)|24|6|14|0|
-Solkadhi|సోల్ కడి|Drinks|1 glass (200 ml)|1|6|6|0|
-Puran poli|పూరణ్ పోలీ|Sweets|1 piece (90 g)|4|42|8|0|
-Modak (steamed)|మోదక్|Sweets|2 pieces (80 g)|3|36|5|0|
-Shrikhand puri|శ్రీఖండ్ పూరీ|Sweets|1 plate|8|60|20|0|
-Shrewsbury biscuits|బిస్కెట్|Snacks|3 pieces (30 g)|2|18|8|0|
+Misal pav|మిసల్ పావ్|Snacks|1 plate (300 g)|16|62|20|0|3.5|
+Usal pav|ఉసల్ పావ్|Snacks|1 plate (250 g)|14|58|14|0|14|
+Vada pav|వడా పావ్|Snacks|1 piece (130 g)|6|40|12|0|2.5|
+Pav bhaji (2 pav)|పావ్ భాజీ|Snacks|1 plate (350 g)|10|74|22|0|14|
+Pav bhaji (extra butter)|పావ్ భాజీ|Snacks|1 plate (380 g)|10|76|32|0|14|
+Pav (1 piece)|పావ్|Roti & bread|1 piece (40 g)|3|20|1.5|0|1|ladi pav
+Poha (Maharashtrian)|కాందా పోహా|Tiffin|1 plate (180 g)|4|38|7|0|4.5|kanda poha
+Sabudana vada|సబుదానా వడ|Snacks|2 pieces (80 g)|3|32|12|0|2|
+Thalipeeth|థాలీపీఠ్|Roti & bread|1 piece (80 g)|5|24|7|0|1.5|
+Zunka bhakar|ఝుంకా భాకర్|Rice & mains|1 plate (250 g)|10|44|12|0|2.5|
+Pithla|పిట్లా|Dal & sambar|1 bowl (150 g)|7|20|8|0|1|
+Varan bhaat|వరణ్ భాత్|Rice & mains|1 plate (300 g)|11|64|8|0|4|
+Amti|అమ్టీ|Dal & sambar|1 bowl (200 g)|6|16|4|0|1|
+Bharli vangi|భర్లీ వాంగీ|Vegetable curries|1 bowl (150 g)|3|12|12|0|0.5|
+Kolhapuri chicken|కొల్హాపురి చికెన్|Chicken|1 bowl (250 g)|28|10|24|0|0|
+Tambda rassa|తాంబ్డా రస్సా|Mutton|1 bowl (250 g)|24|6|22|0|0|
+Pandhra rassa|పాండ్రా రస్సా|Mutton|1 bowl (250 g)|24|8|20|0|0|
+Bombil fry (Bombay duck)|బొంబిల్ ఫ్రై|Fish & seafood|1 plate (120 g)|18|10|14|0|0|
+Surmai fry|సుర్మై ఫ్రై|Fish & seafood|1 piece (120 g)|24|6|14|0|0|
+Solkadhi|సోల్ కడి|Drinks|1 glass (200 ml)|1|6|6|0|0|
+Puran poli|పూరణ్ పోలీ|Sweets|1 piece (90 g)|4|42|8|0|1.5|
+Modak (steamed)|మోదక్|Sweets|2 pieces (80 g)|3|36|5|0|1|
+Shrikhand puri|శ్రీఖండ్ పూరీ|Sweets|1 plate|8|60|20|0|2|
+Shrewsbury biscuits|బిస్కెట్|Snacks|3 pieces (30 g)|2|18|8|0|0.5|
 # Rajasthani
-Dal baati churma|దాల్ బాటీ చుర్మా|Rice & mains|1 plate (4 baati)|20|110|44|0|
-Baati (with ghee)|బాటీ|Roti & bread|2 pieces (100 g)|6|40|14|0|
-Gatte ki sabzi|గట్టే కీ సబ్జీ|Vegetable curries|1 bowl (200 g)|10|24|16|0|
-Ker sangri|కేర్ సంగ్రీ|Vegetable curries|1 bowl (150 g)|4|12|14|0|
-Laal maas|లాల్ మాస్|Mutton|1 bowl (250 g)|28|8|34|0|
-Bajre ki roti|బాజ్రా రోటీ|Roti & bread|1 piece (60 g)|3|22|2|0|
-Missi roti|మిస్సీ రోటీ|Roti & bread|1 piece (60 g)|5|24|4|0|
-Pyaaz kachori|ప్యాజ్ కచోరీ|Snacks|1 piece (80 g)|5|28|15|0|
-Mirchi vada (Jodhpur)|మిర్చి వడా|Snacks|1 piece (90 g)|5|26|14|0|
-Ghevar|ఘేవర్|Sweets|1 piece (60 g)|2|34|14|0|
-Mawa kachori|మావా కచోరీ|Sweets|1 piece (80 g)|5|42|18|0|
-Moong dal halwa|పెసర పప్పు హల్వా|Sweets|1 bowl (100 g)|5|40|20|0|
+Dal baati churma|దాల్ బాటీ చుర్మా|Rice & mains|1 plate (4 baati)|20|110|44|0|14|
+Baati (with ghee)|బాటీ|Roti & bread|2 pieces (100 g)|6|40|14|0|2.5|
+Gatte ki sabzi|గట్టే కీ సబ్జీ|Vegetable curries|1 bowl (200 g)|10|24|16|0|5.5|
+Ker sangri|కేర్ సంగ్రీ|Vegetable curries|1 bowl (150 g)|4|12|14|0|0.5|
+Laal maas|లాల్ మాస్|Mutton|1 bowl (250 g)|28|8|34|0|0|
+Bajre ki roti|బాజ్రా రోటీ|Roti & bread|1 piece (60 g)|3|22|2|0|2.5|
+Missi roti|మిస్సీ రోటీ|Roti & bread|1 piece (60 g)|5|24|4|0|3|
+Pyaaz kachori|ప్యాజ్ కచోరీ|Snacks|1 piece (80 g)|5|28|15|0|1|
+Mirchi vada (Jodhpur)|మిర్చి వడా|Snacks|1 piece (90 g)|5|26|14|0|1.5|
+Ghevar|ఘేవర్|Sweets|1 piece (60 g)|2|34|14|0|1|
+Mawa kachori|మావా కచోరీ|Sweets|1 piece (80 g)|5|42|18|0|1.5|
+Moong dal halwa|పెసర పప్పు హల్వా|Sweets|1 bowl (100 g)|5|40|20|0|12|
 # Bengali and East
-Macher jhol (fish curry)|మాచేర్ ఝోల్|Fish & seafood|1 bowl (200 g)|22|8|10|0|
-Shorshe ilish|షోర్షే ఇలిశ్|Fish & seafood|1 piece + gravy (200 g)|22|4|22|0|hilsa curry
-Chingri malai curry|చింగ్రీ మలై కర్రీ|Fish & seafood|1 bowl (200 g)|22|10|20|0|prawn malai curry
-Bhetki fry|భేట్కి ఫ్రై|Fish & seafood|1 piece (120 g)|22|8|14|0|
-Kosha mangsho|కోషా మాంగ్షో|Mutton|1 bowl (250 g)|28|8|28|0|
-Dim er jhol (egg curry)|డిమ్ ఝోల్|Eggs|2 eggs + gravy|14|10|14|0|
-Aloo posto|ఆలూ పోస్తో|Vegetable curries|1 bowl (150 g)|4|22|12|0|
-Shukto|శుక్తో|Vegetable curries|1 bowl (150 g)|3|14|8|0|
-Cholar dal|చోలార్ దాల్|Dal & sambar|1 bowl (200 g)|10|28|8|0|
-Luchi|లుచీ|Roti & bread|3 pieces (75 g)|4|34|14|0|
-Kolkata kathi roll|కాఠీ రోల్|Snacks|1 roll (200 g)|14|46|16|0|
-Mishti doi|మిష్టి దోయ్|Sweets|1 cup (100 g)|4|22|4|0|
-Rasgulla|రసగుల్లా|Sweets|2 pieces (80 g)|3|34|1|0|
-Sandesh|సందేష్|Sweets|2 pieces (50 g)|4|20|5|0|
-Rasmalai|రసమలై|Sweets|2 pieces (120 g)|8|28|10|0|
-Chamcham|చమ్‌చమ్|Sweets|2 pieces (80 g)|4|36|5|0|
-Pantua|పంటువా|Sweets|2 pieces (80 g)|3|40|9|0|
-Jhalmuri|ఝాల్‌ముడి|Snacks|1 plate (100 g)|4|28|6|0|
-Litti chokha|లిట్టీ చోఖా|Rice & mains|3 litti + chokha|14|80|18|0|
-Sattu paratha|సత్తు పరాటా|Roti & bread|1 piece (100 g)|7|34|9|0|
-Thekua|ఠేకువా|Sweets|2 pieces (50 g)|3|30|8|0|
-Momos (steamed veg)|మోమోస్|Snacks|6 pieces (150 g)|6|34|4|0|
-Momos (steamed chicken)|చికెన్ మోమోస్|Snacks|6 pieces (150 g)|14|30|5|0|
-Momos (fried chicken)|ఫ్రైడ్ చికెన్ మోమోస్|Snacks|6 pieces (170 g)|14|32|14|0|
-Momos (paneer)|పనీర్ మోమోస్|Snacks|6 pieces (150 g)|10|32|8|0|
-Thukpa (chicken)|థుక్పా|Rice & mains|1 bowl (400 g)|20|48|8|0|
-Thukpa (veg)|వెజ్ థుక్పా|Rice & mains|1 bowl (400 g)|9|50|6|0|
-Chicken wai wai|వై వై|Snacks|1 plate (100 g)|6|40|14|0|
-Assamese fish tenga|ఫిష్ టెంగా|Fish & seafood|1 bowl (200 g)|20|6|8|0|
-Pitha (rice cake)|పీఠా|Sweets|2 pieces (80 g)|2|30|6|0|
+Macher jhol (fish curry)|మాచేర్ ఝోల్|Fish & seafood|1 bowl (200 g)|22|8|10|0|0|
+Shorshe ilish|షోర్షే ఇలిశ్|Fish & seafood|1 piece + gravy (200 g)|22|4|22|0|0|hilsa curry
+Chingri malai curry|చింగ్రీ మలై కర్రీ|Fish & seafood|1 bowl (200 g)|22|10|20|0|0|prawn malai curry
+Bhetki fry|భేట్కి ఫ్రై|Fish & seafood|1 piece (120 g)|22|8|14|0|0|
+Kosha mangsho|కోషా మాంగ్షో|Mutton|1 bowl (250 g)|28|8|28|0|0|
+Dim er jhol (egg curry)|డిమ్ ఝోల్|Eggs|2 eggs + gravy|14|10|14|0|0|
+Aloo posto|ఆలూ పోస్తో|Vegetable curries|1 bowl (150 g)|4|22|12|0|1.5|
+Shukto|శుక్తో|Vegetable curries|1 bowl (150 g)|3|14|8|0|1|
+Cholar dal|చోలార్ దాల్|Dal & sambar|1 bowl (200 g)|10|28|8|0|8.5|
+Luchi|లుచీ|Roti & bread|3 pieces (75 g)|4|34|14|0|2|
+Kolkata kathi roll|కాఠీ రోల్|Snacks|1 roll (200 g)|14|46|16|0|3|
+Mishti doi|మిష్టి దోయ్|Sweets|1 cup (100 g)|4|22|4|0|0.5|
+Rasgulla|రసగుల్లా|Sweets|2 pieces (80 g)|3|34|1|0|1|
+Sandesh|సందేష్|Sweets|2 pieces (50 g)|4|20|5|0|0.5|
+Rasmalai|రసమలై|Sweets|2 pieces (120 g)|8|28|10|0|1|
+Chamcham|చమ్‌చమ్|Sweets|2 pieces (80 g)|4|36|5|0|1|
+Pantua|పంటువా|Sweets|2 pieces (80 g)|3|40|9|0|1|
+Jhalmuri|ఝాల్‌ముడి|Snacks|1 plate (100 g)|4|28|6|0|1.5|
+Litti chokha|లిట్టీ చోఖా|Rice & mains|3 litti + chokha|14|80|18|0|5|
+Sattu paratha|సత్తు పరాటా|Roti & bread|1 piece (100 g)|7|34|9|0|4|
+Thekua|ఠేకువా|Sweets|2 pieces (50 g)|3|30|8|0|1|
+Momos (steamed veg)|మోమోస్|Snacks|6 pieces (150 g)|6|34|4|0|7.5|
+Momos (steamed chicken)|చికెన్ మోమోస్|Snacks|6 pieces (150 g)|14|30|5|0|2|
+Momos (fried chicken)|ఫ్రైడ్ చికెన్ మోమోస్|Snacks|6 pieces (170 g)|14|32|14|0|2|
+Momos (paneer)|పనీర్ మోమోస్|Snacks|6 pieces (150 g)|10|32|8|0|2|
+Thukpa (chicken)|థుక్పా|Rice & mains|1 bowl (400 g)|20|48|8|0|3|
+Thukpa (veg)|వెజ్ థుక్పా|Rice & mains|1 bowl (400 g)|9|50|6|0|11|
+Chicken wai wai|వై వై|Snacks|1 plate (100 g)|6|40|14|0|2.5|
+Assamese fish tenga|ఫిష్ టెంగా|Fish & seafood|1 bowl (200 g)|20|6|8|0|0|
+Pitha (rice cake)|పీఠా|Sweets|2 pieces (80 g)|2|30|6|0|1|
 # Goan and coastal
-Goan fish curry|గోవన్ ఫిష్ కర్రీ|Fish & seafood|1 bowl (200 g)|22|8|14|0|
-Prawn balchao|ప్రాన్ బల్చావ్|Fish & seafood|1 bowl (150 g)|20|8|16|0|
-Pork vindaloo|పోర్క్ విండాలూ|Mutton|1 bowl (250 g)|26|8|32|0|
-Chicken cafreal|చికెన్ కాఫ్రియల్|Chicken|1 plate (200 g)|30|6|18|0|
-Xacuti chicken|చికెన్ శాకుతి|Chicken|1 bowl (250 g)|28|10|24|0|
-Bebinca|బెబింకా|Sweets|1 slice (60 g)|3|34|10|0|
-Sorpotel|సోర్పోటెల్|Mutton|1 bowl (200 g)|22|4|28|0|
-Mangalorean prawn ghee roast|ప్రాన్ ఘీ రోస్ట్|Fish & seafood|1 plate (150 g)|22|8|18|0|
+Goan fish curry|గోవన్ ఫిష్ కర్రీ|Fish & seafood|1 bowl (200 g)|22|8|14|0|0|
+Prawn balchao|ప్రాన్ బల్చావ్|Fish & seafood|1 bowl (150 g)|20|8|16|0|0|
+Pork vindaloo|పోర్క్ విండాలూ|Mutton|1 bowl (250 g)|26|8|32|0|0|
+Chicken cafreal|చికెన్ కాఫ్రియల్|Chicken|1 plate (200 g)|30|6|18|0|0|
+Xacuti chicken|చికెన్ శాకుతి|Chicken|1 bowl (250 g)|28|10|24|0|0|
+Bebinca|బెబింకా|Sweets|1 slice (60 g)|3|34|10|0|1|
+Sorpotel|సోర్పోటెల్|Mutton|1 bowl (200 g)|22|4|28|0|0|
+Mangalorean prawn ghee roast|ప్రాన్ ఘీ రోస్ట్|Fish & seafood|1 plate (150 g)|22|8|18|0|0|
 # Indo-Chinese
-Veg fried rice|వెజ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|8|68|12|0|
-Chicken fried rice|చికెన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|20|68|14|0|
-Schezwan fried rice|షెజ్వాన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|8|70|16|0|
-Prawn fried rice|రొయ్యల ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|18|68|14|0|
-Mixed fried rice (egg and chicken)|మిక్స్డ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (350 g)|24|70|16|0|
-Veg hakka noodles|వెజ్ హక్కా నూడిల్స్|Rice & mains|1 plate (300 g)|9|68|14|0|
-Chicken hakka noodles|చికెన్ హక్కా నూడిల్స్|Rice & mains|1 plate (320 g)|20|68|14|0|
-Egg noodles|ఎగ్ నూడిల్స్|Rice & mains|1 plate (300 g)|14|68|14|0|
-Schezwan noodles|షెజ్వాన్ నూడిల్స్|Rice & mains|1 plate (300 g)|9|70|16|0|
-Singapore noodles|సింగపూర్ నూడిల్స్|Rice & mains|1 plate (300 g)|14|66|14|0|
-Chilli garlic noodles|చిల్లీ గార్లిక్ నూడిల్స్|Rice & mains|1 plate (300 g)|9|68|14|0|
-Triple schezwan rice|ట్రిపుల్ షెజ్వాన్ రైస్|Rice & mains|1 plate (400 g)|22|90|24|0|
-Gobi manchurian (dry)|గోబీ మంచూరియా|Snacks|1 plate (180 g)|5|28|16|0|
-Gobi manchurian (gravy)|గోబీ మంచూరియా గ్రేవీ|Snacks|1 bowl (250 g)|6|34|16|0|
-Veg manchurian (gravy)|వెజ్ మంచూరియా|Snacks|1 bowl (250 g)|6|34|14|0|
-Chicken manchurian (dry)|చికెన్ మంచూరియా|Chicken|1 plate (180 g)|24|22|20|0|
-Chicken manchurian (gravy)|చికెన్ మంచూరియా గ్రేవీ|Chicken|1 bowl (250 g)|24|30|18|0|
-Chilli chicken (dry)|చిల్లీ చికెన్|Chicken|1 plate (180 g)|28|16|20|0|
-Chilli chicken (gravy)|చిల్లీ చికెన్ గ్రేవీ|Chicken|1 bowl (250 g)|28|22|18|0|
-Chicken lollipop (Indo-Chinese)|చికెన్ లాలీపాప్|Chicken|5 pieces (200 g)|26|14|24|0|
-Dragon chicken|డ్రాగన్ చికెన్|Chicken|1 plate (180 g)|26|18|22|0|
-Chicken schezwan|చికెన్ షెజ్వాన్|Chicken|1 bowl (250 g)|28|18|18|0|
-Honey chilli potato|హనీ చిల్లీ పొటాటో|Snacks|1 plate (150 g)|3|42|14|0|
-Crispy corn|క్రిస్పీ కార్న్|Snacks|1 plate (150 g)|5|36|16|0|
-Spring roll (veg)|స్ప్రింగ్ రోల్|Snacks|2 pieces (120 g)|4|28|12|0|
-Spring roll (chicken)|చికెన్ స్ప్రింగ్ రోల్|Snacks|2 pieces (140 g)|12|28|12|0|
-Chilli fish|చిల్లీ ఫిష్|Fish & seafood|1 plate (180 g)|24|16|18|0|
-Apollo fish|అపోలో ఫిష్|Fish & seafood|1 plate (180 g)|24|14|20|0|
-Chilli prawns|చిల్లీ ప్రాన్స్|Fish & seafood|1 plate (180 g)|22|16|18|0|
-Garlic prawns|గార్లిక్ ప్రాన్స్|Fish & seafood|1 plate (150 g)|22|6|16|0|
-Paneer manchurian|పనీర్ మంచూరియా|Dairy & paneer|1 plate (180 g)|14|20|20|0|
-Mushroom chilli|మష్రూమ్ చిల్లీ|Snacks|1 plate (180 g)|5|20|14|0|
-Baby corn manchurian|బేబీ కార్న్ మంచూరియా|Snacks|1 plate (180 g)|5|28|16|0|
-Veg momos (Indo-Chinese)|వెజ్ మోమోస్|Snacks|6 pieces (150 g)|6|34|4|0|
-Wonton soup|వాంటన్ సూప్|Drinks|1 bowl (300 ml)|8|18|4|0|
-Manchow soup (veg)|మంచౌ సూప్|Drinks|1 bowl (250 ml)|4|14|4|0|
-Lemon coriander soup|లెమన్ కొరియాండర్ సూప్|Drinks|1 bowl (250 ml)|2|8|2|0|
+Veg fried rice|వెజ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (300 g)|8|68|12|0|14|
+Chicken fried rice|చికెన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|20|68|14|0|2|
+Schezwan fried rice|షెజ్వాన్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|8|70|16|0|2|
+Prawn fried rice|రొయ్యల ఫ్రైడ్ రైస్|Rice & mains|1 plate (320 g)|18|68|14|0|2|
+Mixed fried rice (egg and chicken)|మిక్స్డ్ ఫ్రైడ్ రైస్|Rice & mains|1 plate (350 g)|24|70|16|0|2|
+Veg hakka noodles|వెజ్ హక్కా నూడిల్స్|Rice & mains|1 plate (300 g)|9|68|14|0|14|
+Chicken hakka noodles|చికెన్ హక్కా నూడిల్స్|Rice & mains|1 plate (320 g)|20|68|14|0|2|
+Egg noodles|ఎగ్ నూడిల్స్|Rice & mains|1 plate (300 g)|14|68|14|0|2|
+Schezwan noodles|షెజ్వాన్ నూడిల్స్|Rice & mains|1 plate (300 g)|9|70|16|0|2|
+Singapore noodles|సింగపూర్ నూడిల్స్|Rice & mains|1 plate (300 g)|14|66|14|0|2|
+Chilli garlic noodles|చిల్లీ గార్లిక్ నూడిల్స్|Rice & mains|1 plate (300 g)|9|68|14|0|2|
+Triple schezwan rice|ట్రిపుల్ షెజ్వాన్ రైస్|Rice & mains|1 plate (400 g)|22|90|24|0|2.5|
+Gobi manchurian (dry)|గోబీ మంచూరియా|Snacks|1 plate (180 g)|5|28|16|0|6|
+Gobi manchurian (gravy)|గోబీ మంచూరియా గ్రేవీ|Snacks|1 bowl (250 g)|6|34|16|0|7.5|
+Veg manchurian (gravy)|వెజ్ మంచూరియా|Snacks|1 bowl (250 g)|6|34|14|0|7.5|
+Chicken manchurian (dry)|చికెన్ మంచూరియా|Chicken|1 plate (180 g)|24|22|20|0|0.5|
+Chicken manchurian (gravy)|చికెన్ మంచూరియా గ్రేవీ|Chicken|1 bowl (250 g)|24|30|18|0|1|
+Chilli chicken (dry)|చిల్లీ చికెన్|Chicken|1 plate (180 g)|28|16|20|0|0.5|
+Chilli chicken (gravy)|చిల్లీ చికెన్ గ్రేవీ|Chicken|1 bowl (250 g)|28|22|18|0|0.5|
+Chicken lollipop (Indo-Chinese)|చికెన్ లాలీపాప్|Chicken|5 pieces (200 g)|26|14|24|0|0|
+Dragon chicken|డ్రాగన్ చికెన్|Chicken|1 plate (180 g)|26|18|22|0|0.5|
+Chicken schezwan|చికెన్ షెజ్వాన్|Chicken|1 bowl (250 g)|28|18|18|0|0.5|
+Honey chilli potato|హనీ చిల్లీ పొటాటో|Snacks|1 plate (150 g)|3|42|14|0|2.5|
+Crispy corn|క్రిస్పీ కార్న్|Snacks|1 plate (150 g)|5|36|16|0|2|
+Spring roll (veg)|స్ప్రింగ్ రోల్|Snacks|2 pieces (120 g)|4|28|12|0|6|
+Spring roll (chicken)|చికెన్ స్ప్రింగ్ రోల్|Snacks|2 pieces (140 g)|12|28|12|0|1.5|
+Chilli fish|చిల్లీ ఫిష్|Fish & seafood|1 plate (180 g)|24|16|18|0|0.5|
+Apollo fish|అపోలో ఫిష్|Fish & seafood|1 plate (180 g)|24|14|20|0|0|
+Chilli prawns|చిల్లీ ప్రాన్స్|Fish & seafood|1 plate (180 g)|22|16|18|0|0.5|
+Garlic prawns|గార్లిక్ ప్రాన్స్|Fish & seafood|1 plate (150 g)|22|6|16|0|0|
+Paneer manchurian|పనీర్ మంచూరియా|Dairy & paneer|1 plate (180 g)|14|20|20|0|0|
+Mushroom chilli|మష్రూమ్ చిల్లీ|Snacks|1 plate (180 g)|5|20|14|0|4.5|
+Baby corn manchurian|బేబీ కార్న్ మంచూరియా|Snacks|1 plate (180 g)|5|28|16|0|1.5|
+Veg momos (Indo-Chinese)|వెజ్ మోమోస్|Snacks|6 pieces (150 g)|6|34|4|0|7.5|
+Wonton soup|వాంటన్ సూప్|Drinks|1 bowl (300 ml)|8|18|4|0|0|
+Manchow soup (veg)|మంచౌ సూప్|Drinks|1 bowl (250 ml)|4|14|4|0|3|
+Lemon coriander soup|లెమన్ కొరియాండర్ సూప్|Drinks|1 bowl (250 ml)|2|8|2|0|0|

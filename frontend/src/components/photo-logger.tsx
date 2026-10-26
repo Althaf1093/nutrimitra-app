@@ -22,7 +22,7 @@ export function PhotoLogger({ onLogged, onBack, initialSlot, autoStart }: { onLo
   const [phase, setPhase] = useState<Phase>("pick");
   const [imageUri, setImageUri] = useState("");
   const [result, setResult] = useState<VisionResult | null>(null);
-  const [draft, setDraft] = useState<VisionDraft>({ name: "", calories: "", protein_g: "", carbs_g: "", fat_g: "", portion: "" });
+  const [draft, setDraft] = useState<VisionDraft>({ name: "", calories: "", protein_g: "", carbs_g: "", fat_g: "", fibre_g: "", portion: "" });
   const [mealType, setMealType] = useState(initialSlot || defaultSlot());
   const [error, setError] = useState("");
   const [blocked, setBlocked] = useState(false);
@@ -40,6 +40,7 @@ export function PhotoLogger({ onLogged, onBack, initialSlot, autoStart }: { onLo
         protein_g: String(vision.protein_g),
         carbs_g: String(vision.carbs_g),
         fat_g: String(vision.fat_g),
+        fibre_g: vision.fibre_g == null ? "" : String(vision.fibre_g),
         portion: vision.portion,
       });
       setPhase("confirm");
@@ -104,6 +105,7 @@ export function PhotoLogger({ onLogged, onBack, initialSlot, autoStart }: { onLo
         protein_g: Math.max(0, Number(draft.protein_g) || 0),
         carbs_g: Math.max(0, Number(draft.carbs_g) || 0),
         fat_g: Math.max(0, Number(draft.fat_g) || 0),
+        ...(draft.fibre_g.trim() ? { fibre_g: Math.max(0, Number(draft.fibre_g) || 0) } : {}),
         source: "photo estimate",
       });
       onLogged();

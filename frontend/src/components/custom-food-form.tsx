@@ -7,7 +7,7 @@ import { MEAL_SLOTS } from "@/src/lib/food";
 import { mealTypeLabel } from "@/src/i18n";
 import { useStyles } from "@/src/styles";
 
-export type CustomFood = { meal_type: string; name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number };
+export type CustomFood = { meal_type: string; name: string; calories: number; protein_g: number; carbs_g: number; fat_g: number; fibre_g?: number };
 
 // The manual path of Log food: type a name and the numbers yourself. Protein, carbs and fat may stay empty.
 export function CustomFoodForm({ initialName, initialSlot, busy, onAdd, onCancel }: { initialName: string; initialSlot: string; busy: boolean; onAdd: (food: CustomFood) => void; onCancel: () => void }) {
@@ -18,12 +18,13 @@ export function CustomFoodForm({ initialName, initialSlot, busy, onAdd, onCancel
   const [protein, setProtein] = useState("");
   const [carbs, setCarbs] = useState("");
   const [fat, setFat] = useState("");
+  const [fibre, setFibre] = useState("");
   const [mealType, setMealType] = useState(initialSlot);
   const [error, setError] = useState("");
 
   const submit = () => {
-    const food = { meal_type: mealType, name: name.trim(), calories: Math.round(Number(calories)), protein_g: Number(protein || 0), carbs_g: Number(carbs || 0), fat_g: Number(fat || 0) };
-    const numbers = [food.calories, food.protein_g, food.carbs_g, food.fat_g];
+    const food = { meal_type: mealType, name: name.trim(), calories: Math.round(Number(calories)), protein_g: Number(protein || 0), carbs_g: Number(carbs || 0), fat_g: Number(fat || 0), ...(fibre.trim() ? { fibre_g: Number(fibre) } : {}) };
+    const numbers = [food.calories, food.protein_g, food.carbs_g, food.fat_g, food.fibre_g ?? 0];
     if (!food.name || !calories.trim() || numbers.some((value) => !Number.isFinite(value) || value < 0)) {
       setError(t.checkNumbers);
       return;
@@ -40,6 +41,7 @@ export function CustomFoodForm({ initialName, initialSlot, busy, onAdd, onCancel
       <Field label={t.proteinLabel} value={protein} onChangeText={setProtein} keyboardType="numeric" />
       <Field label={t.carbsLabel} value={carbs} onChangeText={setCarbs} keyboardType="numeric" />
       <Field label={t.fatLabel} value={fat} onChangeText={setFat} keyboardType="numeric" />
+      <Field label={t.fibreLabel} value={fibre} onChangeText={setFibre} keyboardType="numeric" />
       <Text style={styles.fieldLabel}>{t.mealType}</Text>
       <View style={styles.chipWrap}>
         {MEAL_SLOTS.map((slot) => (

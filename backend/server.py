@@ -238,6 +238,7 @@ class MealPatchInput(BaseModel):
     protein_g: Optional[float] = Field(default=None, ge=0, le=300)
     carbs_g: Optional[float] = Field(default=None, ge=0, le=400)
     fat_g: Optional[float] = Field(default=None, ge=0, le=250)
+    fibre_g: Optional[float] = Field(default=None, ge=0, le=100)
 
 
 class ActivityInput(BaseModel):
@@ -1013,7 +1014,7 @@ async def groq_text(system: str, prompt: str, user_id: str) -> str:
 PLAN_SYSTEM = (
     "You are Wellstride's Indian nutrition planning engine. Return ONLY valid JSON, no markdown: "
     '{"days": [{"day": 1, "title": str, "focus": str, "meals": [{"type": "breakfast"|"lunch"|"snack"|"dinner", "name": str, "portion": str, '
-    '"calories": int, "protein_g": number, "carbs_g": number, "fat_g": number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
+    '"calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, "fibre_g": number}]}, ...], "reasoning": str} — exactly 7 days, exactly 4 meals '
     "(breakfast, lunch, snack, dinner) per day. Rules: Indian-first meals with global nutritious ingredients where helpful; strictly respect "
     "dietary preferences, allergies and disliked foods; match cooking time and budget; balance protein, fibre and healthy fats; avoid repeating "
     "meals the user logged recently. The context lists the user's self-reported health_conditions: favour generally sensible food choices for "
@@ -1136,6 +1137,7 @@ def coerce_plan(candidate: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str
                     "protein_g": max(0, min(150, float(meal.get("protein_g") or 20))),
                     "carbs_g": max(0, min(200, float(meal.get("carbs_g") or 45))),
                     "fat_g": max(0, min(120, float(meal.get("fat_g") or 15))),
+                    "fibre_g": max(0, min(60, float(meal["fibre_g"]))) if meal.get("fibre_g") is not None else None,
                     "ingredients": [str(item)[:40] for item in meal["ingredients"][:12]] if isinstance(meal.get("ingredients"), list) else None,
                     "logged": False,
                 })
@@ -1677,6 +1679,7 @@ def food_from_meal(doc: Dict[str, Any], recent: bool = True) -> Dict[str, Any]:
         "protein_g": float(doc.get("protein_g") or 0),
         "carbs_g": float(doc.get("carbs_g") or 0),
         "fat_g": float(doc.get("fat_g") or 0),
+        "fibre_g": float(doc.get("fibre_g") or 0),
         "servings": [{"label": serving, "factor": 1.0}],
         "estimate": False,
         "recent": recent,
@@ -1779,7 +1782,7 @@ COACH_SYSTEM = (
     "You are Wellstride, a warm bilingual Indian wellness coach. Give practical, non-diagnostic advice and keep answers under 140 words. "
     "Mention a doctor or dietitian for medical concerns. Use the conversation history for continuity but never invent health data. "
     "When the user asks for a recipe or a dish idea they could cook, end your reply with a fenced block exactly like "
-    '```recipe\n{"name": str, "time_min": int, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, '
+    '```recipe\n{"name": str, "time_min": int, "calories": int, "protein_g": number, "carbs_g": number, "fat_g": number, "fibre_g": number, '
     '"ingredients": [str], "steps": [str]}\n``` '
     "using realistic Indian home-cooking values. Include the block only for actual recipes. "
     "You give general wellness guidance, not medical advice: never diagnose, never suggest medicines, doses or stopping treatment, and do not claim "
@@ -1846,6 +1849,7 @@ async def coach(payload: CoachInput, user: Dict[str, Any] = Depends(current_user
                 "protein_g": max(0, min(200, float(candidate.get("protein_g") or 15))),
                 "carbs_g": max(0, min(400, float(candidate.get("carbs_g") or 40))),
                 "fat_g": max(0, min(250, float(candidate.get("fat_g") or 12))),
+                "fibre_g": max(0, min(100, float(candidate["fibre_g"]))) if candidate.get("fibre_g") is not None else None,
                 "ingredients": [str(item)[:80] for item in (candidate.get("ingredients") or [])][:12],
                 "steps": [str(step)[:200] for step in (candidate.get("steps") or [])][:10],
             }
@@ -1941,6 +1945,7 @@ async def coach_vision(payload: VisionInput, user: Dict[str, Any] = Depends(curr
         "protein_g": max(0, min(300, to_number(parsed.get("protein_g"), 12))),
         "carbs_g": max(0, min(400, to_number(parsed.get("carbs_g"), 40))),
         "fat_g": max(0, min(250, to_number(parsed.get("fat_g"), 14))),
+        "fibre_g": max(0, min(100, to_number(parsed.get("fibre_g"), 0))) if parsed.get("fibre_g") is not None else None,
         "confidence": parsed.get("confidence") if parsed.get("confidence") in {"low", "medium", "high"} else "medium",
         "alternatives": [str(item)[:60] for item in (parsed.get("alternatives") or [])][:3],
         "meal_type": payload.meal_type,
