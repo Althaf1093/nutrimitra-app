@@ -104,17 +104,17 @@ export function ProgressRing({ value, max, size = 132, stroke = 12, color, track
 }
 
 /** One macro: a label, "58/110 g" and a bar. `onHero` draws it for the green summary card. */
-export function MacroBar({ label, value, target, unit = "g", color, onHero = false, testID }: { label: string; value: number; target: number; unit?: string; color: string; onHero?: boolean; testID?: string }) {
+export function MacroBar({ label, value, target, unit = "g", color, onHero = false, noData = false, testID }: { label: string; value: number; target: number; unit?: string; color: string; onHero?: boolean; noData?: boolean; testID?: string }) {
   const styles = useKit();
   const { colors } = useTheme();
   const text = onHero ? colors.onHero : colors.onSurface;
   const soft = onHero ? colors.onHero : colors.muted;
-  const fraction = target > 0 ? Math.max(0, Math.min(1, value / target)) : 0;
+  const fraction = noData ? 0 : target > 0 ? Math.max(0, Math.min(1, value / target)) : 0;
   return (
     <View testID={testID} style={{ flex: 1, minWidth: 0 }}>
       <Text style={[styles.macroLabel, { color: soft, opacity: onHero ? 0.85 : 1 }]}>{label}</Text>
       <Text style={[styles.macroValue, { color: text }]}>
-        {Math.round(value)}
+        {noData ? "—" : Math.round(value)}
         <Text style={[styles.macroUnit, { color: soft, opacity: 0.85 }]}>
           /{Math.round(target)} {unit}
         </Text>
