@@ -7,7 +7,9 @@ import { api, del, post } from "@/src/api";
 import { useToast } from "@/src/components/toast";
 import { Button } from "@/src/components/ui";
 import { useAuth } from "@/src/context/auth";
+import { WeeklyNutrientsCard } from "@/src/components/nutrients-card";
 import { useStyles } from "@/src/styles";
+import type { NutrientWeek } from "@/src/types";
 
 type ProgressData = {
   weights: { id: string; weight_kg: number; date: string }[];
@@ -23,10 +25,14 @@ export default function ProgressScreen() {
   const [progress, setProgress] = useState<ProgressData | null>(null);
   const [weight, setWeight] = useState("");
   const [busy, setBusy] = useState(false);
+  const [week, setWeek] = useState<NutrientWeek | null>(null);
 
   const load = useCallback(() => {
     api<ProgressData>("/progress")
       .then(setProgress)
+      .catch(() => undefined);
+    api<NutrientWeek>("/nutrients/weekly")
+      .then(setWeek)
       .catch(() => undefined);
   }, []);
 
@@ -45,7 +51,9 @@ export default function ProgressScreen() {
       toast.show(t.weightLogged);
       load();
     } catch (err) {
-      toast.show(err instanceof Error ? err.message : t.couldNotSaveWeight, { type: "error" });
+      toast.show(err instanceof Error ? err.message : t.couldNotSaveWeight, {
+        type: "error",
+      });
     } finally {
       setBusy(false);
     }
@@ -58,60 +66,122 @@ export default function ProgressScreen() {
       toast.show(t.weightRemoved, { type: "info" });
       load();
     } catch (err) {
-      toast.show(err instanceof Error ? err.message : t.couldNotRemove, { type: "error" });
+      toast.show(err instanceof Error ? err.message : t.couldNotRemove, {
+        type: "error",
+      });
     } finally {
       setBusy(false);
     }
   };
 
   const entries = [...(progress?.weights || [])].reverse().slice(0, 10);
-  const weights = (progress?.weights || []).map((item, index) => ({ ...item, date: `${item.date || "entry"}-${index}` }));
+  const weights = (progress?.weights || []).map((item, index) => ({
+    ...item,
+    date: `${item.date || "entry"}-${index}`,
+  }));
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]} testID="progress-screen">
+    <View
+      style={[styles.root, { paddingTop: insets.top }]}
+      testID="progress-screen"
+    >
       <View style={styles.appHeader}>
         <View style={styles.flex}>
           <Text style={styles.eyebrow}>WELLSTRIDE</Text>
           <Text style={styles.headerTitle}>{t.progress}</Text>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.screenContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.screenContent}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.sectionSub}>{t.progressSub}</Text>
         <View style={styles.chartCard} testID="weight-chart">
           <Text style={styles.cardEyebrow}>{t.weightTrend.toUpperCase()}</Text>
           <View style={styles.chart}>
-            {(weights.length ? weights.slice(-7) : [{ weight_kg: 0, date: "empty" }]).map((item, index) => (
+            {(weights.length
+              ? weights.slice(-7)
+              : [{ weight_kg: 0, date: "empty" }]
+            ).map((item, index) => (
               <View key={`${item.date || index}`} style={styles.chartCol}>
-                <View style={[styles.chartBar, { height: Math.max(12, Math.min(120, item.weight_kg ? item.weight_kg * 1.2 : 18)) }]} />
-                <Text style={styles.chartLabel}>{item.weight_kg ? `${item.weight_kg}` : "—"}</Text>
+                <View
+                  style={[
+                    styles.chartBar,
+                    {
+                      height: Math.max(
+                        12,
+                        Math.min(
+                          120,
+                          item.weight_kg ? item.weight_kg * 1.2 : 18,
+                        ),
+                      ),
+                    },
+                  ]}
+                />
+                <Text style={styles.chartLabel}>
+                  {item.weight_kg ? `${item.weight_kg}` : "—"}
+                </Text>
               </View>
             ))}
           </View>
           <Text style={styles.mutedText}>{t.trendHint}</Text>
         </View>
         <View style={styles.inlineForm}>
-          <TextInput testID="weight-input" value={weight} onChangeText={setWeight} placeholder={t.weightPlaceholder} placeholderTextColor={styles.placeholder.color as string} keyboardType="numeric" style={styles.inlineInput} />
-          <Button testID="log-weight-button" label={busy ? "..." : t.log} onPress={save} disabled={busy || !weight} />
+          <TextInput
+            testID="weight-input"
+            value={weight}
+            onChangeText={setWeight}
+            placeholder={t.weightPlaceholder}
+            placeholderTextColor={styles.placeholder.color as string}
+            keyboardType="numeric"
+            style={styles.inlineInput}
+          />
+          <Button
+            testID="log-weight-button"
+            label={busy ? "..." : t.log}
+            onPress={save}
+            disabled={busy || !weight}
+          />
         </View>
         {entries.length ? (
           <View style={styles.reasonCard} testID="weight-entries">
-            <Text style={styles.cardEyebrow}>{t.weightEntries.toUpperCase()}</Text>
+            <Text style={styles.cardEyebrow}>
+              {t.weightEntries.toUpperCase()}
+            </Text>
             {entries.map((item) => (
-              <View key={item.id} style={styles.logRow} testID={`weight-entry-${item.id}`}>
+              <View
+                key={item.id}
+                style={styles.logRow}
+                testID={`weight-entry-${item.id}`}
+              >
                 <View style={styles.flex}>
                   <Text style={styles.mealName}>{item.weight_kg} kg</Text>
                   <Text style={styles.mealMeta}>{item.date}</Text>
                 </View>
-                <Pressable testID={`remove-weight-${item.id}`} accessibilityRole="button" accessibilityLabel={`${t.remove} ${item.weight_kg} kg`} disabled={busy} onPress={() => removeWeight(item.id)} style={({ pressed }) => [styles.removeButton, pressed && styles.pressed, busy && styles.disabled]}>
+                <Pressable
+                  testID={`remove-weight-${item.id}`}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${t.remove} ${item.weight_kg} kg`}
+                  disabled={busy}
+                  onPress={() => removeWeight(item.id)}
+                  style={({ pressed }) => [
+                    styles.removeButton,
+                    pressed && styles.pressed,
+                    busy && styles.disabled,
+                  ]}
+                >
                   <Text style={styles.linkText}>{t.remove}</Text>
                 </Pressable>
               </View>
             ))}
           </View>
         ) : null}
+        <WeeklyNutrientsCard week={week} />
         <View style={styles.reasonCard}>
           <Text style={styles.cardEyebrow}>{t.review.toUpperCase()}</Text>
-          <Text style={styles.reasonText}>{progress ? t.weeklyReview : t.reviewEmpty}</Text>
+          <Text style={styles.reasonText}>
+            {progress ? t.weeklyReview : t.reviewEmpty}
+          </Text>
         </View>
         <Text style={styles.disclaimer}>{t.disclaimer}</Text>
       </ScrollView>

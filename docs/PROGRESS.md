@@ -12,7 +12,7 @@ Resume here: `git pull`, find the first unchecked line, continue. Never redo mer
 - [ ] Final pass and Master run summary
 - [x] Pending: nested-button bug (PR #66, toast; Log food rows fixed in the fibre PR) and the stop/start script fix (PR #67)
 - [x] Pending 1: fibre (docs/NUTRIENTS_PROMPT.md PR 1): fibre_g on all 2,972 catalogue rows, estimated by tools/add_fibre.py; passes through every logging path
-- [ ] Pending 2: vitamins and minerals (docs/NUTRIENTS_PROMPT.md PR 2)
+- [x] Pending 2: vitamins and minerals (docs/NUTRIENTS_PROMPT.md PR 2): 13 nutrients from USDA SR Legacy (CC0), ICMR-NIN 2020 reference file (OWNER TO VERIFY every value), Today card, weekly card on the Progress tab, 2,252 of 2,688 foods estimated
 - [x] Pending fixes: docs/WELCOME_FIXES.md (done; branch fix/welcome-polish)
 
 # Logging run (docs/LOGGING_PROMPT.md)

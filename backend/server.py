@@ -34,6 +34,7 @@ from pydantic_core import PydanticCustomError
 import foods
 import kitchen
 import kitchen_plan
+import nutrients
 import legal
 import mailer
 import vision
@@ -1576,6 +1577,7 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
         "fat_g": round(sum(float(item.get("fat_g") or 0) for item in meals)),
         "fibre_g": round(sum(float(item.get("fibre_g") or 0) for item in meals)),
         "fibre_tracked": any(item.get("fibre_g") is not None for item in meals),
+        "nutrients": nutrients.summarise(meals, (profile or {}).get("sex"), catalogue_category),
         "water_ml": int((water or {}).get("ml") or 0),
         "target_water_ml": water_target_ml(profile or {}),
         "date": today,
@@ -1587,6 +1589,33 @@ async def dashboard(user: Dict[str, Any] = Depends(current_user)):
         "activity_minutes": sum(int(item.get("duration_min") or 0) for item in activities),
         "goal": (profile or {}).get("wellness_goal", "Healthier living"),
     }
+
+
+def catalogue_category(name: str) -> Optional[str]:
+    """The catalogue category of a logged meal's name (so a nutrient estimate can use it), or None for a name we do not know."""
+    found = foods.catalogue.find_by_name(name)
+    return found.raw["category"] if found else None
+
+
+@api_router.get("/nutrients/weekly")
+async def nutrients_weekly(user: Dict[str, Any] = Depends(current_user)):
+    """Vitamins and minerals over the last 7 days (this one included), plus kitchen items that are good sources of the ones often low."""
+    profile, _, local_date = await user_clock(user["id"])
+    dates = [(local_date - timedelta(days=offset)).isoformat() for offset in range(6, -1, -1)]
+    meals = await db.meals.find({"user_id": user["id"], "date": {"$in": dates}}, {"_id": 0}).to_list(1000)
+    by_day: Dict[str, List[Dict[str, Any]]] = {date: [] for date in dates}
+    for meal in meals:
+        by_day.setdefault(meal.get("date"), []).append(meal)
+    result = nutrients.weekly(by_day, (profile or {}).get("sex"), catalogue_category)
+    kitchen_doc = await db.kitchens.find_one({"user_id": user["id"]}, {"_id": 0})
+    owned = [kitchen.catalogue.by_id[item_id] for item_id in ((kitchen_doc or {}).get("items") or []) if item_id in kitchen.catalogue.by_id]
+    names = {item.name: item.te for item in owned}
+    result["suggestions"] = [
+        {"nutrient": key, "items": [{"name": name, "te": names[name]} for name in nutrients.rich_matches(key, list(names))]}
+        for key in result["often_low"]
+    ]
+    result["suggestions"] = [row for row in result["suggestions"] if row["items"]]
+    return result
 
 
 class WaterInput(BaseModel):
